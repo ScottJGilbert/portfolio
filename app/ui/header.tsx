@@ -1,0 +1,59 @@
+"use client";
+
+import clsx from "clsx";
+import Contactbar from "./contact-bar";
+import Navbar from "./nav-bar";
+import { BiMenu, BiCollapseVertical } from "react-icons/bi";
+import { useState } from "react";
+
+export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function toggleMenu() {
+    setMenuOpen(!menuOpen);
+  }
+
+  return (
+    <>
+      <div className="fixed w-full h-12 bg-black md:hidden"></div>
+      <div className="sticky top-4 flex justify-between my-4 p-4 md:hidden rounded-l-full rounded-r-full bg-slate-800">
+        <p className="text-2xl font-bold text-center hover:text-gray-400">
+          Scott Gilbert
+        </p>
+        <button onClick={toggleMenu}>
+          <BiMenu />
+        </button>
+      </div>
+      <div
+        className={clsx(
+          "fixed top-2 bottom-2 mx-auto w-[calc(100%-2rem)] min-h-[calc(100%-1rem)] max-w-screen-lg",
+          {
+            block: menuOpen === true,
+            hidden: menuOpen === false,
+          }
+        )}
+      >
+        <div className="sticky top-4 flex justify-between mb-4 p-4 md:hidden rounded-l-full rounded-r-full bg-slate-800">
+          <p className="text-2xl font-bold text-center hover:text-gray-400">
+            Scott Gilbert
+          </p>
+          <button onClick={toggleMenu}>
+            <BiCollapseVertical />
+          </button>
+        </div>
+        <div
+          className={clsx(
+            "flex flex-col gap-2 bg-slate-800 min-h-[calc(100%-1rem)] p-4 pt-14 -mt-18 rounded-4xl",
+            {
+              "block md:hidden": menuOpen === true,
+              hidden: menuOpen === false,
+            }
+          )}
+        >
+          <Navbar />
+          <Contactbar />
+        </div>
+      </div>
+    </>
+  );
+}
