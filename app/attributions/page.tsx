@@ -19,8 +19,8 @@ export default function Page() {
         <br></br>
       </div>
       <p className="my-2">
-        ...and a "little bit" of help from Google, Vercel, W3Schools, and
-        ChatGPT.
+        ...and a &quot;little bit&quot; of help from Google, Vercel, W3Schools,
+        and ChatGPT.
       </p>
     </div>
   );

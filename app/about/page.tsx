@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Awards from "../ui/about/awards";
-import Certifications from "../ui/about/certifications";
-import References from "../ui/about/references";
+// import Certifications from "../ui/about/certifications";
+// import References from "../ui/about/references";
 
 export default function Page() {
   return (
@@ -17,8 +17,8 @@ export default function Page() {
         ></Image>
         <div>
           <p>
-            Hello! I'm Scott, an undergraduate computer engineering student at
-            the University of Illinois at Urbana-Champaign and a graduate of
+            Hello! I&apos;m Scott, an undergraduate computer engineering student
+            at the University of Illinois at Urbana-Champaign and a graduate of
             James B. Conant High School in Hoffman Estates, Illinois.
           </p>
         </div>

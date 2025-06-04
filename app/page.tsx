@@ -32,7 +32,7 @@ export default function Page() {
       <div className="min-h-screen">
         <div className="flex flex-col md:flex-row">
           <div>
-            <p>Hi, I'm</p>
+            <p>Hi, I&apos;m</p>
             <h1 className="" data-text="Scott Gilbert">
               Scott Gilbert
             </h1>
