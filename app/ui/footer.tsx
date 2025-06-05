@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { SignIn, SignOut } from "./sign-in-out";
+import { SessionProvider } from "next-auth/react";
 // import { usePathname, useRouter } from "next/navigation";
 
 const links = [
   { name: "Attributions", href: "/attributions" },
   { name: "Resume", href: "/resume" },
-  { name: "Login", href: "/login" }, //Include webpage to path back to in the URL
 ];
 
 export default function Footer() {
@@ -16,7 +17,7 @@ export default function Footer() {
         <p className="text-center">
           © {new Date().getFullYear()} Scott Gilbert
         </p>
-        <div className="m-8">
+        <div className="m-6">
           {links.map((link) => {
             return (
               <Link
@@ -28,6 +29,10 @@ export default function Footer() {
               </Link>
             );
           })}
+          <SessionProvider>
+            <SignIn />
+            <SignOut />
+          </SessionProvider>
         </div>
       </div>
     </div>

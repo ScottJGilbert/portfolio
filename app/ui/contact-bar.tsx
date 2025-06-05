@@ -5,12 +5,12 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 const links = [
   {
     name: "GitHub",
-    href: "https://github.com/SirScotterington",
+    href: "https://github.com/ScottJGilbert",
     icon: FaGithub,
   },
   {
     name: "Linkedin",
-    href: "https://linkedin.com/scott-j-gilbert",
+    href: "https://www.linkedin.com/in/scott-j-gilbert/",
     icon: FaLinkedin,
   },
   { name: "Email", href: "mailto:scott7gilbert@gmail.com", icon: EnvelopeIcon },
@@ -22,7 +22,7 @@ export default function Contactbar() {
     <div>
       <p className="text-lg">Contact</p>
       <hr className="mb-4 mt-2"></hr>
-      <div className="flex flex-col gap-3">
+      <div className="grid grid-cols-2 md:flex flex-col gap-3">
         {links.map((link) => {
           const LinkIcon = link.icon;
           return (

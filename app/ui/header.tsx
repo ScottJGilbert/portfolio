@@ -15,7 +15,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="fixed w-full h-12 bg-black md:hidden"></div>
+      <div className="fixed w-full h-12 bg-[var(--background)] -translate-x-4 md:hidden"></div>
       <div className="sticky top-4 flex justify-between my-4 p-4 md:hidden rounded-l-full rounded-r-full bg-slate-800">
         <p className="text-2xl font-bold text-center hover:text-gray-400">
           Scott Gilbert
@@ -33,7 +33,7 @@ export default function Header() {
           }
         )}
       >
-        <div className="sticky top-4 flex justify-between mb-4 p-4 md:hidden rounded-l-full rounded-r-full bg-slate-800">
+        <div className="sticky top-4 flex justify-between mb-8 p-4 md:hidden rounded-l-full rounded-r-full bg-slate-800">
           <p className="text-2xl font-bold text-center hover:text-gray-400">
             Scott Gilbert
           </p>
@@ -43,15 +43,17 @@ export default function Header() {
         </div>
         <div
           className={clsx(
-            "flex flex-col gap-2 bg-slate-800 min-h-[calc(100%-1rem)] p-4 pt-14 -mt-18 rounded-4xl",
+            "bg-slate-800 min-h-[calc(100%-1rem)] p-4 pt-14 -mt-22 rounded-4xl",
             {
               "block md:hidden": menuOpen === true,
               hidden: menuOpen === false,
             }
           )}
         >
-          <Navbar />
-          <Contactbar />
+          <div className="flex flex-col gap-8 mt-4">
+            <Navbar />
+            <Contactbar />
+          </div>
         </div>
       </div>
     </>

@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Welcome!
+
+Welcome to the public repository for my portfolio! This entire site is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 Please note that **this project is not finished yet.** I have only uploaded the repository to GitHub in order to begin hosting with Vercel and use GitHub's OAuth service. I will provide additional updates when the full project is released.
 
