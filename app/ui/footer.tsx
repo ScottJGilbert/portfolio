@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { SignIn, SignOut } from "./sign-in-out";
 import { SessionProvider } from "next-auth/react";
+import { Suspense } from "react";
 // import { usePathname, useRouter } from "next/navigation";
 
 const links = [
@@ -30,7 +31,9 @@ export default function Footer() {
             );
           })}
           <SessionProvider>
-            <SignIn />
+            <Suspense>
+              <SignIn />
+            </Suspense>
             <SignOut />
           </SessionProvider>
         </div>
