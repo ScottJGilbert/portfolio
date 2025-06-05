@@ -48,7 +48,7 @@ export default function Page() {
             width={450}
           ></Image>
         </div>
-        <div className="my-10 mx-auto">
+        <div className="my-10">
           <Link
             href="/about"
             className="p-3 m-auto rounded-2xl bg-sky-800 hover:bg-sky-900"

@@ -5,6 +5,7 @@ import Contactbar from "./contact-bar";
 import Navbar from "./nav-bar";
 import { BiMenu, BiCollapseVertical } from "react-icons/bi";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,12 +15,15 @@ export default function Header() {
   }
 
   return (
-    <>
-      <div className="fixed w-full h-12 bg-[var(--background)] -translate-x-4 md:hidden"></div>
-      <div className="sticky top-4 flex justify-between my-4 p-4 md:hidden rounded-l-full rounded-r-full bg-slate-800">
-        <p className="text-2xl font-bold text-center hover:text-gray-400">
+    <div className="sticky top-4 my-4">
+      <div className="fixed -z-1 w-full h-12 bg-[var(--background)] -translate-x-4 md:hidden"></div>
+      <div className="block flex justify-between p-4 md:hidden rounded-l-full rounded-r-full bg-slate-800">
+        <Link
+          href="/"
+          className="text-2xl font-bold text-center hover:text-gray-400"
+        >
           Scott Gilbert
-        </p>
+        </Link>
         <button onClick={toggleMenu}>
           <BiMenu />
         </button>
@@ -56,6 +60,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -17,7 +17,7 @@ export default function Footer() {
         <p className="text-center">
           © {new Date().getFullYear()} Scott Gilbert
         </p>
-        <div className="m-6">
+        <div className="m-4 flex flex-wrap justify-center">
           {links.map((link) => {
             return (
               <Link

@@ -29,13 +29,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen over-x-hidden touch-pan-y`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen overflow-x-hidden touch-pan-y`}
       >
-        <div className="flex">
+        <div className="flex w-screen-xl mx-auto w-full">
           <Sidebar />
-          <div className="w-full min-h-screen mx-4 md:mt-4 flex flex-col justify-between">
-            <Header />
-            {children}
+          <div className="min-h-screen mx-4 w-full flex flex-col justify-between">
+            <div>
+              <Header />
+              {children}
+            </div>
             <Footer />
           </div>
         </div>

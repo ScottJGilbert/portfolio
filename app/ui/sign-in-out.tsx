@@ -13,7 +13,7 @@ export function SignIn() {
   return (
     <button
       className={clsx(
-        "mx-2 p-3 bg-blue-900 rounded-2xl hover:bg-blue-950 hover:text-g hover:cursor-pointer"
+        "m-2 p-3 bg-blue-900 rounded-2xl hover:bg-blue-950 hover:text-g hover:cursor-pointer"
       )}
       onClick={() => {
         if (pathname === "/login") {
@@ -34,7 +34,7 @@ export function SignOut() {
   return (
     <button
       className={clsx(
-        "mx-2 p-3 bg-blue-900 rounded-2xl hover:bg-blue-950 hover:text-g hover:cursor-pointer"
+        "m-2 p-3 bg-blue-900 rounded-2xl hover:bg-blue-950 hover:text-g hover:cursor-pointer"
       )}
       onClick={() => signOut()}
     >
