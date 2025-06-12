@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import GridDisplay from "../ui/grid/grid-display";
 
 export default function Page() {
@@ -5,7 +6,9 @@ export default function Page() {
     <div>
       <h1>Blog</h1>
       <hr className="mt-1 mb-3"></hr>
-      <GridDisplay type="blog" />
+      <Suspense>
+        <GridDisplay type="blog" />
+      </Suspense>
     </div>
   );
 }
