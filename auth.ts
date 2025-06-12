@@ -25,16 +25,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const isLoggedIn = !!auth?.user;
       const restrictedPage =
         nextUrl.pathname.endsWith("/new") || nextUrl.pathname.endsWith("/edit");
-      if (restrictedPage && !isLoggedIn) {
-        const loginUrl = new URL("/login", nextUrl.origin);
-        loginUrl.searchParams.set("callbackUrl", nextUrl.pathname);
-        loginUrl.searchParams.set("extraMessage", "true");
-        return Response.redirect(loginUrl, 302);
+      if (restrictedPage) {
+        if (!isLoggedIn) {
+          const loginUrl = new URL("/login", nextUrl.origin);
+          loginUrl.searchParams.set("callbackUrl", nextUrl.pathname);
+          loginUrl.searchParams.set("extraMessage", "true");
+          return Response.redirect(loginUrl, 302);
+        }
+        if (auth?.user?.email !== "scott7gilbert@gmail.com") {
+          const noAccessUrl = new URL("/no-access", nextUrl.origin);
+          return Response.redirect(noAccessUrl, 302);
+        }
       }
-      if (auth?.user?.email !== "scott7gilbert@gmail.com") {
-        const noAccessUrl = new URL("/no-access");
-        return Response.redirect(noAccessUrl, 403);
-      }
+
       return true;
     },
   },
