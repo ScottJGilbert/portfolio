@@ -31,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         loginUrl.searchParams.set("extraMessage", "true");
         return Response.redirect(loginUrl, 302);
       }
-      if (auth?.user?.email === "scott7gilbert@gmail.com") {
+      if (auth?.user?.email !== "scott7gilbert@gmail.com") {
         const noAccessUrl = new URL("/no-access");
         return Response.redirect(noAccessUrl, 403);
       }
