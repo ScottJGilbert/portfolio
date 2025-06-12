@@ -24,9 +24,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const restrictedPage =
-        nextUrl.pathname.endsWith(
-          "/new"
-        ); /* || nextUrl.pathname.endsWith("/edit") */
+        nextUrl.pathname.endsWith("/new") || nextUrl.pathname.endsWith("/edit");
       if (restrictedPage && !isLoggedIn) {
         const loginUrl = new URL("/login", nextUrl.origin);
         loginUrl.searchParams.set("callbackUrl", nextUrl.pathname);
