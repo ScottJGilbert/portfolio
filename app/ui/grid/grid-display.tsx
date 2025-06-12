@@ -4,7 +4,7 @@ import Filter from "./filter";
 import Link from "next/link";
 import Image from "next/image";
 import { fetchProjects, fetchPosts } from "@/lib/db";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import type { Item } from "@/lib/definitions";
 
@@ -58,45 +58,47 @@ export default function GridDisplay({ type }: { type: string }) {
     <div>
       <div>
         <Filter placeholder={"Search " + type + "s..."} />
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {items.map((item) => {
-            return (
-              <div
-                key={item.title + "item"}
-                className="p-4 rounded-2xl bg-slate-800 border-solid border-1 border-gray-50"
-              >
-                <Image
-                  src={item.image_url === "" ? "/icon.png" : item.image_url}
-                  alt="new file"
-                  height="144"
-                  width="273"
-                  className="rounded-2xl w-full"
-                ></Image>
-                <h2 className="my-2">{item.title}</h2>
-                <div>
-                  <span>Categories: </span>
-                  {item.categories.map((categoryString) => {
-                    return (
-                      <span
-                        key={categoryString + "category"}
-                        className="mx-1 text-gray-500"
-                      >
-                        {categoryString}
-                      </span>
-                    );
-                  })}
-                </div>
-                <p className="mb-2">{item.description}</p>
-                <Link
-                  className="text-blue-300 hover:text-blue-400"
-                  href={pathname + "/" + item.slug}
+        <Suspense>
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {items.map((item) => {
+              return (
+                <div
+                  key={item.title + "item"}
+                  className="p-4 rounded-2xl bg-slate-800 border-solid border-1 border-gray-50"
                 >
-                  Read More →
-                </Link>
-              </div>
-            );
-          })}
-        </div>
+                  <Image
+                    src={item.image_url === "" ? "/icon.png" : item.image_url}
+                    alt="new file"
+                    height="144"
+                    width="273"
+                    className="rounded-2xl w-full"
+                  ></Image>
+                  <h2 className="my-2">{item.title}</h2>
+                  <div>
+                    <span>Categories: </span>
+                    {item.categories.map((categoryString) => {
+                      return (
+                        <span
+                          key={categoryString + "category"}
+                          className="mx-1 text-gray-500"
+                        >
+                          {categoryString}
+                        </span>
+                      );
+                    })}
+                  </div>
+                  <p className="mb-2">{item.description}</p>
+                  <Link
+                    className="text-blue-300 hover:text-blue-400"
+                    href={pathname + "/" + item.slug}
+                  >
+                    Read More →
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </Suspense>
       </div>
     </div>
   );

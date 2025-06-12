@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { SignIn, SignOut } from "./sign-in-out";
+import { Suspense } from "react";
 // import { usePathname, useRouter } from "next/navigation";
 
 const links = [
@@ -16,21 +17,23 @@ export default function Footer() {
         <p className="text-center" suppressHydrationWarning>
           © {new Date().getFullYear()} Scott Gilbert
         </p>
-        <div className="m-4 flex flex-wrap justify-center">
-          {links.map((link) => {
-            return (
-              <Link
-                key={link.name + "link"}
-                className="m-2 p-4 bg-blue-900 rounded-2xl hover:bg-blue-950 hover:text-g"
-                href={link.href}
-              >
-                {link.name}
-              </Link>
-            );
-          })}
-          <SignIn />
-          <SignOut />
-        </div>
+        <Suspense>
+          <div className="m-4 flex flex-wrap justify-center">
+            {links.map((link) => {
+              return (
+                <Link
+                  key={link.name + "link"}
+                  className="m-2 p-4 bg-blue-900 rounded-2xl hover:bg-blue-950 hover:text-g"
+                  href={link.href}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+            <SignIn />
+            <SignOut />
+          </div>
+        </Suspense>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import EditPage from "@/app/ui/mdx-page/edit-page";
 import { fetchPost } from "@/lib/db";
 import { Post, Item } from "@/lib/definitions";
+import { Suspense } from "react";
 
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
@@ -21,7 +22,12 @@ export default async function Page(props: {
   };
   return (
     <div>
-      <EditPage initialData={newItem} markdown={markdown as string}></EditPage>
+      <Suspense>
+        <EditPage
+          initialData={newItem}
+          markdown={markdown as string}
+        ></EditPage>
+      </Suspense>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import MDXPage from "@/app/ui/mdx-page/mdx-page";
 import { fetchProjectSlugs } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
@@ -16,7 +17,9 @@ export default async function Page(props: {
 
   return (
     <div>
-      <MDXPage type="project" slug={slug} />
+      <Suspense>
+        <MDXPage type="project" slug={slug} />
+      </Suspense>
     </div>
   );
 }
