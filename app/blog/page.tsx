@@ -1,12 +1,11 @@
-import Link from "next/link";
+import GridDisplay from "../ui/grid/grid-display";
 
 export default function Page() {
   return (
     <div>
       <h1>Blog</h1>
-      <Link href="/new" className="p-4 rounded-2xl bg-slate-800">
-        + New
-      </Link>
+      <hr className="mt-1 mb-3"></hr>
+      <GridDisplay type="blog" />
     </div>
   );
 }

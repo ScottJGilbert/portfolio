@@ -4,6 +4,7 @@ import "./ui/globals.css";
 import Header from "./ui/header";
 import Sidebar from "./ui/sidebar";
 import Footer from "./ui/footer";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,16 +32,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen overflow-x-hidden touch-pan-y`}
       >
-        <div className="flex w-screen-xl mx-auto w-full">
-          <Sidebar />
-          <div className="min-h-screen mx-4 w-full flex flex-col justify-between">
-            <div>
-              <Header />
-              {children}
+        <main className="flex w-screen-xl mx-auto w-full">
+          <SessionProvider>
+            <Sidebar />
+            <div className="min-h-screen mx-4 w-full flex flex-col justify-between">
+              <div className="flex-1">
+                <Header />
+                {children}
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-        </div>
+          </SessionProvider>
+        </main>
       </body>
     </html>
   );

@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { SignIn, SignOut } from "./sign-in-out";
-import { SessionProvider } from "next-auth/react";
-import { Suspense } from "react";
 // import { usePathname, useRouter } from "next/navigation";
 
 const links = [
@@ -13,9 +11,9 @@ const links = [
 
 export default function Footer() {
   return (
-    <div className="flex">
+    <div className="flex mt-4">
       <div className="mx-auto flex flex-col space-between">
-        <p className="text-center">
+        <p className="text-center" suppressHydrationWarning>
           © {new Date().getFullYear()} Scott Gilbert
         </p>
         <div className="m-4 flex flex-wrap justify-center">
@@ -30,12 +28,8 @@ export default function Footer() {
               </Link>
             );
           })}
-          <SessionProvider>
-            <Suspense>
-              <SignIn />
-            </Suspense>
-            <SignOut />
-          </SessionProvider>
+          <SignIn />
+          <SignOut />
         </div>
       </div>
     </div>

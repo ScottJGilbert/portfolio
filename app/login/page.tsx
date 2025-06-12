@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { signIn, providerMap } from "@/auth";
+import { signIn, providerMap, auth } from "@/auth";
 import { AuthError } from "next-auth";
 import { FaGithub } from "react-icons/fa";
 import clsx from "clsx";
@@ -15,6 +15,11 @@ export default async function SignInPage({
   const cb = callbackUrl ?? "";
   const msg = extraMessage ?? "";
   const LinkIcon = FaGithub;
+
+  const session = await auth();
+  if (session?.user) {
+    redirect(cb || "/");
+  }
 
   return (
     <div className="flex flex-col gap-2 h-full justify-center">

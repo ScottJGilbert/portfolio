@@ -13,8 +13,8 @@ import clsx from "clsx";
 
 const links = [
   { name: "About", href: "/about", icon: UserIcon },
-  { name: "Projects", href: "/projects", icon: BriefcaseIcon },
   { name: "Experience", href: "/experience", icon: BuildingOffice2Icon },
+  { name: "Projects", href: "/projects", icon: BriefcaseIcon },
   { name: "Blog", href: "/blog", icon: ChatBubbleLeftRightIcon },
   { name: "Resume", href: "/resume", icon: DocumentDuplicateIcon },
 ];
@@ -33,9 +33,12 @@ export default function Navbar() {
               key={link.name}
               href={link.href}
               className={clsx(
-                "flex h-[48px] grow items-center justify-center gap-3 rounded-md py-3 text-lg font-medium rounded-l-full rounded-r-full border-solid border-1 border-gray-50 hover:bg-blue-950 hover:text-gray-50 md:flex-none md:justify-between md:p-2",
+                "flex h-[48px] grow items-center justify-center gap-3 rounded-md py-3 text-lg font-medium rounded-l-full rounded-r-full border-solid border-1 border-gray-50 md:flex-none md:justify-between md:p-2",
                 {
-                  "bg-sky-100 text-blue-800": pathname === link.href,
+                  "bg-sky-100 text-blue-800 hover:bg-sky-200 hover:text-blue-900 ":
+                    pathname === link.href,
+                  "hover:bg-blue-950 hover:text-gray-50":
+                    pathname !== link.href,
                 }
               )}
             >

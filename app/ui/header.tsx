@@ -16,7 +16,7 @@ export default function Header() {
 
   return (
     <div className="sticky top-4 my-4">
-      <div className="fixed -z-1 w-full h-12 bg-[var(--background)] -translate-x-4 md:hidden"></div>
+      <div className="fixed top-0 -z-1 w-full h-12 bg-[var(--background)] -translate-x-4 md:hidden"></div>
       <div className="block flex justify-between p-4 md:hidden rounded-l-full rounded-r-full bg-slate-800">
         <Link
           href="/"
