@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/images/", "/edit", "/new", "/login", "/api/", "/no-access"],
     },
-    sitemap: `${process.env.BASE_URL}/sitemap.xml`,
+    sitemap: `https://scott-gilbert.vercel.app/sitemap.xml`,
   };
 }

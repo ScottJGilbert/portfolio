@@ -29,7 +29,7 @@ export default async function Image() {
         >
           {/* eslint-disable */}
           <img
-            src="https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfv5my4gqjDfraKjJQgNYemFl0uOyXqS6BnhwC"
+            src="/profileIcon.svg"
             style={{
               padding: "50px",
             }}

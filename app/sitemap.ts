@@ -7,31 +7,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     {
-      url: `${process.env.BASE_URL}`,
+      url: `https://scott-gilbert.vercel.app`,
       priority: 1,
     },
     {
-      url: `${process.env.BASE_URL}/about`,
+      url: `https://scott-gilbert.vercel.app/about`,
       priority: 0.8,
     },
     {
-      url: `${process.env.BASE_URL}/experience`,
+      url: `https://scott-gilbert.vercel.app/experience`,
       priority: 0.5,
     },
     {
-      url: `${process.env.BASE_URL}/projects`,
+      url: `https://scott-gilbert.vercel.app/projects`,
       priority: 0.5,
     },
     {
-      url: `${process.env.BASE_URL}/blog`,
+      url: `https://scott-gilbert.vercel.app/blog`,
       priority: 0.5,
     },
     {
-      url: `${process.env.BASE_URL}/resume`,
+      url: `https://scott-gilbert.vercel.app/resume`,
       priority: 0.8,
     },
     {
-      url: `${process.env.BASE_URL}/attributions`,
+      url: `https://scott-gilbert.vercel.app/attributions`,
       priority: 0.1,
     },
     ...projectMap,
@@ -43,7 +43,7 @@ async function projects() {
   const slugs: string[] = await fetchProjectSlugs();
   const map: MetadataRoute.Sitemap = slugs.map((slug) => {
     return {
-      url: `${process.env.BASE_URL}/projects/${slug}`,
+      url: `https://scott-gilbert.vercel.app/projects/${slug}`,
       priority: 0.35,
     };
   });
@@ -55,7 +55,7 @@ async function posts() {
   const slugs: string[] = await fetchPostSlugs();
   const map: MetadataRoute.Sitemap = slugs.map((slug) => {
     return {
-      url: `${process.env.BASE_URL}/blog/${slug}`,
+      url: `https://scott-gilbert.vercel.app/blog/${slug}`,
       priority: 0.35,
     };
   });

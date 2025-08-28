@@ -23,8 +23,8 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   callbacks: {
     async authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const restrictedPage = false;
-      nextUrl.pathname.endsWith("/new") ||
+      const restrictedPage =
+        nextUrl.pathname.endsWith("/new") ||
         nextUrl.pathname.endsWith("/edit") ||
         nextUrl.pathname.startsWith("/images");
       if (restrictedPage) {
