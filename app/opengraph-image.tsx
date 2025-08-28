@@ -24,16 +24,16 @@ export default async function Image() {
         <div
           style={{
             display: "flex",
-            margin: "100px 50px",
+            margin: "100px 0px",
           }}
         >
           {/* eslint-disable */}
           <img
-            src="/profileIcon.svg"
+            src="https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfJ3lqInC5xrIX2q0NoPUDlZ9HBF8zYept7OCV"
             style={{
-              padding: "50px",
+              padding: "40px",
             }}
-            width="430"
+            width="555"
             height="430"
             alt="Opengraph Image"
           ></img>
@@ -49,7 +49,7 @@ export default async function Image() {
             <div
               style={{
                 borderLeft: "3px solid black",
-                padding: "70px",
+                padding: "30px",
                 color: "white",
               }}
             >
