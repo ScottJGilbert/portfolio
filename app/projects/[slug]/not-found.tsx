@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { FaceFrownIcon } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "404 Not Found",
+  robots: "noindex,nofollow",
+};
 
 export default function NotFound() {
   return (

@@ -1,64 +1,322 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useState, useEffect, Suspense } from "react";
+import Expertise from "./components/expertise";
 import Link from "next/link";
+import { fetchPosts, fetchProjects } from "@/lib/db";
+import { Item } from "@/lib/definitions";
+import Image from "next/image";
 
 const strings = [
-  ", trombone player",
-  ", full-stack developer",
-  ", cross-country runner",
-  ", avid volunteer",
-  ", Minecraft gamer",
-  ", and computer engineering student",
+  "a trombone player",
+  "a full-stack developer",
+  "a cross-country runner",
+  "an avid volunteer",
+  "a Minecraft gamer",
+  "a tinkerer",
+];
+
+const places = [
+  {
+    name: "University of Illinois at Urbana-Champaign",
+    imageUrl:
+      "https://brand.illinois.edu/wp-content/uploads/2025/02/Illinois_logo_fullcolor_%C2%AE_rgb.png",
+    width: 284,
+    height: 350,
+  },
+  {
+    name: "Scouting America",
+    imageUrl:
+      "https://www.scouting.org/wp-content/uploads/2023/05/BSA_Logo.png",
+    width: 220,
+    height: 220,
+  },
 ];
 
 export default function Page() {
-  const [currentString, setCurrentString] = useState(" tinkerer");
+  const [currentString, setCurrentString] = useState("A tinkerer");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (currentIndex == strings.length) {
-      return;
+      setCurrentIndex(0);
     }
     setTimeout(() => {
-      setCurrentString(currentString + strings[currentIndex]);
+      setCurrentString(strings[currentIndex]);
       setCurrentIndex(currentIndex + 1);
-    }, 750);
-  });
+    }, 1500);
+  }, [currentIndex]);
 
   return (
     <div>
-      <div className="min-h-screen">
-        <div className="flex flex-col md:flex-row">
-          <div>
-            <p>Hi, I&apos;m</p>
-            <h1 className="" data-text="Scott Gilbert">
-              Scott Gilbert
-            </h1>
-            <h2>
-              A <span>{currentString}</span> on a mission to make tomorrow{" "}
-              <i>just</i> a little brighter for all.
-            </h2>
+      <div>
+        <div className="flex flex-col">
+          <div className="md:min-h-screen flex flex-col items-center justify-center">
+            <div className="">
+              <p className="text-4xl md:text-8xl text-center">
+                Hi, I&apos;m{" "}
+                <b className="block md:inline text-8xl bg-linear-to-b from-zinc-500 via-zinc-600 to-zinc-900 bg-clip-text tracking-wide text-transparent dark:from-zinc-700 dark:via-zinc-200 dark:to-zinc-50">
+                  Scott Gilbert
+                </b>
+              </p>
+              <h2 className="block text-3xl md:text-4xl text-center mt-4">
+                <span className="block">I&apos;m {currentString}</span> and
+                computer engineer on a mission to make tomorrow <i>just</i> a
+                little brighter.
+              </h2>
+            </div>
+            <Link
+              href=""
+              className="m-8 group relative inline-flex cursor-pointer items-center justify-between overflow-hidden rounded-full border border-black/30 bg-black/20 py-[3px] pr-[3px] pl-2 text-base font-medium opacity-85 backdrop-blur-xs transition-all hover:bg-transparent md:py-1 md:pr-1 md:pl-3 dark:border-white/10 dark:bg-white/10"
+            >
+              <span className="z-10 px-3 text-black transition-colors duration-300 group-hover:text-white dark:text-white dark:group-hover:text-black">
+                Learn More
+              </span>
+              <span className="absolute inset-0 translate-x-[45%] scale-0 rounded-full bg-black opacity-0 transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100 dark:bg-white"></span>
+              <span className="z-10 flex items-center justify-center overflow-hidden rounded-full bg-black p-2 transition-colors duration-300 group-hover:bg-transparent md:p-2.5 dark:bg-white">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-white transition-all duration-300 group-hover:translate-x-5 group-hover:opacity-0 dark:text-black"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="rotate-90 absolute -translate-x-5 text-white opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 dark:text-black"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </span>
+            </Link>
           </div>
-          <Image
-            src="/titleImage.png"
-            alt="Title Image"
-            height={280}
-            width={450}
-          ></Image>
         </div>
-        <div className="my-10">
-          <Link
-            href="/about"
-            className="p-3 m-auto rounded-2xl bg-sky-800 hover:bg-sky-900"
-          >
-            Learn More →
+      </div>
+      <div className="min-h-screen text-center">
+        <h1>Expertise Across Fields</h1>
+        <p className="pb-4">
+          Well-versed in a wide range of tools used in Electrical Engineering,
+          Computer Engineering, Computer Science, and everything in between.
+        </p>
+        <Expertise />
+      </div>
+
+      <div className="py-4 min-h-full">
+        <h1>Experience That Matters</h1>
+        <p className="pb-4">
+          Prepared for the toughest challenges with a depth of skills learned in
+          industry, academia, and in the not-for-profit sector.
+        </p>
+        <div className="inline-flex gap-4">
+          {places.map((place) => {
+            return (
+              <div
+                className="inline-flex gap-4 relative p-4 rounded-2xl bg-green-950 border-solid border-1 border-gray-50"
+                key={place.name}
+              >
+                <div className="inline-flex flex-col justify-center">
+                  <Image
+                    src={place.imageUrl}
+                    className="inline object-contain max-h-20"
+                    alt={place.name}
+                    height={place.height}
+                    width={place.width}
+                  />
+                </div>
+                <div className="flex-1 inline-flex flex-col justify-center">
+                  <h3>{place.name}</h3>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="pt-4">
+          <Link href="/about" className="hover:text-gray-400">
+            See everywhere I&apos;ve been →
           </Link>
         </div>
       </div>
-      <div>
-        <h1 className="h-100">HI MOM</h1>
+      <div className="py-4">
+        <h2>Curated Projects</h2> {/* Link to header for experience */}
+        <Suspense fallback={<div>Loading projects...</div>}>
+          <Projects />
+        </Suspense>
+        <div className="pt-4">
+          <Link href="/projects" className="hover:text-gray-400">
+            See More →
+          </Link>
+        </div>
+      </div>
+      <div className="py-4">
+        <h2>Recent Blog Posts</h2> {/* Link to header for experience */}
+        <Suspense fallback={<div>Loading blog posts...</div>}>
+          <Posts />
+        </Suspense>
+        <div className="pt-4">
+          <Link href="/blog" className="hover:text-gray-400">
+            See All →
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Projects() {
+  const [items, setItems] = useState([] as Item[]);
+  useEffect(() => {
+    async function fetchAndSet() {
+      const projects = await fetchProjects("", []);
+      setItems(
+        projects.map((project) => {
+          return {
+            title: project.title,
+            description: project.description,
+            categories: project.categories,
+            slug: project.slug,
+            date_one: new Date(project.start_date).toDateString(),
+            date_two:
+              project.end_date === null
+                ? "Ongoing"
+                : new Date(project.end_date).toDateString(),
+            image_url: project.image_url,
+          };
+        })
+      );
+    }
+    fetchAndSet();
+  }, []);
+
+  return (
+    <div>
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {items.map((item, index) => {
+          // Show more items on desktop, fewer on mobile
+          const isMobile =
+            typeof window !== "undefined" && window.innerWidth < 768;
+          const maxItems = isMobile ? 2 : 3;
+          if (index >= maxItems) return null;
+
+          return (
+            <div
+              key={item.title + "item"}
+              className="p-4 rounded-2xl bg-green-950 border-solid border-1 border-gray-50"
+            >
+              <h3 className="mt-2">{item.title}</h3>
+              <p className="text-gray-400">
+                {item.date_one + " - " + item.date_two}
+              </p>
+              <div>
+                <span>Categories: </span>
+                {item.categories.map((categoryString) => {
+                  return (
+                    <span
+                      key={categoryString + "category"}
+                      className="mx-1 text-gray-500"
+                    >
+                      {categoryString}
+                    </span>
+                  );
+                })}
+              </div>
+              <p className="mb-2">{item.description}</p>
+              <Link
+                className="text-blue-300 hover:text-blue-400"
+                href={"/projects/" + item.slug}
+              >
+                Read More →
+              </Link>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function Posts() {
+  const [items, setItems] = useState([] as Item[]);
+  useEffect(() => {
+    async function fetchAndSet() {
+      const posts = await fetchPosts("", []);
+      setItems(
+        posts.map((post) => {
+          return {
+            title: post.title,
+            description: post.description,
+            categories: post.categories,
+            slug: post.slug,
+            date_one: new Date(post.creation_date).toDateString(),
+            date_two: new Date(post.edit_date).toDateString(),
+            image_url: post.image_url,
+          };
+        })
+      );
+    }
+    fetchAndSet();
+  }, []);
+
+  return (
+    <div>
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {items.map((item, index) => {
+          // Show more items on desktop, fewer on mobile
+          const isMobile =
+            typeof window !== "undefined" && window.innerWidth < 768;
+          const maxItems = isMobile ? 2 : 3;
+          if (index >= maxItems) return null;
+
+          return (
+            <div
+              key={item.title + "item"}
+              className="p-4 rounded-2xl bg-green-950 border-solid border-1 border-gray-50"
+            >
+              <h3 className="mt-2">{item.title}</h3>
+              <p className="text-gray-400">
+                {item.date_one + " - " + item.date_two}
+              </p>
+              <div>
+                <span>Categories: </span>
+                {item.categories.map((categoryString) => {
+                  return (
+                    <span
+                      key={categoryString + "category"}
+                      className="mx-1 text-gray-500"
+                    >
+                      {categoryString}
+                    </span>
+                  );
+                })}
+              </div>
+              <p className="mb-2">{item.description}</p>
+              <Link
+                className="text-blue-300 hover:text-blue-400"
+                href={"/blog/" + item.slug}
+              >
+                Read More →
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

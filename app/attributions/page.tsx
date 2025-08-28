@@ -1,3 +1,10 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Attributions",
+  // description: "",
+};
+
 export default function Page() {
   return (
     <div>
@@ -12,7 +19,7 @@ export default function Page() {
         </a>
       </div>
       <div className="my-2">
-        Title Image:{" "}
+        Title Image:
         <a href="http://www.freepik.com">
           <u>Designed by macrovector / Freepik</u>
         </a>

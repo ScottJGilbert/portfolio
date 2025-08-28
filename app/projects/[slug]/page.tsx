@@ -1,7 +1,20 @@
-import MDXPage from "@/app/ui/mdx-page/mdx-page";
-import { fetchProjectSlugs } from "@/lib/db";
+import MDXPage from "@/app/components/mdx/mdx-page";
+import { fetchProjectSlugs, fetchProjectMetadata } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { ItemMetadata } from "@/lib/definitions";
+import { Metadata } from "next";
+
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await props.params;
+  const data = (await fetchProjectMetadata(slug)) as ItemMetadata;
+  return {
+    title: data.title ?? "",
+    description: data.description ?? "",
+  };
+}
 
 export default async function Page(props: {
   params: Promise<{ slug: string }>;

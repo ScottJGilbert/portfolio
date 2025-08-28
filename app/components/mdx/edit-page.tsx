@@ -1,0 +1,266 @@
+"use client";
+
+import { Suspense, useState } from "react";
+import { Item, ItemWithMarkdown } from "@/lib/definitions";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import Head from "next/head";
+import Button from "@/app/ui/button";
+
+export default function EditPage({
+  initialData,
+  markdown,
+  categories,
+  type,
+}: {
+  initialData: Item;
+  markdown: string;
+  categories: string[];
+  type: string;
+}) {
+  const [formData, setFormData] = useState(initialData);
+  const [isSaving, setIsSaving] = useState(false);
+  const [description, setDescription] = useState(initialData.description);
+  const [text, setText] = useState(markdown);
+  const router = useRouter();
+  const currentPath = usePathname();
+  const newPath = currentPath.split("/").slice(0, -1).join("/");
+  const [listedCategories, setListedCategories] = useState(categories);
+  const [newCategory, setNewCategory] = useState("");
+
+  const onSetNewCategory = (e: React.FormEvent) => {
+    e.preventDefault();
+    setListedCategories(listedCategories.concat(newCategory));
+    setNewCategory("");
+  };
+
+  const handleClick = (e: React.FormEvent) => {
+    e.preventDefault();
+    const confirmed = window.confirm(
+      "Are you sure you want to leave this page? Any unsaved data will be lost."
+    );
+    if (confirmed) {
+      // Strip the last part of the current path
+      router.push(newPath);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const category = e.target.name;
+    const isChecked = e.target.checked;
+
+    setFormData((prev) => ({
+      ...prev,
+      categories: isChecked
+        ? [...prev.categories, category]
+        : prev.categories.filter((c) => c !== category),
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (
+      confirm(
+        "Are you sure you want to save this? Any previous data will be overwritten."
+      )
+    ) {
+      setIsSaving(true);
+
+      const updatedFormData: ItemWithMarkdown = {
+        ...formData,
+        markdown: text,
+        description: description,
+      };
+
+      const url =
+        type === "project" ? "/api/update-project" : "/api/update-post";
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedFormData),
+      });
+
+      setIsSaving(false);
+      if (!res.ok) {
+        alert("Failed to update.");
+      } else {
+        alert("Saved!");
+      }
+    }
+  };
+
+  const handleDelete = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (initialData.slug === "") {
+      alert("You can't delete this project!");
+    } else {
+      if (confirm("Are you sure you want to delete this " + type + "?")) {
+        if (
+          prompt("Please type in the " + type + " slug to proceed.") ===
+          initialData.slug
+        ) {
+          const url =
+            type === "project" ? "/api/delete-project" : "/api/delete-post";
+
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(initialData.slug),
+          });
+          if (res.ok) {
+            alert("Deleted!");
+            router.push("/" + type + "s");
+            return;
+          }
+        }
+      }
+      alert("Failed to delete.");
+    }
+  };
+
+  return (
+    <div>
+      <Head>
+        <meta name="robots" content="noindex,nofollow" key="noRobots" />
+      </Head>
+      <Suspense>
+        <form onSubmit={handleSubmit}>
+          <div className="flex justify-between my-2">
+            <div className="flex gap-3 my-2">
+              <div className="my-auto [&>input]:py-2 [&>input]:px-2 [&>input]:mr-4 [&>*]:border-1 [&>*]:border-gray-50 [&>*]:rounded-xl flex justify-between gap-6 flex-wrap">
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Title... (required)"
+                  onChange={handleChange}
+                  defaultValue={formData.title}
+                  required={true}
+                />
+                <input
+                  type="url"
+                  name="image_url"
+                  onChange={handleChange}
+                  defaultValue={formData.image_url}
+                  placeholder="Image URL..."
+                  className="flex-1"
+                />
+                {type === "project" && (
+                  <>
+                    <input
+                      type="date"
+                      name="date_one"
+                      onChange={handleChange}
+                      defaultValue={formData.date_one}
+                      min={"2007-01-01"}
+                      max={"2200-01-01"}
+                      required
+                    />
+                    <input
+                      type="date"
+                      name="date_two"
+                      onChange={handleChange}
+                      defaultValue={formData.date_two}
+                      min={"2007-01-01"}
+                      max={"2200-01-01"}
+                    />
+                  </>
+                )}
+                <div className="h-12 overflow-y-auto px-4 flex flex-col">
+                  <p>Categories:</p>
+                  {listedCategories.map((category) => {
+                    return (
+                      <span key={category + "checkbox"} className="flex gap-2">
+                        <input
+                          type="checkbox"
+                          name={category}
+                          id={category + "id"}
+                          checked={formData.categories.includes(category)}
+                          onChange={handleCategory}
+                        />
+                        <label htmlFor={category + "id"}>{category}</label>
+                      </span>
+                    );
+                  })}
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    name="new_category"
+                    className="p-2 rounded-xl"
+                    type="text"
+                    placeholder="New category..."
+                    onChange={(e) => {
+                      setNewCategory(e.target.value);
+                    }}
+                    value={newCategory}
+                  />
+                  <Button onClick={onSetNewCategory}>Add</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <span>
+              {type === "project" ? "" : "Created on " + initialData.date_one}
+            </span>
+            <span>
+              {type === "project"
+                ? ""
+                : "| Last edited on " + initialData.date_two}
+            </span>
+          </div>
+          <div>
+            <textarea
+              name="description"
+              className="p-2 mb-2 w-full border border-gray-300 rounded-xl"
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+            ></textarea>
+          </div>
+          <div className="relative">
+            <textarea
+              name="markdown_content"
+              value={text}
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+              className="p-2 border border-gray-300 rounded-xl h-96 w-full"
+            ></textarea>
+          </div>
+          <div className="flex justify-between">
+            <div className="flex gap-4 mt-2">
+              <Button onClick={handleClick}>← Go Back</Button>
+              <button
+                className="py-4 px-4 rounded-xl bg-green-950 hover:bg-blue-950 hover:cursor-pointer border-solid border-1 border-gray-50"
+                disabled={isSaving}
+              >
+                {isSaving ? "Saving..." : "Save"}
+              </button>
+              <Link
+                href="/images"
+                target="_blank"
+                className="p-2 rounded-xl bg-red-800 hover:bg-red-900 hover:cursor-pointer text-center flex flex-col justify-center border-solid border-1 border-gray-50"
+              >
+                Ensure all images are uploaded →
+              </Link>
+            </div>
+            <button
+              onClick={handleDelete}
+              className="px-4 rounded-xl bg-red-800 hover:bg-red-900 hover:cursor-pointer text-center flex flex-col justify-center border-solid border-1 border-gray-50"
+            >
+              Delete
+            </button>
+          </div>
+        </form>
+      </Suspense>
+    </div>
+  );
+}

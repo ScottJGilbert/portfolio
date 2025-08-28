@@ -1,15 +1,158 @@
 "use server";
 
 // lib/db.js
-import { Project, Post, Expertise } from "./definitions";
+import {
+  Project,
+  Post,
+  ItemMetadata,
+  Expertise,
+  ImageData,
+  Experience,
+} from "./definitions";
 import postgres from "postgres";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
+export async function fetchExpertiseAreas(names: string[]) {
+  try {
+    if (names.length === 0) {
+      const data = await sql<Expertise[]>`
+      SELECT *
+      FROM expertise_areas;
+    `;
+      return data as Expertise[];
+    } else {
+      const data: Expertise[] = [];
+      for (const name of names) {
+        const row = await sql<Expertise[]>`
+          SELECT * 
+          FROM expertise_areas
+          WHERE name = ${name};
+        `;
+        data.push(row[0] as Expertise);
+      }
+      return data;
+    }
+  } catch (err) {
+    console.error("Error fetching expertise areas: ", err);
+    return [];
+  }
+}
+
+export async function updateExpertiseAreas(areas: Expertise[]) {
+  try {
+    await sql`
+      DELETE 
+      FROM expertise_areas;
+    `;
+    for (const area of areas) {
+      await sql`
+        INSERT
+        INTO expertise_areas (
+          name,
+          image_url,
+          category
+        ) 
+        VALUES (
+          ${area.name},
+          ${area.image_url},
+          ${area.category}
+        );
+      `;
+    }
+  } catch (err) {
+    console.error("Error updating expertise areas: ", err);
+    throw err;
+  }
+}
+
+export async function fetchExperienceIDs() {
+  try {
+    const data = await sql<{ experience_id: number }[]>`
+      SELECT experience_id FROM experience;
+    `;
+    const ids = data.map((row) => row.experience_id);
+    return ids;
+  } catch (err) {
+    console.error("Error fetching experience IDs: ", err);
+    throw err;
+  }
+}
+
+export async function fetchExperience(id: number) {
+  try {
+    const data = await sql<Experience[]>`
+      SELECT *
+      FROM experience
+      WHERE experience_id = ${id};
+    `;
+    const stringData = await sql<{ expertise: string[] }[]>`
+      SELECT expertise
+      FROM experience
+      WHERE experience_id = ${id};
+    `;
+    const experience: Experience = data[0] as Experience;
+    experience.expertise = await fetchExpertiseAreas(stringData[0].expertise);
+    return experience;
+  } catch (err) {
+    console.error("Error fetching experience: ", err);
+    throw err;
+  }
+}
+
+export async function updateExperience(experience: Experience) {
+  try {
+    const experienceStrings = experience.expertise.map((expertise) => {
+      return expertise.name;
+    });
+    if ((await fetchExperienceIDs()).includes(experience.experience_id)) {
+      await sql`
+        UPDATE experience
+        SET
+          title = ${experience.title}, 
+          organization = ${experience.organization}, 
+          start_date = ${experience.start_date}, 
+          end_date = ${experience.end_date}, 
+          markdown = ${experience.markdown},
+          expertise = ${experienceStrings},
+          self_employed = ${experience.self_employed},
+          volunteer = ${experience.volunteer} 
+        WHERE experience_id = ${experience.experience_id};
+      `;
+    } else {
+      await sql`
+        INSERT 
+        INTO experience (
+          title, 
+          organization, 
+          start_date, 
+          end_date, 
+          markdown, 
+          expertise, 
+          self_employed, 
+          volunteer)
+        VALUES (
+          ${experience.title},
+          ${experience.organization},
+          ${experience.start_date},
+          ${experience.end_date},
+          ${experience.markdown},
+          ${experienceStrings},
+          ${experience.self_employed},
+          ${experience.volunteer}
+        );
+      `;
+    }
+  } catch (err) {
+    console.error("Error updating experience: ", err);
+    throw err;
+  }
+}
+
 export async function fetchProjectSlugs() {
   try {
     const data = await sql<{ slug: string }[]>`
-    SELECT slug FROM projects;
+      SELECT slug FROM projects;
     `;
     const slugs = data.map((row) => row.slug);
     return slugs;
@@ -47,6 +190,8 @@ export async function fetchProjects(query: string, categories: string[]) {
       SELECT 
         project_id, 
         title, 
+        start_date, 
+        end_date, 
         description, 
         categories, 
         slug,
@@ -54,14 +199,15 @@ export async function fetchProjects(query: string, categories: string[]) {
       FROM projects 
       WHERE 
         title ILIKE ${`%${query}%`} OR 
-        description ILIKE ${`%${query}%`};
+        description ILIKE ${`%${query}%`} 
+      ORDER BY project_id DESC;
       `;
       return data;
     } else {
       const allCategories = await fetchProjectCategories();
       for (const category of categories) {
         if (!allCategories.includes(category)) {
-          throw category + "was not found in projects.";
+          throw category + " was not found in projects.";
         }
       }
       const results: Project[] = [];
@@ -71,6 +217,8 @@ export async function fetchProjects(query: string, categories: string[]) {
         SELECT 
           project_id, 
           title, 
+          start_date, 
+          end_date, 
           description, 
           categories, 
           slug,
@@ -79,7 +227,8 @@ export async function fetchProjects(query: string, categories: string[]) {
         WHERE 
           ${category} = ANY(categories) AND
           (title ILIKE ${`%${query}%`} OR 
-          description ILIKE ${`%${query}%`});
+          description ILIKE ${`%${query}%`}) 
+        ORDER BY project_id DESC;
         `;
         results.push(...data);
       }
@@ -94,12 +243,30 @@ export async function fetchProjects(query: string, categories: string[]) {
   }
 }
 
+export async function fetchProjectMetadata(slug: string) {
+  try {
+    const data = await sql<ItemMetadata[]>`
+      SELECT 
+        title, 
+        description 
+      FROM projects 
+      WHERE slug = ${slug};
+    `;
+    return data[0] as ItemMetadata;
+  } catch (err) {
+    console.error("Error fetching project metadata:", err);
+    return [null];
+  }
+}
+
 export async function fetchProject(slug: string) {
   try {
     const data = await sql<Project[]>`
       SELECT 
         project_id, 
         title, 
+        start_date, 
+        end_date, 
         description, 
         categories, 
         slug,
@@ -115,30 +282,22 @@ export async function fetchProject(slug: string) {
       `;
     return [data[0] as Project, data_markdown[0].markdown];
   } catch (err) {
-    console.error("Error fetching projects:", err);
+    console.error("Error fetching project:", err);
     return [null, ""];
   }
 }
 
 export async function updateProject(data: Project, markdown: string) {
   try {
-    if (data.slug !== "") {
+    if (data.slug === "") {
       const lowercase = data.title.toLowerCase();
       data.slug = lowercase.replaceAll(" ", "-");
-      await sql`
-      UPDATE projects
-      SET
-        title = ${data.title},
-        description = ${data.description},
-        categories = ${data.categories},
-        markdown = ${markdown},
-        image_url = ${data.image_url}
-      WHERE slug = ${data.slug}`;
-    } else {
       await sql`
       INSERT 
       INTO projects
         (title,
+        start_date,
+        end_date,
         description,
         categories,
         slug,
@@ -146,6 +305,8 @@ export async function updateProject(data: Project, markdown: string) {
         image_url)
       VALUES (
         ${data.title},
+        ${data.start_date},
+        ${data.end_date},
         ${data.description},
         ${data.categories},
         ${data.slug},
@@ -153,18 +314,44 @@ export async function updateProject(data: Project, markdown: string) {
         ${data.image_url}
       );
       `;
+    } else {
+      await sql`
+      UPDATE projects
+      SET
+        title = ${data.title},
+        start_date = ${data.start_date},
+        end_date = ${data.end_date},
+        description = ${data.description},
+        categories = ${data.categories},
+        markdown = ${markdown},
+        image_url = ${data.image_url}
+      WHERE slug = ${data.slug}`;
     }
   } catch (err) {
     console.error("Error updating project: ", err);
+    throw err;
+  }
+}
+
+export async function deleteProject(slug: string) {
+  try {
+    await sql`
+      DELETE
+      FROM projects
+      WHERE slug = ${slug};
+    `;
+  } catch (err) {
+    console.error("Error deleting project: ", err);
+    throw err;
   }
 }
 
 export async function fetchPostSlugs() {
   try {
-    const data = await sql<{ category: string }[]>`
+    const data = await sql<{ slug: string }[]>`
     SELECT slug FROM posts;
     `;
-    const slugs = data.map((row) => row.category);
+    const slugs = data.map((row) => row.slug);
     return slugs;
   } catch (err) {
     console.error("Error fetching post slugs: ", err);
@@ -199,7 +386,9 @@ export async function fetchPosts(query: string, categories: string[]) {
       const data = await sql<Post[]>`
       SELECT 
         post_id, 
-        title, 
+        title,
+        creation_date,
+        edit_date, 
         description, 
         categories, 
         slug, 
@@ -207,7 +396,8 @@ export async function fetchPosts(query: string, categories: string[]) {
       FROM posts 
       WHERE 
         title ILIKE ${`%${query}%`} OR 
-        description ILIKE ${`%${query}%`};
+        description ILIKE ${`%${query}%`} 
+      ORDER BY creation_date DESC;
       `;
       return data;
     } else {
@@ -224,6 +414,8 @@ export async function fetchPosts(query: string, categories: string[]) {
         SELECT 
           post_id, 
           title, 
+          creation_date,
+          edit_date,
           description, 
           categories, 
           slug,
@@ -232,7 +424,8 @@ export async function fetchPosts(query: string, categories: string[]) {
         WHERE 
           ${category} = ANY(categories) AND
           (title ILIKE ${`%${query}%`} OR 
-          description ILIKE ${`%${query}%`});
+          description ILIKE ${`%${query}%`}) 
+        ORDER BY creation_date DESC;
         `;
         results.push(...data);
       }
@@ -247,12 +440,30 @@ export async function fetchPosts(query: string, categories: string[]) {
   }
 }
 
+export async function fetchPostMetadata(slug: string) {
+  try {
+    const data = await sql<ItemMetadata[]>`
+      SELECT 
+        title, 
+        description
+      FROM posts 
+      WHERE slug = ${slug};
+    `;
+    return data[0] as ItemMetadata;
+  } catch (err) {
+    console.error("Error fetching post metadata:", err);
+    return [null];
+  }
+}
+
 export async function fetchPost(slug: string) {
   try {
     const data = await sql<Post[]>`
       SELECT 
         post_id, 
         title, 
+        creation_date,
+        edit_date,
         description, 
         categories, 
         slug,
@@ -275,25 +486,15 @@ export async function fetchPost(slug: string) {
 
 export async function updatePost(data: Post, markdown: string) {
   try {
-    if (data.slug !== "") {
+    if (data.slug === "") {
       const lowercase = data.title.toLowerCase();
       data.slug = lowercase.replaceAll(" ", "-");
       await sql`
-      UPDATE posts
-      SET
-        title = ${data.title},
-        creation_date = ${data.creation_date},
-        edit_date = ${data.edit_date},
-        description = ${data.description},
-        categories = ${data.categories},
-        markdown = ${markdown},
-        image_url = ${data.image_url}
-      WHERE slug = ${data.slug}`;
-    } else {
-      await sql`
       INSERT 
-      INTO projects
+      INTO posts
         (title,
+        creation_date,
+        edit_date,
         description,
         categories,
         slug,
@@ -310,21 +511,77 @@ export async function updatePost(data: Post, markdown: string) {
         ${data.image_url}
       );
       `;
+    } else {
+      await sql`
+      UPDATE posts
+      SET
+        title = ${data.title},
+        creation_date = ${data.creation_date},
+        edit_date = ${data.edit_date},
+        description = ${data.description},
+        categories = ${data.categories},
+        markdown = ${markdown},
+        image_url = ${data.image_url}
+      WHERE slug = ${data.slug}`;
     }
   } catch (err) {
-    console.error("Error updating project: ", err);
+    console.error("Error updating post: ", err);
+    throw err;
   }
 }
 
-export async function fetchExpertiseAreas() {
+export async function deletePost(slug: string) {
   try {
-    const data = await sql<Expertise[]>`
-      SELECT *
-      FROM expertise_areas;
+    await sql`
+      DELETE
+      FROM posts
+      WHERE slug = ${slug};
     `;
-    return data as Expertise[];
   } catch (err) {
-    console.error("Error fetching expertise areas: ", err);
-    return [];
+    console.error("Error deleting post: ", err);
+    throw err;
+  }
+}
+
+export async function fetchImages(query: string) {
+  try {
+    if (query === "") {
+      const images = await sql<ImageData[]>`
+        SELECT *
+        FROM images;
+      `;
+      return images;
+    } else {
+      const images = await sql<ImageData[]>`
+      SELECT *
+      FROM images
+      WHERE
+        name ILIKE ${`%${query}%`} OR 
+        url ILIKE ${`%${query}%`}
+      ;
+    `;
+      return images;
+    }
+  } catch (err) {
+    console.error("Error fetching images: ", err);
+    throw err;
+  }
+}
+
+export async function addImage(data: ImageData) {
+  try {
+    await sql`
+      INSERT 
+      INTO images (
+        name,
+        url)
+      VALUES (
+        ${data.name},
+        ${data.url}
+      );
+    `;
+  } catch (err) {
+    console.error("Error adding image data: ", err);
+    throw err;
   }
 }

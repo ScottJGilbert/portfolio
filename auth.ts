@@ -15,30 +15,40 @@ export const providerMap = providers
   })
   .filter((provider) => provider.id !== "credentials");
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { auth, signIn, signOut, handlers } = NextAuth({
   providers,
   pages: {
     signIn: "/login",
   },
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
+    async authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const restrictedPage =
-        nextUrl.pathname.endsWith("/new") || nextUrl.pathname.endsWith("/edit");
+      const restrictedPage = false;
+      nextUrl.pathname.endsWith("/new") ||
+        nextUrl.pathname.endsWith("/edit") ||
+        nextUrl.pathname.startsWith("/images");
       if (restrictedPage) {
         if (!isLoggedIn) {
           const loginUrl = new URL("/login", nextUrl.origin);
           loginUrl.searchParams.set("callbackUrl", nextUrl.pathname);
-          loginUrl.searchParams.set("extraMessage", "true");
-          return Response.redirect(loginUrl, 302);
+          loginUrl.searchParams.set("reason", "unauthorized");
+          return Response.redirect(loginUrl, 307);
         }
         if (auth?.user?.email !== "scott7gilbert@gmail.com") {
-          const noAccessUrl = new URL("/no-access", nextUrl.origin);
-          return Response.redirect(noAccessUrl, 302);
+          return new Response(
+            await fetch(`${nextUrl.origin}/no-access`).then((r) => r.text()),
+            {
+              status: 403,
+              headers: { "Content-Type": "text/html" },
+            }
+          );
         }
       }
 
       return true;
+    },
+    signIn({ profile }) {
+      return !!profile?.email && profile.email === "scott7gilbert@gmail.com";
     },
   },
 });

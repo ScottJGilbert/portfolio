@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./ui/globals.css";
-import Header from "./ui/header";
-import Sidebar from "./ui/sidebar";
-import Footer from "./ui/footer";
+import "./globals.css";
+import Header from "./components/general/header";
+import Sidebar from "./components/general/sidebar";
+import Footer from "./components/general/footer";
 import { SessionProvider } from "next-auth/react";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "../lib/core";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,9 +20,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Scott Gilbert - Portfolio",
+  title: {
+    template: "%s | Scott Gilbert",
+    default: "Scott Gilbert - Computer Engineer",
+  },
   description:
-    "Hard-working full-stack developer, tinkerer, and incoming computer engineering student at the University of Illinois at Urbana-Champaign. Dedicated to deploying information technology, computing, and electrical engineering solutions to solve complex problems.",
+    "Full-stack developer, tinkerer, problem-solver, and incoming computer engineering student at the University of Illinois Urbana-Champaign.",
 };
 
 export default function RootLayout({
@@ -32,13 +38,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen overflow-x-hidden touch-pan-y`}
       >
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <main className="flex w-screen-xl mx-auto w-full">
           <SessionProvider>
             <Sidebar />
-            <div className="min-h-screen mx-4 w-full flex flex-col justify-between">
-              <div className="flex-1">
+            <div className="min-h-screen mx-6 md:ml-2 md:mr-6 w-full flex flex-col justify-between">
+              <div className="flex-1 min-h-screen">
                 <Header />
-                {children}
+                <div className="md:mb-0 mb-12">{children}</div>
               </div>
               <Footer />
             </div>

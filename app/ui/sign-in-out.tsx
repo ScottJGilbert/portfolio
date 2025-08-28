@@ -1,6 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { usePathname, useSearchParams } from "next/navigation";
-import clsx from "clsx";
 
 export function SignIn() {
   const pathname = usePathname();
@@ -12,9 +11,7 @@ export function SignIn() {
 
   return (
     <button
-      className={clsx(
-        "m-2 p-3 bg-blue-900 rounded-2xl hover:bg-blue-950 hover:text-g hover:cursor-pointer"
-      )}
+      className="hover:cursor-pointer"
       onClick={() => {
         if (pathname === "/login") {
           signIn("", { callbackUrl: callbackUrl?.toString() });
@@ -23,7 +20,7 @@ export function SignIn() {
         }
       }}
     >
-      <p className="block inline">Sign In</p>
+      <p className="inline">Sign In</p>
     </button>
   );
 }
@@ -32,13 +29,8 @@ export function SignOut() {
   const { data: session } = useSession();
   if (!session?.user) return null;
   return (
-    <button
-      className={clsx(
-        "m-2 p-3 bg-blue-900 rounded-2xl hover:bg-blue-950 hover:text-g hover:cursor-pointer"
-      )}
-      onClick={() => signOut()}
-    >
-      <p className="block inline">Sign Out</p>
+    <button className="hover:cursor-pointer" onClick={() => signOut()}>
+      <p className="inline">Sign Out</p>
     </button>
   );
 }

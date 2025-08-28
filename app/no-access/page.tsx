@@ -1,10 +1,21 @@
 import Link from "next/link";
 import { FaceFrownIcon } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
+import Head from "next/head";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "No Access",
+  description: "You do not have access to this page.",
+  robots: "noindex,nofollow",
+};
 
 export default function Page() {
   return (
     <main className="my-auto flex h-full flex-col items-center justify-center gap-4">
+      <Head>
+        <meta name="robots" content="noindex,nofollow" key="noRobots" />
+      </Head>
       <Suspense>
         <div className="flex gap-2">
           <FaceFrownIcon className="w-10 text-gray-400" />
