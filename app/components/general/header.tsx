@@ -6,6 +6,7 @@ import Navbar from "./nav-bar";
 import { BiMenu, BiCollapseVertical } from "react-icons/bi";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,9 +22,18 @@ export default function Header() {
         <div className="relative flex z-50 justify-between p-4 md:hidden rounded-l-full rounded-r-full bg-green-950 border-gray-50 border-1">
           <Link
             href="/"
-            className="text-2xl font-bold text-center hover:text-gray-400"
+            className="text-2xl font-bold text-center hover:text-gray-400 items-center flex"
           >
-            Scott Gilbert
+            <Image
+              width={730}
+              height={530}
+              src="/profileIcon.svg"
+              alt="Profile Icon"
+              className="inline h-8 w-11 mr-2"
+            />
+            <span className="h-full inline-flex items-center">
+              Scott Gilbert
+            </span>
           </Link>
           <button onClick={toggleMenu}>
             <BiMenu

@@ -12,7 +12,7 @@ const components = {
   img: (props: ImageProps) => (
     <Image
       {...props}
-      className="rounded-2xl"
+      className="rounded-2xl max-w-2xl mx-auto"
       layout="responsive"
       width={props.width || 800}
       height={props.height || 600}
@@ -74,7 +74,7 @@ export default async function MDXPage({
   }
 
   return (
-    <div>
+    <div className="mt-4">
       <div className="flex justify-between">
         <div>
           <h1>{item[0].title}</h1>

@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Biography() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex space-between mb-8 gap-4">
+      <div className="flex flex-col md:flex-row md:space-between mb-8 gap-4">
         <Image
           src="/portrait.jpg"
           alt="portrait"

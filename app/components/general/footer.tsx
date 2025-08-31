@@ -3,15 +3,6 @@
 import Link from "next/link";
 import { SignIn, SignOut } from "../../ui/sign-in-out";
 import { Suspense } from "react";
-import {
-  PhoneIcon,
-  EnvelopeIcon,
-  UserIcon,
-  BriefcaseIcon,
-  ChatBubbleLeftRightIcon,
-  DocumentDuplicateIcon,
-} from "@heroicons/react/24/outline";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
 import Button from "@/app/ui/button";
 
@@ -19,11 +10,11 @@ const linkSections = [
   {
     title: "Navigation",
     links: [
-      { name: "About", href: "/about", icon: UserIcon },
-      { name: "Projects", href: "/projects", icon: BriefcaseIcon },
-      { name: "Blog", href: "/blog", icon: ChatBubbleLeftRightIcon },
-      { name: "Resume", href: "/resume", icon: DocumentDuplicateIcon },
-      { name: "Contact", href: "/contact", icon: PhoneIcon },
+      { name: "About", href: "/about" },
+      { name: "Projects", href: "/projects" },
+      { name: "Blog", href: "/blog" },
+      { name: "Resume", href: "/resume" },
+      { name: "Contact", href: "/contact" },
     ],
   },
   {
@@ -32,26 +23,23 @@ const linkSections = [
       {
         name: "GitHub",
         href: "https://github.com/ScottJGilbert",
-        icon: FaGithub,
       },
       {
         name: "Linkedin",
         href: "https://www.linkedin.com/in/scott-j-gilbert/",
-        icon: FaLinkedin,
       },
       {
         name: "Email",
         href: "mailto:scott7gilbert@gmail.com",
-        icon: EnvelopeIcon,
       },
     ],
   },
   {
     title: "More",
     links: [
-      { name: "Attributions", href: "/attributions", icon: null },
-      { name: "Images", href: "/images", icon: null },
-      { name: "Sitemap", href: "/sitemap.xml", icon: null },
+      { name: "Attributions", href: "/attributions" },
+      { name: "Images", href: "/images" },
+      { name: "Sitemap", href: "/sitemap.xml" },
     ],
   },
 ];
@@ -64,10 +52,10 @@ export default function Footer() {
           <div className="h-full flex flex-col justify-between md:mx-16 mx-8 mb-4">
             <div className="min-h-64 flex-1 flex flex-col justify-center items-center">
               <div className="flex flex-col gap-8">
-                <h2 className="text-center">
+                <h2 className="text-center hidden md:block">
                   Ready to make something awesome?
                 </h2>
-                <h1 className="text-center">
+                <h1 className="text-center mt-8">
                   <b>Let&apos;s get in touch!</b>
                 </h1>
                 <Link className="block mx-auto my-4" href="/contact">
@@ -83,7 +71,7 @@ export default function Footer() {
                   alt="Profile Icon"
                   width={730}
                   height={530}
-                  className="mb-4 md:mb-0 h-32 w-44 max-w-full m-0 block mx-auto xl:inline"
+                  className="mb-4 md:mb-0 h-32 w-44 max-w-full m-0 hidden md:block mx-auto xl:inline"
                 />
                 <p
                   suppressHydrationWarning
@@ -103,7 +91,6 @@ export default function Footer() {
                     </p>
                     <div className="flex flex-row justify-center md:flex-col flex-wrap gap-4 md:gap-2">
                       {section.links.map((link) => {
-                        const LinkIcon = link.icon;
                         return (
                           <div key={link.name + "link"}>
                             <Link
@@ -113,7 +100,6 @@ export default function Footer() {
                                 ? { target: "_blank" }
                                 : {})}
                             >
-                              {LinkIcon && <LinkIcon className="w-6 inline" />}
                               <span className="inline-flex flex-col justify-center">
                                 {link.name}
                               </span>

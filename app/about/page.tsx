@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function Page() {
   return (
     <div>
-      <div>
+      <div className="mt-4">
         <h1>Biography</h1>
         <Biography />
       </div>

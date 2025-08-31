@@ -47,7 +47,7 @@ export default function RootLayout({
               <div className="min-h-screen mx-6 md:ml-0 md:mr-6 flex flex-col justify-between">
                 <div className="flex-1 min-h-screen">
                   <Header />
-                  <div className="h-24 md:h-0"></div>
+                  <div className="h-32 md:h-0"></div>
                   <div className="md:mb-0 mb-12">{children}</div>
                 </div>
                 <Footer />

@@ -34,18 +34,15 @@ const places = [
 ];
 
 export default function Page() {
-  const [currentString, setCurrentString] = useState("a tinkerer");
   const [currentIndex, setCurrentIndex] = useState(0);
+  const currentString = strings[currentIndex];
 
   useEffect(() => {
-    if (currentIndex == strings.length) {
-      setCurrentIndex(0);
-    }
-    setTimeout(() => {
-      setCurrentString(strings[currentIndex]);
-      setCurrentIndex(currentIndex + 1);
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % strings.length);
     }, 1500);
-  }, [currentIndex]);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>
@@ -60,9 +57,11 @@ export default function Page() {
                 </b>
               </p>
               <h2 className="block text-3xl md:text-4xl text-center mt-4">
-                <span className="block">I&apos;m {currentString}</span> and
-                computer engineer on a mission to make tomorrow <i>just</i> a
-                little brighter.
+                <span className="flex h-20 items-center justify-center md:block md:h-auto">
+                  I&apos;m {currentString}
+                </span>{" "}
+                and computer engineer on a mission to make tomorrow <i>just</i>{" "}
+                a little brighter.
               </h2>
             </div>
             <Link
@@ -111,7 +110,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="text-center">
+      <div className="text-center mb-16">
         <h1>Expertise Across Fields</h1>
         <p className="pb-4">
           Well-versed in a wide range of tools used in Electrical Engineering,

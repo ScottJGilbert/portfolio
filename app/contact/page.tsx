@@ -1,6 +1,6 @@
 export default function ContactPage() {
   return (
-    <div>
+    <div className="mt-4">
       <h1>Contact Page</h1>
       <p>
         This page is under construction. If you need to get in touch, please
