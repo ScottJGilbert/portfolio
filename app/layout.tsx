@@ -20,6 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://scott-gilbert.vercel.app"),
   title: {
     template: "%s | Scott Gilbert",
     default: "Scott Gilbert - Computer Engineer",
@@ -36,18 +37,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen overflow-x-hidden touch-pan-y`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen w-screen overflow-x-hidden touch-pan-y`}
       >
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-        <main className="flex w-screen-xl mx-auto w-full">
+        <main className="flex">
           <SessionProvider>
             <Sidebar />
-            <div className="min-h-screen mx-6 md:ml-2 md:mr-6 w-full flex flex-col justify-between">
-              <div className="flex-1 min-h-screen">
-                <Header />
-                <div className="md:mb-0 mb-12">{children}</div>
+            <div className="flex-1">
+              <div className="min-h-screen mx-6 md:ml-0 md:mr-6 flex flex-col justify-between">
+                <div className="flex-1 min-h-screen">
+                  <Header />
+                  <div className="h-24 md:h-0"></div>
+                  <div className="md:mb-0 mb-12">{children}</div>
+                </div>
+                <Footer />
               </div>
-              <Footer />
             </div>
           </SessionProvider>
         </main>

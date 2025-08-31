@@ -89,11 +89,16 @@ export default function ExperienceDisplay({
                 : experience.end_date?.toDateString()}
             </h4>
             <MDXExperience markdown={experience.markdown} />
-            {experience.expertise.map((expertise) => {
-              return (
-                <ExpertiseBox key={expertise.name + "area"} area={expertise} />
-              );
-            })}
+            <div className="flex flex-wrap gap-2 mt-4 mb-4">
+              {experience.expertise.map((expertise) => {
+                return (
+                  <ExpertiseBox
+                    key={expertise.name + "area"}
+                    area={expertise}
+                  />
+                );
+              })}
+            </div>
           </div>
         );
       })}

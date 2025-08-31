@@ -5,6 +5,8 @@ import { fetchExpertiseAreas } from "@/lib/db";
 import { Expertise } from "@/lib/definitions";
 import Link from "next/link";
 import Button from "../ui/button";
+import Image from "next/image";
+import { isUrl } from "check-valid-url";
 
 //Categories: Languages, frameworks, tools(?)
 export default function EditExpertise() {
@@ -52,6 +54,23 @@ export default function EditExpertise() {
   const newArea = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (formData.name === "") {
+      alert("Please include a name.");
+      return;
+    }
+
+    for (const area of areas) {
+      if (area.name === formData.name) {
+        alert("An area with this name already exists.");
+        return;
+      }
+    }
+
+    if (formData.image_url !== "" && !isUrl(formData.image_url)) {
+      alert("Please include a valid URL.");
+      return;
+    }
+
     if (formData.name !== "") {
       const newArea: Expertise = {
         ...formData,
@@ -60,7 +79,6 @@ export default function EditExpertise() {
 
       setFormData(blank);
     } else {
-      alert("Please include a name.");
     }
   };
 
@@ -78,13 +96,6 @@ export default function EditExpertise() {
           >
             ← Go Back
           </Link>
-          <Link
-            href="/images"
-            target="_blank"
-            className="p-2 rounded-xl bg-red-800 hover:bg-red-900 hover:cursor-pointer text-center flex flex-col justify-center border-solid border-1 border-gray-50"
-          >
-            Ensure all images are uploaded →
-          </Link>
         </div>
       </div>
       <div className="my-4">
@@ -96,35 +107,42 @@ export default function EditExpertise() {
             <b>Category</b>
           </p>
           <p>
-            <b>Image Url</b>
+            <b>Image</b>
           </p>
         </div>
-        {areas.map((area) => {
-          const index = areas.indexOf(area);
+        <div className="grid grid-cols-3 xl:grid-cols-4 gap-2 my-2">
+          {areas.map((area) => {
+            const index = areas.indexOf(area);
 
-          const remove = () => {
-            setAreas(areas.toSpliced(index, 1));
-          };
+            const remove = () => {
+              setAreas(areas.toSpliced(index, 1));
+            };
 
-          return (
-            <div key={area.name + "area"} className="flex gap-4">
-              <p className="my-auto">{area.name}</p>
-              <p className="my-auto">
-                {area.category.charAt(0).toUpperCase() + area.category.slice(1)}
-              </p>
-              <a
-                href={area.image_url}
-                target="_blank"
-                className="block my-auto"
+            return (
+              <div
+                key={area.name + "area"}
+                className="flex justify-between p-2 rounded-xl border-gray-50 border-1"
               >
-                {area.image_url}
-              </a>
-              <Button onClick={remove} className="bg-red-700 py-1 my-0">
-                Delete
-              </Button>
-            </div>
-          );
-        })}
+                <p className="my-auto">{area.name}</p>
+                <p className="my-auto">
+                  {area.category.charAt(0).toUpperCase() +
+                    area.category.slice(1)}
+                </p>
+                <Image
+                  height={16}
+                  width={16}
+                  src={
+                    area.image_url === "" ? "/profileIcon.svg" : area.image_url
+                  }
+                  alt="Link"
+                />
+                <Button onClick={remove} className="bg-red-700 py-1 my-0">
+                  Delete
+                </Button>
+              </div>
+            );
+          })}
+        </div>
       </div>
       <div>
         <h2>New</h2>
@@ -135,19 +153,33 @@ export default function EditExpertise() {
             name="name"
             placeholder="Name (required)"
             onChange={onChange}
-          ></input>
+            autoComplete="off"
+            value={formData.name}
+          />
           <input
             type="url"
             name="image_url"
             placeholder="Image URL"
             onChange={onChange}
-          ></input>
-          <select name="category" onChange={handleCategory}>
+            autoComplete="off"
+            value={formData.image_url}
+          />
+          <select
+            name="category"
+            onChange={handleCategory}
+            value={formData.category || "language"}
+          >
             <option value="language" className="text-black">
               Language
             </option>
+            <option value="library" className="text-black">
+              Library
+            </option>
             <option value="framework" className="text-black">
               Framework
+            </option>
+            <option value="service" className="text-black">
+              Service
             </option>
             <option value="hardware" className="text-black">
               Hardware

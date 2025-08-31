@@ -21,7 +21,7 @@ export default function Sidebar() {
         isVisible ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="hidden sticky flex-col justify-between top-1 m-4 px-4 py-4 bg-green-950 rounded-4xl border-1 border-gray-50 md:flex">
+      <div className="hidden flex-col gap-2 m-4 px-4 py-4 bg-green-950 rounded-4xl border-1 border-gray-50 md:flex">
         <Link href="/" className="px-4">
           <Image
             src="/profileIcon.svg"

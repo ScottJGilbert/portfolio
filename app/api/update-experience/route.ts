@@ -10,12 +10,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
 
   const data = await req.json();
-
-  console.log(data);
-
   const experience = data as Experience;
-
-  console.log(experience);
 
   try {
     await updateExperience(experience);

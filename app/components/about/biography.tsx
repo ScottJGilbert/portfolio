@@ -11,11 +11,17 @@ export default function Biography() {
           width={300}
           className="rounded-2xl border-gray-50 border-1"
         />
-        <div>
+        <div className="[&>*]:mb-4 text-lg">
           <p>
             Hello! I&apos;m Scott, an undergraduate computer engineering student
             at the University of Illinois at Urbana-Champaign and a graduate of
             James B. Conant High School in Hoffman Estates, Illinois.
+          </p>
+          <p>
+            I am a hard-working full-stack developer, problem-solver, and
+            computer engineer who is dedicated to deploying information
+            technology, computing, and electrical engineering solutions to both
+            solve complex problems and make a difference in peoples&apos; lives.
           </p>
         </div>
       </div>

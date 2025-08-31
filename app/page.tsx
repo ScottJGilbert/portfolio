@@ -34,7 +34,7 @@ const places = [
 ];
 
 export default function Page() {
-  const [currentString, setCurrentString] = useState("A tinkerer");
+  const [currentString, setCurrentString] = useState("a tinkerer");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -111,7 +111,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="min-h-screen text-center">
+      <div className="text-center">
         <h1>Expertise Across Fields</h1>
         <p className="pb-4">
           Well-versed in a wide range of tools used in Electrical Engineering,
@@ -126,7 +126,7 @@ export default function Page() {
           Prepared for the toughest challenges with a depth of skills learned in
           industry, academia, and in the not-for-profit sector.
         </p>
-        <div className="inline-flex gap-4">
+        <div className="inline-flex md:flex-row flex-col basis-0 gap-4">
           {places.map((place) => {
             return (
               <div

@@ -9,7 +9,7 @@ import { Experience } from "@/lib/definitions";
 
 export default async function EditAllExperience() {
   const ids = await fetchExperienceIDs();
-  const blankStrings: string[] = [""];
+  const blankStrings: string[] = [];
   const expertiseAreas = await fetchExpertiseAreas(blankStrings);
 
   const blank: Experience = {

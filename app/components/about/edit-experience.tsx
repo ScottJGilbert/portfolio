@@ -11,6 +11,9 @@ export default function EditExperience({
   expertiseAreas: Expertise[];
 }) {
   const [markdown, setMarkdown] = useState(initialData.markdown);
+  const [expertiseStrings, setExpertiseStrings] = useState(
+    initialData.expertise.map((e) => e.name)
+  );
   const [formData, setFormData] = useState(initialData);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -25,13 +28,13 @@ export default function EditExperience({
   const handleArea = (e: React.ChangeEvent<HTMLInputElement>) => {
     const area = e.target.name;
     const isChecked = e.target.checked;
-
-    setFormData((prev) => ({
-      ...prev,
-      categories: isChecked
-        ? [...prev.expertise, area]
-        : prev.expertise.filter((c) => c.name !== area),
-    }));
+    setExpertiseStrings((prev) => {
+      if (isChecked) {
+        return [...prev, area];
+      } else {
+        return prev.filter((c) => c !== area);
+      }
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -47,6 +50,9 @@ export default function EditExperience({
       const updatedFormData: Experience = {
         ...formData,
         markdown: markdown,
+        expertise: expertiseAreas.filter((area) =>
+          expertiseStrings.includes(area.name)
+        ),
       };
 
       const res = await fetch("/api/update-experience", {
@@ -100,25 +106,6 @@ export default function EditExperience({
             max={"2200-01-01"}
             onChange={handleChange}
           />
-          <div className="h-12 overflow-y-auto px-4 flex flex-col">
-            <p>Expertise Areas:</p>
-            {expertiseAreas.map((expertise) => {
-              return (
-                <span key={expertise.name + "checkbox"} className="flex gap-2">
-                  <input
-                    type="checkbox"
-                    name={expertise.name}
-                    id={expertise.name + "id"}
-                    defaultChecked={initialData.expertise.includes(expertise)}
-                    onChange={handleArea}
-                  />
-                  <label htmlFor={expertise.name + "id"}>
-                    {expertise.name}
-                  </label>
-                </span>
-              );
-            })}
-          </div>
           <div className="flex gap-2">
             <input
               type="checkbox"
@@ -143,6 +130,23 @@ export default function EditExperience({
           >
             {isSaving ? "Saving..." : "Save"}
           </button>
+        </div>
+        <div className="max-h-96 overflow-y-auto px-4 flex flex-col">
+          <p>Expertise Areas:</p>
+          {expertiseAreas.map((expertise) => {
+            return (
+              <span key={expertise.name + "checkbox"} className="flex gap-2">
+                <input
+                  type="checkbox"
+                  name={expertise.name}
+                  id={expertise.name + "id"}
+                  defaultChecked={expertiseStrings.includes(expertise.name)}
+                  onChange={handleArea}
+                />
+                <label htmlFor={expertise.name + "id"}>{expertise.name}</label>
+              </span>
+            );
+          })}
         </div>
         <div className="flex-1">
           <textarea

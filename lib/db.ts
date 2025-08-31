@@ -84,7 +84,8 @@ export async function fetchExperience(id: number) {
     const data = await sql<Experience[]>`
       SELECT *
       FROM experience
-      WHERE experience_id = ${id};
+      WHERE experience_id = ${id} 
+      LIMIT 1;
     `;
     const stringData = await sql<{ expertise: string[] }[]>`
       SELECT expertise
@@ -92,7 +93,8 @@ export async function fetchExperience(id: number) {
       WHERE experience_id = ${id};
     `;
     const experience: Experience = data[0] as Experience;
-    experience.expertise = await fetchExpertiseAreas(stringData[0].expertise);
+    if (stringData[0].expertise.length > 0)
+      experience.expertise = await fetchExpertiseAreas(stringData[0].expertise);
     return experience;
   } catch (err) {
     console.error("Error fetching experience: ", err);

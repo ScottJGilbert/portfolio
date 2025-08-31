@@ -1,5 +1,4 @@
 import createMDX from "@next/mdx";
-import { hostname } from "os";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -21,7 +20,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.scouting.org",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.simpleicons.org",
+        pathname: "/**",
+      },
     ],
+
+    dangerouslyAllowSVG: true,
   },
   // Optionally, add any other Next.js config below
 };

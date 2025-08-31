@@ -33,22 +33,24 @@ export const ourFileRouter = {
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
       return { email: email };
     })
-    .onUploadComplete(async ({ metadata, file }) => {
-      // This code RUNS ON YOUR SERVER after upload
-      console.log("Upload complete for email:", metadata.email);
+    .onUploadComplete(
+      async ({ metadata, file }): Promise<{ name: string; url: string }> => {
+        // This code RUNS ON YOUR SERVER after upload
+        console.log("Upload complete for email:", metadata.email);
 
-      console.log("file url", file.ufsUrl);
+        console.log("file url", file.ufsUrl);
 
-      const data: ImageData = {
-        name: file.name,
-        url: file.ufsUrl,
-      };
+        const data: ImageData = {
+          name: file.name,
+          url: file.ufsUrl,
+        };
 
-      addImage(data);
+        addImage(data);
 
-      // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return;
-    }),
+        // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
+        return { name: file.name, url: file.ufsUrl };
+      }
+    ),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
