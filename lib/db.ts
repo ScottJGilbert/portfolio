@@ -8,6 +8,7 @@ import {
   Expertise,
   ImageData,
   Experience,
+  Message,
 } from "./definitions";
 import postgres from "postgres";
 
@@ -584,6 +585,42 @@ export async function addImage(data: ImageData) {
     `;
   } catch (err) {
     console.error("Error adding image data: ", err);
+    throw err;
+  }
+}
+
+export async function fetchMessages(): Promise<Message[]> {
+  try {
+    const data = await sql<Message[]>`
+      SELECT *
+      FROM messages
+      ORDER BY time_sent DESC;
+    `;
+    return data;
+  } catch (err) {
+    console.error("Error fetching messages: ", err);
+    return [];
+  }
+}
+
+export async function addMessage(data: Omit<Message, "id" | "time_sent">) {
+  try {
+    await sql`
+      INSERT
+      INTO messages (
+        first_name,
+        last_name,
+        email,
+        message)
+      VALUES (
+        ${data.first_name},
+        ${data.last_name},
+        ${data.email},
+        ${data.message}
+      );
+    `;
+  } catch (err) {
+    console.error("Error adding message: ", err);
     throw err;
   }
 }

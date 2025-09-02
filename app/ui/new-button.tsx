@@ -9,7 +9,7 @@ export default function NewButton() {
   let href = "";
   let disabled = true;
   if (session?.user?.email === "scott7gilbert@gmail.com") {
-    href = "/new";
+    href = "new";
     disabled = false;
   }
   return (

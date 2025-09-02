@@ -1,6 +1,7 @@
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@tailwindcss/oxide'
+  - es5-ext
   - msgpackr-extract
   - sharp
   - unrs-resolver

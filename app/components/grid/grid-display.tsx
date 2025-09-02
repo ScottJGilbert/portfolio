@@ -74,7 +74,11 @@ export default function GridDisplay({ type }: { type: string }) {
                   className="p-4 rounded-2xl bg-green-950 border-solid border-1 border-gray-50"
                 >
                   <Image
-                    src={item.image_url === "" ? "/icon.png" : item.image_url}
+                    src={
+                      item.image_url === ""
+                        ? "/profileIcon.svg"
+                        : item.image_url
+                    }
                     alt="new file"
                     height="144"
                     width="273"

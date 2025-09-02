@@ -9,7 +9,7 @@ export default function Biography() {
           alt="portrait"
           height={375}
           width={300}
-          className="rounded-2xl border-gray-50 border-1"
+          className="rounded-2xl border-gray-50 border-1 w-full md:w-auto"
         />
         <div className="[&>*]:mb-4 text-lg">
           <p>

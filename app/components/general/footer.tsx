@@ -38,7 +38,6 @@ const linkSections = [
     title: "More",
     links: [
       { name: "Attributions", href: "/attributions" },
-      { name: "Images", href: "/images" },
       { name: "Sitemap", href: "/sitemap.xml" },
     ],
   },

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import Head from "next/head";
 import Button from "@/app/ui/button";
+import Editor from "./editor";
 
 export default function EditPage({
   initialData,
@@ -116,7 +117,8 @@ export default function EditPage({
           });
           if (res.ok) {
             alert("Deleted!");
-            router.push("/" + type + "s");
+            if (type === "project") router.push("/projects");
+            else if (type === "post") router.push("/blog");
             return;
           }
         }
@@ -157,7 +159,13 @@ export default function EditPage({
                       type="date"
                       name="date_one"
                       onChange={handleChange}
-                      defaultValue={formData.date_one}
+                      defaultValue={
+                        formData.date_one === ""
+                          ? ""
+                          : new Date(formData.date_one)
+                              .toISOString()
+                              .split("T")[0]
+                      }
                       min={"2007-01-01"}
                       max={"2200-01-01"}
                       required
@@ -166,7 +174,13 @@ export default function EditPage({
                       type="date"
                       name="date_two"
                       onChange={handleChange}
-                      defaultValue={formData.date_two}
+                      defaultValue={
+                        formData.date_two === ""
+                          ? ""
+                          : new Date(formData.date_two)
+                              .toISOString()
+                              .split("T")[0]
+                      }
                       min={"2007-01-01"}
                       max={"2200-01-01"}
                     />
@@ -226,14 +240,9 @@ export default function EditPage({
             ></textarea>
           </div>
           <div className="relative">
-            <textarea
-              name="markdown_content"
-              value={text}
-              onChange={(e) => {
-                setText(e.target.value);
-              }}
-              className="p-2 border border-gray-300 rounded-xl h-96 w-full"
-            ></textarea>
+            <div className="p-2 border border-gray-300 rounded-xl h-96 w-full">
+              <Editor markdown={text} onChange={setText} />
+            </div>
           </div>
           <div className="flex justify-between">
             <div className="flex gap-4 mt-2">

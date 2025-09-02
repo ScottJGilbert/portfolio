@@ -1,6 +1,7 @@
 @import "tailwindcss";
-
+@import "../node_modules/@mdxeditor/editor/dist/style.css";
 @import "uploadthing/tw/v4";
+@import "@mdxeditor/editor/style.css";
 
 :root {
   --background: #021d08;
@@ -41,4 +42,41 @@ h3 {
 h4 {
   font-size: 1.25rem;
   font-weight: bold;
+}
+
+.prose {
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  line-height: 1.75;
+  max-width: 65ch;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+/* Force text to always be white */
+.mdxeditor,
+.mdxeditor * {
+  color: white !important;
+}
+
+/* Toolbar background + button text */
+.mdxeditor .mdxeditor-toolbar {
+  background-color: transparent; /* Or use #111 for a dark bar */
+  border: none;
+}
+
+.mdxeditor .mdxeditor-toolbar button {
+  color: white !important;
+  fill: white !important; /* for SVG icons */
+  background-color: transparent;
+}
+
+.mdxeditor .mdxeditor-toolbar button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mdxeditor .mdxeditor-toolbar button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }

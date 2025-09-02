@@ -69,3 +69,12 @@ export type ImageData = {
   name: string;
   url: string;
 };
+
+export type Message = {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  message: string;
+  time_sent: Date;
+};

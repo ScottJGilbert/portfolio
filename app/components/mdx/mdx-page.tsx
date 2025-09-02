@@ -64,12 +64,10 @@ export default async function MDXPage({
     rawText = markdown as string;
   }
 
-  let href = "";
   let disabled = true;
 
   const session = await auth();
   if (session?.user?.email === "scott7gilbert@gmail.com") {
-    href = "/new";
     disabled = false;
   }
 
@@ -105,7 +103,7 @@ export default async function MDXPage({
         </div>
         <div className="z-0 flex flex-col justify-center">
           <Link
-            href={href}
+            href="edit"
             className={clsx("z-0 p-3 rounded-2xl bg-green-950 my-auto", {
               "brightness-50 hover:cursor-not-allowed": disabled === true,
             })}
