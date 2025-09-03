@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import type { Item } from "@/lib/definitions";
+import Category from "@/app/ui/category";
 
 export default function GridDisplay({ type }: { type: string }) {
   const pathname = usePathname();
@@ -89,16 +90,13 @@ export default function GridDisplay({ type }: { type: string }) {
                     {item.date_one +
                       (type === "project" ? " - " + item.date_two : "")}
                   </p>
-                  <div>
-                    <span>Categories: </span>
+                  <div className="flex flex-wrap gap-2 my-2">
                     {item.categories.map((categoryString) => {
                       return (
-                        <span
+                        <Category
                           key={categoryString + "category"}
-                          className="mx-1 text-gray-500"
-                        >
-                          {categoryString}
-                        </span>
+                          area={categoryString}
+                        />
                       );
                     })}
                   </div>

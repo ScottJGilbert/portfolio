@@ -1,4 +1,7 @@
-import { EnvelopeIcon } from "@heroicons/react/24/outline";
+import {
+  EnvelopeIcon,
+  DocumentDuplicateIcon,
+} from "@heroicons/react/24/outline";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const links = [
@@ -13,6 +16,7 @@ const links = [
     icon: FaLinkedin,
   },
   { name: "Email", href: "mailto:scott7gilbert@gmail.com", icon: EnvelopeIcon },
+  { name: "Resume", href: "/resume.pdf", icon: DocumentDuplicateIcon },
 ];
 
 export default function Contactbar() {

@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { Suspense, useState } from "react";
 
-const EditorComp = dynamic(() => import("../components/mdx/editor"), {
+const EditorComp = dynamic(() => import("../ui/editor"), {
   ssr: false,
 });
 
@@ -36,7 +36,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="mt-4 rounded-2xl p-6 bg-gradient-to-b from-green-950 to-green-900 text-white mx-auto min-h-full border-gray-50 border">
+    <div className="mt-4 rounded-2xl p-6 bg-gradient-to-b from-green-950 to-green-900 text-white mx-auto md:min-h-[calc(100vh-2rem)] border-gray-50 border">
       <h1>Contact Me</h1>
       <form className="mb-4" data-color-mode="light" onSubmit={submitForm}>
         <div className="mb-4 [&>input]:mr-4 [&>input]:mb-4">

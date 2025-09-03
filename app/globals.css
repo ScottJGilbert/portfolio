@@ -44,6 +44,10 @@ h4 {
   font-weight: bold;
 }
 
+text {
+  -size: 1.15rem;
+}
+
 .prose {
   color: var(--foreground);
   font-family: var(--font-sans);
@@ -51,20 +55,66 @@ h4 {
   max-width: 65ch;
 }
 
+.mdxeditor ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
 .prose strong {
   font-weight: 600;
+}
+
+.mdxeditor {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important; /* prevents flex children from forcing expansion */
+  overflow-x: hidden !important;
+  box-sizing: border-box;
 }
 
 /* Force text to always be white */
 .mdxeditor,
 .mdxeditor * {
   color: white !important;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  margin-bottom: 0.5rem;
+}
+
+.mdxeditor .mdxeditor-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.mdxeditor pre {
+  white-space: pre-wrap; /* allow wrapping */
+  word-break: break-word;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.mdxeditor table {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
 }
 
 /* Toolbar background + button text */
 .mdxeditor .mdxeditor-toolbar {
   background-color: transparent; /* Or use #111 for a dark bar */
   border: none;
+  width: 100% !important;
+  left: 0;
+  right: 0;
+  margin: 0 auto; /* keep centered if possible */
+  overflow-x: auto; /* allow horizontal scroll if too many buttons */
+  border-radius: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .mdxeditor .mdxeditor-toolbar button {

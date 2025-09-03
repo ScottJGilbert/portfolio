@@ -4,7 +4,6 @@ import {
   UserIcon,
   BriefcaseIcon,
   ChatBubbleLeftRightIcon,
-  DocumentDuplicateIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -15,7 +14,6 @@ const links = [
   { name: "About", href: "/about", icon: UserIcon },
   { name: "Projects", href: "/projects", icon: BriefcaseIcon },
   { name: "Blog", href: "/blog", icon: ChatBubbleLeftRightIcon },
-  { name: "Resume", href: "/resume", icon: DocumentDuplicateIcon },
   { name: "Contact", href: "/contact", icon: PhoneIcon },
 ];
 

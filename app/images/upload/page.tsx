@@ -18,8 +18,6 @@ export default function Page() {
           ← Go Back
         </Link>
       </div>
-      <h1>Upload Image</h1>
-      <hr></hr>
       <Upload />
     </main>
   );

@@ -38,7 +38,7 @@ export default function ExperienceDisplay({
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 40 40"
             fill="none"
-            className="w-8 z-20 absolute"
+            className="w-8 translate-y-1 z-20 absolute"
           >
             {/* Timeline circle that goes in the middle */}
             <circle

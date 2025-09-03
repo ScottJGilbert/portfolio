@@ -13,7 +13,6 @@ const linkSections = [
       { name: "About", href: "/about" },
       { name: "Projects", href: "/projects" },
       { name: "Blog", href: "/blog" },
-      { name: "Resume", href: "/resume" },
       { name: "Contact", href: "/contact" },
     ],
   },
@@ -32,6 +31,7 @@ const linkSections = [
         name: "Email",
         href: "mailto:scott7gilbert@gmail.com",
       },
+      { name: "Resume", href: "/resume.pdf" },
     ],
   },
   {
@@ -47,7 +47,7 @@ export default function Footer() {
   return (
     <div className="flex md:min-h-screen min-h-[calc(100vh-6.5rem)]">
       <div className="flex-1 py-4 min-h-full">
-        <div className="h-full p-3 bg-green-950 rounded-4xl border-solid border-1 border-gray-50">
+        <div className="h-full p-3 bg-gradient-to-t md:bg-gradient-to-bl from-green-950 to-green-900 rounded-4xl border-solid border-1 border-gray-50">
           <div className="h-full flex flex-col justify-between md:mx-16 mx-8 mb-4">
             <div className="min-h-64 flex-1 flex flex-col justify-center items-center">
               <div className="flex flex-col gap-8">

@@ -1,13 +1,13 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect, useRef } from "react";
 import { Item, ItemWithMarkdown } from "@/lib/definitions";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import Head from "next/head";
 import Button from "@/app/ui/button";
-import Editor from "./editor";
+import Editor from "../../ui/editor";
+import Upload from "../images/upload";
 
 export default function EditPage({
   initialData,
@@ -29,6 +29,16 @@ export default function EditPage({
   const newPath = currentPath.split("/").slice(0, -1).join("/");
   const [listedCategories, setListedCategories] = useState(categories);
   const [newCategory, setNewCategory] = useState("");
+
+  const [displayedImageUrl, setDisplayedImageUrl] = useState("");
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const onSetNewCategory = (e: React.FormEvent) => {
     e.preventDefault();
@@ -134,59 +144,109 @@ export default function EditPage({
       </Head>
       <Suspense>
         <form onSubmit={handleSubmit}>
-          <div className="flex justify-between my-2">
-            <div className="flex gap-3 my-2">
-              <div className="my-auto [&>input]:py-2 [&>input]:px-2 [&>input]:mr-4 [&>*]:border-1 [&>*]:border-gray-50 [&>*]:rounded-xl flex justify-between gap-6 flex-wrap">
-                <input
-                  type="text"
-                  name="title"
-                  placeholder="Title... (required)"
-                  onChange={handleChange}
-                  defaultValue={formData.title}
-                  required={true}
-                />
-                <input
-                  type="url"
-                  name="image_url"
-                  onChange={handleChange}
-                  defaultValue={formData.image_url}
-                  placeholder="Image URL..."
-                  className="flex-1"
-                />
-                {type === "project" && (
-                  <>
+          <div className="flex gap-4">
+            <div>
+              <div className="flex justify-between my-2">
+                <div className="flex gap-3 my-2">
+                  <div className="my-auto [&>input]:py-2 [&>input]:px-2 [&>input]:mr-4 [&>*]:border-1 [&>*]:border-gray-50 [&>*]:rounded-xl flex justify-between gap-6 flex-wrap">
                     <input
-                      type="date"
-                      name="date_one"
+                      type="text"
+                      name="title"
+                      placeholder="Title... (required)"
                       onChange={handleChange}
-                      defaultValue={
-                        formData.date_one === ""
-                          ? ""
-                          : new Date(formData.date_one)
-                              .toISOString()
-                              .split("T")[0]
-                      }
-                      min={"2007-01-01"}
-                      max={"2200-01-01"}
-                      required
+                      defaultValue={formData.title}
+                      required={true}
                     />
                     <input
-                      type="date"
-                      name="date_two"
+                      type="url"
+                      name="image_url"
                       onChange={handleChange}
-                      defaultValue={
-                        formData.date_two === ""
-                          ? ""
-                          : new Date(formData.date_two)
-                              .toISOString()
-                              .split("T")[0]
-                      }
-                      min={"2007-01-01"}
-                      max={"2200-01-01"}
+                      defaultValue={formData.image_url}
+                      placeholder="Image URL..."
+                      className="flex-1"
                     />
-                  </>
-                )}
-                <div className="h-12 overflow-y-auto px-4 flex flex-col">
+                    {type === "project" && (
+                      <>
+                        <input
+                          type="date"
+                          name="date_one"
+                          onChange={handleChange}
+                          defaultValue={
+                            formData.date_one === ""
+                              ? ""
+                              : new Date(formData.date_one)
+                                  .toISOString()
+                                  .split("T")[0]
+                          }
+                          min={"2007-01-01"}
+                          max={"2200-01-01"}
+                          required
+                          suppressHydrationWarning
+                        />
+                        <input
+                          type="date"
+                          name="date_two"
+                          onChange={handleChange}
+                          defaultValue={
+                            formData.date_two === ""
+                              ? ""
+                              : new Date(formData.date_two)
+                                  .toISOString()
+                                  .split("T")[0]
+                          }
+                          min={"2007-01-01"}
+                          max={"2200-01-01"}
+                          suppressHydrationWarning
+                        />
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <span>
+                  {type === "project"
+                    ? ""
+                    : "Created on " + initialData.date_one}
+                </span>
+                <span>
+                  {type === "project"
+                    ? ""
+                    : "| Last edited on " + initialData.date_two}
+                </span>
+              </div>
+              <div>
+                <textarea
+                  name="description"
+                  className="p-2 mb-2 w-full border border-gray-300 rounded-xl"
+                  value={description}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                ></textarea>
+              </div>
+              <div className="relative">
+                <div className="p-2 border border-gray-300 rounded-xl h-96 w-full">
+                  <Editor markdown={text} onChange={setText} />
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="pl-2 flex flex-col">
+                <div className="mt-4 flex gap-2 rounded-xl border border-gray-300">
+                  <input
+                    name="new_category"
+                    className="p-2 rounded-xl"
+                    type="text"
+                    placeholder="New category..."
+                    onChange={(e) => {
+                      setNewCategory(e.target.value);
+                    }}
+                    value={newCategory}
+                  />
+                  <Button onClick={onSetNewCategory}>Add</Button>
+                </div>
+                <div className="flex flex-col mt-4 h-72">
                   <p>Categories:</p>
                   {listedCategories.map((category) => {
                     return (
@@ -203,70 +263,28 @@ export default function EditPage({
                     );
                   })}
                 </div>
-                <div className="flex gap-2">
-                  <input
-                    name="new_category"
-                    className="p-2 rounded-xl"
-                    type="text"
-                    placeholder="New category..."
-                    onChange={(e) => {
-                      setNewCategory(e.target.value);
-                    }}
-                    value={newCategory}
-                  />
-                  <Button onClick={onSetNewCategory}>Add</Button>
-                </div>
               </div>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <span>
-              {type === "project" ? "" : "Created on " + initialData.date_one}
-            </span>
-            <span>
-              {type === "project"
-                ? ""
-                : "| Last edited on " + initialData.date_two}
-            </span>
-          </div>
-          <div>
-            <textarea
-              name="description"
-              className="p-2 mb-2 w-full border border-gray-300 rounded-xl"
-              value={description}
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
-            ></textarea>
-          </div>
-          <div className="relative">
-            <div className="p-2 border border-gray-300 rounded-xl h-96 w-full">
-              <Editor markdown={text} onChange={setText} />
             </div>
           </div>
           <div className="flex justify-between">
             <div className="flex gap-4 mt-2">
-              <Button onClick={handleClick}>← Go Back</Button>
-              <button
-                className="py-4 px-4 rounded-xl bg-green-950 hover:bg-blue-950 hover:cursor-pointer border-solid border-1 border-gray-50"
-                disabled={isSaving}
-              >
+              <Button className="ml-0" onClick={handleClick}>
+                ← Go Back
+              </Button>
+              <Button disabled={isSaving}>
                 {isSaving ? "Saving..." : "Save"}
-              </button>
-              <Link
-                href="/images"
-                target="_blank"
-                className="p-2 rounded-xl bg-red-800 hover:bg-red-900 hover:cursor-pointer text-center flex flex-col justify-center border-solid border-1 border-gray-50"
-              >
-                Ensure all images are uploaded →
-              </Link>
+              </Button>
+              <Upload
+                onComplete={(result) => setDisplayedImageUrl(result.ufsUrl)}
+              />
+              <p className="flex items-center">{displayedImageUrl}</p>
             </div>
-            <button
+            <Button
               onClick={handleDelete}
               className="px-4 rounded-xl bg-red-800 hover:bg-red-900 hover:cursor-pointer text-center flex flex-col justify-center border-solid border-1 border-gray-50"
             >
               Delete
-            </button>
+            </Button>
           </div>
         </form>
       </Suspense>

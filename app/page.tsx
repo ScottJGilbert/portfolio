@@ -6,6 +6,7 @@ import Link from "next/link";
 import { fetchPosts, fetchProjects } from "@/lib/db";
 import { Item } from "@/lib/definitions";
 import Image from "next/image";
+import Category from "./ui/category";
 
 const strings = [
   "a trombone player",
@@ -224,16 +225,13 @@ function Projects() {
               <p className="text-gray-400">
                 {item.date_one + " - " + item.date_two}
               </p>
-              <div>
-                <span>Categories: </span>
+              <div className="flex flex-wrap gap-2 my-2">
                 {item.categories.map((categoryString) => {
                   return (
-                    <span
+                    <Category
                       key={categoryString + "category"}
-                      className="mx-1 text-gray-500"
-                    >
-                      {categoryString}
-                    </span>
+                      area={categoryString}
+                    />
                   );
                 })}
               </div>
@@ -293,16 +291,13 @@ function Posts() {
               <p className="text-gray-400">
                 {item.date_one + " - " + item.date_two}
               </p>
-              <div>
-                <span>Categories: </span>
+              <div className="flex flex-wrap gap-2 my-2">
                 {item.categories.map((categoryString) => {
                   return (
-                    <span
+                    <Category
                       key={categoryString + "category"}
-                      className="mx-1 text-gray-500"
-                    >
-                      {categoryString}
-                    </span>
+                      area={categoryString}
+                    />
                   );
                 })}
               </div>

@@ -19,7 +19,7 @@ export default function Header() {
     <div className="fixed w-full top-4 z-50">
       <div className="mr-12">
         <div className="fixed top-0 z-0 w-full h-12 bg-[var(--background)] -translate-x-4 md:hidden"></div>
-        <div className="relative flex z-50 justify-between p-4 md:hidden rounded-l-full rounded-r-full bg-green-950 border-gray-50 border-1">
+        <div className="relative flex z-50 justify-between p-4 md:hidden rounded-l-full rounded-r-full bg-gradient-to-b from-green-950 to-green-900 border-gray-50 border-1">
           <Link
             href="/"
             className="text-2xl font-bold text-center hover:text-gray-400 items-center flex"

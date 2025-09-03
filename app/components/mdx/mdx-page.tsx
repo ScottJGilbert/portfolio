@@ -7,17 +7,30 @@ import Image, { ImageProps } from "next/image";
 import Link from "next/link";
 import { auth } from "@/auth";
 import clsx from "clsx";
+import Category from "@/app/ui/category";
 
 const components = {
   img: (props: ImageProps) => (
     <Image
       {...props}
-      className="rounded-2xl max-w-2xl mx-auto"
+      className="rounded-2xl max-w-4xl mx-auto"
       layout="responsive"
       width={props.width || 800}
       height={props.height || 600}
       alt={props.alt || ""}
     />
+  ),
+  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <Link
+      {...props}
+      href={props.href || ""}
+      className="text-blue-300 hover:text-blue-400"
+      target={props.target || "_self"}
+      rel={props.target === "_blank" ? "noopener noreferrer" : undefined}
+    />
+  ),
+  ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
+    <ul {...props} className="list-disc list-inside mb-4" />
   ),
 };
 
@@ -72,30 +85,31 @@ export default async function MDXPage({
   }
 
   return (
-    <div className="mt-4">
+    <div className="max-w-6xl mt-4 mx-auto">
       <div className="flex justify-between">
         <div>
           <h1>{item[0].title}</h1>
           <div>
             <div className="flex gap-2">
-              <span>
-                {type === "project"
-                  ? "Start Date: " + item[0].date_one
-                  : item[0].date_one}
-              </span>
-              |
-              <span>
-                {type === "project"
-                  ? item[0].date_two === "Ongoing"
-                    ? "Ongoing"
-                    : "Date Completed: " + item[0].date_two
-                  : "Last Edited " + item[0].date_two}
-              </span>
+              <i>
+                <span>
+                  {type === "project"
+                    ? "Start Date: " + item[0].date_one
+                    : item[0].date_one}
+                </span>
+                {" | "}
+                <span>
+                  {type === "project"
+                    ? item[0].date_two === "Ongoing"
+                      ? "Ongoing"
+                      : "Date Completed: " + item[0].date_two
+                    : "Last Edited " + item[0].date_two}
+                </span>
+              </i>
             </div>
-            <div className="flex gap-2">
-              <>{item[0].categories.length === 0 ? "" : "Categories: "}</>
+            <div className="mt-2 flex gap-2">
               {item[0].categories.map((category) => {
-                return <span key={category + "category"}>{category}</span>;
+                return <Category key={category + "category"} area={category} />;
               })}
               <span className="m-1"> </span>
             </div>
@@ -103,9 +117,16 @@ export default async function MDXPage({
         </div>
         <div className="z-0 flex flex-col justify-center">
           <Link
-            href="edit"
+            href={
+              disabled
+                ? ""
+                : (type === "project" ? "/projects/" : "/blog/") +
+                  slug +
+                  "/edit"
+            }
             className={clsx("z-0 p-3 rounded-2xl bg-green-950 my-auto", {
-              "brightness-50 hover:cursor-not-allowed": disabled === true,
+              "brightness-50 hover:cursor-not-allowed hidden":
+                disabled === true,
             })}
           >
             <span>Edit</span>
@@ -113,7 +134,7 @@ export default async function MDXPage({
         </div>
       </div>
       <hr className="my-2"></hr>
-      <div className="space-y-4 [&>img]:w-full">
+      <div className="space-y-4">
         <MDXRemote components={components} source={rawText} />
       </div>
     </div>

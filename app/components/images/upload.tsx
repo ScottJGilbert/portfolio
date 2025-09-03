@@ -2,30 +2,41 @@
 
 import { UploadButton } from "@/lib/uploadthing";
 
+interface UploadResult {
+  name: string;
+  ufsUrl: string;
+}
+
 export default function Upload({
   onComplete,
 }: {
-  onComplete?: (name: string, url: string) => void;
+  onComplete?: (data: UploadResult) => void;
 }) {
   return (
-    <div className="my-auto flex">
-      <div className="m-auto p-8 rounded-2xl bg-green-950 border-solid border-gray-50 border-1">
-        <UploadButton
-          className="ut-button:p-4 ut-button:m-2 ut-button:bg-red-500 ut-button:hover:bg-red-600 ut-button:hover:cursor-pointer ut-button:ut-readying:bg-red-500/50"
-          endpoint="imageUploader"
-          onClientUploadComplete={(res) => {
-            // Do something with the response
-            console.log("Files: ", res);
-            alert("Upload Completed");
-            if (onComplete) onComplete(res[0].name, res[0].ufsUrl);
-          }}
-          onUploadError={(error: Error) => {
-            // Do something with the error.
-            alert(`ERROR! ${error.message}`);
-          }}
-        />
-        <p className="text-center mt-2">SVG files not accepted.</p>
-      </div>
-    </div>
+    <UploadButton
+      className="ut-button:p-4 ut-button:m-2 ut-button:bg-red-500 ut-button:hover:bg-red-600 ut-button:hover:cursor-pointer ut-button:ut-readying:bg-red-500/50"
+      endpoint="imageUploader"
+      onClientUploadComplete={(res) => {
+        // Do something with the response
+        console.log("Files: ", res);
+        alert("Upload Completed!");
+        if (onComplete)
+          onComplete({ name: res[0].name, ufsUrl: res[0].ufsUrl });
+      }}
+      onUploadError={(error: Error) => {
+        // Do something with the error.
+        alert(`ERROR! ${error.message}`);
+      }}
+      content={{
+        button({ ready, isUploading }) {
+          if (ready) return <div>{"Upload Image (4MB)"}</div>;
+          if (isUploading) return "Uploading...";
+          return "Loading...";
+        },
+        allowedContent() {
+          return <></>;
+        },
+      }}
+    />
   );
 }
