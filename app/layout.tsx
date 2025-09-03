@@ -30,6 +30,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="n2DByM96BZf3uCqxJ3eF5kUp19e9aIjI5P4M2Pnl-Fs"
+        />
+      </head>
       <body
         className={`${inter.className} antialiased min-h-screen w-screen overflow-x-hidden touch-pan-y`}
       >
