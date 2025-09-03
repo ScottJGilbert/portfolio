@@ -17,6 +17,7 @@ import {
   toolbarPlugin,
   BoldItalicUnderlineToggles,
   BlockTypeSelect,
+  CreateLink,
   CodeToggle,
   InsertImage,
   InsertTable,
@@ -69,6 +70,7 @@ const Editor: FC<EditorProps> = ({ markdown, editorRef, onChange }) => {
                 <UndoRedo />
                 <BoldItalicUnderlineToggles />
                 <BlockTypeSelect />
+                <CreateLink />
                 <ListsToggle />
                 <CodeToggle />
                 <InsertImage />

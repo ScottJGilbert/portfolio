@@ -1,38 +1,14 @@
 "use server";
 
-import { MDXRemote } from "next-mdx-remote-client/rsc";
+import { compileMDX } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import { fetchProject, fetchPost } from "@/lib/db";
 import { Project, Post, Item } from "@/lib/definitions";
-import Image, { ImageProps } from "next/image";
 import Link from "next/link";
 import { auth } from "@/auth";
 import clsx from "clsx";
 import Category from "@/app/ui/category";
-
-const components = {
-  img: (props: ImageProps) => (
-    <Image
-      {...props}
-      className="rounded-2xl max-w-4xl mx-auto"
-      layout="responsive"
-      width={props.width || 800}
-      height={props.height || 600}
-      alt={props.alt || ""}
-    />
-  ),
-  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-    <Link
-      {...props}
-      href={props.href || ""}
-      className="text-blue-300 hover:text-blue-400"
-      target={props.target || "_self"}
-      rel={props.target === "_blank" ? "noopener noreferrer" : undefined}
-    />
-  ),
-  ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul {...props} className="list-disc list-inside mb-4" />
-  ),
-};
+import { components } from "@/lib/mdx";
 
 export default async function MDXPage({
   type,
@@ -84,6 +60,16 @@ export default async function MDXPage({
     disabled = false;
   }
 
+  const mdxResult = await compileMDX({
+    source: rawText,
+    components,
+    options: {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+      },
+    },
+  });
+
   return (
     <div className="max-w-6xl mt-4 mx-auto">
       <div className="flex justify-between">
@@ -134,9 +120,7 @@ export default async function MDXPage({
         </div>
       </div>
       <hr className="my-2"></hr>
-      <div className="space-y-4">
-        <MDXRemote components={components} source={rawText} />
-      </div>
+      <div className="space-y-4">{mdxResult.content}</div>
     </div>
   );
 }
