@@ -144,9 +144,9 @@ export default function EditPage({
       </Head>
       <Suspense>
         <form onSubmit={handleSubmit}>
-          <div className="flex gap-4">
-            <div>
-              <div className="flex justify-between my-2">
+          <div className="flex items-stretch gap-4">
+            <div className="flex-1">
+              <div className="flex items-stretch my-2">
                 <div className="flex gap-3 my-2">
                   <div className="my-auto [&>input]:py-2 [&>input]:px-2 [&>input]:mr-4 [&>*]:border-1 [&>*]:border-gray-50 [&>*]:rounded-xl flex justify-between gap-6 flex-wrap">
                     <input
@@ -207,12 +207,14 @@ export default function EditPage({
                 <span>
                   {type === "project"
                     ? ""
-                    : "Created on " + initialData.date_one}
+                    : "Created on " +
+                      new Date(initialData.date_one).toDateString()}
                 </span>
                 <span>
                   {type === "project"
                     ? ""
-                    : "| Last edited on " + initialData.date_two}
+                    : "| Last edited on " +
+                      new Date(initialData.date_two).toDateString()}
                 </span>
               </div>
               <div>

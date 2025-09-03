@@ -58,7 +58,7 @@ export default function Page() {
                 </b>
               </p>
               <h2 className="block text-3xl md:text-4xl text-center mt-4">
-                <span className="flex h-20 items-center justify-center md:block md:h-auto">
+                <span className="flex h-20 items-baseline justify-center md:block md:h-auto">
                   I&apos;m {currentString}
                 </span>{" "}
                 and computer engineer on a mission to make tomorrow <i>just</i>{" "}

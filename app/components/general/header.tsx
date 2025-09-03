@@ -35,7 +35,7 @@ export default function Header() {
               Scott Gilbert
             </span>
           </Link>
-          <button onClick={toggleMenu}>
+          <button aria-label="Open Menu" onClick={toggleMenu}>
             <BiMenu
               className={clsx("", {
                 hidden: menuOpen === true,
@@ -66,7 +66,7 @@ export default function Header() {
             >
               Scott Gilbert
             </Link>
-            <button onClick={toggleMenu}></button>
+            <button aria-label="Open Menu" onClick={toggleMenu}></button>
           </div>
           <div
             className={clsx(
