@@ -9,6 +9,7 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "../lib/core";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 export const inter = Inter({ subsets: ["latin"] });
 
@@ -48,6 +49,7 @@ export default function RootLayout({
             </div>
           </SessionProvider>
         </main>
+        <Analytics />
       </body>
     </html>
   );
