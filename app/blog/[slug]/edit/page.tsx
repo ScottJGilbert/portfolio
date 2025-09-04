@@ -1,5 +1,3 @@
-"use server";
-
 import EditPage from "@/app/components/mdx/edit-page";
 import {
   fetchPost,
@@ -21,6 +19,14 @@ export async function generateMetadata(props: {
     description: data.description ?? "",
     robots: "noindex,nofollow",
   };
+}
+
+export const revalidate = 600; // Revalidate every ten minutes - MAKE SURE TO REPLACE THIS WITH 600 LATER
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const slugs = await fetchPostSlugs();
+  return slugs.map((slug) => ({ slug: slug }));
 }
 
 export default async function Page(props: {

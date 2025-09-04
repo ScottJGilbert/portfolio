@@ -16,6 +16,14 @@ export async function generateMetadata(props: {
   };
 }
 
+export const revalidate = 600; // Revalidate every ten minutes - MAKE SURE TO REPLACE THIS WITH 600 LATER
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const slugs = await fetchPostSlugs();
+  return slugs.map((slug) => ({ slug: slug }));
+}
+
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
 }) {

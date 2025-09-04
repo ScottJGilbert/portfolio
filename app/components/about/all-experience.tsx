@@ -3,6 +3,8 @@ import { fetchExperienceIDs, fetchExperience } from "@/lib/db";
 import { Experience } from "@/lib/definitions";
 import ExperienceDisplay from "./experience-display";
 
+export const revalidate = 60; // Revalidate every ten minutes - MAKE SURE TO REPLACE THIS WITH 600 LATER
+
 async function pullData(
   ids: number[]
 ): Promise<[Experience[][], Date[], (Date | null)[]]> {

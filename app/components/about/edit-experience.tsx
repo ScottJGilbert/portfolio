@@ -2,6 +2,7 @@
 
 import { Experience, Expertise } from "@/lib/definitions";
 import { useState } from "react";
+import Editor from "@/app/ui/editor";
 
 export default function EditExperience({
   initialData,
@@ -149,14 +150,7 @@ export default function EditExperience({
           })}
         </div>
         <div className="flex-1">
-          <textarea
-            name="markdown"
-            value={markdown}
-            onChange={(e) => {
-              setMarkdown(e.target.value);
-            }}
-            className="p-2 border border-gray-300 rounded-xl h-96 w-full"
-          ></textarea>
+          <Editor markdown={markdown} onChange={setMarkdown} />
         </div>
       </div>
     </form>
