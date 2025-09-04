@@ -71,7 +71,7 @@ export default async function MDXPage({
   });
 
   return (
-    <div className="max-w-6xl mt-4 mx-auto">
+    <div className="max-w-[calc(100vw-2rem)] md:max-w-6xl mt-4 mx-auto">
       <div className="flex justify-between">
         <div>
           <h1>{item[0].title}</h1>
@@ -120,7 +120,9 @@ export default async function MDXPage({
         </div>
       </div>
       <hr className="my-2"></hr>
-      <div className="space-y-4">{mdxResult.content}</div>
+      <div className="max-w-full space-y-4 [&>*]:text-wrap">
+        {mdxResult.content}
+      </div>
     </div>
   );
 }

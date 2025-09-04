@@ -25,11 +25,13 @@ export const components = {
     <ul {...props} className="list-disc list-inside mb-4" />
   ),
   table: (props: React.TableHTMLAttributes<HTMLTableElement>) => (
-    <div className="border border-gray-500 rounded-md overflow-x-auto mb-4">
-      <table
-        {...props}
-        className="table-auto border border-gray-500 rounded-md overflow-hidden"
-      />
+    <div className="max-w-full border border-gray-500 rounded-md overflow-x-hidden mb-4">
+      <div className="w-full overflow-x-auto">
+        <table
+          {...props}
+          className="text-sm max-w-full table-auto border border-gray-500 rounded-md overflow-hidden"
+        />
+      </div>
     </div>
   ),
   th: (props: React.ThHTMLAttributes<HTMLTableCellElement>) => (

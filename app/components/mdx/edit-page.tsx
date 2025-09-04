@@ -235,10 +235,10 @@ export default function EditPage({
             </div>
             <div>
               <div className="pl-2 flex flex-col">
-                <div className="mt-4 flex gap-2 rounded-xl border border-gray-300">
+                <div className="mt-4 flex rounded-xl border border-gray-300">
                   <input
                     name="new_category"
-                    className="p-2 rounded-xl"
+                    className="pl-2 rounded-xl"
                     type="text"
                     placeholder="New category..."
                     onChange={(e) => {
@@ -246,7 +246,12 @@ export default function EditPage({
                     }}
                     value={newCategory}
                   />
-                  <Button onClick={onSetNewCategory}>Add</Button>
+                  <Button
+                    className="!m-1 !px-2 !p-1"
+                    onClick={onSetNewCategory}
+                  >
+                    Add
+                  </Button>
                 </div>
                 <div className="flex flex-col mt-4 h-72">
                   <p>Categories:</p>
