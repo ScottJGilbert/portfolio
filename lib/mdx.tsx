@@ -24,6 +24,9 @@ export const components = {
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
     <ul {...props} className="list-disc list-inside mb-4" />
   ),
+  ol: (props: React.HTMLAttributes<HTMLOListElement>) => (
+    <ol {...props} className="list-decimal list-inside mb-4" />
+  ),
   table: (props: React.TableHTMLAttributes<HTMLTableElement>) => (
     <div className="max-w-full border border-gray-500 rounded-md overflow-x-hidden mb-4">
       <div className="w-full overflow-x-auto">

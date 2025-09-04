@@ -71,10 +71,10 @@ export default async function MDXPage({
   });
 
   return (
-    <div className="max-w-[calc(100vw-4rem)] md:max-w-6xl mt-4 mx-auto">
+    <div className="max-w-[calc(100vw-3rem)] md:max-w-6xl mt-4 mx-auto">
       <div className="flex justify-between">
         <div>
-          <h1>{item[0].title}</h1>
+          <h1 className="mb-0">{item[0].title}</h1>
           <div>
             <div className="flex gap-2">
               <i>

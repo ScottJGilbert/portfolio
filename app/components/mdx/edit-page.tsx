@@ -143,9 +143,12 @@ export default function EditPage({
         <meta name="robots" content="noindex,nofollow" key="noRobots" />
       </Head>
       <Suspense>
-        <form onSubmit={handleSubmit}>
-          <div className="flex items-stretch gap-4">
-            <div className="flex-1">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col min-h-[calc(100vh-1rem)]"
+        >
+          <div className="flex-1 flex items-stretch gap-4">
+            <div className="flex-1 flex-col items-stretch">
               <div className="flex items-stretch my-2">
                 <div className="flex gap-3 my-2">
                   <div className="my-auto [&>input]:py-2 [&>input]:px-2 [&>input]:mr-4 [&>*]:border-1 [&>*]:border-gray-50 [&>*]:rounded-xl flex justify-between gap-6 flex-wrap">
@@ -227,8 +230,8 @@ export default function EditPage({
                   }}
                 ></textarea>
               </div>
-              <div className="relative">
-                <div className="p-2 border border-gray-300 rounded-xl h-96 w-full">
+              <div className="relative flex-1">
+                <div className="p-2 border border-gray-300 rounded-xl w-full">
                   <Editor markdown={text} onChange={setText} />
                 </div>
               </div>
