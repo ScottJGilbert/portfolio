@@ -1,12 +1,13 @@
 "use client";
 
-import clsx from "clsx";
-import Contactbar from "./contact-bar";
-import Navbar from "./nav-bar";
 import { BiMenu, BiCollapseVertical } from "react-icons/bi";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const Navbar = dynamic(() => import("./nav-bar"));
+const Contactbar = dynamic(() => import("./contact-bar"));
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,53 +37,29 @@ export default function Header() {
             </span>
           </Link>
           <button aria-label="Open Menu" onClick={toggleMenu}>
-            <BiMenu
-              className={clsx("", {
-                hidden: menuOpen === true,
-                block: menuOpen === false,
-              })}
-            />
-            <BiCollapseVertical
-              className={clsx("", {
-                block: menuOpen === true,
-                hidden: menuOpen === false,
-              })}
-            />
+            {!menuOpen && <BiMenu />}
+            {menuOpen && <BiCollapseVertical />}
           </button>
         </div>
-        <div
-          className={clsx(
-            "top-2 bottom-2 mx-auto min-h-[calc(100%-1rem)] max-w-screen-lg -translate-y-16",
-            {
-              block: menuOpen === true,
-              hidden: menuOpen === false,
-            }
-          )}
-        >
-          <div className="sticky top-4 flex justify-between mb-8 p-4 md:hidden rounded-l-full rounded-r-full bg-green-950">
-            <Link
-              href="/"
-              className="text-2xl font-bold text-center hover:text-gray-400"
-            >
-              Scott Gilbert
-            </Link>
-            <button aria-label="Open Menu" onClick={toggleMenu}></button>
-          </div>
-          <div
-            className={clsx(
-              "bg-green-950 min-h-[calc(100%-1rem)] p-4 pt-14 -mt-22 rounded-4xl border-gray-50 border-1",
-              {
-                "block md:hidden": menuOpen === true,
-                hidden: menuOpen === false,
-              }
-            )}
-          >
-            <div className="flex flex-col gap-8 mt-4">
-              <Navbar />
-              <Contactbar />
+        {menuOpen && (
+          <div className="top-2 bottom-2 mx-auto min-h-[calc(100%-1rem)] max-w-screen-lg -translate-y-16">
+            <div className="sticky top-4 flex justify-between mb-8 p-4 md:hidden rounded-l-full rounded-r-full bg-green-950">
+              <Link
+                href="/"
+                className="text-2xl font-bold text-center hover:text-gray-400"
+              >
+                Scott Gilbert
+              </Link>
+              <button aria-label="Open Menu" onClick={toggleMenu}></button>
+            </div>
+            <div className="bg-green-950 min-h-[calc(100%-1rem)] p-4 pt-14 -mt-22 rounded-4xl border-gray-50 border-1 block md:hidden">
+              <div className="flex flex-col gap-8 mt-4">
+                {menuOpen && <Navbar />}
+                {menuOpen && <Contactbar />}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

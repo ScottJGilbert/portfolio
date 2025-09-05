@@ -12,7 +12,7 @@ export default function ExpertiseBox({ area }: { area: Expertise }) {
         alt={area.name}
         width={16}
         height={16}
-        className=""
+        loading="lazy"
       ></Image>
       <p>{area.name}</p>
     </span>

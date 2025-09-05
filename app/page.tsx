@@ -1,12 +1,16 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import Expertise from "./components/expertise";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { fetchPosts, fetchProjects } from "@/lib/db";
 import { Item } from "@/lib/definitions";
 import Image from "next/image";
 import Category from "./ui/category";
+
+const Expertise = dynamic(() => import("./components/expertise"), {
+  ssr: false,
+});
 
 const strings = [
   "a trombone player",
@@ -114,8 +118,8 @@ export default function Page() {
       <div className="text-center mb-16">
         <h1>Expertise Across Fields</h1>
         <p className="pb-4">
-          Well-versed in a wide range of tools used in Electrical Engineering,
-          Computer Engineering, Computer Science, and everything in between.
+          Well-versed in a wide range of tools used in Computer Engineering,
+          Electrical Engineering, Computer Science, and everything in between.
         </p>
         <Expertise />
       </div>
@@ -288,9 +292,7 @@ function Posts() {
               className="p-4 rounded-2xl bg-green-950 border-solid border-1 border-gray-50"
             >
               <h3 className="mt-2">{item.title}</h3>
-              <p className="text-gray-400">
-                {item.date_one + " - " + item.date_two}
-              </p>
+              <p className="text-gray-400">{item.date_one}</p>
               <div className="flex flex-wrap gap-2 my-2">
                 {item.categories.map((categoryString) => {
                   return (

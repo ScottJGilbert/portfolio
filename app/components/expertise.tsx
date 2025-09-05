@@ -65,43 +65,6 @@ export default function Expertise() {
           return <ExpertiseBox key={area.name + "expertise"} area={area} />;
         })}
       </div>
-      {/* <div className="md:mx-16 mx-4 flex flex-col gap-4">
-        <div className="flex justify-center flex-wrap gap-2">
-          {languages.map((area) => {
-            return <ExpertiseBox key={area.name + "expertise"} area={area} />;
-          })}
-        </div>
-        <div className="flex justify-center flex-wrap gap-2">
-          {libraries.map((area) => {
-            return <ExpertiseBox key={area.name + "expertise"} area={area} />;
-          })}
-        </div>
-        <div className="flex justify-center flex-wrap gap-2">
-          {frameworks.map((area) => {
-            return <ExpertiseBox key={area.name + "expertise"} area={area} />;
-          })}
-        </div>
-        <div className="flex justify-center flex-wrap gap-2">
-          {services.map((area) => {
-            return <ExpertiseBox key={area.name + "expertise"} area={area} />;
-          })}
-        </div>
-        <div className="flex justify-center flex-wrap gap-2">
-          {hardware.map((area) => {
-            return <ExpertiseBox key={area.name + "expertise"} area={area} />;
-          })}
-        </div>
-        <div className="flex justify-center flex-wrap gap-2">
-          {tools.map((area) => {
-            return <ExpertiseBox key={area.name + "expertise"} area={area} />;
-          })}
-        </div>
-        <div className="flex justify-center flex-wrap gap-2">
-          {miscellaneous.map((area) => {
-            return <ExpertiseBox key={area.name + "expertise"} area={area} />;
-          })}
-        </div>
-      </div> */}
     </div>
   );
 }

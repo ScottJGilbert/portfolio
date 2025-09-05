@@ -1,13 +1,17 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Suspense, useState } from "react";
+import { Suspense, useState, useRef } from "react";
+import clsx from "clsx";
+import { MDXEditorMethods } from "@mdxeditor/editor";
 
 const EditorComp = dynamic(() => import("../ui/editor"), {
   ssr: false,
 });
 
 export default function ContactPage() {
+  const editorRef = useRef<MDXEditorMethods | null>(null);
+
   const [markdown, setMarkdown] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -26,17 +30,27 @@ export default function ContactPage() {
     if (res.ok) {
       setSuccess(true);
       setError("");
+
+      form.reset();
+      setMarkdown("");
+      editorRef.current?.setMarkdown("");
     } else {
       const json = await res.json();
-      setError(
-        "Failed to send message due to the following error: " + json.error
-      );
+      setError(json.error);
       setSuccess(false);
     }
   };
 
   return (
-    <div className="mt-4 rounded-2xl p-6 bg-gradient-to-b from-green-950 to-green-900 text-white mx-auto md:min-h-[calc(100vh-2rem)] border-gray-50 border">
+    <div
+      className={clsx(
+        "mt-4 rounded-2xl p-6 bg-gradient-to-b from-green-950 to-green-900 text-white mx-auto border-gray-50 border",
+        {
+          "md:min-h-[calc(100vh-6rem)]": success || (error && !success),
+          "md:min-h-[calc(100vh-2rem)]": !success && !error,
+        }
+      )}
+    >
       <h1>Contact Me</h1>
       <form className="mb-4" data-color-mode="light" onSubmit={submitForm}>
         <div className="mb-4 [&>input]:mr-4 [&>input]:mb-4">
@@ -64,7 +78,12 @@ export default function ContactPage() {
         </div>
         <div className="mb-4 border-white border rounded">
           <Suspense fallback={null}>
-            <EditorComp markdown={""} onChange={setMarkdown} />
+            <EditorComp
+              key={success ? "reset" : "editor"} // or use markdown.length as a key
+              editorRef={editorRef}
+              markdown={markdown}
+              onChange={setMarkdown}
+            />
           </Suspense>
         </div>
         <button
@@ -73,11 +92,18 @@ export default function ContactPage() {
         >
           Send
         </button>
-        {!success && error && <p className="text-red-800 mt-2">{error}</p>}
+        {!success && error && (
+          <div className="p-1 rounded-lg bg-amber-100 mt-2 border-2 border-black">
+            <p className="text-red-500">{error}</p>
+          </div>
+        )}
         {success && (
-          <p className="text-green-200 mt-4">
-            Message sent! I will get back to you as soon as I can.
-          </p>
+          <div className="p-1 rounded-lg bg-green-200 mt-2 border-2 border-black">
+            <p className="text-green-900">
+              Message sent! Please be checking your email - I will get back to
+              you as soon as I can.
+            </p>
+          </div>
         )}
       </form>
     </div>

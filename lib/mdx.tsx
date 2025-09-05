@@ -5,11 +5,11 @@ export const components = {
   img: (props: ImageProps) => (
     <Image
       {...props}
-      className="rounded-2xl max-w-4xl mx-auto"
-      layout="responsive"
+      className="w-auto h-auto rounded-2xl max-w-4xl max-h-3xl mx-auto layout-responsive"
       width={props.width || 800}
       height={props.height || 600}
       alt={props.alt || ""}
+      loading="lazy"
     />
   ),
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
