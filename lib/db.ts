@@ -624,3 +624,16 @@ export async function addMessage(data: Omit<Message, "id" | "time_sent">) {
     throw err;
   }
 }
+
+export async function deleteMessage(id: number) {
+  try {
+    await sql`
+      DELETE
+      FROM messages
+      WHERE id = ${id};
+    `;
+  } catch (err) {
+    console.error("Error deleting message: ", err);
+    throw err;
+  }
+}

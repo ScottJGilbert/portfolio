@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   robots: "noindex,nofollow",
 };
 
+export const dynamic = "force-dynamic";
+
 //Categories: Languages, frameworks, tools(?)
 export default function Page() {
   return (

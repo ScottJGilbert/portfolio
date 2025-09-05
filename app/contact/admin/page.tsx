@@ -1,6 +1,13 @@
 import { fetchMessages } from "@/lib/db";
 import MDXMessage from "@/app/components/mdx/mdx-message";
 
+export const dynamic = "force-dynamic";
+
+export const metadata = {
+  title: "Admin Contact",
+  robots: "noindex,nofollow",
+};
+
 export default async function AdminPage() {
   const messages = await fetchMessages();
   return (

@@ -64,13 +64,12 @@ export default async function AllExperience() {
   );
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       {combined.map((entry, index) => {
         return (
           <ExperienceDisplay
             key={entry.experiences[0].organization + "entry"}
             data={entry}
-            isLast={index === combined.length - 1}
           />
         );
       })}

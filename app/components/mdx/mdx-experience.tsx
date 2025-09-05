@@ -19,5 +19,5 @@ export default async function MDXExperience({
     },
   });
 
-  return <div className="mb-2">{mdxResult.content}</div>;
+  return <div className="mb-2 [&>*]:mb-2">{mdxResult.content}</div>;
 }
