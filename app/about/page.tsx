@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   // description: "",
 };
 
+export const revalidate = 600; // Revalidate every ten minutes - MAKE SURE TO REPLACE THIS WITH 600 LATER
+
 export default async function Page() {
   return (
     <div>
