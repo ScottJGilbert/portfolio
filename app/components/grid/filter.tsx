@@ -93,13 +93,15 @@ export default function Filter({ placeholder }: { placeholder: string }) {
 
 function NewProjectButton() {
   const { data: session } = useSession();
-  let href = "/projects/new";
   if (session?.user?.email !== "scott7gilbert@gmail.com") {
     return null;
   }
   return (
     <div className="m-auto z-0">
-      <Link href={href} className="z-0 p-3 rounded-2xl bg-green-950 my-auto">
+      <Link
+        href="/projects/new"
+        className="z-0 p-3 rounded-2xl bg-green-950 my-auto"
+      >
         <span> + New</span>
       </Link>
     </div>
@@ -108,13 +110,15 @@ function NewProjectButton() {
 
 function NewPostButton() {
   const { data: session } = useSession();
-  let href = "/blog/new";
   if (session?.user?.email !== "scott7gilbert@gmail.com") {
     return null;
   }
   return (
     <div className="m-auto z-0">
-      <Link href={href} className="z-0 p-3 rounded-2xl bg-green-950 my-auto">
+      <Link
+        href="/blog/new"
+        className="z-0 p-3 rounded-2xl bg-green-950 my-auto"
+      >
         <span> + New</span>
       </Link>
     </div>

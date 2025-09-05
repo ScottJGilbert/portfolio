@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to delete message" },
+      { error: "Failed to delete message due to the following error: " + error },
       { status: 500 }
     );
   }

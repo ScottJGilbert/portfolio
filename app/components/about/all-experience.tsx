@@ -65,7 +65,7 @@ export default async function AllExperience() {
 
   return (
     <div className="flex flex-col gap-4">
-      {combined.map((entry, index) => {
+      {combined.map((entry) => {
         return (
           <ExperienceDisplay
             key={entry.experiences[0].organization + "entry"}
