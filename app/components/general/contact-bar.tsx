@@ -3,6 +3,8 @@ import {
   DocumentDuplicateIcon,
 } from "@heroicons/react/24/outline";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import Link from "next/link";
+import { Bounce } from "../motion/transitions";
 
 const links = [
   {
@@ -28,17 +30,18 @@ export default function Contactbar() {
         {links.map((link) => {
           const LinkIcon = link.icon;
           return (
-            <a
-              key={link.name}
-              href={link.href}
-              className={
-                "flex h-[48px] grow items-center justify-center gap-2 rounded-md py-3 text-lg font-medium rounded-l-full rounded-r-full border-solid border-1 border-gray-50 hover:bg-blue-950 hover:text-gray-50 md:flex-none md:justify-between md:p-2"
-              }
-              target="_blank"
-            >
-              <LinkIcon className="w-6" />
-              <p className="block">{link.name}</p>
-            </a>
+            <Bounce key={link.name}>
+              <Link
+                href={link.href}
+                className={
+                  "flex h-[48px] grow items-center justify-center gap-2 rounded-md py-3 text-lg font-medium rounded-l-full rounded-r-full border-solid border-1 border-gray-50 hover:bg-blue-950 hover:text-gray-50 md:flex-none md:justify-between md:p-2"
+                }
+                target="_blank"
+              >
+                <LinkIcon className="w-6" />
+                <p className="block">{link.name}</p>
+              </Link>
+            </Bounce>
           );
         })}
       </div>

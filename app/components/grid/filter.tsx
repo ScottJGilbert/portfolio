@@ -8,6 +8,7 @@ import { BsX } from "react-icons/bs";
 import Search from "../../ui/search";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { Bounce } from "../motion/transitions";
 
 export default function Filter({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
@@ -61,28 +62,29 @@ export default function Filter({ placeholder }: { placeholder: string }) {
           {categories.map((category) => {
             const Icon = BsX;
             return (
-              <button
-                key={category + "button"}
-                className={clsx(
-                  `"m-1 py-2 px-4 rounded-xl " ${
-                    selected.includes(category)
-                      ? "bg-green-950 text-white"
-                      : "bg-sky-100 text-black"
-                  }`
-                )}
-                onClick={() => {
-                  toggleCategory(category);
-                }}
-              >
-                {category}
-                <Icon
-                  className={`${
-                    selected.includes(category)
-                      ? "inline ml-1 -translate-y-[1px]"
-                      : "hidden"
-                  }`}
-                />
-              </button>
+              <Bounce key={category + "button"}>
+                <button
+                  className={clsx(
+                    `"m-1 py-2 px-4 rounded-xl " ${
+                      selected.includes(category)
+                        ? "bg-green-950 text-white"
+                        : "bg-sky-100 text-black"
+                    }`
+                  )}
+                  onClick={() => {
+                    toggleCategory(category);
+                  }}
+                >
+                  {category}
+                  <Icon
+                    className={`${
+                      selected.includes(category)
+                        ? "inline ml-1 -translate-y-[1px]"
+                        : "hidden"
+                    }`}
+                  />
+                </button>
+              </Bounce>
             );
           })}
         </div>

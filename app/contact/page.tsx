@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { Suspense, useState, useRef } from "react";
 import clsx from "clsx";
 import { MDXEditorMethods } from "@mdxeditor/editor";
+import { motion } from "motion/react";
 
 const EditorComp = dynamic(() => import("../ui/editor"), {
   ssr: false,
@@ -86,12 +87,16 @@ export default function ContactPage() {
             />
           </Suspense>
         </div>
-        <button
+        <motion.button
           className="px-4 py-2 bg-green-950 text-white rounded border border-gray-50 hover:bg-green-900 hover:cursor-pointer"
           type="submit"
+          initial={{ scale: 1 }} // Initial state
+          whileHover={{ scale: 1.05 }} // Scale up on hover
+          whileTap={{ scale: 0.95 }} // Scale down on tap/click
+          transition={{ type: "spring", stiffness: 300, damping: 20 }} // Spring animation settings
         >
           Send
-        </button>
+        </motion.button>
         {!success && error && (
           <div className="p-1 rounded-lg bg-amber-100 mt-2 border-2 border-black">
             <p className="text-red-500">{error}</p>

@@ -7,6 +7,8 @@ import { fetchPosts, fetchProjects } from "@/lib/db";
 import { Item } from "@/lib/definitions";
 import Image from "next/image";
 import Category from "./ui/category";
+import { motion } from "motion/react";
+import { FadeUp } from "./components/motion/transitions";
 
 const Expertise = dynamic(() => import("./components/expertise"), {
   ssr: false,
@@ -53,66 +55,75 @@ export default function Page() {
     <div>
       <div>
         <div className="flex flex-col">
-          <div className="md:min-h-screen flex flex-col items-center justify-center">
-            <div className="">
-              <p className="text-4xl md:text-8xl text-center">
-                Hi, I&apos;m{" "}
-                <b className="block md:inline text-8xl bg-linear-to-b from-zinc-500 via-zinc-600 to-zinc-900 bg-clip-text tracking-wide text-transparent dark:from-zinc-700 dark:via-zinc-200 dark:to-zinc-50">
-                  Scott Gilbert
-                </b>
-              </p>
-              <h2 className="block text-3xl md:text-4xl text-center mt-4">
-                <span className="flex h-20 items-baseline justify-center md:block md:h-auto">
-                  I&apos;m {currentString}
-                </span>{" "}
-                and computer engineer on a mission to make tomorrow <i>just</i>{" "}
-                a little brighter.
-              </h2>
+          <FadeUp>
+            <div className="md:min-h-screen flex flex-col items-center justify-center">
+              <div className="">
+                <p className="text-4xl md:text-8xl text-center">
+                  Hi, I&apos;m{" "}
+                  <b className="block md:inline text-8xl bg-linear-to-b from-zinc-500 via-zinc-600 to-zinc-900 bg-clip-text tracking-wide text-transparent dark:from-zinc-700 dark:via-zinc-200 dark:to-zinc-50">
+                    Scott Gilbert
+                  </b>
+                </p>
+                <h2 className="block text-3xl md:text-4xl text-center mt-4">
+                  <span className="flex h-20 items-baseline justify-center md:block md:h-auto">
+                    I&apos;m {currentString}
+                  </span>{" "}
+                  and computer engineer on a mission to make tomorrow{" "}
+                  <i>just</i> a little brighter.
+                </h2>
+              </div>
+              <motion.span
+                initial={{ scale: 1 }} // Initial state
+                whileHover={{ scale: 1.05 }} // Scale up on hover
+                whileTap={{ scale: 0.95 }} // Scale down on tap/click
+                transition={{ type: "spring", stiffness: 300, damping: 20 }} // Spring animation settings
+              >
+                <Link
+                  href=""
+                  className="m-8 group relative inline-flex cursor-pointer items-center justify-between overflow-hidden rounded-full border border-black/30 bg-black/20 py-[3px] pr-[3px] pl-2 text-base font-medium opacity-85 backdrop-blur-xs transition-all hover:bg-transparent md:py-1 md:pr-1 md:pl-3 dark:border-white/10 dark:bg-white/10"
+                >
+                  <span className="z-10 px-3 text-black transition-colors duration-300 group-hover:text-white dark:text-white dark:group-hover:text-black">
+                    Learn More
+                  </span>
+                  <span className="absolute inset-0 translate-x-[45%] scale-0 rounded-full bg-black opacity-0 transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100 dark:bg-white"></span>
+                  <span className="z-10 flex items-center justify-center overflow-hidden rounded-full bg-black p-2 transition-colors duration-300 group-hover:bg-transparent md:p-2.5 dark:bg-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-white transition-all duration-300 group-hover:translate-x-5 group-hover:opacity-0 dark:text-black"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="rotate-90 absolute -translate-x-5 text-white opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 dark:text-black"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </span>
+                </Link>
+              </motion.span>
             </div>
-            <Link
-              href=""
-              className="m-8 group relative inline-flex cursor-pointer items-center justify-between overflow-hidden rounded-full border border-black/30 bg-black/20 py-[3px] pr-[3px] pl-2 text-base font-medium opacity-85 backdrop-blur-xs transition-all hover:bg-transparent md:py-1 md:pr-1 md:pl-3 dark:border-white/10 dark:bg-white/10"
-            >
-              <span className="z-10 px-3 text-black transition-colors duration-300 group-hover:text-white dark:text-white dark:group-hover:text-black">
-                Learn More
-              </span>
-              <span className="absolute inset-0 translate-x-[45%] scale-0 rounded-full bg-black opacity-0 transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100 dark:bg-white"></span>
-              <span className="z-10 flex items-center justify-center overflow-hidden rounded-full bg-black p-2 transition-colors duration-300 group-hover:bg-transparent md:p-2.5 dark:bg-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-white transition-all duration-300 group-hover:translate-x-5 group-hover:opacity-0 dark:text-black"
-                  aria-hidden="true"
-                >
-                  <path d="M5 12h14"></path>
-                  <path d="m12 5 7 7-7 7"></path>
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="rotate-90 absolute -translate-x-5 text-white opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 dark:text-black"
-                  aria-hidden="true"
-                >
-                  <path d="M5 12h14"></path>
-                  <path d="m12 5 7 7-7 7"></path>
-                </svg>
-              </span>
-            </Link>
-          </div>
+          </FadeUp>
         </div>
       </div>
       <div className="text-center mb-16">
@@ -123,7 +134,6 @@ export default function Page() {
         </p>
         <Expertise />
       </div>
-
       <div className="py-4 min-h-full">
         <h1>Experience That Matters</h1>
         <p className="pb-4">
@@ -181,6 +191,10 @@ export default function Page() {
           </Link>
         </div>
       </div>
+      {/* <div className="py-4">
+        <h1>Testimonials</h1>
+        <References />
+      </div> */}
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "../lib/core";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+// import Scroll from "./components/motion/scroll";
 
 export const inter = Inter({ subsets: ["latin"] });
 
@@ -40,6 +41,7 @@ export default function RootLayout({
         className={`${inter.className} antialiased min-h-screen w-screen overflow-x-hidden touch-pan-y`}
       >
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+        {/* <Scroll> */}
         <main className="flex">
           <SessionProvider>
             <Sidebar />
@@ -47,14 +49,17 @@ export default function RootLayout({
               <div className="min-h-screen mx-6 md:ml-0 md:mr-6 flex flex-col justify-between">
                 <div className="flex-1 min-h-screen">
                   <Header />
-                  <div className="h-32 md:h-0"></div>
-                  <div className="md:mb-0 mb-12">{children}</div>
+                  <div>
+                    <div className="h-32 md:h-0"></div>
+                    <div className="md:mb-0 mb-12">{children}</div>
+                  </div>
                 </div>
                 <Footer />
               </div>
             </div>
           </SessionProvider>
         </main>
+        {/* </Scroll> */}
         <Analytics />
       </body>
     </html>

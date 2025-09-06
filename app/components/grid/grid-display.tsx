@@ -7,6 +7,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import type { Item } from "@/lib/definitions";
 import Category from "@/app/ui/category";
+import { motion } from "motion/react";
 
 export default function GridDisplay({ type }: { type: string }) {
   const pathname = usePathname();
@@ -15,6 +16,7 @@ export default function GridDisplay({ type }: { type: string }) {
 
   useEffect(() => {
     async function fetchAndSet() {
+      setItems([]);
       const itemsTemp: Item[] = [];
       if (type === "project") {
         const res = await fetch(
@@ -68,10 +70,17 @@ export default function GridDisplay({ type }: { type: string }) {
         <Filter placeholder={"Search " + type + "s..."} />
         <Suspense>
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {items.map((item) => {
+            {items.map((item, index) => {
               return (
-                <div
+                <motion.div
                   key={item.title + "item"}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{
+                    ease: "easeInOut",
+                    duration: 0.75,
+                    delay: index * 0.2,
+                  }}
                   className="p-4 rounded-2xl bg-green-950 border-solid border-1 border-gray-50"
                 >
                   <Image
@@ -107,7 +116,7 @@ export default function GridDisplay({ type }: { type: string }) {
                   >
                     Read More →
                   </Link>
-                </div>
+                </motion.div>
               );
             })}
           </div>

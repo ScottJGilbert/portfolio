@@ -22,6 +22,7 @@
     "dotenv": "^16.5.0",
     "gray-matter": "^4.0.3",
     "libphonenumber-js": "^1.12.8",
+    "motion": "^12.23.12",
     "mysql2": "^3.14.1",
     "next": "15.3.2",
     "next-auth": "5.0.0-beta.28",
