@@ -1,0 +1,8 @@
+diff --git a/dist/es/react.mjs b/dist/es/react.mjs
+index bae1cf4bfe02214c1012658a76304b01c48afb14..705d30351afb876104e26238febc5bef98159829 100644
+--- a/dist/es/react.mjs
++++ b/dist/es/react.mjs	
+@@ -1,2 +1,2 @@
+ "use client";
+-export * from 'framer-motion';
++export { motion } from 'framer-motion';

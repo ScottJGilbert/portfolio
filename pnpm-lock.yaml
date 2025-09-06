@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  motion:
+    hash: 89f3c672d8560e31d580a41be1463090c96708818b10f47b5d9a30438470d996
+    path: patches/motion.patch
+
 importers:
 
   .:
@@ -49,7 +54,7 @@ importers:
         version: 1.12.8
       motion:
         specifier: ^12.23.12
-        version: 12.23.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 12.23.12(patch_hash=89f3c672d8560e31d580a41be1463090c96708818b10f47b5d9a30438470d996)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       mysql2:
         specifier: ^3.14.1
         version: 3.14.1
@@ -7291,7 +7296,7 @@ snapshots:
 
   motion-utils@12.23.6: {}
 
-  motion@12.23.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  motion@12.23.12(patch_hash=89f3c672d8560e31d580a41be1463090c96708818b10f47b5d9a30438470d996)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       framer-motion: 12.23.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tslib: 2.8.1

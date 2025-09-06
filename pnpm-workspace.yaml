@@ -5,3 +5,6 @@ onlyBuiltDependencies:
   - msgpackr-extract
   - sharp
   - unrs-resolver
+
+patchedDependencies:
+  motion: patches/motion.patch
