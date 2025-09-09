@@ -4,7 +4,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { Bounce } from "../motion/transitions";
-import { usePageLoading } from "@/providers/loading-provider";
 import BufferedLink from "@/app/ui/buffered-link";
 
 const links = [
