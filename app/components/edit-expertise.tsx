@@ -92,7 +92,7 @@ export default function EditExpertise() {
         <div className="flex gap-4">
           <Link
             href="/about"
-            className="flex flex-col justify-center rounded-xl px-2 bg-green-950 hover:bg-blue-950 hover:cursor-pointer border-solid border-1 border-gray-50"
+            className="flex flex-col justify-center rounded-xl px-2 bg-[var(--background-secondary)] hover:bg-blue-950 hover:cursor-pointer border-solid border-1 border-[var(--border)]"
           >
             ← Go Back
           </Link>
@@ -121,7 +121,7 @@ export default function EditExpertise() {
             return (
               <div
                 key={area.name + "area"}
-                className="flex justify-between p-2 rounded-xl border-gray-50 border-1"
+                className="flex justify-between p-2 rounded-xl border-[var(--border)] border-1"
               >
                 <p className="my-auto">{area.name}</p>
                 <p className="my-auto">

@@ -1,15 +1,17 @@
 "use client";
 
-import Link from "next/link";
 import Navbar from "./nav-bar";
-import Contactbar from "./contact-bar";
+import Contactbar from "./externals-bar";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Fade } from "../motion/transitions";
+import { usePageLoading } from "@/providers/loading-provider";
+import BufferedLink from "@/app/ui/buffered-link";
 
 export default function Sidebar() {
   const [isVisible, setIsVisible] = useState(false);
+  const { setIsLoading } = usePageLoading();
 
   useEffect(() => {
     setTimeout(function (): void {
@@ -24,8 +26,14 @@ export default function Sidebar() {
       }`}
     >
       <Fade>
-        <div className="hidden flex-col gap-2 m-4 px-4 py-4 bg-gradient-to-br from-green-950 to-green-900 rounded-4xl border-1 border-gray-50 md:flex">
-          <Link href="/" className="px-4">
+        <div className="hidden flex-col gap-2 m-4 px-4 py-4 bg-gradient-to-br from-green-300 to-green-100 dark:from-green-950 dark:to-green-900 rounded-4xl border-1 border-[var(--border)] md:flex">
+          <BufferedLink
+            doOnClick={() => {
+              setIsLoading(true);
+            }}
+            href="/"
+            className="px-4"
+          >
             <motion.div
               initial={{ scale: 1 }} // Initial state
               whileHover={{ scale: 1.05 }} // Scale up on hover
@@ -40,7 +48,7 @@ export default function Sidebar() {
                 className="block h-16 w-22 mx-auto"
               />
             </motion.div>
-          </Link>
+          </BufferedLink>
           <Navbar />
           <Contactbar />
         </div>

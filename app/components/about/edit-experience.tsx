@@ -126,7 +126,7 @@ export default function EditExperience({
             <label htmlFor="volunteer">Volunteer</label>
           </div>
           <button
-            className="py-4 px-4 rounded-xl bg-green-950 hover:bg-blue-950 hover:cursor-pointer border-solid border-1 border-gray-50"
+            className="py-4 px-4 rounded-xl bg-[var(--background-secondary)] hover:bg-blue-950 hover:cursor-pointer border-solid border-1 border-[var(--border)]"
             disabled={isSaving}
           >
             {isSaving ? "Saving..." : "Save"}

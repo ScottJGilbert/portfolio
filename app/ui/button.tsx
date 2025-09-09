@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import { motion } from "motion/react";
 
@@ -19,7 +21,7 @@ export default function Button({
   return (
     <motion.button
       className={clsx(
-        "m-2 p-3 bg-green-950 rounded-2xl hover:bg-blue-950 hover:text-g hover:cursor-pointer border-solid border-1 border-gray-50 " +
+        "m-2 p-3 bg-[var(--background-secondary)] rounded-2xl hover:bg-blue-200 dark:hover:bg-blue-950 hover:text-g hover:cursor-pointer border-solid border-1 border-[var(--border)] " +
           className,
         {
           "brightness-50 hover:cursor-not-allowed": disabled === true,

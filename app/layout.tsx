@@ -10,6 +10,8 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "../lib/core";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { PageLoadingProvider } from "@/providers/loading-provider";
+import PageTransition from "./components/motion/page-transition";
 // import Scroll from "./components/motion/scroll";
 
 export const inter = Inter({ subsets: ["latin"] });
@@ -30,11 +32,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta
           name="google-site-verification"
           content="n2DByM96BZf3uCqxJ3eF5kUp19e9aIjI5P4M2Pnl-Fs"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const theme = localStorage.theme;
+                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
+                }
+              })();
+            `,
+          }}
         />
       </head>
       <body
@@ -43,21 +59,25 @@ export default function RootLayout({
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         {/* <Scroll> */}
         <main className="flex">
-          <SessionProvider>
-            <Sidebar />
-            <div className="flex-1">
-              <div className="min-h-screen mx-6 md:ml-0 md:mr-6 flex flex-col justify-between">
-                <div className="flex-1 min-h-screen">
-                  <Header />
-                  <div>
-                    <div className="h-32 md:h-0"></div>
-                    <div className="md:mb-0 mb-12">{children}</div>
+          <PageLoadingProvider>
+            <SessionProvider>
+              <Sidebar />
+              <div className="flex-1">
+                <div className="min-h-screen mx-6 md:ml-0 md:mr-6 flex flex-col justify-between">
+                  <div className="flex-1 min-h-screen">
+                    <Header />
+                    <PageTransition>
+                      <div>
+                        <div className="h-32 md:h-0"></div>
+                        <div className="md:mb-0 mb-12">{children}</div>
+                      </div>
+                    </PageTransition>
                   </div>
+                  <Footer />
                 </div>
-                <Footer />
               </div>
-            </div>
-          </SessionProvider>
+            </SessionProvider>
+          </PageLoadingProvider>
         </main>
         {/* </Scroll> */}
         <Analytics />

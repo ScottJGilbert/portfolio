@@ -3,26 +3,41 @@
 @import "uploadthing/tw/v4";
 @import "@mdxeditor/editor/style.css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Base theme variables */
 :root {
-  --background: #021d08;
-  --foreground: #ededed;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --background: #d9f3e1;
+  --background-secondary: #caf7dd;
+  --background-tertiary: #89e5bc;
+  --foreground: #111111;
+  --border: #111111;
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-foreground: var(--foreground);
 }
 
-@view-transition {
-  navigation: auto;
+/* Dark theme overrides */
+.dark {
+  --background: rgb(2, 26, 7);
+  --background-secondary: #093719;
+  --background-tertiary: #0b4f2a;
+  --foreground: #ededed;
+  --border: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  transition: all 1s ease-in-out;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* Headings */
 h1 {
   font-size: 2.5rem;
   font-weight: bold;
@@ -44,10 +59,7 @@ h4 {
   font-weight: bold;
 }
 
-text {
-  -size: 1.15rem;
-}
-
+/* Prose styling */
 .prose {
   color: var(--foreground);
   font-family: var(--font-sans);
@@ -55,28 +67,28 @@ text {
   max-width: 65ch;
 }
 
+.prose strong {
+  font-weight: 600;
+}
+
+/* MDX editor tweaks */
 .mdxeditor ul {
   list-style-type: disc;
   padding-left: 1.5rem;
   margin-bottom: 1rem;
 }
 
-.prose strong {
-  font-weight: 600;
-}
-
 .mdxeditor {
   width: 100% !important;
   max-width: 100% !important;
-  min-width: 0 !important; /* prevents flex children from forcing expansion */
+  min-width: 0 !important;
   overflow-x: hidden !important;
   box-sizing: border-box;
 }
 
-/* Force text to always be white */
 .mdxeditor,
 .mdxeditor * {
-  color: white !important;
+  color: var(--foreground) !important;
   word-wrap: break-word;
   overflow-wrap: anywhere;
   margin-bottom: 0.5rem;
@@ -91,7 +103,7 @@ text {
 }
 
 .mdxeditor pre {
-  white-space: pre-wrap; /* allow wrapping */
+  white-space: pre-wrap;
   word-break: break-word;
   max-width: 100%;
   overflow-x: auto;
@@ -104,27 +116,19 @@ text {
   display: block;
 }
 
-/* Toolbar background + button text */
 .mdxeditor .mdxeditor-toolbar {
-  background-color: transparent; /* Or use #111 for a dark bar */
+  background-color: transparent;
   border: none;
   width: 100% !important;
-  left: 0;
-  right: 0;
-  margin: 0 auto; /* keep centered if possible */
-  overflow-x: auto; /* allow horizontal scroll if too many buttons */
+  overflow-x: auto;
   border-radius: 0.5rem;
   flex-wrap: wrap;
 }
 
 .mdxeditor .mdxeditor-toolbar button {
-  color: white !important;
-  fill: white !important; /* for SVG icons */
+  color: var(--foreground) !important;
+  fill: var(--foreground) !important;
   background-color: transparent;
-}
-
-.mdxeditor .mdxeditor-toolbar button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .mdxeditor .mdxeditor-toolbar button:hover {

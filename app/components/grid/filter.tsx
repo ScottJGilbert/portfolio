@@ -65,10 +65,10 @@ export default function Filter({ placeholder }: { placeholder: string }) {
               <Bounce key={category + "button"}>
                 <button
                   className={clsx(
-                    `"m-1 py-2 px-4 rounded-xl " ${
+                    `"m-1 py-2 px-4 rounded-xl border-[var(--border)] border-1 text-black " ${
                       selected.includes(category)
-                        ? "bg-green-950 text-white"
-                        : "bg-sky-100 text-black"
+                        ? "bg-[var(--background-tertiary)] border-[var(--border)] dark:bg-gray-300"
+                        : "bg-sky-100"
                     }`
                   )}
                   onClick={() => {
@@ -102,7 +102,7 @@ function NewProjectButton() {
     <div className="m-auto z-0">
       <Link
         href="/projects/new"
-        className="z-0 p-3 rounded-2xl bg-green-950 my-auto"
+        className="z-0 p-3 rounded-2xl bg-[var(--background-secondary)] my-auto"
       >
         <span> + New</span>
       </Link>
@@ -119,7 +119,7 @@ function NewPostButton() {
     <div className="m-auto z-0">
       <Link
         href="/blog/new"
-        className="z-0 p-3 rounded-2xl bg-green-950 my-auto"
+        className="z-0 p-3 rounded-2xl bg-[var(--background-secondary)] my-auto"
       >
         <span> + New</span>
       </Link>

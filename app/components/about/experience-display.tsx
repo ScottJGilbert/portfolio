@@ -17,7 +17,7 @@ export default function ExperienceDisplay({
   );
 
   return (
-    <div className="mb-2 p-4 bg-green-950 rounded-4xl border-gray-50 border-1">
+    <div className="mb-2 p-4 bg-[var(--background-secondary)] rounded-4xl border-[var(--border)] border-1">
       <div className="flex-1 mb-4">
         <h2>{data.experiences[0].organization}</h2>
         <h4>
@@ -39,7 +39,7 @@ export default function ExperienceDisplay({
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 40 40"
                   fill="none"
-                  className="w-8 translate-y-1 z-20 absolute"
+                  className="w-8 translate-y-1 z-20 absolute border-1 border-[var(--border)] rounded-full bg-[var(--background-secondary)]"
                 >
                   {/* Timeline circle that goes in the middle */}
                   <circle
@@ -48,7 +48,7 @@ export default function ExperienceDisplay({
                     r={15}
                     stroke="gold"
                     strokeWidth={10}
-                    className="z-20 fill-green-950"
+                    className="z-20 fill-[var(--background-secondary)]"
                   />
                 </svg>
                 <svg
@@ -67,19 +67,13 @@ export default function ExperienceDisplay({
                     y2={45}
                     stroke="gold"
                     strokeWidth={10}
-                    className="z-0"
+                    className="z-0 border-1 border-[var(--border)]"
                   />
                 </svg>
               </div>
               <div className="flex-1">
                 <h3>{experience.title}</h3>
-                <h4>
-                  {(experience.self_employed ? "(Self Employed)" : "") +
-                    (experience.self_employed && experience.volunteer
-                      ? " | "
-                      : "") +
-                    (experience.volunteer ? "(Volunteer)" : "")}
-                </h4>
+                <h4>{experience.self_employed ? "(Self Employed)" : ""}</h4>
                 <MDXExperience markdown={experience.markdown} />
                 <div className="flex flex-wrap gap-2 mt-4 mb-4">
                   {experience.expertise.map((expertise) => {

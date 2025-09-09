@@ -9,6 +9,7 @@ import { auth } from "@/auth";
 import clsx from "clsx";
 import Category from "@/app/ui/category";
 import { components } from "@/lib/mdx";
+import MdxLink from "@/lib/mdx-link";
 
 export default async function MDXPage({
   type,
@@ -62,7 +63,7 @@ export default async function MDXPage({
 
   const mdxResult = await compileMDX({
     source: rawText,
-    components,
+    components: { ...components, a: MdxLink },
     options: {
       mdxOptions: {
         remarkPlugins: [remarkGfm],
@@ -110,10 +111,13 @@ export default async function MDXPage({
                   slug +
                   "/edit"
             }
-            className={clsx("z-0 p-3 rounded-2xl bg-green-950 my-auto", {
-              "brightness-50 hover:cursor-not-allowed hidden":
-                disabled === true,
-            })}
+            className={clsx(
+              "z-0 p-3 rounded-2xl bg-[var(--background-secondary)] my-auto",
+              {
+                "brightness-50 hover:cursor-not-allowed hidden":
+                  disabled === true,
+              }
+            )}
           >
             <span>Edit</span>
           </Link>

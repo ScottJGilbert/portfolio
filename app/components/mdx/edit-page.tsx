@@ -151,7 +151,7 @@ export default function EditPage({
             <div className="flex-1 flex-col items-stretch">
               <div className="flex items-stretch my-2">
                 <div className="flex gap-3 my-2">
-                  <div className="my-auto [&>input]:py-2 [&>input]:px-2 [&>input]:mr-4 [&>*]:border-1 [&>*]:border-gray-50 [&>*]:rounded-xl flex justify-between gap-6 flex-wrap">
+                  <div className="my-auto [&>input]:py-2 [&>input]:px-2 [&>input]:mr-4 [&>*]:border-1 [&>*]:border-[var(--border)] [&>*]:rounded-xl flex justify-between gap-6 flex-wrap">
                     <input
                       type="text"
                       name="title"
@@ -223,7 +223,7 @@ export default function EditPage({
               <div>
                 <textarea
                   name="description"
-                  className="p-2 mb-2 w-full border border-gray-300 rounded-xl"
+                  className="p-2 mb-2 w-full border border-black dark:border-gray-300 rounded-xl"
                   value={description}
                   onChange={(e) => {
                     setDescription(e.target.value);
@@ -231,14 +231,14 @@ export default function EditPage({
                 ></textarea>
               </div>
               <div className="relative flex-1">
-                <div className="p-2 border border-gray-300 rounded-xl w-full">
+                <div className="p-2 border border-black dark:border-gray-300 rounded-xl w-full">
                   <Editor markdown={text} onChange={setText} />
                 </div>
               </div>
             </div>
             <div>
               <div className="pl-2 flex flex-col">
-                <div className="mt-4 flex rounded-xl border border-gray-300">
+                <div className="mt-4 flex rounded-xl border border-black dark:border-gray-300">
                   <input
                     name="new_category"
                     className="pl-2 rounded-xl"
@@ -291,7 +291,7 @@ export default function EditPage({
             </div>
             <Button
               onClick={handleDelete}
-              className="px-4 rounded-xl bg-red-800 hover:bg-red-900 hover:cursor-pointer text-center flex flex-col justify-center border-solid border-1 border-gray-50"
+              className="px-4 rounded-xl bg-red-800 hover:bg-red-900 hover:cursor-pointer text-center flex flex-col justify-center border-solid border-1 border-[var(--border)]"
             >
               Delete
             </Button>

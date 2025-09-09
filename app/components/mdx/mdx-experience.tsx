@@ -3,6 +3,7 @@
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { components } from "@/lib/mdx";
+import MdxLink from "@/lib/mdx-link";
 
 export default async function MDXExperience({
   markdown,
@@ -11,7 +12,7 @@ export default async function MDXExperience({
 }) {
   const mdxResult = await compileMDX({
     source: markdown,
-    components,
+    components: { ...components, a: MdxLink },
     options: {
       mdxOptions: {
         remarkPlugins: [remarkGfm],

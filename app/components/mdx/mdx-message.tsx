@@ -6,6 +6,7 @@ import { components } from "@/lib/mdx";
 import remarkGfm from "remark-gfm";
 import Button from "@/app/ui/button";
 import { useEffect, useState } from "react";
+import MdxLink from "@/lib/mdx-link";
 
 export default function MDXMessages({
   originalMessages,
@@ -36,7 +37,7 @@ export default function MDXMessages({
   };
 
   return (
-    <div className="mt-4 rounded-2xl p-6 bg-gradient-to-b from-green-950 to-green-900 text-white mx-auto md:min-h-[calc(100vh-7rem)] border-gray-50 border">
+    <div className="mt-4 rounded-2xl p-6 bg-gradient-to-b from-green-950 to-green-900 text-white mx-auto md:min-h-[calc(100vh-7rem)] border-[var(--border)] border">
       {messages.map((msg) => (
         <div key={msg.id + "message"} className="border p-4 my-2 rounded-lg">
           <MDXMessage key={msg.id} msg={msg} />
@@ -61,7 +62,7 @@ function MDXMessage({ msg }: { msg: Message }) {
     async function compileMessage() {
       const mdxResult = await compileMDX({
         source: msg.message,
-        components,
+        components: { ...components, a: MdxLink },
         options: {
           mdxOptions: {
             remarkPlugins: [remarkGfm],

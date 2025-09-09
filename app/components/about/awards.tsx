@@ -16,7 +16,7 @@ export default function Awards() {
         {awards.map((award) => {
           return (
             <div
-              className="mb-8 p-4 border-gray-50 border-1 bg-green-950 rounded-3xl"
+              className="mb-8 p-4 border-[var(--border)] border-1 bg-[var(--background-secondary)] rounded-3xl"
               key={award.name + "award"}
             >
               <h2>{award.name}</h2>

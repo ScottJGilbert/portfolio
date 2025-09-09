@@ -44,40 +44,37 @@ export default function ContactPage() {
 
   return (
     <div
-      className={clsx(
-        "mt-4 rounded-2xl p-6 bg-gradient-to-b from-green-950 to-green-900 text-white mx-auto border-gray-50 border",
-        {
-          "md:min-h-[calc(100vh-6rem)]": success || (error && !success),
-          "md:min-h-[calc(100vh-2rem)]": !success && !error,
-        }
-      )}
+      className={clsx("mt-4 rounded-2xl p-6 mx-auto", {
+        "md:min-h-[calc(100vh-6rem)]": success || (error && !success),
+        "md:min-h-[calc(100vh-2rem)]": !success && !error,
+      })}
     >
       <h1>Contact Me</h1>
-      <form className="mb-4" data-color-mode="light" onSubmit={submitForm}>
-        <div className="mb-4 [&>input]:mr-4 [&>input]:mb-4">
+      <form className="mb-4 text-[var(--foreground)]" onSubmit={submitForm}>
+        <div className="mb-4 [&>input]:mr-4 [&>input]:mb-4 [&>input]:text-gray-600 [&>input]:dark:text-gray-300">
           <input
-            className="p-2 border border-gray-300 rounded-xl"
+            className="p-2 border border-[var(--border)] rounded-xl"
             type="text"
             placeholder="First Name (Required)"
             name="first_name"
             required
           />
           <input
-            className="p-2 border border-gray-300 rounded-xl"
+            className="p-2 border border-[var(--border)] rounded-xl"
             type="text"
             placeholder="Last Name (Required)"
             name="last_name"
             required
           />
           <input
-            className="p-2 border border-gray-300 rounded-xl"
+            className="p-2 border border-[var(--border)] rounded-xl"
             type="email"
             placeholder="Email (Required)"
             name="email"
             required
           />
         </div>
-        <div className="mb-4 border-white border rounded">
+        <div className="mb-4 border-[var(--border)] border rounded">
           <Suspense fallback={null}>
             <EditorComp
               key={success ? "reset" : "editor"} // or use markdown.length as a key
@@ -88,7 +85,7 @@ export default function ContactPage() {
           </Suspense>
         </div>
         <motion.button
-          className="px-4 py-2 bg-green-950 text-white rounded border border-gray-50 hover:bg-green-900 hover:cursor-pointer"
+          className="px-4 py-2 bg-[var(--background-secondary)] rounded border border-[var(--border)] hover:bg-[var(--background-tertiary)] hover:cursor-pointer"
           type="submit"
           initial={{ scale: 1 }} // Initial state
           whileHover={{ scale: 1.05 }} // Scale up on hover
@@ -98,12 +95,12 @@ export default function ContactPage() {
           Send
         </motion.button>
         {!success && error && (
-          <div className="p-1 rounded-lg bg-amber-100 mt-2 border-2 border-black">
+          <div className="p-1 rounded-lg bg-amber-100 mt-4 border-2 border-black">
             <p className="text-red-500">{error}</p>
           </div>
         )}
         {success && (
-          <div className="p-1 rounded-lg bg-green-200 mt-2 border-2 border-black">
+          <div className="p-1 rounded-lg bg-green-200 mt-4 border-2 border-black">
             <p className="text-green-900">
               Message sent! Please be checking your email - I will get back to
               you as soon as I can.

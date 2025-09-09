@@ -13,7 +13,7 @@ export default function Page() {
       <div className="flex items-left">
         <Link
           href="/images"
-          className="p-2 m-2 rounded-xl bg-green-950 hover:bg-slate-900 hover:cursor-pointer border-gray-50 border-1"
+          className="p-2 m-2 rounded-xl bg-[var(--background-secondary)] hover:bg-slate-900 hover:cursor-pointer border-[var(--border)] border-1"
         >
           ← Go Back
         </Link>

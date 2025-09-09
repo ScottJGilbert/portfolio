@@ -36,7 +36,7 @@ export default async function SignInPage({
         <Head>
           <meta name="robots" content="noindex,nofollow" key="noRobots" />
         </Head>
-        <div className="flex-1 m-auto flex flex-col gap-2 p-6 rounded-3xl bg-green-950 border-solid border-1 border-gray-50">
+        <div className="flex-1 m-auto flex flex-col gap-2 p-6 rounded-3xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
           <h2>Login</h2>
           <hr></hr>
           <div className="m-4">
@@ -59,7 +59,7 @@ export default async function SignInPage({
                 }}
               >
                 <input type="hidden" name="callbackUrl" value={cb} />
-                <Button className="p-3 hover:bg-blue-950 hover:cursor-pointer">
+                <Button className="p-3 hover:cursor-pointer">
                   <LinkIcon className="w-5 h-5 inline mr-3 -translate-y-[2px]"></LinkIcon>
                   <span>Sign in with {provider.name}</span>
                 </Button>

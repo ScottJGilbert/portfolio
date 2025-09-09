@@ -1,24 +1,14 @@
 import Image, { ImageProps } from "next/image";
-import Link from "next/link";
 
 export const components = {
   img: (props: ImageProps) => (
     <Image
       {...props}
-      className="w-auto h-auto rounded-2xl max-w-4xl max-h-3xl mx-auto layout-responsive"
+      className="w-auto h-auto rounded-2xl max-w-full md:max-w-4xl max-h-3xl mx-auto layout-responsive"
       width={props.width || 800}
       height={props.height || 600}
       alt={props.alt || ""}
       loading="lazy"
-    />
-  ),
-  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-    <Link
-      {...props}
-      href={props.href || ""}
-      className="text-blue-300 hover:text-blue-400"
-      target={props.target || "_self"}
-      rel={props.target === "_blank" ? "noopener noreferrer" : undefined}
     />
   ),
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
@@ -28,11 +18,11 @@ export const components = {
     <ol {...props} className="list-decimal list-inside mb-4" />
   ),
   table: (props: React.TableHTMLAttributes<HTMLTableElement>) => (
-    <div className="max-w-full border border-gray-500 rounded-md overflow-x-hidden mb-4">
+    <div className="max-w-full border border-[var(--border)] rounded-md overflow-x-hidden mb-4">
       <div className="w-full overflow-x-auto">
         <table
           {...props}
-          className="text-sm max-w-full table-auto border border-gray-500 rounded-md overflow-hidden"
+          className="text-sm max-w-full table-auto border border-[var(--border)] rounded-md overflow-hidden"
         />
       </div>
     </div>
@@ -40,10 +30,13 @@ export const components = {
   th: (props: React.ThHTMLAttributes<HTMLTableCellElement>) => (
     <th
       {...props}
-      className="border border-gray-500 bg-gray-800 px-4 py-2 text-left"
+      className="border border-[var(--border)] bg-gray-400 dark:bg-gray-800 px-4 py-2 text-left"
     />
   ),
   td: (props: React.TdHTMLAttributes<HTMLTableCellElement>) => (
-    <td {...props} className="border border-gray-500 px-4 py-2 align-top" />
+    <td
+      {...props}
+      className="border border-[var(--border)]0 px-4 py-2 align-top"
+    />
   ),
 };

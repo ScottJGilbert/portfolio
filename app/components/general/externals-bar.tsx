@@ -3,8 +3,9 @@ import {
   DocumentDuplicateIcon,
 } from "@heroicons/react/24/outline";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import Link from "next/link";
 import { Bounce } from "../motion/transitions";
+import { usePageLoading } from "@/providers/loading-provider";
+import BufferedLink from "@/app/ui/buffered-link";
 
 const links = [
   {
@@ -22,6 +23,8 @@ const links = [
 ];
 
 export default function Contactbar() {
+  const { setIsLoading } = usePageLoading();
+
   return (
     <div>
       <p className="text-lg">External Links</p>
@@ -31,16 +34,16 @@ export default function Contactbar() {
           const LinkIcon = link.icon;
           return (
             <Bounce key={link.name}>
-              <Link
+              <BufferedLink
                 href={link.href}
                 className={
-                  "flex h-[48px] grow items-center justify-center gap-2 rounded-md py-3 text-lg font-medium rounded-l-full rounded-r-full border-solid border-1 border-gray-50 hover:bg-blue-950 hover:text-gray-50 md:flex-none md:justify-between md:p-2"
+                  "flex h-[48px] grow items-center justify-center gap-2 rounded-md py-3 text-lg font-medium rounded-l-full rounded-r-full border-solid border-1 border-[var(--border)] hover:bg-blue-200 dark:hover:bg-blue-950 dark:hover:text-gray-50 md:flex-none md:justify-between md:p-2"
                 }
                 target="_blank"
               >
                 <LinkIcon className="w-6" />
                 <p className="block">{link.name}</p>
-              </Link>
+              </BufferedLink>
             </Bounce>
           );
         })}

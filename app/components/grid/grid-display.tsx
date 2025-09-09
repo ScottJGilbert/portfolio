@@ -1,18 +1,21 @@
 "use client";
 
 import Filter from "./filter";
-import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import type { Item } from "@/lib/definitions";
 import Category from "@/app/ui/category";
 import { motion } from "motion/react";
+import BufferedLink from "@/app/ui/buffered-link";
+import { usePageLoading } from "@/providers/loading-provider";
 
 export default function GridDisplay({ type }: { type: string }) {
   const pathname = usePathname();
   const [items, setItems] = useState<Item[]>([]);
   const searchParams = useSearchParams();
+
+  const { setIsLoading } = usePageLoading();
 
   useEffect(() => {
     async function fetchAndSet() {
@@ -42,7 +45,6 @@ export default function GridDisplay({ type }: { type: string }) {
         const res = await fetch("/api/fetch-posts?" + searchParams.toString());
         const posts = await res.json();
         for (const post of posts) {
-          console.log(post);
           const item: Item = {
             title: post.title,
             description: post.description,
@@ -81,7 +83,7 @@ export default function GridDisplay({ type }: { type: string }) {
                     duration: 0.75,
                     delay: index * 0.2,
                   }}
-                  className="p-4 rounded-2xl bg-green-950 border-solid border-1 border-gray-50"
+                  className="p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]"
                 >
                   <Image
                     src={
@@ -95,7 +97,7 @@ export default function GridDisplay({ type }: { type: string }) {
                     className="rounded-2xl w-full h-auto"
                   ></Image>
                   <h3 className="mt-2">{item.title}</h3>
-                  <p className="text-gray-400">
+                  <p className="text-gray-700 dark:text-gray-400">
                     {item.date_one +
                       (type === "project" ? " - " + item.date_two : "")}
                   </p>
@@ -110,12 +112,15 @@ export default function GridDisplay({ type }: { type: string }) {
                     })}
                   </div>
                   <p className="mb-2">{item.description}</p>
-                  <Link
-                    className="text-blue-300 hover:text-blue-400"
+                  <BufferedLink
+                    doOnClick={() => {
+                      setIsLoading(true);
+                    }}
+                    className="text-blue-500 dark:text-blue-300 hover:text-blue-400"
                     href={pathname + "/" + item.slug}
                   >
                     Read More →
-                  </Link>
+                  </BufferedLink>
                 </motion.div>
               );
             })}

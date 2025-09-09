@@ -60,7 +60,7 @@ export default function Page() {
               <div className="">
                 <p className="text-4xl md:text-8xl text-center">
                   Hi, I&apos;m{" "}
-                  <b className="block md:inline text-8xl bg-linear-to-b from-zinc-500 via-zinc-600 to-zinc-900 bg-clip-text tracking-wide text-transparent dark:from-zinc-700 dark:via-zinc-200 dark:to-zinc-50">
+                  <b className="block md:inline text-8xl bg-linear-to-b from-zinc-700 via-zinc-800 to-black bg-clip-text tracking-wide text-transparent dark:from-zinc-400 dark:via-zinc-200 dark:to-zinc-50">
                     Scott Gilbert
                   </b>
                 </p>
@@ -68,8 +68,8 @@ export default function Page() {
                   <span className="flex h-20 items-baseline justify-center md:block md:h-auto">
                     I&apos;m {currentString}
                   </span>{" "}
-                  and computer engineer on a mission to make tomorrow{" "}
-                  <i>just</i> a little brighter.
+                  and computer engineer ready to make tomorrow <i>just</i> a
+                  little brighter.
                 </h2>
               </div>
               <motion.span
@@ -79,14 +79,14 @@ export default function Page() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }} // Spring animation settings
               >
                 <Link
-                  href=""
-                  className="m-8 group relative inline-flex cursor-pointer items-center justify-between overflow-hidden rounded-full border border-black/30 bg-black/20 py-[3px] pr-[3px] pl-2 text-base font-medium opacity-85 backdrop-blur-xs transition-all hover:bg-transparent md:py-1 md:pr-1 md:pl-3 dark:border-white/10 dark:bg-white/10"
+                  href="#expertise"
+                  className="m-8 group relative inline-flex cursor-pointer items-center justify-between overflow-hidden rounded-full border border-black/30 bg-black/20 py-[3px] pr-[3px] pl-2 text-base font-medium opacity-85 backdrop-blur-xs transition-all hover:bg-transparent md:py-1 md:pr-1 md:pl-3 dark:border-white/10 dark:bg-white"
                 >
-                  <span className="z-10 px-3 text-black transition-colors duration-300 group-hover:text-white dark:text-white dark:group-hover:text-black">
+                  <span className="z-10 px-3 text-black transition-colors duration-300 group-hover:text-white dark:text-black dark:group-hover:text-white">
                     Learn More
                   </span>
-                  <span className="absolute inset-0 translate-x-[45%] scale-0 rounded-full bg-black opacity-0 transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100 dark:bg-white"></span>
-                  <span className="z-10 flex items-center justify-center overflow-hidden rounded-full bg-black p-2 transition-colors duration-300 group-hover:bg-transparent md:p-2.5 dark:bg-white">
+                  <span className="absolute inset-0 translate-x-[45%] scale-0 rounded-full bg-black opacity-0 transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100 dark:bg-white/10"></span>
+                  <span className="z-10 flex items-center justify-center overflow-hidden rounded-full bg-black p-2 transition-colors duration-300 md:p-2.5 dark:bg-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="18"
@@ -127,7 +127,7 @@ export default function Page() {
         </div>
       </div>
       <div className="text-center mb-16">
-        <h1>Expertise Across Fields</h1>
+        <h1 id="expertise">Expertise Across Fields</h1>
         <p className="pb-4">
           Well-versed in a wide range of tools used in Computer Engineering,
           Electrical Engineering, Computer Science, and everything in between.
@@ -138,13 +138,13 @@ export default function Page() {
         <h1>Experience That Matters</h1>
         <p className="pb-4">
           Prepared for the toughest challenges with a depth of skills learned in
-          industry, academia, and in the not-for-profit sector.
+          industry, in academia, and in the not-for-profit sector.
         </p>
         <div className="inline-flex md:flex-row flex-col basis-0 gap-4">
           {places.map((place) => {
             return (
               <div
-                className="inline-flex gap-4 relative p-4 rounded-2xl bg-green-950 border-solid border-1 border-gray-50"
+                className="inline-flex gap-4 relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]"
                 key={place.name}
               >
                 <div className="inline-flex flex-col justify-center">
@@ -237,10 +237,10 @@ function Projects() {
           return (
             <div
               key={item.title + "item"}
-              className="p-4 rounded-2xl bg-green-950 border-solid border-1 border-gray-50"
+              className="p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]"
             >
               <h3 className="mt-2">{item.title}</h3>
-              <p className="text-gray-400">
+              <p className="text-gray-700 dark:text-gray-400">
                 {item.date_one + " - " + item.date_two}
               </p>
               <div className="flex flex-wrap gap-2 my-2">
@@ -255,7 +255,7 @@ function Projects() {
               </div>
               <p className="mb-2">{item.description}</p>
               <Link
-                className="text-blue-300 hover:text-blue-400"
+                className="text-blue-500 dark:text-blue-300 hover:text-blue-400"
                 href={"/projects/" + item.slug}
               >
                 Read More →
@@ -303,10 +303,12 @@ function Posts() {
           return (
             <div
               key={item.title + "item"}
-              className="p-4 rounded-2xl bg-green-950 border-solid border-1 border-gray-50"
+              className="p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]"
             >
               <h3 className="mt-2">{item.title}</h3>
-              <p className="text-gray-400">{item.date_one}</p>
+              <p className="text-gray-700 dark:text-gray-400">
+                {item.date_one}
+              </p>
               <div className="flex flex-wrap gap-2 my-2">
                 {item.categories.map((categoryString) => {
                   return (
@@ -319,7 +321,7 @@ function Posts() {
               </div>
               <p className="mb-2">{item.description}</p>
               <Link
-                className="text-blue-300 hover:text-blue-400"
+                className="text-blue-500 dark:text-blue-300 hover:text-blue-400"
                 href={"/blog/" + item.slug}
               >
                 Read More →
