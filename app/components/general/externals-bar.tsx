@@ -23,8 +23,6 @@ const links = [
 ];
 
 export default function Contactbar() {
-  const { setIsLoading } = usePageLoading();
-
   return (
     <div>
       <p className="text-lg">External Links</p>
