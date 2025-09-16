@@ -7,6 +7,7 @@ import Link from "next/link";
 import Button from "../ui/button";
 import Image from "next/image";
 import { isUrl } from "check-valid-url";
+import Upload from "./images/upload";
 
 //Categories: Languages, frameworks, tools(?)
 export default function EditExpertise() {
@@ -14,13 +15,15 @@ export default function EditExpertise() {
     expertise_id: -1,
     name: "",
     image_url: "",
-    category: "",
+    category: "language",
   };
 
   const blankArray: Expertise[] = [];
 
   const [formData, setFormData] = useState(blank);
   const [areas, setAreas] = useState(blankArray);
+
+  const [displayedImageUrl, setDisplayedImageUrl] = useState("");
 
   useEffect(() => {
     const fetching = async () => {
@@ -196,15 +199,20 @@ export default function EditExpertise() {
           </Button>
         </form>
       </div>
+      <div className="flex gap-4 justify-start items-center">
+        <Upload
+          onComplete={(result) => {
+            setDisplayedImageUrl(result.ufsUrl);
+          }}
+        />
+        <p>{displayedImageUrl}</p>
+      </div>
       <div className="flex gap-4">
         <Button className="mt-4" onClick={save}>
           Save
         </Button>
         <div className="flex flex-col justify-center">
-          <p>
-            All changes (including deletions) will not be saved until the save
-            button is pressed.
-          </p>
+          <p>NO CHANGES ARE SAVED UNTIL THE BUTTON IS PRESSED.</p>
         </div>
       </div>
     </div>

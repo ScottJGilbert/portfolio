@@ -5,7 +5,35 @@ const awards = [
     issuer: "National Merit Scholarship Corporation",
     date: "5/7/2025",
     description:
-      "For demonstrating one of the strongest combinations of accomplishments, skills, and potential for success in rigorous college studies",
+      "For demonstrating one of the strongest combinations of accomplishments, skills, and potential for success in rigorous college studies.",
+  },
+  {
+    name: "AP Scholar with Distinction",
+    issuer: "College Board",
+    date: "7/9/2025",
+    description:
+      "For earning an average score of at least 3.5 on all AP Exams taken, and scores of 3 or higher on five or more of these exams.",
+  },
+  {
+    name: "Illinois State Seal of Biliteracy (Mandarin)",
+    issuer: "Illinois State Board of Education",
+    date: "5/1/2024",
+    description:
+      "For demonstrating proficiency in English and Mandarin Chinese, as well as intercultural competence.",
+  },
+  {
+    name: "Eagle Scout",
+    issuer: "Scouting America",
+    date: "2/26/2023",
+    description:
+      "For demonstrating leadership, service, and outdoor skills through the completion of a community service project and earning at least 21 merit badges.",
+  },
+  {
+    name: "President's Volunteer Service Award - Gold Medal",
+    issuer: "AmeriCorps",
+    date: "1/15/2021",
+    description:
+      "For completing over 100 hours of volunteer service in a 12-month period, demonstrating a strong commitment to community service and civic engagement.",
   },
 ];
 

@@ -68,7 +68,7 @@ export default function RootLayout({
                     <Header />
                     <PageTransition>
                       <div>
-                        <div className="h-32 md:h-0"></div>
+                        <div className="h-28 md:h-0"></div>
                         <div className="md:mb-0 mb-12">{children}</div>
                       </div>
                     </PageTransition>

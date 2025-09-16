@@ -26,31 +26,37 @@ export default function Sidebar() {
       }`}
     >
       <Fade>
-        <div className="hidden flex-col gap-2 m-4 px-4 py-4 bg-gradient-to-br from-green-300 to-green-100 dark:from-green-950 dark:to-green-900 rounded-4xl border-1 border-[var(--border)] md:flex">
-          <BufferedLink
-            doOnClick={() => {
-              setIsLoading(true);
-            }}
-            href="/"
-            className="px-4"
-          >
-            <motion.div
-              initial={{ scale: 1 }} // Initial state
-              whileHover={{ scale: 1.05 }} // Scale up on hover
-              whileTap={{ scale: 0.95 }} // Scale down on tap/click
-              transition={{ type: "spring", stiffness: 300, damping: 20 }} // Spring animation settings
+        <div className="hidden h-[calc(100vh-2rem)] flex-col items-stretch m-4 px-4 bg-gradient-to-br from-green-300 to-green-100 dark:from-green-950 dark:to-green-900 rounded-4xl border-1 border-[var(--border)] md:flex">
+          <div className="h-full flex flex-col items-stretch justify-start">
+            <div className="flex-grow max-h-8 min-h-4" />
+            <BufferedLink
+              doOnClick={() => {
+                setIsLoading(true);
+              }}
+              href="/"
+              className="px-4"
             >
-              <Image
-                src="/profileIcon.svg"
-                alt="Profile Icon"
-                width={730}
-                height={530}
-                className="block h-16 w-22 mx-auto"
-              />
-            </motion.div>
-          </BufferedLink>
-          <Navbar />
-          <Contactbar />
+              <motion.div
+                initial={{ scale: 1 }} // Initial state
+                whileHover={{ scale: 1.05 }} // Scale up on hover
+                whileTap={{ scale: 0.95 }} // Scale down on tap/click
+                transition={{ type: "spring", stiffness: 300, damping: 20 }} // Spring animation settings
+              >
+                <Image
+                  src="/profileIcon.svg"
+                  alt="Profile Icon"
+                  width={730}
+                  height={530}
+                  className="block h-16 w-22 mx-auto"
+                />
+              </motion.div>
+            </BufferedLink>
+            <div className="flex-grow max-h-8 min-h-1" />
+            <Navbar />
+            <div className="flex-grow max-h-8" />
+            <Contactbar />
+            <div className="flex-grow max-h-8 min-h-4" />
+          </div>
         </div>
       </Fade>
     </div>

@@ -3,13 +3,13 @@ import Image from "next/image";
 export default function Biography() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col md:flex-row md:space-between mb-8 gap-4">
+      <div className="flex flex-col lg:flex-row lg:space-between mb-8 gap-4">
         <Image
           src="/portrait.jpg"
           alt="portrait"
           height={375}
           width={300}
-          className="rounded-2xl border-[var(--border)] border-1 w-full md:w-auto h-auto"
+          className="rounded-2xl border-[var(--border)] border-1 w-full lg:w-auto h-auto"
         />
         <div className="[&>*]:mb-4 text-lg">
           <p>

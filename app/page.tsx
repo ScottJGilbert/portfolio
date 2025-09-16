@@ -9,18 +9,23 @@ import Image from "next/image";
 import Category from "./ui/category";
 import { motion } from "motion/react";
 import { FadeUp } from "./components/motion/transitions";
+import { RotateWords } from "./ui/rotate-words";
 
 const Expertise = dynamic(() => import("./components/expertise"), {
   ssr: false,
 });
 
+//Make these look different
+
+/* Make each section (especially the first one) look different from everything else */
+
 const strings = [
-  "a trombone player",
-  "a full-stack developer",
-  "a cross-country runner",
-  "an avid volunteer",
-  "a Minecraft gamer",
-  "a tinkerer",
+  "I'm a trombone player",
+  "I'm a full-stack developer",
+  "I'm a cross-country runner",
+  "I'm an avid volunteer",
+  "I'm a Minecraft gamer",
+  "I'm a tinkerer",
 ];
 
 const places = [
@@ -41,35 +46,27 @@ const places = [
 ];
 
 export default function Page() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const currentString = strings[currentIndex];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % strings.length);
-    }, 1500);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div>
       <div>
         <div className="flex flex-col">
           <FadeUp>
-            <div className="md:min-h-screen flex flex-col items-center justify-center">
+            <div className="md:min-h-screen min-h-[calc(100vh-7.5rem)] flex flex-col items-center justify-center gap-4 md:gap-0">
               <div className="">
                 <p className="text-4xl md:text-8xl text-center">
                   Hi, I&apos;m{" "}
-                  <b className="block md:inline text-8xl bg-linear-to-b from-zinc-700 via-zinc-800 to-black bg-clip-text tracking-wide text-transparent dark:from-zinc-400 dark:via-zinc-200 dark:to-zinc-50">
+                  <b className="block text-7xl md:inline md:text-8xl bg-linear-to-b from-zinc-700 via-zinc-800 to-black bg-clip-text tracking-wide text-transparent dark:from-zinc-400 dark:via-zinc-200 dark:to-zinc-50">
                     Scott Gilbert
                   </b>
                 </p>
                 <h2 className="block text-3xl md:text-4xl text-center mt-4">
-                  <span className="flex h-20 items-baseline justify-center md:block md:h-auto">
-                    I&apos;m {currentString}
-                  </span>{" "}
-                  and computer engineer ready to make tomorrow <i>just</i> a
-                  little brighter.
+                  <RotateWords
+                    text={""}
+                    words={strings}
+                    className="h-16 md:h-auto"
+                  />
+                  and computer engineer ready to make tomorrow a little
+                  brighter.
                 </h2>
               </div>
               <motion.span
