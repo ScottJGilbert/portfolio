@@ -27,7 +27,7 @@ export default function Navbar() {
     <div>
       <p className="text-lg">Navigation</p>
       <hr className="mb-4 mt-2"></hr>
-      <div className="grid grid-cols-2 md:flex flex-col">
+      <div className="gap-2 md:gap-0 grid grid-cols-2 md:flex flex-col">
         {links.map((link) => {
           const LinkIcon = link.icon;
           return (
