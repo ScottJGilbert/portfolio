@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   // description: "",
 };
 
-export const revalidate = 3600 * 2; // Revalidate every 2 hours
+export const revalidate = 7200; // Revalidate every 2 hours
 
 export default async function Page() {
   const attributions = await fetchAttributions();

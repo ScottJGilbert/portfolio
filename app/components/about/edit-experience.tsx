@@ -1,6 +1,6 @@
 "use client";
 
-import { Experience, Expertise } from "@/lib/definitions";
+import { Experience, Skill } from "@/lib/definitions";
 import { useState } from "react";
 import Editor from "@/app/ui/editor";
 
@@ -9,11 +9,11 @@ export default function EditExperience({
   expertiseAreas,
 }: {
   initialData: Experience;
-  expertiseAreas: Expertise[];
+  expertiseAreas: Skill[];
 }) {
   const [markdown, setMarkdown] = useState(initialData.markdown);
   const [expertiseStrings, setExpertiseStrings] = useState(
-    initialData.expertise.map((e) => e.name)
+    initialData.skills.map((e) => e.name)
   );
   const [formData, setFormData] = useState(initialData);
   const [isSaving, setIsSaving] = useState(false);
@@ -51,7 +51,7 @@ export default function EditExperience({
       const updatedFormData: Experience = {
         ...formData,
         markdown: markdown,
-        expertise: expertiseAreas.filter((area) =>
+        skills: expertiseAreas.filter((area) =>
           expertiseStrings.includes(area.name)
         ),
       };

@@ -1,8 +1,4 @@
-import {
-  fetchExperienceIDs,
-  fetchExperience,
-  fetchExpertiseAreas,
-} from "@/lib/db";
+import { fetchExperienceIDs, fetchExperience, fetchSkills } from "@/lib/db";
 import EditExperience from "./edit-experience";
 import { Suspense } from "react";
 import { Experience } from "@/lib/definitions";
@@ -10,7 +6,7 @@ import { Experience } from "@/lib/definitions";
 export default async function EditAllExperience() {
   const ids = await fetchExperienceIDs();
   const blankStrings: string[] = [];
-  const expertiseAreas = await fetchExpertiseAreas(blankStrings);
+  const expertiseAreas = await fetchSkills(blankStrings);
 
   const blank: Experience = {
     experience_id: -1,
@@ -19,7 +15,7 @@ export default async function EditAllExperience() {
     start_date: new Date(0),
     end_date: null,
     markdown: "",
-    expertise: [],
+    skills: [],
     self_employed: false,
     volunteer: false,
   };

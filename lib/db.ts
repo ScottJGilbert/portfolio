@@ -93,14 +93,14 @@ export async function fetchExperience(id: number) {
       WHERE experience_id = ${id} 
       LIMIT 1;
     `;
-    const stringData = await sql<{ skill: string[] }[]>`
-      SELECT skill
+    const stringData = await sql<{ skills: string[] }[]>`
+      SELECT skills
       FROM experience
       WHERE experience_id = ${id};
     `;
     const experience: Experience = data[0] as Experience;
-    if (stringData[0].skill.length > 0)
-      experience.skills = await fetchSkills(stringData[0].skill);
+    if (stringData[0].skills.length > 0)
+      experience.skills = await fetchSkills(stringData[0].skills);
     return experience;
   } catch (err) {
     console.error("Error fetching experience: ", err);
@@ -122,7 +122,7 @@ export async function updateExperience(experience: Experience) {
           start_date = ${experience.start_date}, 
           end_date = ${experience.end_date}, 
           markdown = ${experience.markdown},
-          expertise = ${experienceStrings},
+          skills = ${experienceStrings},
           self_employed = ${experience.self_employed},
           volunteer = ${experience.volunteer} 
         WHERE experience_id = ${experience.experience_id};
@@ -136,7 +136,7 @@ export async function updateExperience(experience: Experience) {
           start_date, 
           end_date, 
           markdown, 
-          expertise, 
+          skills, 
           self_employed, 
           volunteer)
         VALUES (
