@@ -1,10 +1,16 @@
 "use client";
 
-import { Expertise } from "@/lib/definitions";
+import { Skill } from "@/lib/definitions";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function ExpertiseBox({ area }: { area: Expertise }) {
+export default function SkillBox({
+  area,
+  className,
+}: {
+  area: Skill;
+  className?: string;
+}) {
   const url = area.image_url;
   const [theme, setTheme] = useState("");
   const [matches, setMatches] = useState(false);
@@ -18,7 +24,10 @@ export default function ExpertiseBox({ area }: { area: Expertise }) {
   return (
     <span
       key={area.name + "area"}
-      className="bg-[var(--background-secondary)] p-2 rounded-xl border-1 border-[var(--border)] inline-flex justify-between gap-4"
+      className={
+        "bg-[var(--background-secondary)] p-2 rounded-xl border-1 border-[var(--border)] inline-flex justify-between gap-4 " +
+        className
+      }
     >
       <div className="flex items-center gap-2">
         <Image

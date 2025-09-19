@@ -21,8 +21,7 @@ export async function generateMetadata(props: {
   };
 }
 
-export const revalidate = 600; // Revalidate every ten minutes - MAKE SURE TO REPLACE THIS WITH 600 LATER
-export const dynamicParams = true;
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const slugs = await fetchProjectSlugs();

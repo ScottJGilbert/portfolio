@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { fetchPosts, fetchProjects } from "@/lib/db";
 import { Item } from "@/lib/definitions";
@@ -10,10 +9,11 @@ import Category from "./ui/category";
 import { motion } from "motion/react";
 import { FadeUp } from "./components/motion/transitions";
 import { RotateWords } from "./ui/rotate-words";
-
-const Expertise = dynamic(() => import("./components/expertise"), {
-  ssr: false,
-});
+import Expertise from "./components/expertise";
+import Button from "./ui/button";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 //Make these look different
 
@@ -28,24 +28,16 @@ const strings = [
   "I'm a tinkerer",
 ];
 
-const places = [
-  {
-    name: "University of Illinois at Urbana-Champaign",
-    imageUrl:
-      "https://brand.illinois.edu/wp-content/uploads/2025/02/Illinois_logo_fullcolor_%C2%AE_rgb.png",
-    width: 284,
-    height: 350,
-  },
-  {
-    name: "Scouting America",
-    imageUrl:
-      "https://www.scouting.org/wp-content/uploads/2023/05/BSA_Logo.png",
-    width: 220,
-    height: 220,
-  },
-];
-
 export default function Page() {
+  const settings = {
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "60px",
+    slidesToShow: 3,
+    speed: 500,
+  };
+
   return (
     <div>
       <div>
@@ -65,7 +57,7 @@ export default function Page() {
                     words={strings}
                     className="h-16 md:h-auto"
                   />
-                  and computer engineer ready to make tomorrow a little
+                  and computer engineer trying to help make tomorrow a little
                   brighter.
                 </h2>
               </div>
@@ -123,48 +115,80 @@ export default function Page() {
           </FadeUp>
         </div>
       </div>
-      <div className="text-center mb-16">
-        <h1 id="expertise">Expertise Across Fields</h1>
-        <p className="pb-4">
-          Well-versed in a wide range of tools used in Computer Engineering,
-          Electrical Engineering, Computer Science, and everything in between.
-        </p>
-        <Expertise />
-      </div>
-      <div className="py-4 min-h-full">
+      <div className="md:min-h-screen min-h-[calc(100vh-7.5rem)]">
+        {/* Make this a more generalized display of knowledge and other stuff that is a carousel */}
+
         <h1>Experience That Matters</h1>
         <p className="pb-4">
           Prepared for the toughest challenges with a depth of skills learned in
-          industry, in academia, and in the not-for-profit sector.
+          industry, in academia, and more.
         </p>
-        <div className="inline-flex md:flex-row flex-col basis-0 gap-4">
-          {places.map((place) => {
-            return (
-              <div
-                className="inline-flex gap-4 relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]"
-                key={place.name}
-              >
-                <div className="inline-flex flex-col justify-center">
-                  <Image
-                    src={place.imageUrl}
-                    className="inline object-contain max-h-20"
-                    alt={place.name}
-                    height={place.height}
-                    width={place.width}
-                  />
-                </div>
-                <div className="flex-1 inline-flex flex-col justify-center">
-                  <h3>{place.name}</h3>
+        <Slider {...settings}>
+          <div>
+            <div className="text-center mb-16 bg-[var(--background-secondary)] p-4 rounded-4xl border-[var(--border)] border-1">
+              <h2 id="expertise" className="mb-4">
+                Expertise Across Fields
+              </h2>
+              <Expertise />
+              <Link href="/skills" className="mt-4 block">
+                <Button>See all →</Button>
+              </Link>
+            </div>
+          </div>
+          <div>
+            {/* Convert to professional experience */}
+            <div>
+              <div className="flex-col basis-0 gap-4">
+                <div className="relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
+                  <h4>I&apos;m a student at...</h4>
+                  <div className="inline-flex flex-col justify-center">
+                    <Image
+                      src="https://brand.illinois.edu/wp-content/uploads/2025/02/Illinois_logo_fullcolor_%C2%AE_rgb.png"
+                      className="inline object-contain max-h-20"
+                      alt="UIUC Logo"
+                      height={284}
+                      width={350}
+                    />
+                  </div>
+                  <div className="flex-1 inline-flex flex-col justify-center">
+                    <h3>University of Illinois at Urbana-Champaign</h3>
+                  </div>
+                  <Link href="/about#Education" className="block">
+                    See all education →
+                  </Link>
                 </div>
               </div>
-            );
-          })}
-        </div>
-        <div className="pt-4">
-          <Link href="/about" className="hover:text-gray-400">
-            See everywhere I&apos;ve been →
-          </Link>
-        </div>
+            </div>
+            <div>{/* Convert to education */}</div>
+          </div>
+          <div>
+            {/* Convert to professional experience */}
+            <div>
+              <div className="flex-col basis-0 gap-4">
+                <div className="relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
+                  <h4>I&apos;m working as a...</h4>
+                  <div className="inline-flex flex-col justify-center">
+                    <Image
+                      src="https://brand.illinois.edu/wp-content/uploads/2025/02/Illinois_logo_fullcolor_%C2%AE_rgb.png"
+                      className="inline object-contain max-h-20"
+                      alt="UIUC Logo"
+                      height={284}
+                      width={350}
+                    />
+                  </div>
+                  <div className="flex-1 inline-flex flex-col justify-center">
+                    <h3>Electrical Team Member</h3>
+                    <h4>Illini Solar Car</h4>
+                  </div>
+                  <Link href="/about#Experience" className="block">
+                    See everywhere I&apos;ve been →
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div>{/* Convert to education */}</div>
+          </div>
+        </Slider>
       </div>
       <div className="py-4">
         <h2>Curated Projects</h2> {/* Link to header for experience */}

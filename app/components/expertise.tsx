@@ -1,19 +1,16 @@
-"use client";
-
-import type { Expertise } from "@/lib/definitions";
-import ExpertiseBox from "@/app/ui/expertise";
+import type { Skill } from "@/lib/definitions";
+import SkillBox from "@/app/ui/skill-box";
 import { useEffect, useState } from "react";
+import Marquee from "react-fast-marquee";
+
+const MARQUEE_CONFIGS = [
+  { start: 1, end: 10, direction: "left" },
+  { start: 11, end: 20, direction: "right" },
+  { start: 21, end: 30, direction: "left" },
+];
 
 export default function Expertise() {
-  const languages: Expertise[] = [];
-  const libraries: Expertise[] = [];
-  const frameworks: Expertise[] = [];
-  const services: Expertise[] = [];
-  const hardware: Expertise[] = [];
-  const tools: Expertise[] = [];
-  const miscellaneous: Expertise[] = [];
-
-  const [areas, setAreas] = useState<Expertise[]>([]);
+  const [areas, setAreas] = useState<Skill[]>([]);
 
   function shuffleArray<T>(array: T[]): T[] {
     for (let i = array.length - 1; i > 0; i--) {
@@ -25,46 +22,34 @@ export default function Expertise() {
 
   useEffect(() => {
     async function fetchAreas() {
-      const newAreas: Expertise[] = await fetch("/api/fetch-expertise").then(
-        (res) => res.json()
+      const newAreas: Skill[] = await fetch("/api/fetch-skills").then((res) =>
+        res.json()
       );
       setAreas(shuffleArray(newAreas));
     }
     fetchAreas();
   }, []);
 
-  for (const area of areas) {
-    switch (area.category) {
-      case "language":
-        languages.push(area);
-        break;
-      case "library":
-        libraries.push(area);
-        break;
-      case "framework":
-        frameworks.push(area);
-        break;
-      case "service":
-        services.push(area);
-        break;
-      case "hardware":
-        hardware.push(area);
-        break;
-      case "tool":
-        tools.push(area);
-        break;
-      default:
-        miscellaneous.push(area);
-    }
-  }
-
   return (
-    <div>
-      <div className="flex gap-2 flex-wrap justify-center">
-        {areas.map((area) => {
-          return <ExpertiseBox key={area.name + "expertise"} area={area} />;
-        })}
-      </div>
+    <div className="flex flex-col gap-8">
+      {MARQUEE_CONFIGS.map((config, idx) => (
+        <div className="flex gap-2 flex-wrap justify-center" key={idx}>
+          <Marquee
+            gradient={false}
+            speed={50}
+            className="overflow-clip mb-4 md:max-w-160"
+            direction={config.direction as "left" | "right"}
+          >
+            {areas.slice(config.start, config.end).map((area) => (
+              <SkillBox
+                className="mx-1"
+                key={area.name + "skill"}
+                area={area}
+              />
+            ))}
+          </Marquee>
+        </div>
+      ))}
     </div>
   );
 }

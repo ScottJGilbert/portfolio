@@ -5,64 +5,69 @@ import {
   Project,
   Post,
   ItemMetadata,
-  Expertise,
+  Skill,
   ImageData,
   Experience,
   Message,
+  Attribution,
 } from "./definitions";
 import postgres from "postgres";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
-export async function fetchExpertiseAreas(names: string[]) {
+export async function fetchSkills(names: string[]) {
   try {
     if (names.length === 0) {
-      const data = await sql<Expertise[]>`
+      const data = await sql<Skill[]>`
       SELECT *
-      FROM expertise_areas;
+      FROM skills;
     `;
-      return data as Expertise[];
+      return data as Skill[];
     } else {
-      const data: Expertise[] = [];
+      const data: Skill[] = [];
       for (const name of names) {
-        const row = await sql<Expertise[]>`
+        const row = await sql<Skill[]>`
           SELECT * 
-          FROM expertise_areas
+          FROM skills
           WHERE name = ${name};
         `;
-        data.push(row[0] as Expertise);
+        data.push(row[0] as Skill);
       }
       return data;
     }
   } catch (err) {
-    console.error("Error fetching expertise areas: ", err);
+    console.error("Error fetching skills: ", err);
     return [];
   }
 }
 
-export async function updateExpertiseAreas(areas: Expertise[]) {
+export async function updateSkills(areas: Skill[]) {
   try {
     await sql`
       DELETE 
-      FROM expertise_areas;
+      FROM skills;
     `;
     for (const area of areas) {
       await sql`
         INSERT
-        INTO expertise_areas (
+        INTO skills (
           name,
           image_url,
-          category
+          category,
+          subcategory,
+          parent_skill_id
         ) 
         VALUES (
           ${area.name},
           ${area.image_url},
-          ${area.category}
+          ${area.category},
+          ${area.subcategory},
+          ${area.parent_skill_id ?? null},
         );
       `;
     }
   } catch (err) {
-    console.error("Error updating expertise areas: ", err);
+    console.error("Error updating skills: ", err);
     throw err;
   }
 }
@@ -88,14 +93,14 @@ export async function fetchExperience(id: number) {
       WHERE experience_id = ${id} 
       LIMIT 1;
     `;
-    const stringData = await sql<{ expertise: string[] }[]>`
-      SELECT expertise
+    const stringData = await sql<{ skill: string[] }[]>`
+      SELECT skill
       FROM experience
       WHERE experience_id = ${id};
     `;
     const experience: Experience = data[0] as Experience;
-    if (stringData[0].expertise.length > 0)
-      experience.expertise = await fetchExpertiseAreas(stringData[0].expertise);
+    if (stringData[0].skill.length > 0)
+      experience.skills = await fetchSkills(stringData[0].skill);
     return experience;
   } catch (err) {
     console.error("Error fetching experience: ", err);
@@ -105,8 +110,8 @@ export async function fetchExperience(id: number) {
 
 export async function updateExperience(experience: Experience) {
   try {
-    const experienceStrings = experience.expertise.map((expertise) => {
-      return expertise.name;
+    const experienceStrings = experience.skills.map((skill) => {
+      return skill.name;
     });
     if ((await fetchExperienceIDs()).includes(experience.experience_id)) {
       await sql`
@@ -634,6 +639,46 @@ export async function deleteMessage(id: number) {
     `;
   } catch (err) {
     console.error("Error deleting message: ", err);
+    throw err;
+  }
+}
+
+export async function fetchAttributions(): Promise<Attribution[]> {
+  try {
+    const data = await sql<Attribution[]>`
+      SELECT *
+      FROM attributions;
+    `;
+    return data;
+  } catch (err) {
+    console.error("Error fetching attributions: ", err);
+    return [];
+  }
+}
+
+export async function updateAttributions(attributions: Attribution[]) {
+  try {
+    await sql`
+      DELETE 
+      FROM attributions;
+    `;
+    for (const attr of attributions) {
+      await sql`
+        INSERT
+        INTO attributions (
+          name,
+          url,
+          description
+        ) 
+        VALUES (
+          ${attr.name},
+          ${attr.url},
+          ${attr.description}
+        );
+      `;
+    }
+  } catch (err) {
+    console.error("Error updating attributions: ", err);
     throw err;
   }
 }

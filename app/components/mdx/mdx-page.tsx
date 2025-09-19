@@ -1,5 +1,3 @@
-"use server";
-
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { fetchProject, fetchPost } from "@/lib/db";
@@ -10,6 +8,8 @@ import clsx from "clsx";
 import Category from "@/app/ui/category";
 import { components } from "@/lib/mdx";
 import MdxLink from "@/lib/mdx-link";
+
+export const revalidate = 600;
 
 export default async function MDXPage({
   type,

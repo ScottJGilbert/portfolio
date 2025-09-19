@@ -7,15 +7,16 @@ import Button from "@/app/ui/button";
 import Switch from "@/app/ui/switch";
 import { usePageLoading } from "@/providers/loading-provider";
 import BufferedLink from "@/app/ui/buffered-link";
+import Link from "next/link";
 
 const linkSections = [
   {
     title: "Navigation",
     links: [
       { name: "About", href: "/about" },
+      { name: "Skills", href: "/skills" },
       { name: "Projects", href: "/projects" },
       { name: "Blog", href: "/blog" },
-      { name: "Contact", href: "/contact" },
     ],
   },
   {
@@ -80,15 +81,13 @@ export default function Footer() {
                 <h1 className="text-center mt-8">
                   <b>Let&apos;s get in touch!</b>
                 </h1>
-                <BufferedLink
-                  doOnClick={() => {
-                    setIsLoading(true);
-                  }}
+                <Link
                   className="block mx-auto my-4"
-                  href="/contact"
+                  href="mailto:scott7gilbert@gmail.com"
+                  target="_blank"
                 >
                   <Button className="block mx-auto">Contact Me →</Button>
-                </BufferedLink>
+                </Link>
               </div>
             </div>
 

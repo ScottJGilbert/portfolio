@@ -1,7 +1,7 @@
 import { Experience } from "@/lib/definitions";
 import MDXExperience from "../mdx/mdx-experience";
-import ExpertiseBox from "@/app/ui/expertise";
 import clsx from "clsx";
+import SkillBox from "@/app/ui/skill-box";
 
 export default function ExperienceDisplay({
   data,
@@ -76,13 +76,8 @@ export default function ExperienceDisplay({
                 <h4>{experience.self_employed ? "(Self Employed)" : ""}</h4>
                 <MDXExperience markdown={experience.markdown} />
                 <div className="flex flex-wrap gap-2 mt-4 mb-4">
-                  {experience.expertise.map((expertise) => {
-                    return (
-                      <ExpertiseBox
-                        key={expertise.name + "area"}
-                        area={expertise}
-                      />
-                    );
+                  {experience.skills.map((skill) => {
+                    return <SkillBox key={skill.name + "area"} area={skill} />;
                   })}
                 </div>
               </div>

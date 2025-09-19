@@ -1,4 +1,4 @@
-import EditExpertise from "../components/edit-expertise";
+import EditExpertise from "../../components/edit-expertise";
 
 export default function Page() {
   return (

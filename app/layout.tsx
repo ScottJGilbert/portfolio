@@ -12,7 +12,7 @@ import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { PageLoadingProvider } from "@/providers/loading-provider";
 import PageTransition from "./components/motion/page-transition";
-// import Scroll from "./components/motion/scroll";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const inter = Inter({ subsets: ["latin"] });
 
@@ -79,8 +79,9 @@ export default function RootLayout({
             </SessionProvider>
           </PageLoadingProvider>
         </main>
-        {/* </Scroll> */}
+        {/* Vercel analytics */}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -1,8 +1,16 @@
-export type Expertise = {
-  expertise_id: number;
+export type Skill = {
+  skill_id: number;
   name: string;
   image_url: string;
-  category: string;
+  category: "software" | "hardware" | "technical" | "soft";
+  subcategory: string;
+  parent_skill_id?: number;
+};
+
+export type SkillGroup = {
+  parent: Skill;
+  childGroups: Skill[][];
+  unGroupedChildren: Skill[]; //Miscellaneous skills within the group
 };
 
 export type Experience = {
@@ -12,7 +20,7 @@ export type Experience = {
   start_date: Date;
   end_date: Date | null;
   markdown: string;
-  expertise: Expertise[];
+  skills: Skill[];
   self_employed: boolean;
   volunteer: boolean;
 };
@@ -77,4 +85,10 @@ export type Message = {
   email: string;
   message: string;
   time_sent: Date;
+};
+
+export type Attribution = {
+  name: string;
+  url: string;
+  description: string;
 };

@@ -2,9 +2,9 @@
 
 import {
   UserIcon,
+  AcademicCapIcon,
   BriefcaseIcon,
   ChatBubbleLeftRightIcon,
-  PhoneIcon,
 } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -15,9 +15,9 @@ import { Fragment } from "react";
 
 const links = [
   { name: "About", href: "/about", icon: UserIcon },
+  { name: "Skills", href: "/skills", icon: AcademicCapIcon },
   { name: "Projects", href: "/projects", icon: BriefcaseIcon },
   { name: "Blog", href: "/blog", icon: ChatBubbleLeftRightIcon },
-  { name: "Contact", href: "/contact", icon: PhoneIcon },
 ];
 
 export default function Navbar() {

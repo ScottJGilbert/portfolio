@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { fetchExpertiseAreas } from "@/lib/db";
-import { Expertise } from "@/lib/definitions";
+import { fetchSkills } from "@/lib/db";
+import { Skill } from "@/lib/definitions";
 import Link from "next/link";
 import Button from "../ui/button";
 import Image from "next/image";
@@ -11,14 +11,15 @@ import Upload from "./images/upload";
 
 //Categories: Languages, frameworks, tools(?)
 export default function EditExpertise() {
-  const blank: Expertise = {
-    expertise_id: -1,
+  const blank: Skill = {
+    skill_id: -1,
     name: "",
     image_url: "",
-    category: "language",
+    category: "software",
+    subcategory: "language",
   };
 
-  const blankArray: Expertise[] = [];
+  const blankArray: Skill[] = [];
 
   const [formData, setFormData] = useState(blank);
   const [areas, setAreas] = useState(blankArray);
@@ -27,7 +28,7 @@ export default function EditExpertise() {
 
   useEffect(() => {
     const fetching = async () => {
-      setAreas(await fetchExpertiseAreas([]));
+      setAreas(await fetchSkills([]));
     };
     fetching();
   }, []);
@@ -51,7 +52,7 @@ export default function EditExpertise() {
   };
 
   const handleCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormData({ ...formData, category: e.target.value });
+    setFormData({ ...formData, category: e.target.value as Skill["category"] });
   };
 
   const newArea = (e: React.FormEvent) => {
@@ -75,7 +76,7 @@ export default function EditExpertise() {
     }
 
     if (formData.name !== "") {
-      const newArea: Expertise = {
+      const newArea: Skill = {
         ...formData,
       };
       setAreas(areas.concat(newArea));
@@ -91,7 +92,7 @@ export default function EditExpertise() {
         <meta name="robots" content="noindex,nofollow" key="noRobots" />
       </Head> */}
       <div className="flex justify-between gap-4">
-        <h2>Expertise Areas</h2>
+        <h2>Skills</h2>
         <div className="flex gap-4">
           <Link
             href="/about"
@@ -172,26 +173,17 @@ export default function EditExpertise() {
             onChange={handleCategory}
             value={formData.category || "language"}
           >
-            <option value="language" className="text-black">
-              Language
-            </option>
-            <option value="library" className="text-black">
-              Library
-            </option>
-            <option value="framework" className="text-black">
-              Framework
-            </option>
-            <option value="service" className="text-black">
-              Service
+            <option value="software" className="text-black">
+              Software
             </option>
             <option value="hardware" className="text-black">
               Hardware
             </option>
-            <option value="tool" className="text-black">
-              Tool
+            <option value="technical" className="text-black">
+              Technical Skill
             </option>
-            <option value="miscellaneous" className="text-black">
-              Miscellaenous
+            <option value="soft" className="text-black">
+              Soft Skill
             </option>
           </select>
           <Button onClick={newArea} className="py-1 px-4">

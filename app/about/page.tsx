@@ -1,7 +1,5 @@
-import Awards from "../components/about/awards";
 import AllExperience from "../components/about/all-experience";
 import { Metadata } from "next";
-import Biography from "../components/about/biography";
 import Image from "next/image";
 
 export const metadata: Metadata = {
@@ -36,14 +34,39 @@ export default async function Page() {
     <div>
       <div className="mt-4">
         <h1>Biography</h1>
-        <Biography />
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col lg:flex-row lg:space-between mb-8 gap-4">
+            <Image
+              src="/portrait.jpg"
+              alt="portrait"
+              height={375}
+              width={300}
+              className="rounded-2xl border-[var(--border)] border-1 w-full lg:w-auto h-auto"
+            />
+            <div className="[&>*]:mb-4 text-lg">
+              <p>
+                Hello! I&apos;m Scott, an undergraduate computer engineering
+                student at the University of Illinois at Urbana-Champaign and a
+                graduate of James B. Conant High School in Hoffman Estates,
+                Illinois.
+              </p>
+              <p>
+                I am a hard-working full-stack developer, problem-solver, and
+                computer engineer who is dedicated to deploying information
+                technology, computing, and electrical engineering solutions to
+                both solve complex problems and make a difference in
+                peoples&apos; lives.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
       <div>
-        <h1>Professional Experience</h1>
+        <h1 id="Experience">Professional Experience</h1>
         <AllExperience />
       </div>
       <div>
-        <h1>Education</h1>
+        <h1 id="Education">Education</h1>
         <div>
           {schools.map((school) => (
             <div
@@ -72,10 +95,6 @@ export default async function Page() {
             </div>
           ))}
         </div>
-      </div>
-      <div>
-        <h1>Awards</h1>
-        <Awards />
       </div>
     </div>
   );
