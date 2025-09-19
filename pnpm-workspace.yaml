@@ -1,6 +1,7 @@
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@tailwindcss/oxide'
+  - '@vercel/speed-insights'
   - core-js
   - es5-ext
   - msgpackr-extract
