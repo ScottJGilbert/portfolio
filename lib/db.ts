@@ -19,9 +19,9 @@ export async function fetchSkills(names: string[]) {
   try {
     if (names.length === 0) {
       const data = await sql<Skill[]>`
-      SELECT *
-      FROM skills;
-    `;
+        SELECT *
+        FROM skills;
+      `;
       return data as Skill[];
     } else {
       const data: Skill[] = [];
@@ -41,13 +41,19 @@ export async function fetchSkills(names: string[]) {
   }
 }
 
-export async function updateSkills(areas: Skill[]) {
+export async function updateSkills(
+  skillsToAdd: Skill[],
+  skillsToRemove: number[]
+) {
   try {
-    await sql`
-      DELETE 
-      FROM skills;
-    `;
-    for (const area of areas) {
+    for (const id of skillsToRemove) {
+      await sql`
+        DELETE 
+        FROM skills 
+        WHERE skill_id = ${id};
+      `;
+    }
+    for (const area of skillsToAdd) {
       await sql`
         INSERT
         INTO skills (
@@ -62,12 +68,25 @@ export async function updateSkills(areas: Skill[]) {
           ${area.image_url},
           ${area.category},
           ${area.subcategory},
-          ${area.parent_skill_id ?? null},
+          ${area.parent_skill_id ?? null}
         );
       `;
     }
   } catch (err) {
     console.error("Error updating skills: ", err);
+    throw err;
+  }
+}
+
+export async function fetchSkillSequence(): Promise<number> {
+  try {
+    const sequence = await sql<{ value: number }[]>`
+      SELECT nextval('public.skills_skill_id_seq') AS value;
+    `;
+
+    return sequence[0].value;
+  } catch (err) {
+    console.error("Error fetching skill sequence: ", err);
     throw err;
   }
 }

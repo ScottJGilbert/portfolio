@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { fetchSkills } from "@/lib/db";
+import { useState, useEffect, useRef } from "react";
+import { fetchSkills, fetchSkillSequence } from "@/lib/db";
 import { Skill } from "@/lib/definitions";
-import Link from "next/link";
 import Button from "../ui/button";
 import Image from "next/image";
 import { isUrl } from "check-valid-url";
 import Upload from "./images/upload";
+import { capitalizeFirstLetter } from "@/lib/methods";
+import Head from "next/head";
 
 //Categories: Languages, frameworks, tools(?)
 export default function EditExpertise() {
@@ -16,34 +17,49 @@ export default function EditExpertise() {
     name: "",
     image_url: "",
     category: "software",
-    subcategory: "language",
+    subcategory: "",
+    parent_skill_id: -1,
   };
 
-  const blankArray: Skill[] = [];
+  const categories = ["software", "hardware", "technical", "soft"];
 
   const [formData, setFormData] = useState(blank);
-  const [areas, setAreas] = useState(blankArray);
+
+  const oldAreas = useRef([] as Skill[]);
+  const [areas, setAreas] = useState([] as Skill[]);
+
+  const currentSequenceValue = useRef(0);
+
+  const skillsToAdd = useRef([] as Skill[]);
+  const skillsToRemove = useRef([] as number[]);
 
   const [displayedImageUrl, setDisplayedImageUrl] = useState("");
 
   useEffect(() => {
     const fetching = async () => {
-      setAreas(await fetchSkills([]));
+      oldAreas.current.push(...(await fetchSkills([])));
+      setAreas(oldAreas.current);
+
+      currentSequenceValue.current = Number(await fetchSkillSequence());
     };
     fetching();
   }, []);
 
   async function save() {
-    const res = await fetch("/api/update-expertise", {
+    const res = await fetch("/api/update-skills", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(areas),
+      body: JSON.stringify({
+        skillsToAdd: skillsToAdd.current,
+        skillsToRemove: skillsToRemove.current,
+      }),
     });
 
     if (!res.ok) {
       alert("Failed to update.");
     } else {
       alert("Saved!");
+      window.location.reload();
     }
   }
 
@@ -53,6 +69,37 @@ export default function EditExpertise() {
 
   const handleCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFormData({ ...formData, category: e.target.value as Skill["category"] });
+  };
+
+  const handleSelectParent = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = parseInt(e.target.value);
+    setFormData({ ...formData, parent_skill_id: value === -1 ? null : value });
+  };
+
+  const handleDelete = (id: number, index: number) => {
+    for (const area of areas) {
+      if (area.parent_skill_id === id) area.parent_skill_id = null;
+    }
+
+    setAreas(areas.toSpliced(index, 1));
+
+    for (let i = 0; i < skillsToAdd.current.length; i++) {
+      const skill = skillsToAdd.current[i];
+      if (skill.skill_id === id) {
+        skillsToAdd.current.splice(i, 1);
+        break;
+      }
+    }
+
+    for (const area of oldAreas.current) {
+      if (area.skill_id === id) {
+        skillsToRemove.current.push(id);
+        console.log(skillsToRemove.current);
+        return;
+      }
+    }
+
+    currentSequenceValue.current--;
   };
 
   const newArea = (e: React.FormEvent) => {
@@ -75,74 +122,107 @@ export default function EditExpertise() {
       return;
     }
 
-    if (formData.name !== "") {
-      const newArea: Skill = {
-        ...formData,
-      };
-      setAreas(areas.concat(newArea));
+    const newArea: Skill = {
+      ...formData,
+      parent_skill_id:
+        formData.parent_skill_id === -1 ? null : formData.parent_skill_id,
+      skill_id: currentSequenceValue.current + 1,
+    };
+    setAreas(areas.concat(newArea));
 
-      setFormData(blank);
-    } else {
-    }
+    currentSequenceValue.current++;
+
+    skillsToAdd.current.push(newArea);
+
+    setFormData(blank);
   };
+
+  function getParentUrl(id: number): string {
+    for (const skill of areas) {
+      if (skill.skill_id === id) {
+        if (skill.image_url === "") {
+          return "/profileIcon.svg";
+        }
+        return skill.image_url;
+      }
+    }
+    return "/profileIcon.svg";
+  }
 
   return (
     <div>
-      {/* <Head>
+      <Head>
         <meta name="robots" content="noindex,nofollow" key="noRobots" />
-      </Head> */}
-      <div className="flex justify-between gap-4">
-        <h2>Skills</h2>
-        <div className="flex gap-4">
-          <Link
-            href="/about"
-            className="flex flex-col justify-center rounded-xl px-2 bg-[var(--background-secondary)] hover:bg-blue-950 hover:cursor-pointer border-solid border-1 border-[var(--border)]"
-          >
-            ← Go Back
-          </Link>
-        </div>
-      </div>
+      </Head>
       <div className="my-4">
-        <div className="flex gap-4">
-          <p>
-            <b>Name</b>
-          </p>
-          <p>
-            <b>Category</b>
-          </p>
-          <p>
-            <b>Image</b>
-          </p>
-        </div>
-        <div className="grid grid-cols-3 xl:grid-cols-4 gap-2 my-2">
-          {areas.map((area) => {
-            const index = areas.indexOf(area);
-
-            const remove = () => {
-              setAreas(areas.toSpliced(index, 1));
-            };
-
+        <div>
+          {categories.map((category) => {
             return (
-              <div
-                key={area.name + "area"}
-                className="flex justify-between p-2 rounded-xl border-[var(--border)] border-1"
-              >
-                <p className="my-auto">{area.name}</p>
-                <p className="my-auto">
-                  {area.category.charAt(0).toUpperCase() +
-                    area.category.slice(1)}
-                </p>
-                <Image
-                  height={16}
-                  width={16}
-                  src={
-                    area.image_url === "" ? "/profileIcon.svg" : area.image_url
-                  }
-                  alt="Link"
-                />
-                <Button onClick={remove} className="bg-red-700 py-1 my-0">
-                  Delete
-                </Button>
+              <div key={category}>
+                <h3>{capitalizeFirstLetter(category)}</h3>
+                <div className="grid grid-cols-2 xl:grid-cols-3 gap-3 my-2">
+                  {areas.map((area, index) => {
+                    const remove = () => {
+                      handleDelete(area.skill_id, index);
+                    };
+
+                    if (area.category !== category) return null;
+
+                    return (
+                      <div
+                        key={area.name + "area"}
+                        className="flex justify-between p-1 rounded-xl border-[var(--border)] border-1 text-sm"
+                      >
+                        <div className="flex gap-4">
+                          <div className="flex gap-3">
+                            <div className="ml-2 flex flex-col justify-center items-center">
+                              <Image
+                                height={16}
+                                width={16}
+                                src={
+                                  area.image_url === ""
+                                    ? "/profileIcon.svg"
+                                    : area.image_url
+                                }
+                                alt={area.name}
+                                className="w-4 h-4"
+                              />
+                            </div>
+                            <span className="my-auto font-bold">
+                              {area.name}
+                            </span>
+                          </div>
+                          <p className="my-auto">
+                            {capitalizeFirstLetter(area.subcategory)}
+                          </p>
+                          {area.parent_skill_id &&
+                            area.parent_skill_id !== -1 && (
+                              <span className="flex gap-2">
+                                <span className="my-auto">Parent: </span>
+                                <div className="flex flex-col justify-center items-center">
+                                  <Image
+                                    src={getParentUrl(
+                                      area.parent_skill_id || -1
+                                    )}
+                                    height={16}
+                                    width={16}
+                                    alt="Parent"
+                                    className="h-4 w-4"
+                                  />
+                                </div>
+                              </span>
+                            )}
+                        </div>
+                        <Button
+                          onClick={remove}
+                          className="bg-red-700 py-1 my-0 mx-0"
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             );
           })}
@@ -151,7 +231,7 @@ export default function EditExpertise() {
       <div>
         <h2>New</h2>
         <hr></hr>
-        <form className="flex gap-4 my-2 [&>*]:p-1">
+        <form className="flex gap-4 my-2 [&>*]:p-1 flex-wrap">
           <input
             type="text"
             name="name"
@@ -185,6 +265,33 @@ export default function EditExpertise() {
             <option value="soft" className="text-black">
               Soft Skill
             </option>
+          </select>
+          <input
+            onChange={onChange}
+            value={formData.subcategory}
+            name="subcategory"
+            type="text"
+            placeholder="Subcategory... (required)"
+            required
+          />
+          <select
+            onChange={handleSelectParent}
+            value={formData.parent_skill_id || -1}
+          >
+            <option value={-1} className="bg-[var(--background-tertiary)]">
+              Select Parent
+            </option>
+            {areas.map((skill) => {
+              return (
+                <option
+                  key={skill.name + "selector"}
+                  value={skill.skill_id}
+                  className="bg-[var(--background-tertiary)]"
+                >
+                  {skill.name}
+                </option>
+              );
+            })}
           </select>
           <Button onClick={newArea} className="py-1 px-4">
             Add +

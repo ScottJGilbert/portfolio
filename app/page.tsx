@@ -11,9 +11,6 @@ import { FadeUp } from "./components/motion/transitions";
 import { RotateWords } from "./ui/rotate-words";
 import Expertise from "./components/expertise";
 import Button from "./ui/button";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 //Make these look different
 
@@ -29,15 +26,6 @@ const strings = [
 ];
 
 export default function Page() {
-  const settings = {
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "60px",
-    slidesToShow: 3,
-    speed: 500,
-  };
-
   return (
     <div>
       <div>
@@ -115,17 +103,15 @@ export default function Page() {
           </FadeUp>
         </div>
       </div>
-      <div className="md:min-h-screen min-h-[calc(100vh-7.5rem)]">
-        {/* Make this a more generalized display of knowledge and other stuff that is a carousel */}
-
+      <div className="text-center relative md:min-h-screen min-h-[calc(100vh-7.5rem)] max-w-screen md:max-w-[calc(100vw-10.5rem)] overflow-hidden">
         <h1>Experience That Matters</h1>
         <p className="pb-4">
           Prepared for the toughest challenges with a depth of skills learned in
           industry, in academia, and more.
         </p>
-        <Slider {...settings}>
+        <div>
           <div>
-            <div className="text-center mb-16 bg-[var(--background-secondary)] p-4 rounded-4xl border-[var(--border)] border-1">
+            <div className="h-full text-center mb-8 bg-[var(--background-secondary)] p-4 rounded-4xl border-[var(--border)] border-1">
               <h2 id="expertise" className="mb-4">
                 Expertise Across Fields
               </h2>
@@ -135,60 +121,81 @@ export default function Page() {
               </Link>
             </div>
           </div>
-          <div>
-            {/* Convert to professional experience */}
-            <div>
-              <div className="flex-col basis-0 gap-4">
-                <div className="relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
-                  <h4>I&apos;m a student at...</h4>
-                  <div className="inline-flex flex-col justify-center">
-                    <Image
-                      src="https://brand.illinois.edu/wp-content/uploads/2025/02/Illinois_logo_fullcolor_%C2%AE_rgb.png"
-                      className="inline object-contain max-h-20"
-                      alt="UIUC Logo"
-                      height={284}
-                      width={350}
-                    />
-                  </div>
-                  <div className="flex-1 inline-flex flex-col justify-center">
-                    <h3>University of Illinois at Urbana-Champaign</h3>
-                  </div>
-                  <Link href="/about#Education" className="block">
-                    See all education →
-                  </Link>
+          <div className="flex flex-wrap items-stretch gap-4">
+            <div className="h-full relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
+              <div>
+                <h4>I&apos;m a student at...</h4>
+                <div className="my-4 flex justify-center">
+                  <Image
+                    src="https://brand.illinois.edu/wp-content/uploads/2025/02/Illinois_logo_fullcolor_%C2%AE_rgb.png"
+                    className="inline object-contain max-h-20"
+                    alt="UIUC Logo"
+                    height={284}
+                    width={350}
+                  />
                 </div>
+                <div className="flex-1 inline-flex flex-col justify-center">
+                  <h3>The University of Illinois</h3>
+                  <h4>B.S, Computer Engineering</h4>
+                </div>
+                <Link
+                  href="/about#Education"
+                  className="block hover:text-gray-500 mt-2"
+                >
+                  See all education →
+                </Link>
               </div>
             </div>
-            <div>{/* Convert to education */}</div>
-          </div>
-          <div>
-            {/* Convert to professional experience */}
-            <div>
-              <div className="flex-col basis-0 gap-4">
-                <div className="relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
-                  <h4>I&apos;m working as a...</h4>
-                  <div className="inline-flex flex-col justify-center">
-                    <Image
-                      src="https://brand.illinois.edu/wp-content/uploads/2025/02/Illinois_logo_fullcolor_%C2%AE_rgb.png"
-                      className="inline object-contain max-h-20"
-                      alt="UIUC Logo"
-                      height={284}
-                      width={350}
-                    />
-                  </div>
-                  <div className="flex-1 inline-flex flex-col justify-center">
-                    <h3>Electrical Team Member</h3>
-                    <h4>Illini Solar Car</h4>
-                  </div>
-                  <Link href="/about#Experience" className="block">
-                    See everywhere I&apos;ve been →
-                  </Link>
+            <div className="h-full relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
+              <div>
+                <h4>I&apos;m working as a...</h4>
+                <div className="my-4 flex justify-center">
+                  <Image
+                    src="https://brand.illinois.edu/wp-content/uploads/2025/02/Illinois_logo_fullcolor_%C2%AE_rgb.png"
+                    className="inline object-contain max-h-20"
+                    alt="UIUC Logo"
+                    height={284}
+                    width={350}
+                  />
                 </div>
+                <div className="flex-1 inline-flex flex-col justify-center">
+                  <h3>Electrical Team Member</h3>
+                  <h4>Illini Solar Car</h4>
+                </div>
+                <Link
+                  href="/about#Experience"
+                  className="block hover:text-gray-500 mt-2"
+                >
+                  See everywhere I&apos;ve been →
+                </Link>
               </div>
             </div>
-            <div>{/* Convert to education */}</div>
+            <div className="h-full relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
+              <div>
+                <h4>I&apos;m working on...</h4>
+                <div className="my-4 flex justify-center">
+                  <Image
+                    src="/profileIcon.svg"
+                    className="inline object-contain max-h-20"
+                    alt="Profile Icon"
+                    height={284}
+                    width={350}
+                  />
+                </div>
+                <div className="flex-1 inline-flex flex-col justify-center">
+                  <h3>My Personal Portfolio</h3>
+                  <h4>You&apos;re on it right now!</h4>
+                </div>
+                <Link
+                  href="/projects"
+                  className="block hover:text-gray-500 mt-2"
+                >
+                  See all of my projects →
+                </Link>
+              </div>
+            </div>
           </div>
-        </Slider>
+        </div>
       </div>
       <div className="py-4">
         <h2>Curated Projects</h2> {/* Link to header for experience */}

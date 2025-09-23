@@ -4,7 +4,7 @@ export type Skill = {
   image_url: string;
   category: "software" | "hardware" | "technical" | "soft";
   subcategory: string;
-  parent_skill_id?: number;
+  parent_skill_id?: number | null;
 };
 
 export type SkillGroup = {

@@ -5,8 +5,8 @@ export function capitalizeFirstLetter(input: string): string {
 
 /**
  * Filter an array and remove the filtered contents of the old array
- * @param  {any[]} arr The array to be filtered
- * @param  {(...args: any[]) => boolean} callback The function to filter the array with
+ * @param  {T[]} arr The array to be filtered
+ * @param  {(value: T, index: number, array: T[]) => boolean} callback The function to filter the array with
  * @return {newArray} All of the items that have been filtered from the array
  */
 
@@ -19,8 +19,8 @@ export function filterInPlace<T>(
   const newArray: T[] = [];
 
   while (i < arr.length) {
-    if (!callback(arr[i], i, arr)) {
-      newArray.concat(arr.splice(i, 1)); // remove element at i
+    if (callback(arr[i], i, arr)) {
+      newArray.push(arr.splice(i, 1)[0]); // remove element at i
     } else {
       i++;
     }

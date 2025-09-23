@@ -33,7 +33,7 @@ export default async function Page() {
   return (
     <div>
       <div className="mt-4">
-        <h1>Biography</h1>
+        <h1 className="text-center">Biography</h1>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col lg:flex-row lg:space-between mb-8 gap-4">
             <Image
@@ -62,11 +62,15 @@ export default async function Page() {
         </div>
       </div>
       <div>
-        <h1 id="Experience">Professional Experience</h1>
+        <h1 id="Experience" className="text-center">
+          Professional Experience
+        </h1>
         <AllExperience />
       </div>
       <div>
-        <h1 id="Education">Education</h1>
+        <h1 id="Education" className="text-center">
+          Education
+        </h1>
         <div>
           {schools.map((school) => (
             <div

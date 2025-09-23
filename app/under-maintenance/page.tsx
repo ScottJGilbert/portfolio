@@ -7,7 +7,7 @@ export default function MaintenancePage() {
         Sorry! <FaFrown className="inline -translate-y-0.5" />
       </h1>
       <h3>
-        The Website is currently under maintenance. Please check back later!
+        The website is currently under maintenance. Please check back later!
       </h3>
     </div>
   );

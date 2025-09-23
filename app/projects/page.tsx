@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="mt-4">
-      <h1>Projects</h1>
+      <h1 className="text-center">Projects</h1>
       <hr className="mt-1 mb-3"></hr>
       <Suspense>
         <GridDisplay type="project" />

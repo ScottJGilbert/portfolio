@@ -31,25 +31,27 @@ export default function Expertise() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-8">
-      {MARQUEE_CONFIGS.map((config, idx) => (
-        <div className="flex gap-2 flex-wrap justify-center" key={idx}>
-          <Marquee
-            gradient={false}
-            speed={50}
-            className="overflow-clip mb-4 md:max-w-160"
-            direction={config.direction as "left" | "right"}
-          >
-            {areas.slice(config.start, config.end).map((area) => (
-              <SkillBox
-                className="mx-1"
-                key={area.name + "skill"}
-                area={area}
-              />
-            ))}
-          </Marquee>
-        </div>
-      ))}
+    <div className="">
+      <div className="flex flex-col gap-12 py-8 mx-auto md:max-w-160 border border-[var(--border)] rounded-2xl">
+        {MARQUEE_CONFIGS.map((config, idx) => (
+          <div className="flex gap-2 flex-wrap justify-center" key={idx}>
+            <Marquee
+              gradient={false}
+              speed={50}
+              className="overflow-clip md:max-w-160"
+              direction={config.direction as "left" | "right"}
+            >
+              {areas.slice(config.start, config.end).map((area) => (
+                <SkillBox
+                  className="mx-1"
+                  key={area.name + "skill"}
+                  area={area}
+                />
+              ))}
+            </Marquee>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
