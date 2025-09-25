@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "next/navigation";
-import { usePageLoading } from "@/providers/loading-provider";
+import { usePageLoading } from "@/app/providers/loading-provider";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 

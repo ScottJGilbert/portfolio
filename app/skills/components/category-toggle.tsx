@@ -17,7 +17,7 @@ export default function CategoryToggle({
 
   return (
     <div>
-      <div className="flex gap-4 mb-4 justify-center">
+      <div className="flex justify-between flex-wrap max-w-32 mb-4">
         {categories.map((cat, index) => (
           <Bounce key={cat}>
             <button

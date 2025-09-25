@@ -10,7 +10,7 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "../lib/core";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { PageLoadingProvider } from "@/providers/loading-provider";
+import { PageLoadingProvider } from "@/app/providers/loading-provider";
 import PageTransition from "./components/motion/page-transition";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 

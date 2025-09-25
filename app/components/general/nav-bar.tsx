@@ -9,7 +9,7 @@ import {
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { Bounce } from "../motion/transitions";
-import { usePageLoading } from "@/providers/loading-provider";
+import { usePageLoading } from "@/app/providers/loading-provider";
 import BufferedLink from "@/app/ui/buffered-link";
 import { Fragment } from "react";
 

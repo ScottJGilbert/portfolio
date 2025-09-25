@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Bounce, Fade } from "../motion/transitions";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { usePageLoading } from "@/providers/loading-provider";
+import { usePageLoading } from "@/app/providers/loading-provider";
 import BufferedLink from "@/app/ui/buffered-link";
 
 const Navbar = dynamic(() => import("./nav-bar"));

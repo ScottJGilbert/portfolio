@@ -2,7 +2,7 @@
 "use client";
 
 import BufferedLink from "@/app/ui/buffered-link";
-import { usePageLoading } from "@/providers/loading-provider";
+import { usePageLoading } from "@/app/providers/loading-provider";
 
 function isNavigatingToLocalPage(href: string): boolean {
   return (

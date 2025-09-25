@@ -8,7 +8,7 @@ import type { Item } from "@/lib/definitions";
 import Category from "@/app/ui/category";
 import { motion } from "motion/react";
 import BufferedLink from "@/app/ui/buffered-link";
-import { usePageLoading } from "@/providers/loading-provider";
+import { usePageLoading } from "@/app/providers/loading-provider";
 
 export default function GridDisplay({ type }: { type: string }) {
   const pathname = usePathname();

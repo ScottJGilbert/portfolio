@@ -5,7 +5,7 @@ import { Suspense, useState, useEffect } from "react";
 import Image from "next/image";
 import Button from "@/app/ui/button";
 import Switch from "@/app/ui/switch";
-import { usePageLoading } from "@/providers/loading-provider";
+import { usePageLoading } from "@/app/providers/loading-provider";
 import BufferedLink from "@/app/ui/buffered-link";
 import Link from "next/link";
 
@@ -36,6 +36,7 @@ const linkSections = [
     links: [
       { name: "Attributions", href: "/attributions" },
       { name: "Sitemap", href: "/sitemap.xml" },
+      { name: "RSS", href: "/rss.xml" },
     ],
   },
 ];
