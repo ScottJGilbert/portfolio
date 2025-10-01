@@ -34,6 +34,7 @@ export type Project = {
   categories: string[];
   slug: string;
   image_url: string;
+  skills: Skill[];
 };
 
 export type Post = {
@@ -60,6 +61,7 @@ export type Item = {
   categories: string[];
   slug: string;
   image_url: string;
+  skills?: Skill[];
 };
 
 export type ItemWithMarkdown = {

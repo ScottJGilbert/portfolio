@@ -6,7 +6,7 @@ import Image from "next/image";
 import SkillBox from "../ui/skill-box";
 import CategoryToggle from "./components/category-toggle";
 
-export const revalidate = 1200; // Revalidate every twenty minutes
+export const revalidate = 60; // Revalidate every twenty minutes
 
 const categoryNames = ["software", "hardware", "technical", "soft"];
 
@@ -36,15 +36,15 @@ export default async function skillsPage() {
             {fullySortedCategories.map((fullySortedCategory, index) => {
               return (
                 <div key={categoryNames[index]}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  <div className="flex flex-wrap items-stretch gap-4 mb-4">
                     {/* Groups */}
                     {fullySortedCategory.groups.map((group) => {
                       return (
                         <div
                           key={group.parent.name}
-                          className="relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]"
+                          className="grow relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]"
                         >
-                          <div className="mb-4 relative flex flex-col md:flex-row gap-2">
+                          <div className="mb-4 relative flex gap-4">
                             <span className="relative h-full w-auto">
                               <Image
                                 src={
@@ -58,7 +58,7 @@ export default async function skillsPage() {
                             </span>
                             <h2>{capitalizeFirstLetter(group.parent.name)}</h2>
                           </div>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                          <div className="flex flex-wrap justify-between gap-4 items-stretch">
                             {group.childGroups.map((childgroup) => {
                               return (
                                 <div
@@ -66,7 +66,6 @@ export default async function skillsPage() {
                                     group.parent.name +
                                     childgroup[0].subcategory
                                   }
-                                  className="relative p-4 rounded-2xl bg-[var(--background-tertiary)] border-solid border-1 border-[var(--border)]"
                                 >
                                   <h3 className="mb-2">
                                     {capitalizeFirstLetter(
@@ -86,9 +85,8 @@ export default async function skillsPage() {
                               );
                             })}
                             {group.unGroupedChildren.length > 0 && (
-                              <div className="relative p-4 rounded-2xl bg-[var(--background-tertiary)] border-solid border-1 border-[var(--border)]">
+                              <div>
                                 <h3 className="mb-2">Misc.</h3>
-
                                 <div className="flex flex-wrap gap-2">
                                   {group.unGroupedChildren.map((child) => {
                                     return (
@@ -105,12 +103,12 @@ export default async function skillsPage() {
                       );
                     })}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                  <div className="flex flex-wrap gap-4">
                     {fullySortedCategory.subcategoryGroups.map((group) => {
                       return (
                         <div
                           key={group[0].name + "subcategory"}
-                          className="relative p-4 rounded-2xl bg-[var(--background-tertiary)] border-solid border-1 border-[var(--border)]"
+                          className="grow"
                         >
                           <h2 className="mb-4">
                             {capitalizeFirstLetter(group[0].subcategory)}
@@ -128,7 +126,7 @@ export default async function skillsPage() {
                       );
                     })}
                     {fullySortedCategory.unGroupedSkills.length > 0 && (
-                      <div className="relative p-4 rounded-2xl bg-[var(--background-tertiary)] border-solid border-1 border-[var(--border)]">
+                      <div>
                         <h2 className="mb-4">Misc.</h2>
 
                         <div className="flex flex-wrap gap-2">
@@ -205,7 +203,7 @@ function sortBySubcategories(skills: Skill[]): [Skill[][], Skill[]] {
   const subcategoryGroups: Skill[][] = [];
   const loneSkills: Skill[] = [];
 
-  for (let i = 0; i < skills.length; i++) {
+  while (skills.length > 0) {
     const singleSkill = skills.shift();
 
     if (!singleSkill) break;
@@ -219,7 +217,6 @@ function sortBySubcategories(skills: Skill[]): [Skill[][], Skill[]] {
       subcategoryGroups.push(sameSubcategory);
     } else {
       loneSkills.push(singleSkill);
-      i--;
     }
   }
 

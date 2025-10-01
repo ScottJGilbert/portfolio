@@ -8,6 +8,7 @@ import clsx from "clsx";
 import Category from "@/app/ui/category";
 import { components } from "@/lib/mdx";
 import MdxLink from "@/lib/mdx-link";
+import SkillBox from "@/app/ui/skill-box";
 
 export const revalidate = 600;
 
@@ -35,6 +36,7 @@ export default async function MDXPage({
           ? "Ongoing"
           : new Date(project.end_date).toDateString(),
       image_url: project.image_url,
+      skills: project.skills,
     };
     item.push(newItem);
     rawText = markdown as string;
@@ -100,6 +102,13 @@ export default async function MDXPage({
               })}
               <span className="m-1"> </span>
             </div>
+            {item[0].skills && item[0].skills.length > 0 && (
+              <div className="mt-4 flex gap-2 flex-wrap">
+                {item[0].skills.map((skill) => {
+                  return <SkillBox key={skill.name + "skill"} area={skill} />;
+                })}
+              </div>
+            )}
           </div>
         </div>
         <div className="z-0 flex flex-col justify-center">

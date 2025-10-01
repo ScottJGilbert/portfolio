@@ -1,6 +1,6 @@
 import EditPage from "@/app/components/mdx/edit-page";
 import { Item } from "@/lib/definitions";
-import { fetchProjectCategories } from "@/lib/db";
+import { fetchProjectCategories, fetchSkills } from "@/lib/db";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -25,6 +25,7 @@ export default async function Page() {
         markdown={""}
         categories={await fetchProjectCategories()}
         type="project"
+        allSkills={await fetchSkills([])}
       ></EditPage>
     </div>
   );

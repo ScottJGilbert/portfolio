@@ -54,7 +54,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.className} antialiased min-h-screen w-screen overflow-x-hidden touch-pan-y`}
+        className={`${inter.className} antialiased min-h-screen max-w-full overflow-x-hidden touch-pan-y`}
       >
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         {/* <Scroll> */}

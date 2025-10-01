@@ -111,17 +111,19 @@ export default function Page() {
         </p>
         <div>
           <div>
-            <div className="h-full text-center mb-8 bg-[var(--background-secondary)] p-4 rounded-4xl border-[var(--border)] border-1">
+            <div className="py-4 h-full text-center mb-8 bg-[var(--background-secondary)] rounded-4xl border-[var(--border)] border-1">
               <h2 id="expertise" className="mb-4">
                 Expertise Across Fields
               </h2>
-              <Expertise />
+              <div className="relative overflow-hidden">
+                <Expertise />
+              </div>
               <Link href="/skills" className="mt-4 block">
                 <Button>See all →</Button>
               </Link>
             </div>
           </div>
-          <div className="flex flex-wrap items-stretch gap-4">
+          <div className="flex flex-wrap justify-between items-stretch gap-4">
             <div className="h-full relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
               <div>
                 <h4>I&apos;m a student at...</h4>

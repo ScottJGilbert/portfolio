@@ -4,6 +4,7 @@ import {
   fetchProjectSlugs,
   fetchProjectCategories,
   fetchProjectMetadata,
+  fetchSkills,
 } from "@/lib/db";
 import { Project, Item, ItemMetadata } from "@/lib/definitions";
 import { notFound } from "next/navigation";
@@ -41,6 +42,7 @@ export default async function Page(props: {
   }
 
   const categories = await fetchProjectCategories();
+  const allSkills = await fetchSkills([]);
 
   const [data, markdown] = await fetchProject(slug);
   const project = data as Project;
@@ -52,6 +54,7 @@ export default async function Page(props: {
     date_one: project.start_date.toDateString(),
     date_two: project.end_date?.toDateString() || "",
     image_url: project.image_url,
+    skills: project.skills,
   };
   return (
     <div>
@@ -60,6 +63,7 @@ export default async function Page(props: {
         markdown={markdown as string}
         categories={categories}
         type="project"
+        allSkills={allSkills}
       ></EditPage>
     </div>
   );

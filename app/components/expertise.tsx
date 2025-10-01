@@ -31,21 +31,24 @@ export default function Expertise() {
   }, []);
 
   return (
-    <div className="">
-      <div className="flex flex-col gap-12 py-8 mx-auto md:max-w-160 border border-[var(--border)] rounded-2xl">
+    <div className="relative">
+      <div className="flex flex-col gap-12 py-8 mx-auto max-w-full md:max-w-160 overflow-hidden md:border md:border-[var(--border)] rounded-2xl">
         {MARQUEE_CONFIGS.map((config, idx) => (
-          <div className="flex gap-2 flex-wrap justify-center" key={idx}>
+          <div
+            key={idx}
+            className="flex gap-2 justify-center w-full max-w-full overflow-hidden"
+          >
             <Marquee
               gradient={false}
               speed={50}
-              className="overflow-clip md:max-w-160"
               direction={config.direction as "left" | "right"}
+              className="max-w-90 md:max-w-full overflow-hidden"
             >
               {areas.slice(config.start, config.end).map((area) => (
                 <SkillBox
-                  className="mx-1"
                   key={area.name + "skill"}
                   area={area}
+                  className="mx-1 shrink-0 max-w-[90vw]"
                 />
               ))}
             </Marquee>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState, useEffect, useRef } from "react";
-import { Item, ItemWithMarkdown } from "@/lib/definitions";
+import { Skill, Item, ItemWithMarkdown } from "@/lib/definitions";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import Head from "next/head";
@@ -13,11 +13,13 @@ export default function EditPage({
   initialData,
   markdown,
   categories,
+  allSkills,
   type,
 }: {
   initialData: Item;
   markdown: string;
   categories: string[];
+  allSkills?: Skill[];
   type: string;
 }) {
   const [formData, setFormData] = useState(initialData);
@@ -256,7 +258,7 @@ export default function EditPage({
                     Add
                   </Button>
                 </div>
-                <div className="flex flex-col mt-4 h-72">
+                <div className="flex flex-col my-4 max-h-48 overflow-y-auto">
                   <p>Categories:</p>
                   {listedCategories.map((category) => {
                     return (
@@ -273,6 +275,60 @@ export default function EditPage({
                     );
                   })}
                 </div>
+                {allSkills && (
+                  <>
+                    <hr></hr>
+                    <div className="mt-4 flex flex-col max-h-72 overflow-y-auto">
+                      <p>Skills:</p>
+                      {allSkills.map((skill) => {
+                        return (
+                          <span
+                            key={skill.name + "checkbox"}
+                            className="flex gap-2"
+                          >
+                            <input
+                              type="checkbox"
+                              name={skill.name}
+                              id={skill.name + "id" + "skill"}
+                              checked={checkIfSkillInArray(
+                                skill,
+                                formData.skills || []
+                              )}
+                              onChange={(e) => {
+                                const skillName = e.target.name;
+                                const isChecked = e.target.checked;
+                                if (isChecked) {
+                                  const skillToAdd = allSkills.find(
+                                    (s) => s.name === skillName
+                                  );
+                                  if (skillToAdd) {
+                                    setFormData((prev) => ({
+                                      ...prev,
+                                      skills: [
+                                        ...(prev.skills || []),
+                                        skillToAdd,
+                                      ],
+                                    }));
+                                  }
+                                } else {
+                                  setFormData((prev) => ({
+                                    ...prev,
+                                    skills: (prev.skills || []).filter(
+                                      (s) => s.name !== skillName
+                                    ),
+                                  }));
+                                }
+                              }}
+                            />
+                            <label htmlFor={skill.name + "id"}>
+                              {skill.name}
+                            </label>
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -300,4 +356,11 @@ export default function EditPage({
       </Suspense>
     </div>
   );
+}
+
+function checkIfSkillInArray(skill: Skill, skillArray: Skill[]): boolean {
+  for (const skillInArray of skillArray) {
+    if (skillInArray.skill_id === skill.skill_id) return true;
+  }
+  return false;
 }

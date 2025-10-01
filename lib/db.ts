@@ -12,10 +12,11 @@ import {
   Attribution,
 } from "./definitions";
 import postgres from "postgres";
+import { cache } from "react";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
-export async function fetchSkills(names: string[]) {
+export const fetchSkills = cache(async (names: string[]) => {
   try {
     if (names.length === 0) {
       const data = await sql<Skill[]>`
@@ -27,7 +28,7 @@ export async function fetchSkills(names: string[]) {
       const data: Skill[] = [];
       for (const name of names) {
         const row = await sql<Skill[]>`
-          SELECT * 
+          SELECT *
           FROM skills
           WHERE name = ${name};
         `;
@@ -39,7 +40,7 @@ export async function fetchSkills(names: string[]) {
     console.error("Error fetching skills: ", err);
     return [];
   }
-}
+});
 
 export async function updateSkills(
   skillsToAdd: Skill[],
@@ -301,6 +302,13 @@ export async function fetchProject(slug: string) {
       FROM projects 
       WHERE slug = ${slug};
     `;
+    const skillsData = await sql<{ skills: string[] }[]>`
+      SELECT skills
+      FROM projects
+      WHERE slug = ${slug};
+    `;
+    if (skillsData[0].skills?.length > 0)
+      data[0].skills = await fetchSkills(skillsData[0].skills);
     const data_markdown = await sql<{ markdown: string }[]>`
       SELECT 
         markdown 
@@ -316,6 +324,10 @@ export async function fetchProject(slug: string) {
 
 export async function updateProject(data: Project, markdown: string) {
   try {
+    const skillStrings = data.skills.map((skill) => {
+      return skill.name;
+    });
+    console.log(skillStrings);
     if (data.slug === "") {
       const lowercase = data.title.toLowerCase();
       data.slug = lowercase.replaceAll(" ", "-");
@@ -329,7 +341,8 @@ export async function updateProject(data: Project, markdown: string) {
         categories,
         slug,
         markdown,
-        image_url)
+        image_url,
+        skills)
       VALUES (
         ${data.title},
         ${data.start_date},
@@ -338,7 +351,8 @@ export async function updateProject(data: Project, markdown: string) {
         ${data.categories},
         ${data.slug},
         ${markdown},
-        ${data.image_url}
+        ${data.image_url},
+        ${skillStrings}
       );
       `;
     } else {
@@ -351,7 +365,8 @@ export async function updateProject(data: Project, markdown: string) {
         description = ${data.description},
         categories = ${data.categories},
         markdown = ${markdown},
-        image_url = ${data.image_url}
+        image_url = ${data.image_url},
+        skills = ${skillStrings}
       WHERE slug = ${data.slug}`;
     }
   } catch (err) {

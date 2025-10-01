@@ -25,7 +25,7 @@ export default function SkillBox({
     <span
       key={area.name + "area"}
       className={
-        "bg-[var(--background-secondary)] p-2 rounded-xl border-1 border-[var(--border)] inline-flex justify-between gap-4 " +
+        "bg-[var(--background-secondary)] p-2 rounded-xl border-1 border-[var(--border)] inline-flex justify-between gap-4 max-w-[90vw] shrink-0 " +
         className
       }
     >
