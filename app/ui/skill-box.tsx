@@ -42,7 +42,10 @@ export default function SkillBox({
           width={16}
           height={16}
           loading="lazy"
-          className="w-4 h-4"
+          className={
+            "w-4 h-4 " +
+            (url.includes("feather-icons") && prefersDark ? "invert" : "")
+          }
         />
       </div>
       <p>{area.name}</p>

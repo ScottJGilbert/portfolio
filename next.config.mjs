@@ -26,6 +26,16 @@ const nextConfig = {
         hostname: "cdn.simpleicons.org",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "unpkg.com",
+        pathname: "/feather-icons/icons/dist/**",
+      },
+      {
+        protocol: "https",
+        hostname: "unpkg.com",
+        pathname: "/feather-icons/dist/icons/**",
+      },
     ],
 
     dangerouslyAllowSVG: true,
