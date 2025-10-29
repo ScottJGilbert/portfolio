@@ -124,7 +124,7 @@ export default function Page() {
             </div>
           </div>
           <div className="flex flex-wrap justify-between items-stretch gap-4">
-            <div className="h-full relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
+            <div className="grow h-full relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
               <div>
                 <h4>I&apos;m a student at...</h4>
                 <div className="my-4 flex justify-center">
@@ -148,7 +148,7 @@ export default function Page() {
                 </Link>
               </div>
             </div>
-            <div className="h-full relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
+            <div className="grow h-full relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
               <div>
                 <h4>I&apos;m working as a...</h4>
                 <div className="my-4 flex justify-center">
@@ -172,7 +172,7 @@ export default function Page() {
                 </Link>
               </div>
             </div>
-            <div className="h-full relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
+            <div className="grow h-full relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]">
               <div>
                 <h4>I&apos;m working on...</h4>
                 <div className="my-4 flex justify-center">

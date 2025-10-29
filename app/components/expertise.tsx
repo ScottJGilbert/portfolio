@@ -25,7 +25,14 @@ export default function Expertise() {
       const newAreas: Skill[] = await fetch("/api/fetch-skills").then((res) =>
         res.json()
       );
-      setAreas(shuffleArray(newAreas));
+      setAreas(
+        shuffleArray(
+          newAreas.filter(
+            (area) =>
+              area.category === "software" || area.category === "hardware"
+          )
+        )
+      );
     }
     fetchAreas();
   }, []);

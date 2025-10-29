@@ -282,7 +282,8 @@ export default function EditExpertise() {
               Select Parent
             </option>
             {areas.map((skill) => {
-              if (skill.parent_skill_id) return null;
+              if (skill.parent_skill_id || skill.category !== formData.category)
+                return null;
 
               return (
                 <option

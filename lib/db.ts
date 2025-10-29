@@ -716,3 +716,28 @@ export async function updateAttributions(attributions: Attribution[]) {
     throw err;
   }
 }
+
+export async function fetchResumeURL(): Promise<string> {
+  try {
+    const rows = await sql<{ url: string }[]>`
+      SELECT url
+      FROM resume;
+    `;
+    return rows[0]?.url || "";
+  } catch (err) {
+    console.error("Error fetching latest resume URL");
+    throw err;
+  }
+}
+
+export async function updateResumeURL(url: string) {
+  try {
+    await sql`
+      UPDATE resume
+      SET url = ${url};
+    `;
+  } catch (err) {
+    console.error("Error updating resume URL");
+    throw err;
+  }
+}

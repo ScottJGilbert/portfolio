@@ -2,9 +2,9 @@ import { fetchSkills } from "@/lib/db";
 import { Skill } from "@/lib/definitions";
 import { capitalizeFirstLetter, filterInPlace } from "@/lib/methods";
 import { SkillGroup } from "@/lib/definitions";
-import Image from "next/image";
 import SkillBox from "../ui/skill-box";
 import CategoryToggle from "./components/category-toggle";
+import Title from "./components/title";
 
 export const revalidate = 60; // Revalidate every twenty minutes
 
@@ -45,18 +45,7 @@ export default async function skillsPage() {
                           className="grow relative p-4 rounded-2xl bg-[var(--background-secondary)] border-solid border-1 border-[var(--border)]"
                         >
                           <div className="mb-4 relative flex gap-4">
-                            <span className="relative h-full w-auto">
-                              <Image
-                                src={
-                                  group.parent.image_url || "/profileIcon.svg"
-                                }
-                                alt={group.parent.name}
-                                width={16}
-                                height={16}
-                                className="w-12 h-12"
-                              />
-                            </span>
-                            <h2>{capitalizeFirstLetter(group.parent.name)}</h2>
+                            <Title group={group} />
                           </div>
                           <div className="flex flex-wrap justify-between gap-4 items-stretch">
                             {group.childGroups.map((childgroup) => {

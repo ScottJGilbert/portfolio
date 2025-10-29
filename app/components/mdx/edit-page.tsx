@@ -8,6 +8,7 @@ import Head from "next/head";
 import Button from "@/app/ui/button";
 import Editor from "../../ui/editor";
 import Upload from "../images/upload";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function EditPage({
   initialData,
@@ -34,6 +35,12 @@ export default function EditPage({
 
   const [displayedImageUrl, setDisplayedImageUrl] = useState("");
   const isMounted = useRef(false);
+
+  const handleTextChange = useDebouncedCallback((value: string) => {
+    if (isMounted.current) {
+      setText(value);
+    }
+  }, 300);
 
   useEffect(() => {
     isMounted.current = true;
@@ -234,7 +241,7 @@ export default function EditPage({
               </div>
               <div className="relative flex-1">
                 <div className="p-2 border border-black dark:border-gray-300 rounded-xl w-full">
-                  <Editor markdown={text} onChange={setText} />
+                  <Editor markdown={text} onChange={handleTextChange} />
                 </div>
               </div>
             </div>
@@ -294,7 +301,9 @@ export default function EditPage({
                                 skill,
                                 formData.skills || []
                               )}
-                              onChange={(e) => {
+                              onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                              ) => {
                                 const skillName = e.target.name;
                                 const isChecked = e.target.checked;
                                 if (isChecked) {
