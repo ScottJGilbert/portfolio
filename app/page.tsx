@@ -153,9 +153,9 @@ export default function Page() {
                 <h4>I&apos;m working as a...</h4>
                 <div className="my-4 flex justify-center">
                   <Image
-                    src="https://brand.illinois.edu/wp-content/uploads/2025/02/Illinois_logo_fullcolor_%C2%AE_rgb.png"
+                    src="https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfUPiKdP2OkrGivuB5YZznLWoy4qtmIjDpwAEl"
                     className="inline object-contain max-h-20"
-                    alt="UIUC Logo"
+                    alt="Illini Solar Car Logo"
                     height={284}
                     width={350}
                   />
