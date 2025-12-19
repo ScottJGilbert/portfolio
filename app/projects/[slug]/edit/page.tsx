@@ -9,6 +9,7 @@ import {
 import { Project, Item, ItemMetadata } from "@/lib/definitions";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import UploadRelease from "./components/upload-blob";
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
@@ -56,6 +57,7 @@ export default async function Page(props: {
     image_url: project.image_url,
     skills: project.skills,
   };
+
   return (
     <div>
       <EditPage
@@ -64,7 +66,8 @@ export default async function Page(props: {
         categories={categories}
         type="project"
         allSkills={allSkills}
-      ></EditPage>
+      />
+      <UploadRelease project_id={project.project_id} />
     </div>
   );
 }

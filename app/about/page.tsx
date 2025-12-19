@@ -57,6 +57,7 @@ export default async function Page() {
                 both solve complex problems and make a difference in
                 peoples&apos; lives.
               </p>
+              <p>...I also REALLY like the color green.</p>
             </div>
           </div>
         </div>

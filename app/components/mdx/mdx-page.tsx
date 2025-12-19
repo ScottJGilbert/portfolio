@@ -1,6 +1,6 @@
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
-import { fetchProject, fetchPost } from "@/lib/db";
+import { fetchProject, fetchPost, fetchReleases } from "@/lib/db";
 import { Project, Post, Item } from "@/lib/definitions";
 import Link from "next/link";
 import { auth } from "@/auth";
@@ -9,6 +9,8 @@ import Category from "@/app/ui/category";
 import { components } from "@/lib/mdx";
 import MdxLink from "@/lib/mdx-link";
 import SkillBox from "@/app/ui/skill-box";
+import { Dropdown } from "./dropdown";
+import { ReleaseButton } from "./button";
 
 export const revalidate = 600;
 
@@ -21,6 +23,8 @@ export default async function MDXPage({
 }) {
   const item: Item[] = [];
   let rawText: string = "";
+
+  let projectId: number = 0;
 
   if (type === "project") {
     const [data, markdown] = await fetchProject(slug);
@@ -38,6 +42,7 @@ export default async function MDXPage({
       image_url: project.image_url,
       skills: project.skills,
     };
+    projectId = project.project_id;
     item.push(newItem);
     rawText = markdown as string;
   } else if (type === "post") {
@@ -73,6 +78,8 @@ export default async function MDXPage({
     },
   });
 
+  const releases = type === "project" ? await fetchReleases(projectId) : [];
+
   return (
     <div className="max-w-[calc(100vw-3rem)] md:max-w-6xl mt-4 mx-auto">
       <div className="flex justify-between">
@@ -102,12 +109,45 @@ export default async function MDXPage({
               })}
               <span className="m-1"> </span>
             </div>
-            {item[0].skills && item[0].skills.length > 0 && (
-              <div className="mt-4 flex gap-2 flex-wrap">
-                {item[0].skills.map((skill) => {
-                  return <SkillBox key={skill.name + "skill"} area={skill} />;
-                })}
-              </div>
+            {/* Dropdown for skills */}
+            <div className="mt-4">
+              <Dropdown title="Relevant Skills">
+                {item[0].skills && item[0].skills.length > 0 && (
+                  <div className="mt-2 flex gap-2 flex-wrap">
+                    {item[0].skills.map((skill) => {
+                      return (
+                        <SkillBox key={skill.name + "skill"} area={skill} />
+                      );
+                    })}
+                  </div>
+                )}
+              </Dropdown>
+            </div>
+            {/* Dropdown for releases */}
+            {releases.length > 0 && (
+              <Dropdown title="Releases">
+                <div className="mt-2 space-y-2 flex">
+                  {releases.map((release) => (
+                    <div key={release.key} className="pb-2">
+                      <div className="flex gap-3">
+                        <span>
+                          <h3 className="font-semibold">{release.version}</h3>
+                          <p className="text-sm text-gray-500">
+                            {new Date(release.release_date).toDateString()}
+                          </p>
+                        </span>
+                        {release.url && (
+                          <ReleaseButton
+                            url={release.url}
+                            text={release.text}
+                            external={release.external}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Dropdown>
             )}
           </div>
         </div>

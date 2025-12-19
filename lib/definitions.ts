@@ -78,19 +78,21 @@ export type ItemWithMarkdown = {
 export type ImageData = {
   name: string;
   url: string;
-};
-
-export type Message = {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  message: string;
-  time_sent: Date;
+  key: string;
 };
 
 export type Attribution = {
   name: string;
   url: string;
   description: string;
+};
+
+export type Release = {
+  key: string;
+  project_id: number;
+  version: string;
+  release_date: Date;
+  text: string;
+  url: string;
+  external: boolean;
 };

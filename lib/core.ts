@@ -41,6 +41,7 @@ export const ourFileRouter = {
         console.log("file url", file.ufsUrl);
 
         const data: ImageData = {
+          key: file.key,
           name: file.name,
           url: file.ufsUrl,
         };
@@ -78,6 +79,34 @@ export const ourFileRouter = {
       console.log("file url", file.ufsUrl);
 
       updateResumeURL(file.ufsUrl);
+
+      // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
+      return { url: file.ufsUrl };
+    }),
+  fileUploader: f({
+    blob: {
+      maxFileSize: "16MB",
+      maxFileCount: 1,
+    },
+  })
+    .middleware(async () => {
+      const session = await auth();
+
+      // This code runs on your server before upload
+      const email = session?.user?.email as string;
+
+      // If you throw, the user will not be able to upload
+      if (email !== "scott7gilbert@gmail.com")
+        throw new UploadThingError("Unauthorized");
+
+      // Whatever is returned here is accessible in onUploadComplete as `metadata`
+      return { email: email };
+    })
+    .onUploadComplete(async ({ metadata, file }): Promise<{ url: string }> => {
+      // This code RUNS ON YOUR SERVER after upload
+      console.log("Upload complete for email:", metadata.email);
+
+      console.log("file url", file.ufsUrl);
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
       return { url: file.ufsUrl };

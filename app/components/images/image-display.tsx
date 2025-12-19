@@ -7,6 +7,7 @@ import Search from "../../ui/search";
 import { fetchImages } from "@/lib/db";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import Button from "@/app/ui/button";
 
 export default function ImageDisplay() {
   const [images, setImages] = useState([] as ImageData[]);
@@ -20,6 +21,22 @@ export default function ImageDisplay() {
     }
     getImages();
   }, [searchParams]);
+
+  const deleteImage = async (key: string) => {
+    const res = await fetch("/api/delete-image", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ key }),
+    });
+
+    if (res.ok) {
+      setImages(images.filter((img) => img.key !== key));
+    } else {
+      console.error("Failed to delete image");
+    }
+  };
 
   return (
     <div>
@@ -40,12 +57,18 @@ export default function ImageDisplay() {
         </div>
       </div>
       <div className="my-4">
-        <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-8">
+        <div className="text-sm mt-4 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-8">
           {images.map((img) => (
-            <div key={img.name + "image"}>
+            <div key={img.name + "image" + Math.round(Math.random() * 1000)}>
               <Image src={img.url} alt={img.name} width={160} height={160} />
               <p className="break-all">{img.name}</p>
               <p className="break-all">{img.url}</p>
+              <Button
+                onClick={() => deleteImage(img.key)}
+                className="bg-red-500 text-white"
+              >
+                Delete
+              </Button>
             </div>
           ))}
         </div>

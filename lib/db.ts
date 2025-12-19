@@ -8,8 +8,8 @@ import {
   Skill,
   ImageData,
   Experience,
-  Message,
   Attribution,
+  Release,
 } from "./definitions";
 import postgres from "postgres";
 import { cache } from "react";
@@ -324,10 +324,9 @@ export async function fetchProject(slug: string) {
 
 export async function updateProject(data: Project, markdown: string) {
   try {
-    const skillStrings = data.skills.map((skill) => {
+    const skillStrings: string[] = data?.skills.map((skill) => {
       return skill.name;
     });
-    console.log(skillStrings);
     if (data.slug === "") {
       const lowercase = data.title.toLowerCase();
       data.slug = lowercase.replaceAll(" ", "-");
@@ -599,7 +598,9 @@ export async function fetchImages(query: string) {
       FROM images
       WHERE
         name ILIKE ${`%${query}%`} OR 
-        url ILIKE ${`%${query}%`}
+        url ILIKE ${`%${query}%`} OR 
+        key ILIKE ${`%${query}%`}
+      ORDER BY name DESC
       ;
     `;
       return images;
@@ -616,10 +617,12 @@ export async function addImage(data: ImageData) {
       INSERT 
       INTO images (
         name,
-        url)
+        url, 
+        key)
       VALUES (
         ${data.name},
-        ${data.url}
+        ${data.url},
+        ${data.key}
       );
     `;
   } catch (err) {
@@ -628,51 +631,15 @@ export async function addImage(data: ImageData) {
   }
 }
 
-export async function fetchMessages(): Promise<Message[]> {
-  try {
-    const data = await sql<Message[]>`
-      SELECT *
-      FROM messages
-      ORDER BY time_sent DESC;
-    `;
-    return data;
-  } catch (err) {
-    console.error("Error fetching messages: ", err);
-    return [];
-  }
-}
-
-export async function addMessage(data: Omit<Message, "id" | "time_sent">) {
-  try {
-    await sql`
-      INSERT
-      INTO messages (
-        first_name,
-        last_name,
-        email,
-        message)
-      VALUES (
-        ${data.first_name},
-        ${data.last_name},
-        ${data.email},
-        ${data.message}
-      );
-    `;
-  } catch (err) {
-    console.error("Error adding message: ", err);
-    throw err;
-  }
-}
-
-export async function deleteMessage(id: number) {
+export async function deleteImage(key: string) {
   try {
     await sql`
       DELETE
-      FROM messages
-      WHERE id = ${id};
+      FROM images
+      WHERE key = ${key};
     `;
   } catch (err) {
-    console.error("Error deleting message: ", err);
+    console.error("Error deleting image data: ", err);
     throw err;
   }
 }
@@ -738,6 +705,71 @@ export async function updateResumeURL(url: string) {
     `;
   } catch (err) {
     console.error("Error updating resume URL");
+    throw err;
+  }
+}
+
+export async function fetchReleases(project_id?: number) {
+  try {
+    let data: Release[];
+    if (project_id) {
+      data = await sql<Release[]>`
+        SELECT *
+        FROM releases
+        WHERE project_id = ${project_id}
+        ORDER BY version;
+      `;
+    } else {
+      data = await sql<Release[]>`
+        SELECT *
+        FROM releases
+        ORDER BY version;
+      `;
+    }
+    return data;
+  } catch (err) {
+    console.error("Error fetching releases: ", err);
+    return [];
+  }
+}
+
+export async function addRelease(release: Release) {
+  try {
+    await sql`
+      INSERT
+      INTO releases (
+        key,
+        project_id,
+        version,
+        release_date,
+        text,
+        url,
+        external)
+      VALUES (
+        ${release.key},
+        ${release.project_id},
+        ${release.version},
+        ${release.release_date},
+        ${release.text},
+        ${release.url},
+        ${release.external}
+      );
+    `;
+  } catch (err) {
+    console.error("Error adding release: ", err);
+    throw err;
+  }
+}
+
+export async function deleteRelease(key: string) {
+  try {
+    await sql`
+      DELETE
+      FROM releases
+      WHERE key = ${key};
+    `;
+  } catch (err) {
+    console.error("Error deleting release: ", err);
     throw err;
   }
 }
