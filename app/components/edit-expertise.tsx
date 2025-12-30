@@ -6,7 +6,7 @@ import { Skill } from "@/lib/definitions";
 import Button from "../ui/button";
 import Image from "next/image";
 import { isUrl } from "check-valid-url";
-import Upload from "./images/upload";
+import Upload from "../admin/components/upload";
 import { capitalizeFirstLetter } from "@/lib/methods";
 import Head from "next/head";
 
@@ -46,7 +46,7 @@ export default function EditExpertise() {
   }, []);
 
   async function save() {
-    const res = await fetch("/api/update-skills", {
+    const res = await fetch("/api/skills/update-skills", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

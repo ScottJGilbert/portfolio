@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { fetchPosts, fetchProjects } from "@/lib/db";
-import { Item } from "@/lib/definitions";
+import { Post, Project } from "@/lib/definitions";
 import Image from "next/image";
 import Category from "./ui/category";
 import { motion } from "motion/react";
@@ -230,26 +230,11 @@ export default function Page() {
 }
 
 function Projects() {
-  const [items, setItems] = useState([] as Item[]);
+  const [projects, setProjects] = useState([] as Project[]);
   useEffect(() => {
     async function fetchAndSet() {
-      const projects = await fetchProjects("", []);
-      setItems(
-        projects.map((project) => {
-          return {
-            title: project.title,
-            description: project.description,
-            categories: project.categories,
-            slug: project.slug,
-            date_one: new Date(project.start_date).toDateString(),
-            date_two:
-              project.end_date === null
-                ? "Ongoing"
-                : new Date(project.end_date).toDateString(),
-            image_url: project.image_url,
-          };
-        })
-      );
+      const fetchedProjects = await fetchProjects("", []);
+      setProjects(fetchedProjects);
     }
     fetchAndSet();
   }, []);
@@ -257,7 +242,7 @@ function Projects() {
   return (
     <div>
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {items.map((item, index) => {
+        {projects.map((item, index) => {
           // Show more items on desktop, fewer on mobile
           const isMobile =
             typeof window !== "undefined" && window.innerWidth < 768;
@@ -271,7 +256,9 @@ function Projects() {
             >
               <h3 className="mt-2">{item.title}</h3>
               <p className="text-gray-700 dark:text-gray-400">
-                {item.date_one + " - " + item.date_two}
+                {item.start_date.toDateString() +
+                  " - " +
+                  (item.end_date ? item.end_date.toDateString() : "Ongoing")}
               </p>
               <div className="flex flex-wrap gap-2 my-2">
                 {item.categories.map((categoryString) => {
@@ -299,23 +286,11 @@ function Projects() {
 }
 
 function Posts() {
-  const [items, setItems] = useState([] as Item[]);
+  const [posts, setPosts] = useState([] as Post[]);
   useEffect(() => {
     async function fetchAndSet() {
-      const posts = await fetchPosts("", []);
-      setItems(
-        posts.map((post) => {
-          return {
-            title: post.title,
-            description: post.description,
-            categories: post.categories,
-            slug: post.slug,
-            date_one: new Date(post.creation_date).toDateString(),
-            date_two: new Date(post.edit_date).toDateString(),
-            image_url: post.image_url,
-          };
-        })
-      );
+      const fetchedPosts = await fetchPosts("", []);
+      setPosts(fetchedPosts);
     }
     fetchAndSet();
   }, []);
@@ -323,7 +298,7 @@ function Posts() {
   return (
     <div>
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {items.map((item, index) => {
+        {posts.map((item, index) => {
           // Show more items on desktop, fewer on mobile
           const isMobile =
             typeof window !== "undefined" && window.innerWidth < 768;
@@ -337,7 +312,7 @@ function Posts() {
             >
               <h3 className="mt-2">{item.title}</h3>
               <p className="text-gray-700 dark:text-gray-400">
-                {item.date_one}
+                {item.creation_date.toDateString()}
               </p>
               <div className="flex flex-wrap gap-2 my-2">
                 {item.categories.map((categoryString) => {

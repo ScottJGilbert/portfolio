@@ -1,13 +1,13 @@
 "use client";
 
 import Navbar from "./nav-bar";
-import Contactbar from "./externals-bar";
+import Externalsbar from "./externals-bar";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { motion } from "motion/react";
 import { Fade } from "../motion/transitions";
 import { usePageLoading } from "@/app/providers/loading-provider";
 import BufferedLink from "@/app/ui/buffered-link";
+import AccountComponent from "./account";
 
 export default function Sidebar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -28,7 +28,7 @@ export default function Sidebar() {
       <Fade>
         <div className="hidden h-[calc(100vh-2rem)] flex-col items-stretch m-4 px-4 bg-gradient-to-br from-green-300 to-green-100 dark:from-green-950 dark:to-green-900 rounded-4xl border-1 border-[var(--border)] md:flex">
           <div className="h-full flex flex-col items-stretch justify-start">
-            <div className="flex-grow max-h-8 min-h-4" />
+            <div className="flex-grow max-h-8 min-h-3" />
             <BufferedLink
               doOnClick={() => {
                 setIsLoading(true);
@@ -42,19 +42,15 @@ export default function Sidebar() {
                 whileTap={{ scale: 0.95 }} // Scale down on tap/click
                 transition={{ type: "spring", stiffness: 300, damping: 20 }} // Spring animation settings
               >
-                <Image
-                  src="/profileIcon.svg"
-                  alt="Profile Icon"
-                  width={730}
-                  height={530}
-                  className="block h-16 w-22 mx-auto"
-                />
+                <h3 className="text-center">Scott Gilbert</h3>
               </motion.div>
             </BufferedLink>
             <div className="flex-grow max-h-8 min-h-1" />
             <Navbar />
             <div className="flex-grow max-h-8" />
-            <Contactbar />
+            <Externalsbar />
+            <div className="flex-grow max-h-8" />
+            <AccountComponent />
             <div className="flex-grow max-h-8 min-h-4" />
           </div>
         </div>

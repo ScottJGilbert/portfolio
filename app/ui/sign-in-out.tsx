@@ -1,36 +1,70 @@
-import { signIn, signOut, useSession } from "next-auth/react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { usePathname } from "next/navigation";
+import Button from "./button";
+import BufferedLink from "./buffered-link";
+import { usePageLoading } from "../providers/loading-provider";
 
-export function SignIn() {
+export function SignUp({ children }: { children?: React.ReactNode }) {
   const pathname = usePathname();
-  const params = new URLSearchParams(useSearchParams().toString());
-  const callbackUrl = params.get("callbackUrl");
+  const { setIsLoading } = usePageLoading();
 
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
   if (session?.user) return null;
 
   return (
-    <button
+    <BufferedLink
       className="hover:cursor-pointer"
-      onClick={() => {
-        if (pathname === "/login") {
-          signIn("", { callbackUrl: callbackUrl?.toString() });
-        } else {
-          signIn("", { callbackUrl: pathname });
-        }
+      href={
+        pathname === "/signup" || pathname === "/signin"
+          ? "/signup"
+          : "/signup?callbackUrl=" + encodeURIComponent(pathname)
+      }
+      doOnClick={() => {
+        setIsLoading(true);
       }}
     >
-      <p className="inline">Sign In</p>
-    </button>
+      {children ? children : <p className="inline">Sign Up</p>}
+    </BufferedLink>
   );
 }
 
-export function SignOut() {
-  const { data: session } = useSession();
+export function SignIn({ children }: { children?: React.ReactNode }) {
+  const pathname = usePathname();
+  const { setIsLoading } = usePageLoading();
+
+  const { data: session } = authClient.useSession();
+
+  if (session?.user) return null;
+
+  return (
+    <BufferedLink
+      className="hover:cursor-pointer"
+      href={
+        pathname === "/signin" || pathname === "/signup"
+          ? "/signin"
+          : "/signin?callbackUrl=" + encodeURIComponent(pathname)
+      }
+      doOnClick={() => {
+        setIsLoading(true);
+      }}
+    >
+      {children ? children : <p className="inline">Sign In</p>}
+    </BufferedLink>
+  );
+}
+
+export function SignOut({ children }: { children?: React.ReactNode }) {
+  const { data: session } = authClient.useSession();
   if (!session?.user) return null;
   return (
-    <button className="hover:cursor-pointer" onClick={() => signOut()}>
-      <p className="inline">Sign Out</p>
-    </button>
+    <Button
+      className="hover:cursor-pointer"
+      onClick={async () => {
+        await authClient.signOut();
+        window.location.reload();
+      }}
+    >
+      {children ? children : <p className="inline">Sign Out</p>}
+    </Button>
   );
 }

@@ -22,8 +22,8 @@ export default function Expertise() {
 
   useEffect(() => {
     async function fetchAreas() {
-      const newAreas: Skill[] = await fetch("/api/fetch-skills").then((res) =>
-        res.json()
+      const newAreas: Skill[] = await fetch("/api/skills/fetch-skills").then(
+        (res) => res.json()
       );
       setAreas(
         shuffleArray(

@@ -22,13 +22,13 @@ const links = [
   { name: "Resume", href: "/resume.pdf", icon: DocumentDuplicateIcon },
 ];
 
-export default function Contactbar() {
+export default function Externalsbar() {
   return (
     <div>
       <p className="text-lg">External Links</p>
-      <hr className="mb-4 mt-2"></hr>
+      <hr className="mb-3 mt-2"></hr>
       <div className="gap-2 md:gap-0 grid grid-cols-2 md:flex flex-col">
-        {links.map((link) => {
+        {links.map((link, index) => {
           const LinkIcon = link.icon;
           return (
             <Fragment key={link.name}>
@@ -44,7 +44,12 @@ export default function Contactbar() {
                   <p className="block">{link.name}</p>
                 </BufferedLink>
               </Bounce>
-              <div className="h-4 max-h-4 hidden md:block" />
+              {index < links.length - 1 && (
+                <div className="h-3 max-h-3 hidden md:block" />
+              )}
+              {!(index < links.length - 1) && (
+                <div className="h-2 max-h-2 hidden md:block" />
+              )}
             </Fragment>
           );
         })}

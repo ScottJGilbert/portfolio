@@ -1,13 +1,13 @@
 "use client";
 
-import { SignIn, SignOut } from "../../ui/sign-in-out";
-import { Suspense, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Button from "@/app/ui/button";
 import Switch from "@/app/ui/switch";
 import { usePageLoading } from "@/app/providers/loading-provider";
 import BufferedLink from "@/app/ui/buffered-link";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 
 const linkSections = [
   {
@@ -18,6 +18,7 @@ const linkSections = [
       { name: "Projects", href: "/projects" },
       { name: "Blog", href: "/blog" },
     ],
+    adminOnly: false,
   },
   {
     title: "External Links",
@@ -30,6 +31,7 @@ const linkSections = [
       { name: "Email", href: "mailto:scott7gilbert@gmail.com" },
       { name: "Resume", href: "/resume.pdf" },
     ],
+    adminOnly: false,
   },
   {
     title: "More",
@@ -37,13 +39,28 @@ const linkSections = [
       { name: "Attributions", href: "/attributions" },
       { name: "Sitemap", href: "/sitemap.xml" },
       { name: "RSS", href: "/rss.xml" },
+      { name: "Legal", href: "/legal" },
     ],
+    adminOnly: false,
+  },
+  {
+    title: "Admin",
+    links: [
+      { name: "Home", href: "/admin/" },
+      { name: "Images", href: "/admin/images" },
+      { name: "Users", href: "/admin/users" },
+    ],
+    adminOnly: true,
   },
 ];
 
 export default function Footer() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { setIsLoading } = usePageLoading();
+
+  const { data: session } = authClient.useSession();
+
+  const admin = session?.user?.admin;
 
   // Sync theme on mount
   useEffect(() => {
@@ -122,44 +139,42 @@ export default function Footer() {
               {/* Link Sections */}
               <div className="flex flex-wrap flex-col md:flex-row justify-center xl:gap-16 lg:gap-16 md:gap-8 gap-6 text-lg">
                 {linkSections.map((section) => (
-                  <div key={section.title}>
-                    <p className="mb-2 md:hidden block text-center">
-                      <b>{section.title}</b>
-                    </p>
-                    <p className="mb-2 hidden md:block">
-                      <b>{section.title}</b>
-                    </p>
-                    <div className="flex flex-row justify-center md:flex-col flex-wrap gap-4 md:gap-2">
-                      {section.links.map((link) => (
-                        <div key={link.name + "link"}>
-                          <BufferedLink
-                            href={link.href}
-                            doOnClick={() => {
-                              if (section.title !== "External Links") {
-                                setIsLoading(true);
-                              }
-                            }}
-                            className="flex gap-2 hover:text-gray-400"
-                            target={
-                              section.title === "External Links" ? "_blank" : ""
-                            }
-                          >
-                            <span className="inline-flex flex-col justify-center">
-                              {link.name}
-                            </span>
-                          </BufferedLink>
+                  <React.Fragment key={section.title}>
+                    {(!section.adminOnly || admin) && (
+                      <div>
+                        <p className="mb-2 md:hidden block text-center">
+                          <b>{section.title}</b>
+                        </p>
+                        <p className="mb-2 hidden md:block">
+                          <b>{section.title}</b>
+                        </p>
+                        <div className="flex flex-row justify-center md:flex-col flex-wrap gap-4 md:gap-2">
+                          {section.links.map((link) => (
+                            <div key={link.name + "link"}>
+                              <BufferedLink
+                                href={link.href}
+                                doOnClick={() => {
+                                  if (section.title !== "External Links") {
+                                    setIsLoading(true);
+                                  }
+                                }}
+                                className="flex gap-2 hover:text-gray-400"
+                                target={
+                                  section.title === "External Links"
+                                    ? "_blank"
+                                    : ""
+                                }
+                              >
+                                <span className="inline-flex flex-col justify-center">
+                                  {link.name}
+                                </span>
+                              </BufferedLink>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                      {section.title === "More" && (
-                        <Suspense>
-                          <span className="flex gap-2 hover:text-gray-400 hover:cursor-pointer">
-                            <SignIn />
-                            <SignOut />
-                          </span>
-                        </Suspense>
-                      )}
-                    </div>
-                  </div>
+                      </div>
+                    )}
+                  </React.Fragment>
                 ))}
 
                 {/* Mobile Switch + Copyright */}

@@ -4,7 +4,6 @@ import "@mdxeditor/editor/style.css";
 import Header from "./components/general/header";
 import Sidebar from "./components/general/sidebar";
 import Footer from "./components/general/footer";
-import { SessionProvider } from "next-auth/react";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "../lib/core";
@@ -13,6 +12,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { PageLoadingProvider } from "@/app/providers/loading-provider";
 import PageTransition from "./components/motion/page-transition";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ToastContainer } from "react-toastify";
 
 export const inter = Inter({ subsets: ["latin"] });
 
@@ -60,28 +60,28 @@ export default function RootLayout({
         {/* <Scroll> */}
         <main className="flex">
           <PageLoadingProvider>
-            <SessionProvider>
-              <Sidebar />
-              <div className="flex-1">
-                <div className="min-h-screen mx-6 md:ml-0 md:mr-6 flex flex-col justify-between">
-                  <div className="flex-1 min-h-screen">
-                    <Header />
-                    <PageTransition>
-                      <div>
-                        <div className="h-28 md:h-0"></div>
-                        <div className="md:mb-0 mb-12">{children}</div>
-                      </div>
-                    </PageTransition>
-                  </div>
-                  <Footer />
+            <Sidebar />
+            <div className="flex-1">
+              <div className="min-h-screen mx-6 md:ml-0 md:mr-6 flex flex-col justify-between">
+                <div className="flex-1 min-h-screen">
+                  <Header />
+                  <PageTransition>
+                    <div>
+                      <div className="h-28 md:h-0"></div>
+                      <div className="md:mb-0 mb-12">{children}</div>
+                    </div>
+                  </PageTransition>
                 </div>
+                <Footer />
               </div>
-            </SessionProvider>
+            </div>
           </PageLoadingProvider>
         </main>
         {/* Vercel analytics */}
         <Analytics />
         <SpeedInsights />
+        {/* Toastify notifications */}
+        <ToastContainer />
       </body>
     </html>
   );

@@ -1,7 +1,7 @@
-import EditPage from "@/app/components/mdx/edit-page";
-import { Item } from "@/lib/definitions";
+import { Post } from "@/lib/definitions";
 import { fetchPostCategories } from "@/lib/db";
 import { Metadata } from "next";
+import EditPost from "../components/edit-post";
 
 export const metadata: Metadata = {
   title: "New Blog",
@@ -9,23 +9,24 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const newItem: Item = {
+  const newItem: Post = {
+    slug: "",
     title: "",
     description: "",
     categories: [],
-    slug: "",
-    date_one: new Date().toISOString(),
-    date_two: new Date().toISOString(),
+    creation_date: new Date(),
+    edit_date: new Date(),
     image_url: "",
+    item_id: 0,
   };
+
   return (
     <div>
-      <EditPage
+      <EditPost
         initialData={newItem}
         markdown={""}
         categories={await fetchPostCategories()}
-        type="post"
-      ></EditPage>
+      />
     </div>
   );
 }

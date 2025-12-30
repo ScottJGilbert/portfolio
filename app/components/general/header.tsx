@@ -10,9 +10,10 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { usePageLoading } from "@/app/providers/loading-provider";
 import BufferedLink from "@/app/ui/buffered-link";
+import AccountComponent from "./account";
 
 const Navbar = dynamic(() => import("./nav-bar"));
-const Contactbar = dynamic(() => import("./externals-bar"));
+const Externalsbar = dynamic(() => import("./externals-bar"));
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -97,7 +98,8 @@ export default function Header() {
                 <div className="bg-[var(--background-secondary)] min-h-[calc(100%-1rem)] p-4 pt-14 -mt-22 rounded-4xl border-[var(--border)] border-1 block md:hidden">
                   <div className="flex flex-col gap-8 mt-4">
                     {menuOpen && <Navbar />}
-                    {menuOpen && <Contactbar />}
+                    {menuOpen && <Externalsbar />}
+                    {menuOpen && <AccountComponent />}
                   </div>
                 </div>
               </motion.div>

@@ -4,17 +4,19 @@
 import {
   Project,
   Post,
-  ItemMetadata,
   Skill,
   ImageData,
   Experience,
   Attribution,
   Release,
+  Item,
+  Comment,
+  User,
 } from "./definitions";
 import postgres from "postgres";
 import { cache } from "react";
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
+export const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
 export const fetchSkills = cache(async (names: string[]) => {
   try {
@@ -215,20 +217,12 @@ export async function fetchProjects(query: string, categories: string[]) {
   try {
     if (categories.length === 0) {
       const data = await sql<Project[]>`
-      SELECT 
-        project_id, 
-        title, 
-        start_date, 
-        end_date, 
-        description, 
-        categories, 
-        slug,
-        image_url 
-      FROM projects 
-      WHERE 
-        title ILIKE ${`%${query}%`} OR 
-        description ILIKE ${`%${query}%`} 
-      ORDER BY project_id DESC;
+        SELECT *
+        FROM projects 
+        WHERE 
+          title ILIKE ${`%${query}%`} OR 
+          description ILIKE ${`%${query}%`} 
+        ORDER BY start_date DESC;
       `;
       return data;
     } else {
@@ -242,26 +236,18 @@ export async function fetchProjects(query: string, categories: string[]) {
 
       for (const category of categories) {
         const data = await sql<Project[]>`
-        SELECT 
-          project_id, 
-          title, 
-          start_date, 
-          end_date, 
-          description, 
-          categories, 
-          slug,
-          image_url 
-        FROM projects 
-        WHERE 
-          ${category} = ANY(categories) AND
-          (title ILIKE ${`%${query}%`} OR 
-          description ILIKE ${`%${query}%`}) 
-        ORDER BY project_id DESC;
+          SELECT *
+          FROM projects 
+          WHERE 
+            ${category} = ANY(categories) AND
+            (title ILIKE ${`%${query}%`} OR 
+            description ILIKE ${`%${query}%`}) 
+          ORDER BY start_date DESC;
         `;
         results.push(...data);
       }
       const unique = Array.from(
-        new Map(results.map((p) => [p.project_id, p])).values()
+        new Map(results.map((p) => [p.slug, p])).values()
       );
       return unique;
     }
@@ -271,102 +257,70 @@ export async function fetchProjects(query: string, categories: string[]) {
   }
 }
 
-export async function fetchProjectMetadata(slug: string) {
-  try {
-    const data = await sql<ItemMetadata[]>`
-      SELECT 
-        title, 
-        description 
-      FROM projects 
-      WHERE slug = ${slug};
-    `;
-    return data[0] as ItemMetadata;
-  } catch (err) {
-    console.error("Error fetching project metadata:", err);
-    return [null];
-  }
-}
-
-export async function fetchProject(slug: string) {
+export async function fetchProject(slug: string): Promise<Project | null> {
   try {
     const data = await sql<Project[]>`
-      SELECT 
-        project_id, 
-        title, 
-        start_date, 
-        end_date, 
-        description, 
-        categories, 
-        slug,
-        image_url 
+      SELECT *
       FROM projects 
       WHERE slug = ${slug};
     `;
-    const skillsData = await sql<{ skills: string[] }[]>`
-      SELECT skills
-      FROM projects
-      WHERE slug = ${slug};
-    `;
-    if (skillsData[0].skills?.length > 0)
-      data[0].skills = await fetchSkills(skillsData[0].skills);
-    const data_markdown = await sql<{ markdown: string }[]>`
-      SELECT 
-        markdown 
-      FROM projects
-      WHERE slug = ${slug};
-      `;
-    return [data[0] as Project, data_markdown[0].markdown];
+    const skillsData = data[0].skills;
+    if (typeof skillsData[0] !== "string")
+      throw new Error("Skills data is not in string format");
+    data[0].skills = await fetchSkills(skillsData as string[]);
+    return data[0] as Project;
   } catch (err) {
     console.error("Error fetching project:", err);
-    return [null, ""];
+    return null;
   }
 }
 
-export async function updateProject(data: Project, markdown: string) {
+export async function updateProject(data: Project) {
   try {
     const skillStrings: string[] = data?.skills.map((skill) => {
-      return skill.name;
+      return typeof skill === "string" ? skill : skill.name;
     });
     if (data.slug === "") {
       const lowercase = data.title.toLowerCase();
       data.slug = lowercase.replaceAll(" ", "-");
       await sql`
-      INSERT 
-      INTO projects
-        (title,
-        start_date,
-        end_date,
-        description,
-        categories,
-        slug,
-        markdown,
-        image_url,
-        skills)
-      VALUES (
-        ${data.title},
-        ${data.start_date},
-        ${data.end_date},
-        ${data.description},
-        ${data.categories},
-        ${data.slug},
-        ${markdown},
-        ${data.image_url},
-        ${skillStrings}
-      );
+        INSERT 
+        INTO projects
+          (title,
+          start_date,
+          end_date,
+          description,
+          categories,
+          slug,
+          image_url,
+          skills,
+          item_id)
+        VALUES (
+          ${data.title},
+          ${data.start_date},
+          ${data.end_date},
+          ${data.description},
+          ${data.categories},
+          ${data.slug},
+          ${data.image_url},
+          ${skillStrings},
+          ${data.item_id}
+        );
       `;
     } else {
       await sql`
-      UPDATE projects
-      SET
-        title = ${data.title},
-        start_date = ${data.start_date},
-        end_date = ${data.end_date},
-        description = ${data.description},
-        categories = ${data.categories},
-        markdown = ${markdown},
-        image_url = ${data.image_url},
-        skills = ${skillStrings}
-      WHERE slug = ${data.slug}`;
+        UPDATE projects
+        SET
+          title = ${data.title},
+          start_date = ${data.start_date},
+          end_date = ${data.end_date},
+          description = ${data.description},
+          categories = ${data.categories},
+          image_url = ${data.image_url},
+          skills = ${skillStrings},
+          item_id = ${data.item_id}
+        WHERE slug = ${data.slug}
+      `;
     }
   } catch (err) {
     console.error("Error updating project: ", err);
@@ -390,7 +344,7 @@ export async function deleteProject(slug: string) {
 export async function fetchPostSlugs() {
   try {
     const data = await sql<{ slug: string }[]>`
-    SELECT slug FROM posts;
+      SELECT slug FROM posts;
     `;
     const slugs = data.map((row) => row.slug);
     return slugs;
@@ -425,15 +379,7 @@ export async function fetchPosts(query: string, categories: string[]) {
   try {
     if (categories.length === 0) {
       const data = await sql<Post[]>`
-      SELECT 
-        post_id, 
-        title,
-        creation_date,
-        edit_date, 
-        description, 
-        categories, 
-        slug, 
-        image_url
+      SELECT *
       FROM posts 
       WHERE 
         title ILIKE ${`%${query}%`} OR 
@@ -452,15 +398,7 @@ export async function fetchPosts(query: string, categories: string[]) {
 
       for (const category of categories) {
         const data = await sql<Post[]>`
-        SELECT 
-          post_id, 
-          title, 
-          creation_date,
-          edit_date,
-          description, 
-          categories, 
-          slug,
-          image_url 
+        SELECT *
         FROM posts 
         WHERE 
           ${category} = ANY(categories) AND
@@ -471,7 +409,7 @@ export async function fetchPosts(query: string, categories: string[]) {
         results.push(...data);
       }
       const unique = Array.from(
-        new Map(results.map((p) => [p.post_id, p])).values()
+        new Map(results.map((p) => [p.slug, p])).values()
       );
       return unique;
     }
@@ -481,51 +419,21 @@ export async function fetchPosts(query: string, categories: string[]) {
   }
 }
 
-export async function fetchPostMetadata(slug: string) {
-  try {
-    const data = await sql<ItemMetadata[]>`
-      SELECT 
-        title, 
-        description
-      FROM posts 
-      WHERE slug = ${slug};
-    `;
-    return data[0] as ItemMetadata;
-  } catch (err) {
-    console.error("Error fetching post metadata:", err);
-    return [null];
-  }
-}
-
-export async function fetchPost(slug: string) {
+export async function fetchPost(slug: string): Promise<Post | null> {
   try {
     const data = await sql<Post[]>`
-      SELECT 
-        post_id, 
-        title, 
-        creation_date,
-        edit_date,
-        description, 
-        categories, 
-        slug,
-        image_url 
+      SELECT *
       FROM posts 
       WHERE slug = ${slug};
     `;
-    const data_markdown = await sql<{ markdown: string }[]>`
-      SELECT 
-        markdown 
-      FROM posts
-      WHERE slug = ${slug};
-      `;
-    return [data[0] as Post, data_markdown[0].markdown];
+    return data[0] as Post;
   } catch (err) {
     console.error("Error fetching posts:", err);
-    return [null, ""];
+    return null;
   }
 }
 
-export async function updatePost(data: Post, markdown: string) {
+export async function updatePost(data: Post) {
   try {
     if (data.slug === "") {
       const lowercase = data.title.toLowerCase();
@@ -539,8 +447,8 @@ export async function updatePost(data: Post, markdown: string) {
         description,
         categories,
         slug,
-        markdown,
-        image_url)
+        image_url,
+        item_id)
       VALUES (
         ${data.title},
         ${data.creation_date},
@@ -548,8 +456,8 @@ export async function updatePost(data: Post, markdown: string) {
         ${data.description},
         ${data.categories},
         ${data.slug},
-        ${markdown},
-        ${data.image_url}
+        ${data.image_url},
+        ${data.item_id}
       );
       `;
     } else {
@@ -561,8 +469,8 @@ export async function updatePost(data: Post, markdown: string) {
         edit_date = ${data.edit_date},
         description = ${data.description},
         categories = ${data.categories},
-        markdown = ${markdown},
-        image_url = ${data.image_url}
+        image_url = ${data.image_url},
+        item_id = ${data.item_id}
       WHERE slug = ${data.slug}`;
     }
   } catch (err) {
@@ -580,6 +488,48 @@ export async function deletePost(slug: string) {
     `;
   } catch (err) {
     console.error("Error deleting post: ", err);
+    throw err;
+  }
+}
+
+export async function fetchItem(item_id: number): Promise<Item> {
+  try {
+    const data = await sql<Item[]>`
+      SELECT *
+      FROM items 
+      WHERE id = ${item_id};
+    `;
+    return data[0] as Item;
+  } catch (err) {
+    console.error("Error fetching item:", err);
+    throw err;
+  }
+}
+
+export async function addItem(markdown: string): Promise<number> {
+  try {
+    const result = await sql<{ id: number }[]>`
+      INSERT 
+      INTO items (markdown)
+      VALUES (${markdown})
+      RETURNING id;
+    `;
+    return result[0].id;
+  } catch (err) {
+    console.error("Error adding item: ", err);
+    throw err;
+  }
+}
+
+export async function updateItem(item: Item) {
+  try {
+    await sql`
+      UPDATE items
+      SET markdown = ${item.markdown}
+      WHERE id = ${item.id};
+    `;
+  } catch (err) {
+    console.error("Error updating item: ", err);
     throw err;
   }
 }
@@ -709,14 +659,14 @@ export async function updateResumeURL(url: string) {
   }
 }
 
-export async function fetchReleases(project_id?: number) {
+export async function fetchReleases(project_key?: string): Promise<Release[]> {
   try {
     let data: Release[];
-    if (project_id) {
+    if (project_key) {
       data = await sql<Release[]>`
         SELECT *
         FROM releases
-        WHERE project_id = ${project_id}
+        WHERE project_key = ${project_key}
         ORDER BY version;
       `;
     } else {
@@ -739,7 +689,7 @@ export async function addRelease(release: Release) {
       INSERT
       INTO releases (
         key,
-        project_id,
+        project_key,
         version,
         release_date,
         text,
@@ -747,7 +697,7 @@ export async function addRelease(release: Release) {
         external)
       VALUES (
         ${release.key},
-        ${release.project_id},
+        ${release.project_key},
         ${release.version},
         ${release.release_date},
         ${release.text},
@@ -770,6 +720,175 @@ export async function deleteRelease(key: string) {
     `;
   } catch (err) {
     console.error("Error deleting release: ", err);
+    throw err;
+  }
+}
+
+export async function fetchUsers(
+  ids?: string[],
+  query?: string,
+  useQuery: boolean = false
+): Promise<User[]> {
+  try {
+    if (!useQuery && ids && ids.length > 0) {
+      const data = await sql<User[]>`
+      SELECT * 
+      FROM "user"
+      WHERE "id" = ANY(${ids}) AND 
+        "deleted" = false;
+    `;
+      return data;
+    }
+    if (useQuery) {
+      const data = await sql<User[]>`
+        SELECT *
+        FROM "user"
+        WHERE 
+          ("name" ILIKE ${`%${query}%`} OR 
+          "email" ILIKE ${`%${query}%`}) AND 
+          "deleted" = false;
+      `;
+      return data;
+    }
+    return [];
+  } catch (err) {
+    console.error("Error fetching users: ", err);
+    return [];
+  }
+}
+
+export async function updateUser(userData: User) {
+  try {
+    await sql`
+      UPDATE "user"
+      SET 
+        "createdAt" = ${userData.createdAt},
+        "updatedAt" = ${userData.updatedAt},
+        "name" = ${userData.name},
+        "email" = ${userData.email},
+        "emailVerified" = ${userData.emailVerified},
+        "image" = ${userData.image ?? null},
+        "banned" = ${userData.banned},
+        "admin" = ${userData.admin},
+        "comments" = ${userData.comments},
+        "firstCommentTime" = ${userData.firstCommentTime}
+      WHERE id = ${userData.id};
+    `;
+  } catch (err) {
+    console.error("Error updating user: ", err);
+    throw err;
+  }
+}
+
+function generateRandomString(length: number = 16): string {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+export async function deleteUser(id: string) {
+  try {
+    await sql`
+      UPDATE "user"
+      SET 
+        "deleted" = true,
+        "email" = ${"DELETED_" + generateRandomString(32)},
+        "emailVerified" = false,
+        "name" = ${"[Deleted User]"},
+        "image" = NULL,
+        "admin" = false,
+        "banned" = true
+      WHERE id = ${id};
+    `;
+  } catch (err) {
+    console.error("Error deleting user: ", err);
+    throw err;
+  }
+}
+
+export async function fetchComments(item_id: number) {
+  try {
+    const data = await sql<Comment[]>`
+      SELECT *
+      FROM comments
+      WHERE item_id = ${item_id}
+      ORDER BY creation_date DESC;
+    `;
+    return data;
+  } catch (err) {
+    console.error("Error fetching comments: ", err);
+    return [];
+  }
+}
+
+export async function fetchCommentByID(id: number) {
+  try {
+    const data = await sql<Comment[]>`
+      SELECT *
+      FROM comments
+      WHERE id = ${id}
+      LIMIT 1;
+    `;
+    return data[0] as Comment;
+  } catch (err) {
+    console.error("Error fetching comment by ID: ", err);
+    throw err;
+  }
+}
+
+export async function addComment(comment: Comment) {
+  try {
+    await sql`
+      INSERT
+      INTO comments (
+        user_id,
+        item_id,
+        content,
+        edit_date,
+        edited,
+        parent_comment_id)
+      VALUES (
+        ${comment.user_id},
+        ${comment.item_id},
+        ${comment.content},
+        ${comment.edit_date},
+        ${comment.edited},
+        ${comment.parent_comment_id}
+      );
+    `;
+  } catch (err) {
+    console.error("Error adding comment: ", err);
+    throw err;
+  }
+}
+
+export async function updateComment(comment: Comment) {
+  try {
+    await sql`
+      UPDATE comments
+      SET content = ${comment.content}
+      WHERE id = ${comment.id};
+    `;
+  } catch (err) {
+    console.error("Error updating comment: ", err);
+    throw err;
+  }
+}
+
+export async function deleteComment(id: number) {
+  try {
+    await sql`
+      DELETE
+      FROM comments
+      WHERE id = ${id};
+    `;
+  } catch (err) {
+    console.error("Error deleting comment: ", err);
     throw err;
   }
 }

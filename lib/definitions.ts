@@ -1,3 +1,5 @@
+import { auth } from "./auth";
+
 export type Skill = {
   skill_id: number;
   name: string;
@@ -26,53 +28,51 @@ export type Experience = {
 };
 
 export type Project = {
-  project_id: number;
+  slug: string;
   title: string;
   start_date: Date;
   end_date: Date | null;
   description: string;
   categories: string[];
-  slug: string;
   image_url: string;
-  skills: Skill[];
+  skills: (Skill | string)[];
+  item_id: number;
 };
 
 export type Post = {
-  post_id: number;
+  slug: string;
   title: string;
   creation_date: Date;
   edit_date: Date;
   description: string;
   categories: string[];
-  slug: string;
   image_url: string;
+  item_id: number;
 };
 
-export type ItemMetadata = {
+export type GridItem = {
+  link: string;
   title: string;
   description: string;
+  categories: string[];
+  date_one: string;
+  date_two: string; //Blank, "- Ongoing", or formatted date
+  image_url: string;
 };
 
 export type Item = {
-  title: string;
-  date_one: string;
-  date_two: string;
-  description: string;
-  categories: string[];
-  slug: string;
-  image_url: string;
-  skills?: Skill[];
+  id: number;
+  markdown: string;
 };
 
-export type ItemWithMarkdown = {
-  title: string;
-  date_one: string;
-  date_two: string;
-  description: string;
-  categories: string[];
-  slug: string;
-  markdown: string;
-  image_url: string;
+export type Comment = {
+  id: number;
+  user_id: string;
+  item_id: number;
+  content: string;
+  edit_date: Date;
+  edited: boolean;
+  parent_comment_id: number | null;
 };
 
 export type ImageData = {
@@ -89,10 +89,12 @@ export type Attribution = {
 
 export type Release = {
   key: string;
-  project_id: number;
+  project_key: string;
   version: string;
   release_date: Date;
   text: string;
   url: string;
   external: boolean;
 };
+
+export type User = typeof auth.$Infer.Session.user;

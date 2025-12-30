@@ -1,10 +1,10 @@
 import { Suspense } from "react";
-import GridDisplay from "../components/grid/grid-display";
+import ProjectsDisplay from "./components/projects-display";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Projects",
-  // description: "",
+  description: "A searchable collection of all of my projects.",
 };
 
 export default function Page() {
@@ -13,7 +13,7 @@ export default function Page() {
       <h1 className="text-center">Projects</h1>
       <hr className="mt-1 mb-3"></hr>
       <Suspense>
-        <GridDisplay type="project" />
+        <ProjectsDisplay />
       </Suspense>
     </div>
   );

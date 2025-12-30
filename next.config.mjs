@@ -36,6 +36,11 @@ const nextConfig = {
         hostname: "unpkg.com",
         pathname: "/feather-icons/dist/icons/**",
       },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        pathname: "/u/**",
+      },
     ],
 
     dangerouslyAllowSVG: true,

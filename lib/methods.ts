@@ -1,3 +1,6 @@
+import { Comment, User } from "./definitions";
+import { updateUser } from "./db";
+
 export function capitalizeFirstLetter(input: string): string {
   const firstCharacter = input.charAt(0);
   return firstCharacter.toUpperCase() + input.slice(1);
@@ -26,4 +29,36 @@ export function filterInPlace<T>(
     }
   }
   return newArray;
+}
+
+export function checkCommentLength(comment: Comment): boolean {
+  if (comment.content.length === 0) return false;
+
+  if (comment.parent_comment_id) return comment.content.length <= 800;
+
+  return comment.content.length <= 1600;
+}
+
+export async function checkRateLimit(user: User): Promise<boolean> {
+  try {
+    const currentTime = new Date();
+
+    if (
+      currentTime.getTime() - user.firstCommentTime.getTime() >
+      5 * 60 * 1000
+    ) {
+      await updateUser({ ...user, comments: 1, firstCommentTime: currentTime });
+      return true;
+    }
+
+    if (user.comments <= 15) {
+      await updateUser({ ...user, comments: user.comments + 1 });
+      return true;
+    }
+
+    return false;
+  } catch (err) {
+    console.log("Rate limit check error:", err);
+    return false;
+  }
 }

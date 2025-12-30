@@ -2,31 +2,24 @@
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import { fetchPostCategories, fetchProjectCategories } from "@/lib/db";
 import clsx from "clsx";
 import { BsX } from "react-icons/bs";
 import Search from "../../ui/search";
-import { useSession } from "next-auth/react";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { Bounce } from "../motion/transitions";
 
-export default function Filter({ placeholder }: { placeholder: string }) {
+export default function Filter({
+  placeholder,
+  categories,
+}: {
+  placeholder: string;
+  categories: string[];
+}) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  const [categories, setCategories] = useState([] as string[]);
   const [selected, setSelected] = useState<string[]>([]);
-
-  useEffect(() => {
-    async function fetchCategories() {
-      if (placeholder === "Search projects...") {
-        setCategories(await fetchProjectCategories());
-      } else if (placeholder === "Search blogs...") {
-        setCategories(await fetchPostCategories());
-      }
-    }
-    fetchCategories();
-  }, [searchParams, placeholder]);
 
   const toggleCategory = (category: string) => {
     const updated = selected.includes(category)
@@ -56,7 +49,8 @@ export default function Filter({ placeholder }: { placeholder: string }) {
           <Suspense>
             <Search placeholder={placeholder} />
           </Suspense>
-          {pathname === "/projects" ? <NewProjectButton /> : <NewPostButton />}
+          {pathname === "/projects" && <NewProjectButton />}
+          {pathname === "/posts" && <NewPostButton />}
         </div>
         <div className="flex flex-wrap gap-2 mt-4">
           {categories.map((category) => {
@@ -94,8 +88,8 @@ export default function Filter({ placeholder }: { placeholder: string }) {
 }
 
 function NewProjectButton() {
-  const { data: session } = useSession();
-  if (session?.user?.email !== "scott7gilbert@gmail.com") {
+  const { data: session } = authClient.useSession();
+  if (session?.user?.admin) {
     return null;
   }
   return (
@@ -111,8 +105,8 @@ function NewProjectButton() {
 }
 
 function NewPostButton() {
-  const { data: session } = useSession();
-  if (session?.user?.email !== "scott7gilbert@gmail.com") {
+  const { data: session } = authClient.useSession();
+  if (!session?.user?.admin) {
     return null;
   }
   return (

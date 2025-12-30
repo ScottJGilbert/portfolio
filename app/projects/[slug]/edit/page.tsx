@@ -1,25 +1,29 @@
-import EditPage from "@/app/components/mdx/edit-page";
 import {
   fetchProject,
   fetchProjectSlugs,
   fetchProjectCategories,
-  fetchProjectMetadata,
   fetchSkills,
+  fetchItem,
 } from "@/lib/db";
-import { Project, Item, ItemMetadata } from "@/lib/definitions";
+import { Project } from "@/lib/definitions";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import UploadRelease from "./components/upload-blob";
+import EditProject from "../../components/edit-project";
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await props.params;
-  const data = (await fetchProjectMetadata(slug)) as ItemMetadata;
+  const data = await fetchProject(slug);
+  if (!data) {
+    return {
+      title: "Project Not Found",
+      description: "",
+    };
+  }
   return {
-    title: "Edit " + (data.title ?? "Project"),
+    title: data.title ?? "",
     description: data.description ?? "",
-    robots: "noindex,nofollow",
   };
 }
 
@@ -42,32 +46,25 @@ export default async function Page(props: {
     notFound();
   }
 
+  const project_data = await fetchProject(slug);
+
+  if (!project_data) {
+    notFound();
+  }
+
+  const project_item = await fetchItem(project_data?.item_id);
+
   const categories = await fetchProjectCategories();
   const allSkills = await fetchSkills([]);
 
-  const [data, markdown] = await fetchProject(slug);
-  const project = data as Project;
-  const newItem: Item = {
-    title: project.title,
-    description: project.description,
-    categories: project.categories,
-    slug: project.slug,
-    date_one: project.start_date.toDateString(),
-    date_two: project.end_date?.toDateString() || "",
-    image_url: project.image_url,
-    skills: project.skills,
-  };
-
   return (
     <div>
-      <EditPage
-        initialData={newItem}
-        markdown={markdown as string}
+      <EditProject
+        initialData={project_data as Project}
+        markdown={project_item?.markdown as string}
         categories={categories}
-        type="project"
         allSkills={allSkills}
       />
-      <UploadRelease project_id={project.project_id} />
     </div>
   );
 }

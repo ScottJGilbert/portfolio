@@ -26,9 +26,9 @@ export default function Navbar() {
   return (
     <div>
       <p className="text-lg">Navigation</p>
-      <hr className="mb-4 mt-2"></hr>
+      <hr className="mb-3 mt-2"></hr>
       <div className="gap-2 md:gap-0 grid grid-cols-2 md:flex flex-col">
-        {links.map((link) => {
+        {links.map((link, index) => {
           const LinkIcon = link.icon;
           return (
             <Fragment key={link.name}>
@@ -52,7 +52,12 @@ export default function Navbar() {
                   <p className="block">{link.name}</p>
                 </BufferedLink>
               </Bounce>
-              <div className="h-4 max-h-4 hidden md:block" />
+              {index < links.length - 1 && (
+                <div className="h-3 max-h-3 hidden md:block" />
+              )}
+              {!(index < links.length - 1) && (
+                <div className="h-2 max-h-2 hidden md:block" />
+              )}
             </Fragment>
           );
         })}

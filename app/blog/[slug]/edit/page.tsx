@@ -1,22 +1,29 @@
-import EditPage from "@/app/components/mdx/edit-page";
 import {
   fetchPost,
   fetchPostSlugs,
   fetchPostCategories,
-  fetchPostMetadata,
+  fetchItem,
 } from "@/lib/db";
-import { Post, Item, ItemMetadata } from "@/lib/definitions";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import EditPost from "../../components/edit-post";
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await props.params;
-  const data = (await fetchPostMetadata(slug)) as ItemMetadata;
+  const post = await fetchPost(slug);
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+      description: "",
+    };
+  }
+
   return {
-    title: "Edit " + (data.title ?? "Post"),
-    description: data.description ?? "",
+    title: "Edit " + (post.title ?? "Post"),
+    description: post.description ?? "",
     robots: "noindex,nofollow",
   };
 }
@@ -43,25 +50,21 @@ export default async function Page(props: {
 
   const categories = await fetchPostCategories();
 
-  const [data, markdown] = await fetchPost(slug);
-  const post = data as Post;
-  const newItem: Item = {
-    title: post.title,
-    description: post.description,
-    categories: post.categories,
-    slug: post.slug,
-    date_one: post.creation_date.toDateString(),
-    date_two: post.edit_date.toDateString(),
-    image_url: post.image_url,
-  };
+  const post = await fetchPost(slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  const post_item = await fetchItem(post?.item_id);
+
   return (
     <div>
-      <EditPage
-        initialData={newItem}
-        markdown={markdown as string}
+      <EditPost
+        initialData={post}
+        markdown={post_item?.markdown as string}
         categories={categories}
-        type="post"
-      ></EditPage>
+      />
     </div>
   );
 }

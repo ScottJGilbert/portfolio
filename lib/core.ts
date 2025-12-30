@@ -1,8 +1,9 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { addImage, updateResumeURL } from "./db";
 import { ImageData } from "./definitions";
+import { headers } from "next/headers";
 
 const f = createUploadthing();
 
@@ -21,14 +22,16 @@ export const ourFileRouter = {
   })
     // Set permissions and file types for this FileRoute
     .middleware(async () => {
-      const session = await auth();
+      const session = await auth.api.getSession({
+        headers: await headers(),
+      });
 
       // This code runs on your server before upload
+      const admin = session?.user?.admin;
       const email = session?.user?.email as string;
 
       // If you throw, the user will not be able to upload
-      if (email !== "scott7gilbert@gmail.com")
-        throw new UploadThingError("Unauthorized");
+      if (!admin) throw new UploadThingError("Unauthorized");
 
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
       return { email: email };
@@ -60,14 +63,16 @@ export const ourFileRouter = {
     },
   })
     .middleware(async () => {
-      const session = await auth();
+      const session = await auth.api.getSession({
+        headers: await headers(),
+      });
 
       // This code runs on your server before upload
       const email = session?.user?.email as string;
+      const admin = session?.user?.admin;
 
       // If you throw, the user will not be able to upload
-      if (email !== "scott7gilbert@gmail.com")
-        throw new UploadThingError("Unauthorized");
+      if (!admin) throw new UploadThingError("Unauthorized");
 
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
       return { email: email };
@@ -90,15 +95,16 @@ export const ourFileRouter = {
     },
   })
     .middleware(async () => {
-      const session = await auth();
+      const session = await auth.api.getSession({
+        headers: await headers(),
+      });
 
       // This code runs on your server before upload
       const email = session?.user?.email as string;
+      const admin = session?.user?.admin;
 
       // If you throw, the user will not be able to upload
-      if (email !== "scott7gilbert@gmail.com")
-        throw new UploadThingError("Unauthorized");
-
+      if (!admin) throw new UploadThingError("Unauthorized");
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
       return { email: email };
     })
