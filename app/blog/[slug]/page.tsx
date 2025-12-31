@@ -55,6 +55,9 @@ export default async function Page(props: {
   }
 
   const post_item = await fetchItem(post_data?.item_id);
+  if (!post_item) {
+    notFound();
+  }
 
   const session = await auth.api.getSession({
     headers: await headers(),

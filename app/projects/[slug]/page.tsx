@@ -63,6 +63,11 @@ export default async function Page(props: {
   }
 
   const project_item = await fetchItem(project_data.item_id);
+
+  if (!project_item) {
+    notFound();
+  }
+
   const releases = await fetchReleases(project_data.slug);
 
   const session = await auth.api.getSession({
