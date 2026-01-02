@@ -23,7 +23,9 @@ export default function PostsDisplay() {
 
   useEffect(() => {
     async function fetchItems() {
-      const res = await fetch("/api/fetch-posts?" + searchParams.toString());
+      const res = await fetch(
+        "/api/items/fetch-posts?" + searchParams.toString()
+      );
       const posts = (await res.json()) as Post[];
 
       const itemsTemp: GridItem[] = posts.map((post: Post) => ({
