@@ -1,6 +1,7 @@
 import ResumeUpload from "./components/resume";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function AdminPage() {
   const session = await auth.api.getSession({
@@ -8,7 +9,7 @@ export default async function AdminPage() {
   });
 
   if (!session || !session?.user?.admin) {
-    return <div>Unauthorized.</div>;
+    redirect("/no-access");
   }
 
   return (

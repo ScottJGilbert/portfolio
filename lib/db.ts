@@ -15,6 +15,8 @@ import {
 } from "./definitions";
 import postgres from "postgres";
 import { cache } from "react";
+import { auth } from "./auth";
+import { headers } from "next/headers";
 
 export const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -213,43 +215,97 @@ export async function fetchProjectCategories() {
   return totalCategories;
 }
 
-export async function fetchProjects(query: string, categories: string[]) {
+export async function fetchProjects(
+  query: string,
+  categories: string[]
+): Promise<Project[]> {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const isAdmin = session?.user?.admin ?? false;
   try {
-    if (categories.length === 0) {
-      const data = await sql<Project[]>`
-        SELECT *
-        FROM projects 
-        WHERE 
-          title ILIKE ${`%${query}%`} OR 
-          description ILIKE ${`%${query}%`} 
-        ORDER BY start_date DESC;
-      `;
-      return data;
-    } else {
-      const allCategories = await fetchProjectCategories();
-      for (const category of categories) {
-        if (!allCategories.includes(category)) {
-          throw category + " was not found in projects.";
-        }
-      }
-      const results: Project[] = [];
-
-      for (const category of categories) {
+    if (isAdmin) {
+      if (categories.length === 0) {
         const data = await sql<Project[]>`
           SELECT *
           FROM projects 
           WHERE 
-            ${category} = ANY(categories) AND
-            (title ILIKE ${`%${query}%`} OR 
-            description ILIKE ${`%${query}%`}) 
+            title ILIKE ${`%${query}%`} OR 
+            description ILIKE ${`%${query}%`} 
           ORDER BY start_date DESC;
         `;
-        results.push(...data);
+        return data;
+      } else {
+        const allCategories = await fetchProjectCategories();
+        for (const category of categories) {
+          if (!allCategories.includes(category)) {
+            throw category + "was not found in projects.";
+          }
+        }
+        const results: Project[] = [];
+
+        for (const category of categories) {
+          const data = await sql<Project[]>`
+            SELECT *
+            FROM projects 
+            WHERE 
+              ${category} = ANY(categories) AND
+              (title ILIKE ${`%${query}%`} OR 
+              description ILIKE ${`%${query}%`}) 
+            ORDER BY start_date DESC;
+          `;
+          results.push(...data);
+        }
+        const unique = Array.from(
+          new Map(results.map((p) => [p.slug, p])).values()
+        );
+        return unique;
       }
-      const unique = Array.from(
-        new Map(results.map((p) => [p.slug, p])).values()
-      );
-      return unique;
+    } else {
+      // Non-admin users can only see published projects
+      if (categories.length === 0) {
+        const data = await sql<Project[]>`
+            SELECT *
+            FROM projects 
+            WHERE
+              (title ILIKE ${`%${query}%`} OR 
+              description ILIKE ${`%${query}%`}) AND
+              EXISTS (
+                SELECT 1
+                FROM items
+                WHERE items.id = projects.item_id AND items.published = true
+              )
+            ORDER BY start_date DESC;
+          `;
+        return data;
+      } else {
+        const allCategories = await fetchProjectCategories();
+        const results: Project[] = [];
+        for (const category of categories) {
+          if (!allCategories.includes(category)) {
+            throw category + "was not found in projects.";
+          }
+          const data = await sql<Project[]>`
+            SELECT *
+            FROM projects
+            WHERE
+              ${category} = ANY(categories) AND
+              (title ILIKE ${`%${query}%`} OR
+             description ILIKE ${`%${query}%`}) AND
+              EXISTS (
+                SELECT 1
+                FROM items
+                WHERE items.id = projects.item_id AND items.published = true
+              )
+            ORDER BY start_date DESC;
+          `;
+          results.push(...data);
+        }
+        const unique = Array.from(
+          new Map(results.map((p) => [p.slug, p])).values()
+        );
+        return unique;
+      }
     }
   } catch (err) {
     console.error("Error fetching projects:", err);
@@ -375,43 +431,97 @@ export async function fetchPostCategories() {
   return totalCategories;
 }
 
-export async function fetchPosts(query: string, categories: string[]) {
+export async function fetchPosts(
+  query: string,
+  categories: string[]
+): Promise<Post[]> {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const isAdmin = session?.user?.admin ?? false;
   try {
-    if (categories.length === 0) {
-      const data = await sql<Post[]>`
-      SELECT *
-      FROM posts 
-      WHERE 
-        title ILIKE ${`%${query}%`} OR 
-        description ILIKE ${`%${query}%`} 
-      ORDER BY creation_date DESC;
-      `;
-      return data;
-    } else {
-      const allCategories = await fetchPostCategories();
-      for (const category of categories) {
-        if (!allCategories.includes(category)) {
-          throw category + "was not found in posts.";
-        }
-      }
-      const results: Post[] = [];
-
-      for (const category of categories) {
+    if (isAdmin) {
+      if (categories.length === 0) {
         const data = await sql<Post[]>`
-        SELECT *
-        FROM posts 
-        WHERE 
-          ${category} = ANY(categories) AND
-          (title ILIKE ${`%${query}%`} OR 
-          description ILIKE ${`%${query}%`}) 
-        ORDER BY creation_date DESC;
+          SELECT *
+          FROM posts 
+          WHERE 
+            title ILIKE ${`%${query}%`} OR 
+            description ILIKE ${`%${query}%`} 
+          ORDER BY creation_date DESC;
         `;
-        results.push(...data);
+        return data;
+      } else {
+        const allCategories = await fetchPostCategories();
+        for (const category of categories) {
+          if (!allCategories.includes(category)) {
+            throw category + "was not found in posts.";
+          }
+        }
+        const results: Post[] = [];
+
+        for (const category of categories) {
+          const data = await sql<Post[]>`
+            SELECT *
+            FROM posts 
+            WHERE 
+              ${category} = ANY(categories) AND
+              (title ILIKE ${`%${query}%`} OR 
+              description ILIKE ${`%${query}%`}) 
+            ORDER BY creation_date DESC;
+          `;
+          results.push(...data);
+        }
+        const unique = Array.from(
+          new Map(results.map((p) => [p.slug, p])).values()
+        );
+        return unique;
       }
-      const unique = Array.from(
-        new Map(results.map((p) => [p.slug, p])).values()
-      );
-      return unique;
+    } else {
+      // Non-admin users can only see published posts
+      if (categories.length === 0) {
+        const data = await sql<Post[]>`
+            SELECT *
+            FROM posts 
+            WHERE
+              (title ILIKE ${`%${query}%`} OR 
+              description ILIKE ${`%${query}%`}) AND
+              EXISTS (
+                SELECT 1
+                FROM items
+                WHERE items.id = posts.item_id AND items.published = true
+              )
+            ORDER BY creation_date DESC;
+          `;
+        return data;
+      } else {
+        const allCategories = await fetchPostCategories();
+        const results: Post[] = [];
+        for (const category of categories) {
+          if (!allCategories.includes(category)) {
+            throw category + "was not found in posts.";
+          }
+          const data = await sql<Post[]>`
+            SELECT *
+            FROM posts
+            WHERE
+              ${category} = ANY(categories) AND
+              (title ILIKE ${`%${query}%`} OR
+             description ILIKE ${`%${query}%`}) AND
+              EXISTS (
+                SELECT 1
+                FROM items
+                WHERE items.id = posts.item_id AND items.published = true
+              )
+            ORDER BY creation_date DESC;
+          `;
+          results.push(...data);
+        }
+        const unique = Array.from(
+          new Map(results.map((p) => [p.slug, p])).values()
+        );
+        return unique;
+      }
     }
   } catch (err) {
     console.error("Error fetching posts:", err);
@@ -530,6 +640,32 @@ export async function updateItem(item: Item) {
     `;
   } catch (err) {
     console.error("Error updating item: ", err);
+    throw err;
+  }
+}
+
+export async function publishItem(id: number) {
+  try {
+    await sql`
+      UPDATE items
+      SET published = true
+      WHERE id = ${id};
+    `;
+  } catch (err) {
+    console.error("Error publishing item: ", err);
+    throw err;
+  }
+}
+
+export async function unpublishItem(id: number) {
+  try {
+    await sql`
+      UPDATE items
+      SET published = false
+      WHERE id = ${id};
+    `;
+  } catch (err) {
+    console.error("Error unpublishing item: ", err);
     throw err;
   }
 }

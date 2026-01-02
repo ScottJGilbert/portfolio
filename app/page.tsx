@@ -177,7 +177,7 @@ export default function Page() {
                 <h4>I&apos;m working on...</h4>
                 <div className="my-4 flex justify-center">
                   <Image
-                    src="/profileIcon.svg"
+                    src="https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfwDgM7zyjFxVJT4plYtXb6P5BWI9NMkHS0Rfy"
                     className="inline object-contain max-h-20"
                     alt="Profile Icon"
                     height={284}
@@ -185,8 +185,8 @@ export default function Page() {
                   />
                 </div>
                 <div className="flex-1 inline-flex flex-col justify-center">
-                  <h3>My Personal Portfolio</h3>
-                  <h4>You&apos;re on it right now!</h4>
+                  <h3>Something new 👀</h3>
+                  <h4>Coming out sometime soon...</h4>
                 </div>
                 <Link
                   href="/projects"

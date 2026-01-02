@@ -30,25 +30,23 @@ export default function SkillBox({
       }
     >
       <div className="flex items-center gap-2">
-        <Image
-          src={
-            url
-              ? url.includes("white") && !prefersDark
+        {url && (
+          <Image
+            src={
+              url.includes("white") && !prefersDark
                 ? url.slice(0, url.indexOf("white") - 1)
                 : url
-              : "/profileIcon.svg"
-          }
-          alt={area.name}
-          width={16}
-          height={16}
-          loading="lazy"
-          className={
-            "w-4 h-4 " +
-            (url && url.includes("feather-icons") && prefersDark
-              ? "invert"
-              : "")
-          }
-        />
+            }
+            alt={area.name}
+            width={16}
+            height={16}
+            loading="lazy"
+            className={
+              "w-4 h-4 " +
+              (url.includes("feather-icons") && prefersDark ? "invert" : "")
+            }
+          />
+        )}
       </div>
       <p>{area.name}</p>
     </span>

@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import UserDisplay from "../components/user-display";
+import { redirect } from "next/navigation";
 
 export default async function UserPage() {
   const session = await auth.api.getSession({
@@ -8,7 +9,7 @@ export default async function UserPage() {
   });
 
   if (!session || !session?.user?.admin) {
-    return <div>Unauthorized.</div>;
+    redirect("/no-access");
   }
 
   return (

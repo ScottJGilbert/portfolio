@@ -63,6 +63,7 @@ export type GridItem = {
 export type Item = {
   id: number;
   markdown: string;
+  published: boolean;
 };
 
 export type Comment = {

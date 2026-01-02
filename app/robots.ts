@@ -5,7 +5,15 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/images/", "/edit", "/new", "/login", "/api/", "/no-access"],
+      disallow: [
+        "/account",
+        "/admin/",
+        "/edit",
+        "/new",
+        "/login",
+        "/api/",
+        "/no-access",
+      ],
     },
     sitemap: `https://scott-gilbert.vercel.app/sitemap.xml`,
   };

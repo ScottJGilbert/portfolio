@@ -3,6 +3,7 @@ import ImageDisplay from "../components/image-display";
 import { Metadata } from "next";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Images",
@@ -15,7 +16,7 @@ export default async function Page() {
   });
 
   if (!session || !session?.user?.admin) {
-    return <div>Unauthorized.</div>;
+    redirect("/no-access");
   }
 
   return (

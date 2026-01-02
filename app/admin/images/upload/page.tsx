@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Upload",
@@ -15,7 +16,7 @@ export default async function Page() {
   });
 
   if (!session || !session?.user?.admin) {
-    return <div>Unauthorized.</div>;
+    redirect("/no-access");
   }
 
   return (

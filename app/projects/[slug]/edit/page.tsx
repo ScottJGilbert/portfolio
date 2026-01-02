@@ -9,10 +9,24 @@ import { Project } from "@/lib/definitions";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import EditProject from "../../components/edit-project";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session || !session?.user?.admin) {
+    return {
+      title: "Unauthorized",
+      description: "",
+      robots: "noindex,nofollow",
+    };
+  }
+
   const { slug } = await props.params;
   const data = await fetchProject(slug);
   if (!data) {
@@ -37,6 +51,13 @@ export async function generateStaticParams() {
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
 }) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session || !session?.user?.admin) {
+    redirect("/no-access");
+  }
+
   const params = await props.params;
   const slug = params.slug;
 
@@ -61,7 +82,7 @@ export default async function Page(props: {
     <div>
       <EditProject
         initialData={project_data as Project}
-        markdown={project_item?.markdown as string}
+        item={project_item}
         categories={categories}
         allSkills={allSkills}
       />

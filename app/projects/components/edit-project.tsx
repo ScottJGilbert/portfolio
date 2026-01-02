@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState, useEffect, useRef } from "react";
-import { Skill, Project } from "@/lib/definitions";
+import { Skill, Project, Item } from "@/lib/definitions";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import Head from "next/head";
@@ -12,19 +12,20 @@ import UploadRelease from "./upload-blob";
 
 export default function EditProject({
   initialData,
-  markdown,
+  item,
   categories,
   allSkills,
 }: {
   initialData: Project;
-  markdown: string;
+  item: Item;
   categories: string[];
   allSkills?: Skill[];
 }) {
   const [formData, setFormData] = useState(initialData);
   const [isSaving, setIsSaving] = useState(false);
   const [description, setDescription] = useState(initialData.description);
-  const [text, setText] = useState(markdown);
+  const [text, setText] = useState(item.markdown);
+  const [published, setPublished] = useState(item.published);
   const router = useRouter();
   const currentPath = usePathname();
   const newPath = currentPath.split("/").slice(0, -1).join("/");
@@ -156,6 +157,34 @@ export default function EditProject({
         }
       }
       alert("Failed to delete.");
+    }
+  };
+
+  const publishProject = async () => {
+    const res = await fetch("/api/items/publish-item", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ item_id: formData.item_id }),
+    });
+    if (res.ok) {
+      alert("Project published!");
+      setPublished(true);
+    } else {
+      alert("Failed to publish project.");
+    }
+  };
+
+  const unpublishProject = async () => {
+    const res = await fetch("/api/items/unpublish-item", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ item_id: formData.item_id }),
+    });
+    if (res.ok) {
+      alert("Project unpublished!");
+      setPublished(false);
+    } else {
+      alert("Failed to unpublish project.");
     }
   };
 
@@ -358,6 +387,21 @@ export default function EditProject({
               <Button disabled={isSaving}>
                 {isSaving ? "Saving..." : "Save"}
               </Button>
+              {published ? (
+                <Button
+                  onClick={unpublishProject}
+                  className="bg-yellow-600 hover:bg-yellow-700"
+                >
+                  Unpublish
+                </Button>
+              ) : (
+                <Button
+                  onClick={publishProject}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  Publish
+                </Button>
+              )}
               <Upload
                 onComplete={(result) => setDisplayedImageUrl(result.ufsUrl)}
               />

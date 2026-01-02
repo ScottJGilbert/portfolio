@@ -4,13 +4,26 @@ import {
   fetchPostCategories,
   fetchItem,
 } from "@/lib/db";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Metadata } from "next";
 import EditPost from "../../components/edit-post";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session || !session?.user?.admin) {
+    return {
+      title: "Unauthorized",
+      description: "",
+      robots: "noindex,nofollow",
+    };
+  }
+
   const { slug } = await props.params;
   const post = await fetchPost(slug);
 
@@ -39,6 +52,13 @@ export async function generateStaticParams() {
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
 }) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session || !session?.user?.admin) {
+    redirect("/no-access");
+  }
+
   const params = await props.params;
   const slug = params.slug;
 
@@ -60,11 +80,7 @@ export default async function Page(props: {
 
   return (
     <div>
-      <EditPost
-        initialData={post}
-        markdown={post_item?.markdown as string}
-        categories={categories}
-      />
+      <EditPost initialData={post} item={post_item} categories={categories} />
     </div>
   );
 }

@@ -1,13 +1,18 @@
+/* eslint-disable */
+
 import type { Skill } from "@/lib/definitions";
 import SkillBox from "@/app/ui/skill-box";
 import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
+import React from "react";
 
 const MARQUEE_CONFIGS = [
   { start: 1, end: 10, direction: "left" },
   { start: 11, end: 20, direction: "right" },
   { start: 21, end: 30, direction: "left" },
 ];
+
+/* eslint-enable */
 
 export default function Expertise() {
   const [areas, setAreas] = useState<Skill[]>([]);
@@ -39,7 +44,7 @@ export default function Expertise() {
 
   return (
     <div className="relative">
-      <div className="flex flex-col gap-12 py-8 mx-auto max-w-full md:max-w-160 overflow-hidden md:border md:border-[var(--border)] rounded-2xl">
+      {/* <div className="flex flex-col gap-12 py-8 mx-auto max-w-full md:max-w-160 overflow-hidden md:border md:border-[var(--border)] rounded-2xl">
         {MARQUEE_CONFIGS.map((config, idx) => (
           <div
             key={idx}
@@ -60,6 +65,19 @@ export default function Expertise() {
               ))}
             </Marquee>
           </div>
+        ))}
+      </div> */}
+      <div className="flex flex-wrap justify-center gap-4 py-8 mx-auto max-w-full overflow-hidden rounded-2xl">
+        {areas.map((area, index) => (
+          <React.Fragment key={area.name + "fragment"}>
+            {index < 30 && (
+              <SkillBox
+                key={area.name + "skill"}
+                area={area}
+                className="shrink-0 max-w-[90vw]"
+              />
+            )}
+          </React.Fragment>
         ))}
       </div>
     </div>

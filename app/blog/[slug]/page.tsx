@@ -55,7 +55,7 @@ export default async function Page(props: {
   }
 
   const post_item = await fetchItem(post_data?.item_id);
-  if (!post_item) {
+  if (!post_item || !post_item.published) {
     notFound();
   }
 

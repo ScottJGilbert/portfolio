@@ -15,8 +15,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `https://scott-gilbert.vercel.app/experience`,
-      priority: 0.5,
+      url: `https://scott-gilbert.vercel.app/skills`,
+      priority: 0.6,
     },
     {
       url: `https://scott-gilbert.vercel.app/projects`,
@@ -27,12 +27,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     },
     {
-      url: `https://scott-gilbert.vercel.app/resume`,
+      url: `https://scott-gilbert.vercel.app/resume.pdf`,
       priority: 0.8,
     },
     {
       url: `https://scott-gilbert.vercel.app/attributions`,
       priority: 0.1,
+    },
+    {
+      url: `https://scott-gilbert.vercel.app/legal`,
+      priority: 0.1,
+    },
+    {
+      url: `https://scott-gilbert.vercel.app/signin`,
+      priority: 0.25,
+    },
+    {
+      url: `https://scott-gilbert.vercel.app/signup`,
+      priority: 0.25,
     },
     ...projectMap,
     ...postMap,

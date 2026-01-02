@@ -1,4 +1,4 @@
-import { Post } from "@/lib/definitions";
+import { Item, Post } from "@/lib/definitions";
 import { fetchPostCategories } from "@/lib/db";
 import { Metadata } from "next";
 import EditPost from "../components/edit-post";
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const newItem: Post = {
+  const newPost: Post = {
     slug: "",
     title: "",
     description: "",
@@ -20,11 +20,17 @@ export default async function Page() {
     item_id: 0,
   };
 
+  const newItem: Item = {
+    id: 0,
+    markdown: "",
+    published: false,
+  };
+
   return (
     <div>
       <EditPost
-        initialData={newItem}
-        markdown={""}
+        initialData={newPost}
+        item={newItem}
         categories={await fetchPostCategories()}
       />
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Post } from "@/lib/definitions";
+import { Item, Post } from "@/lib/definitions";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import Button from "@/app/ui/button";
@@ -10,13 +10,15 @@ import EditPageMDX from "@/app/components/mdx/edit-page-mdx";
 
 export default function EditPost(props: {
   initialData: Post;
-  markdown: string;
+  item: Item;
   categories: string[];
 }) {
-  const { initialData, markdown, categories } = props;
+  const { initialData, item, categories } = props;
+  const markdown = item.markdown;
 
   const [formData, setFormData] = useState(initialData);
   const [isSaving, setIsSaving] = useState(false);
+  const [published, setPublished] = useState(item.published);
   const [description, setDescription] = useState(initialData.description);
   const [text, setText] = useState(markdown);
   const router = useRouter();
@@ -143,6 +145,34 @@ export default function EditPost(props: {
     }
   };
 
+  const publishPost = async () => {
+    const res = await fetch("/api/items/publish-item", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ item_id: formData.item_id }),
+    });
+    if (res.ok) {
+      alert("Post published!");
+      setPublished(true);
+    } else {
+      alert("Failed to publish post.");
+    }
+  };
+
+  const unpublishPost = async () => {
+    const res = await fetch("/api/items/unpublish-item", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ item_id: formData.item_id }),
+    });
+    if (res.ok) {
+      alert("Post unpublished!");
+      setPublished(false);
+    } else {
+      alert("Failed to unpublish post.");
+    }
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -238,15 +268,32 @@ export default function EditPost(props: {
         </div>
       </div>
       <div className="flex justify-between">
-        <div className="flex gap-4 mt-2">
+        <div className="flex mt-2">
           <Button className="ml-0" onClick={handleClick}>
             ← Go Back
           </Button>
           <Button disabled={isSaving}>{isSaving ? "Saving..." : "Save"}</Button>
-          <Upload
-            onComplete={(result) => setDisplayedImageUrl(result.ufsUrl)}
-          />
-          <p className="flex items-center">{displayedImageUrl}</p>
+          {published ? (
+            <Button
+              onClick={unpublishPost}
+              className="bg-yellow-600 hover:bg-yellow-700"
+            >
+              Unpublish
+            </Button>
+          ) : (
+            <Button
+              onClick={publishPost}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              Publish
+            </Button>
+          )}
+          <div className="flex flex-col items-end mt-2 gap-2">
+            <Upload
+              onComplete={(result) => setDisplayedImageUrl(result.ufsUrl)}
+            />
+            <p className="flex items-center">{displayedImageUrl}</p>
+          </div>
         </div>
         <Button
           onClick={handleDelete}

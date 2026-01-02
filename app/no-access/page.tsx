@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="my-auto flex h-full flex-col items-center justify-center gap-4">
+    <main className="my-auto flex h-screen flex-col items-center justify-center gap-4">
       <Head>
         <meta name="robots" content="noindex,nofollow" key="noRobots" />
       </Head>

@@ -64,7 +64,7 @@ export default async function Page(props: {
 
   const project_item = await fetchItem(project_data.item_id);
 
-  if (!project_item) {
+  if (!project_item || !project_item.published) {
     notFound();
   }
 
