@@ -29,8 +29,8 @@ export default function SkillBox({
         className
       }
     >
-      <div className="flex items-center gap-2">
-        {url && (
+      {url && (
+        <div className="flex items-center gap-2">
           <Image
             src={
               url.includes("white") && !prefersDark
@@ -46,8 +46,8 @@ export default function SkillBox({
               (url.includes("feather-icons") && prefersDark ? "invert" : "")
             }
           />
-        )}
-      </div>
+        </div>
+      )}
       <p>{area.name}</p>
     </span>
   );

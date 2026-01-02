@@ -1,13 +1,14 @@
-"use client";
-
 import { redirect } from "next/navigation";
 import Head from "next/head";
 import SignInComponent from "./components/signin";
-import { authClient } from "@/lib/auth-client";
 import { Suspense } from "react";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-export default function SignInPage() {
-  const { data: session } = authClient.useSession();
+export default async function SignInPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   if (session) {
     redirect("/");
   }

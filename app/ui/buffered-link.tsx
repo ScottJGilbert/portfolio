@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import Link from "next/link";
 import { ClassValue } from "clsx";
 import { usePathname } from "next/navigation";
+import { usePageLoading } from "../providers/loading-provider";
 
 type BufferedLinkProps = {
   href: string;
@@ -66,5 +67,29 @@ export default function BufferedLink({
     >
       {children}
     </Link>
+  );
+}
+
+export function AnimatedLink({
+  href,
+  children,
+  className,
+  target,
+  rel,
+}: Partial<BufferedLinkProps>) {
+  const { setIsLoading } = usePageLoading();
+
+  return (
+    <BufferedLink
+      href={href || "/"}
+      doOnClick={() => {
+        setIsLoading(true);
+      }}
+      className={className || ""}
+      target={target}
+      rel={rel}
+    >
+      {children}
+    </BufferedLink>
   );
 }

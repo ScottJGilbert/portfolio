@@ -1,13 +1,14 @@
-"use client";
-
-import SignUpComponent from "./components/signup";
 import { redirect } from "next/navigation";
 import Head from "next/head";
-import { authClient } from "@/lib/auth-client";
+import SignUpComponent from "./components/signup";
 import { Suspense } from "react";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-export default function SignUpPage() {
-  const { data: session } = authClient.useSession();
+export default async function SignUpPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   if (session) {
     redirect("/");
   }

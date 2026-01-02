@@ -1,9 +1,10 @@
 /* eslint-disable */
 
-import type { Skill } from "@/lib/definitions";
+// import type { Skill } from "@/lib/definitions";
 import SkillBox from "@/app/ui/skill-box";
-import { useEffect, useState } from "react";
-import Marquee from "react-fast-marquee";
+// import { useEffect, useState } from "react";
+import { fetchSkills } from "@/lib/db";
+// import Marquee from "react-fast-marquee";
 import React from "react";
 
 const MARQUEE_CONFIGS = [
@@ -12,10 +13,12 @@ const MARQUEE_CONFIGS = [
   { start: 21, end: 30, direction: "left" },
 ];
 
+export const revalidate = 300; // Revalidate every five minutes
+
 /* eslint-enable */
 
-export default function Expertise() {
-  const [areas, setAreas] = useState<Skill[]>([]);
+export default async function Expertise() {
+  const unshuffledAreas = await fetchSkills([]); // Fetch all skills
 
   function shuffleArray<T>(array: T[]): T[] {
     for (let i = array.length - 1; i > 0; i--) {
@@ -25,22 +28,11 @@ export default function Expertise() {
     return array;
   }
 
-  useEffect(() => {
-    async function fetchAreas() {
-      const newAreas: Skill[] = await fetch("/api/skills/fetch-skills").then(
-        (res) => res.json()
-      );
-      setAreas(
-        shuffleArray(
-          newAreas.filter(
-            (area) =>
-              area.category === "software" || area.category === "hardware"
-          )
-        )
-      );
-    }
-    fetchAreas();
-  }, []);
+  const areas = shuffleArray(
+    unshuffledAreas.filter(
+      (area) => area.category === "software" || area.category === "hardware"
+    )
+  );
 
   return (
     <div className="relative">
