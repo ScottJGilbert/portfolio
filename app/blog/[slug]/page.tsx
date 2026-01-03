@@ -5,10 +5,10 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 import Category from "@/app/ui/category";
 import Link from "next/dist/client/link";
-import { clsx } from "clsx";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import CommentSection from "@/app/components/comments/comment-section";
+import Button from "@/app/ui/button";
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
@@ -54,14 +54,15 @@ export default async function Page(props: {
     notFound();
   }
 
-  const post_item = await fetchItem(post_data?.item_id);
-  if (!post_item || !post_item.published) {
-    notFound();
-  }
-
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+
+  const post_item = await fetchItem(post_data?.item_id);
+  if (!post_item || (!post_item.published && session?.user?.admin !== true)) {
+    notFound();
+  }
+
   const disabled = !session || !session?.user?.admin;
 
   return (
@@ -90,18 +91,13 @@ export default async function Page(props: {
               </div>
             </div>
             <div className="z-0 flex flex-col justify-center">
-              <Link
-                href={disabled ? "" : "/blog/" + slug + "/edit"}
-                className={clsx(
-                  "z-0 p-3 rounded-2xl bg-[var(--background-secondary)] my-auto",
-                  {
-                    "brightness-50 hover:cursor-not-allowed hidden":
-                      disabled === true,
-                  }
-                )}
-              >
-                <span>Edit</span>
-              </Link>
+              {!disabled && (
+                <Link href={"/blog/" + slug + "/edit"}>
+                  <Button className="z-0 p-3 rounded-2xl bg-[var(--background-secondary)] my-auto">
+                    <span>Edit</span>
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
           <MDXPage markdown={post_item?.markdown ?? ""} />

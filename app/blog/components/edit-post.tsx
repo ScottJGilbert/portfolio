@@ -113,6 +113,9 @@ export default function EditPost(props: {
         alert("Failed to update.");
       } else {
         alert("Saved!");
+        if (initialData.slug === "") {
+          router.push("/blog/" + formData.slug);
+        }
       }
     }
   };
@@ -188,14 +191,14 @@ export default function EditPost(props: {
                   name="title"
                   placeholder="Title... (required)"
                   onChange={handleChange}
-                  defaultValue={formData.title}
+                  value={formData.title}
                   required={true}
                 />
                 <input
                   type="url"
                   name="image_url"
                   onChange={handleChange}
-                  defaultValue={formData.image_url}
+                  value={formData.image_url}
                   placeholder="Image URL..."
                   className="flex-1"
                 />
@@ -226,7 +229,10 @@ export default function EditPost(props: {
             {/* Replace this */}
             <EditPageMDX
               markdown={text}
-              onTextChange={(markdown) => setText(markdown)}
+              onTextChange={(markdown) => {
+                setText(markdown);
+                console.log(markdown);
+              }}
             />
           </div>
         </div>

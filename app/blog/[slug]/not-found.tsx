@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="my-auto flex h-full flex-col items-center justify-center gap-4">
+    <main className="my-auto flex h-screen flex-col items-center justify-center gap-4">
       <Suspense>
         <div className="flex gap-2">
           <FaceFrownIcon className="w-10 text-gray-400" />

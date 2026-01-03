@@ -11,15 +11,10 @@ export default function UploadRelease({
   project_key: string;
 }) {
   const { startUpload } = useUploadThing("fileUploader", {
-    onClientUploadComplete: async () => {
-      // Callback fired on the client side after the upload is complete
-      // You can add logic here to save the file URL to your database
-    },
+    onClientUploadComplete: async () => {},
     onUploadError: (error) => {
-      // Handle errors here
       alert(`ERROR! ${error.message}`);
     },
-    // Optional: Add other callbacks like onUploadProgress, etc.
   });
 
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -42,7 +37,12 @@ export default function UploadRelease({
     const { name, value, type, checked } = event.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : name === "release_date"
+          ? new Date(value)
+          : value,
     }));
   };
 
@@ -80,15 +80,40 @@ export default function UploadRelease({
   }, [fetchReleases]);
 
   return (
-    <>
-      <ul>
+    <div className="mt-8 mb-4 w-full max-w-2xl mx-auto">
+      <h2 className="text-xl font-bold mb-4 text-zinc-900 dark:text-zinc-100">
+        Releases
+      </h2>
+      <ul className="mb-6 flex flex-col gap-2">
         {releases &&
           releases.map((release) => (
-            <li key={release.key}>
-              {release.version} -{" "}
-              {new Date(release.release_date).toDateString()} - {release.text}
+            <li
+              key={release.key}
+              className="flex items-center justify-between bg-[var(--background-tertiary)] border border-[var(--border-secondary)] rounded-xl px-4 py-2"
+            >
+              <div className="flex flex-col">
+                <span className="font-semibold text-blue-700 dark:text-blue-300">
+                  {release.version}
+                </span>
+                <span className="text-xs text-zinc-500">
+                  {new Date(release.release_date).toDateString()}
+                </span>
+                <span className="text-zinc-700 dark:text-zinc-200">
+                  {release.text}
+                </span>
+                {release.external && release.url && (
+                  <a
+                    href={release.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline text-xs mt-1"
+                  >
+                    External Link
+                  </a>
+                )}
+              </div>
               <Button
-                className="bg-red-500 text-white"
+                className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg ml-4"
                 onClick={() => deleteRelease(release.key)}
               >
                 Delete
@@ -96,8 +121,9 @@ export default function UploadRelease({
             </li>
           ))}
       </ul>
-      <h1>Upload Release</h1>
-
+      <h2 className="text-lg font-semibold mb-2 text-zinc-900 dark:text-zinc-100">
+        Upload New Release
+      </h2>
       <form
         onSubmit={async (event) => {
           event.preventDefault();
@@ -143,59 +169,87 @@ export default function UploadRelease({
 
           alert("Release uploaded successfully!");
         }}
-        className="flex gap-2"
+        className="flex flex-col gap-4 bg-[var(--background-tertiary)] border border-[var(--border-secondary)] rounded-2xl p-6"
       >
-        <div>
-          <input name="file" ref={inputFileRef} type="file" />
-
-          <input
-            name="url"
-            type="text"
-            value={formData.url}
-            placeholder="url"
-            onChange={updateFormData}
-          />
-          <input
-            name="version"
-            type="text"
-            placeholder="version"
-            required
-            value={formData.version}
-            onChange={updateFormData}
-          />
-          <input
-            name="release_date"
-            type="date"
-            placeholder="release date"
-            required
-            value={formData.release_date.toISOString().split("T")[0]}
-            onChange={updateFormData}
-            suppressHydrationWarning
-          />
-          <input
-            name="text"
-            type="text"
-            placeholder="text"
-            required
-            value={formData.text}
-            onChange={updateFormData}
-          />
-          <input
-            name="external"
-            type="checkbox"
-            id="external"
-            checked={formData.external}
-            onChange={updateFormData}
-          />
-          <label htmlFor="external">External Link</label>
+        <div className="flex flex-col gap-3">
+          <label className="font-medium text-zinc-800 dark:text-zinc-200">
+            File Upload
+            <input
+              name="file"
+              ref={inputFileRef}
+              type="file"
+              className="block mt-1 w-full px-2 py-1 rounded-lg border border-zinc-300 dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100"
+            />
+          </label>
+          <label className="font-medium text-zinc-800 dark:text-zinc-200">
+            Or URL
+            <input
+              name="url"
+              type="text"
+              value={formData.url}
+              placeholder="URL"
+              onChange={updateFormData}
+              className="block mt-1 w-full px-2 py-1 rounded-lg border border-zinc-300 dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100"
+            />
+          </label>
+          <label className="font-medium text-zinc-800 dark:text-zinc-200">
+            Version
+            <input
+              name="version"
+              type="text"
+              placeholder="Version"
+              required
+              value={formData.version}
+              onChange={updateFormData}
+              className="block mt-1 w-full px-2 py-1 rounded-lg border border-zinc-300 dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100"
+            />
+          </label>
+          <label className="font-medium text-zinc-800 dark:text-zinc-200">
+            Release Date
+            <input
+              name="release_date"
+              type="date"
+              placeholder="Release Date"
+              required
+              value={formData.release_date.toISOString().split("T")[0]}
+              onChange={updateFormData}
+              suppressHydrationWarning
+              className="block mt-1 w-full px-2 py-1 rounded-lg border border-zinc-300 dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100"
+            />
+          </label>
+          <label className="font-medium text-zinc-800 dark:text-zinc-200">
+            Description
+            <input
+              name="text"
+              type="text"
+              placeholder="Description"
+              required
+              value={formData.text}
+              onChange={updateFormData}
+              className="block mt-1 w-full px-2 py-1 rounded-lg border border-zinc-300 dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100"
+            />
+          </label>
+          <div className="flex items-center gap-2 mt-2">
+            <input
+              name="external"
+              type="checkbox"
+              id="external"
+              checked={formData.external}
+              onChange={updateFormData}
+              className="w-4 h-4 accent-blue-600"
+            />
+            <label
+              htmlFor="external"
+              className="text-zinc-800 dark:text-zinc-200"
+            >
+              External Link (Goes to Another Webpage)
+            </label>
+          </div>
         </div>
-        <button
-          type="submit"
-          className="p-2 rounded-md bg-[var(--background-secondary)] border-1 border-[var(--border)] inline-flex justify-center items-center gap-4 max-w-[90vw] shrink-0 hover:bg-[var(--background-tertiary)] hover:cursor-pointer"
-        >
-          Upload
-        </button>
+        <Button className="w-full py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors hover:cursor-pointer">
+          Upload Release
+        </Button>
       </form>
-    </>
+    </div>
   );
 }

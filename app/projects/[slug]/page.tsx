@@ -10,7 +10,6 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 import Category from "@/app/ui/category";
 import Link from "next/link";
-import clsx from "clsx";
 import { auth } from "@/lib/auth";
 import SkillBox from "@/app/ui/skill-box";
 import { Dropdown } from "../components/dropdown";
@@ -18,6 +17,7 @@ import { Skill } from "@/lib/definitions";
 import { ReleaseButton } from "../components/button";
 import { headers } from "next/headers";
 import CommentSection from "@/app/components/comments/comment-section";
+import Button from "@/app/ui/button";
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
@@ -64,15 +64,18 @@ export default async function Page(props: {
 
   const project_item = await fetchItem(project_data.item_id);
 
-  if (!project_item || !project_item.published) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (
+    !project_item ||
+    (!project_item.published && session?.user?.admin !== true)
+  ) {
     notFound();
   }
 
   const releases = await fetchReleases(project_data.slug);
-
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
 
   const disabled = !session || !session?.user?.admin;
 
@@ -158,18 +161,13 @@ export default async function Page(props: {
               </div>
             </div>
             <div className="z-0 flex flex-col justify-center">
-              <Link
-                href={disabled ? "" : "/projects/" + slug + "/edit"}
-                className={clsx(
-                  "z-0 p-3 rounded-2xl bg-[var(--background-secondary)] my-auto",
-                  {
-                    "brightness-50 hover:cursor-not-allowed hidden":
-                      disabled === true,
-                  }
-                )}
-              >
-                <span>Edit</span>
-              </Link>
+              {!disabled && (
+                <Link href={"/projects/" + slug + "/edit"}>
+                  <Button className="z-0 p-3 rounded-2xl bg-[var(--background-secondary)] my-auto">
+                    <span>Edit</span>
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
           <MDXPage markdown={project_item.markdown} />

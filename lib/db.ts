@@ -321,9 +321,13 @@ export async function fetchProject(slug: string): Promise<Project | null> {
       WHERE slug = ${slug};
     `;
     const skillsData = data[0].skills;
-    if (typeof skillsData[0] !== "string")
-      throw new Error("Skills data is not in string format");
-    data[0].skills = await fetchSkills(skillsData as string[]);
+    if (skillsData.length > 0) {
+      if (typeof skillsData[0] !== "string")
+        throw new Error("Skills data is not in string format");
+      data[0].skills = await fetchSkills(skillsData as string[]);
+    } else {
+      data[0].skills = [];
+    }
     return data[0] as Project;
   } catch (err) {
     console.error("Error fetching project:", err);
@@ -364,12 +368,13 @@ export async function updateProject(data: Project) {
         );
       `;
     } else {
+      console.log(data);
       await sql`
         UPDATE projects
         SET
           title = ${data.title},
           start_date = ${data.start_date},
-          end_date = ${data.end_date},
+          end_date = ${data.end_date ? data.end_date : null},
           description = ${data.description},
           categories = ${data.categories},
           image_url = ${data.image_url},

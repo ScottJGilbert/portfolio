@@ -15,7 +15,7 @@ export default async function Page() {
     categories: [],
     slug: "",
     start_date: new Date(),
-    end_date: new Date(),
+    end_date: null,
     image_url: "",
     skills: [],
     item_id: 0,

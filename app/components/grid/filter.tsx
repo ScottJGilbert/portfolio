@@ -8,6 +8,7 @@ import Search from "../../ui/search";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { Bounce } from "../motion/transitions";
+import Button from "@/app/ui/button";
 
 export default function Filter({
   placeholder,
@@ -50,7 +51,7 @@ export default function Filter({
             <Search placeholder={placeholder} />
           </Suspense>
           {pathname === "/projects" && <NewProjectButton />}
-          {pathname === "/posts" && <NewPostButton />}
+          {pathname === "/blog" && <NewPostButton />}
         </div>
         <div className="flex flex-wrap gap-2 mt-4">
           {categories.map((category) => {
@@ -89,16 +90,15 @@ export default function Filter({
 
 function NewProjectButton() {
   const { data: session } = authClient.useSession();
-  if (session?.user?.admin) {
+  if (!session?.user?.admin) {
     return null;
   }
   return (
     <div className="m-auto z-0">
-      <Link
-        href="/projects/new"
-        className="z-0 p-3 rounded-2xl bg-[var(--background-secondary)] my-auto"
-      >
-        <span> + New</span>
+      <Link href="/projects/new">
+        <Button className="z-0 p-3 rounded-2xl bg-[var(--background-secondary)] my-auto">
+          <span> + New</span>
+        </Button>
       </Link>
     </div>
   );
@@ -111,11 +111,10 @@ function NewPostButton() {
   }
   return (
     <div className="m-auto z-0">
-      <Link
-        href="/blog/new"
-        className="z-0 p-3 rounded-2xl bg-[var(--background-secondary)] my-auto"
-      >
-        <span> + New</span>
+      <Link href="/blog/new">
+        <Button className="z-0 p-3 rounded-2xl bg-[var(--background-secondary)] my-auto">
+          <span> + New</span>
+        </Button>
       </Link>
     </div>
   );

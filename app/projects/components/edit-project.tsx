@@ -129,6 +129,9 @@ export default function EditProject({
         alert("Failed to update.");
       } else {
         alert("Saved!");
+        if (initialData.slug === "") {
+          router.push("/projects");
+        }
       }
     }
   };
@@ -208,14 +211,14 @@ export default function EditProject({
                       name="title"
                       placeholder="Title... (required)"
                       onChange={handleChange}
-                      defaultValue={formData.title}
+                      value={formData.title}
                       required={true}
                     />
                     <input
                       type="url"
                       name="image_url"
                       onChange={handleChange}
-                      defaultValue={formData.image_url}
+                      value={formData.image_url}
                       placeholder="Image URL..."
                       className="flex-1"
                     />
@@ -226,12 +229,12 @@ export default function EditProject({
                         name="start_date"
                         id="start_date"
                         onChange={handleChange}
-                        defaultValue={
+                        value={
                           formData.start_date
-                            ? ""
-                            : new Date(formData.start_date)
+                            ? new Date(formData.start_date)
                                 .toISOString()
                                 .split("T")[0]
+                            : ""
                         }
                         min={"2007-01-01"}
                         max={"2200-01-01"}
@@ -247,10 +250,8 @@ export default function EditProject({
                         name="end_date"
                         id="end_date"
                         onChange={handleChange}
-                        defaultValue={
+                        value={
                           formData.end_date
-                            ? ""
-                            : formData.end_date
                             ? new Date(formData.end_date)
                                 .toISOString()
                                 .split("T")[0]
@@ -380,7 +381,7 @@ export default function EditProject({
             </div>
           </div>
           <div className="flex justify-between">
-            <div className="flex gap-4 mt-2">
+            <div className="flex mt-2">
               <Button className="ml-0" onClick={handleClick}>
                 ← Go Back
               </Button>
