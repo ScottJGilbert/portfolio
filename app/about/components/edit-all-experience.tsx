@@ -22,7 +22,7 @@ export default async function EditAllExperience() {
 
   return (
     <div>
-      <h1>Edit</h1>
+      <h1 className="mt-4">Edit</h1>
       <hr></hr>
       {ids.map(async (id) => {
         const experience = await fetchExperience(id);

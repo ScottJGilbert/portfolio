@@ -61,10 +61,13 @@ export default function EditAttributionsPage() {
     <div>
       <div className="mt-4">
         <h1>Edit Attributions</h1>
+        <p className="mb-4">
+          Saving and adding attributions can be done at the bottom of the page.
+        </p>
         {attributions.map((attr, index) => (
           <div
             key={index}
-            className="mb-6 p-4 border rounded bg-[var(--background-secondary)]"
+            className="mb-6 px-4 py-2 border rounded bg-[var(--background-secondary)]"
           >
             <div className="flex gap-4">
               <div className="mb-2 flex gap-2 items-center">
@@ -101,6 +104,12 @@ export default function EditAttributionsPage() {
                   required
                 />
               </div>
+              <Button
+                onClick={() => removeAttribution(index)}
+                className="bg-red-500 text-white hover:bg-red-600"
+              >
+                Remove Attribution
+              </Button>
             </div>
             <div className="mb-2">
               <label
@@ -119,12 +128,6 @@ export default function EditAttributionsPage() {
                 required
               ></textarea>
             </div>
-            <Button
-              onClick={() => removeAttribution(index)}
-              className="bg-red-500 text-white hover:bg-red-600"
-            >
-              Remove Attribution
-            </Button>
           </div>
         ))}
         <div className="flex gap-2">

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { updateProject, updateItem } from "@/lib/db"; // your DB update function
-import { Project, Item } from "@/lib/definitions";
+import { addPost, addItem } from "@/lib/db"; // your DB update function
+import { Post, Item } from "@/lib/definitions";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -13,31 +13,29 @@ export async function POST(req: NextRequest) {
 
   const { item, data } = await req.json();
 
-  const projectItem = item as Item;
-  const projectData = data as Project;
+  const postItem = item as Item;
+  const postData = data as Post;
 
-  if (!projectItem.markdown || projectItem.markdown === "") {
+  if (!postItem.markdown || postItem.markdown === "") {
     return NextResponse.json(
       { error: "Markdown content cannot be empty." },
       { status: 400 }
     );
   }
 
-  if (!projectItem.id || projectItem.id <= 0) {
-    return NextResponse.json(
-      { error: "Invalid item ID for post." },
-      { status: 400 }
-    );
-  }
+  postData.creation_date = new Date();
+  postData.edit_date = new Date();
 
   try {
-    await updateItem(projectItem);
-    await updateProject(projectData);
+    const id = await addItem(postItem.markdown);
+    postData.item_id = id;
+    await addPost(postData);
+
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.log("Error updating project: ", err);
+    console.log("Error adding post: ", err);
     return NextResponse.json(
-      { error: ("Failed to update project: " + err) as string },
+      { error: ("Failed to add post: " + err) as string },
       { status: 500 }
     );
   }

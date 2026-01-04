@@ -3,7 +3,7 @@
 import { authClient } from "@/lib/auth-client";
 import Button from "@/app/ui/button";
 import { SignIn, SignOut, SignUp } from "@/app/ui/sign-in-out";
-import Link from "next/link";
+import { AnimatedLink } from "@/app/ui/buffered-link";
 
 export default function AccountComponent() {
   const { data: session } = authClient.useSession();
@@ -25,13 +25,13 @@ export default function AccountComponent() {
       )}
       {session && (
         <>
-          <Link href="/account">
+          <AnimatedLink href="/account">
             {nameSplit?.map((part, index) => (
               <p key={index} className="mx-0 text-center">
                 {part}
               </p>
             ))}
-          </Link>
+          </AnimatedLink>
           <SignOut />
         </>
       )}

@@ -87,8 +87,8 @@ export default function SignUpComponent() {
   });
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen px-4">
-      <div className="w-full max-w-md bg-[var(--background-tertiary)] rounded-3xl shadow-xl p-8 flex flex-col gap-6 border border-[var(--border-secondary)]">
+    <div className="flex flex-col justify-center items-center min-h-screen md:px-4">
+      <div className="w-full md:max-w-md bg-[var(--background-tertiary)] rounded-3xl shadow-xl p-8 flex flex-col gap-6 border border-[var(--border-secondary)]">
         <h2 className="text-3xl font-bold text-center mb-2 text-zinc-900 dark:text-zinc-100">
           Sign Up
         </h2>

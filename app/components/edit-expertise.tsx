@@ -37,8 +37,7 @@ export default function EditExpertise() {
 
   useEffect(() => {
     const fetching = async () => {
-      oldAreas.current.push(...(await fetchSkills([])));
-      setAreas(oldAreas.current);
+      setAreas(await fetchSkills([]));
 
       currentSequenceValue.current = Number(await fetchSkillSequence());
     };
@@ -94,7 +93,6 @@ export default function EditExpertise() {
     for (const area of oldAreas.current) {
       if (area.skill_id === id) {
         skillsToRemove.current.push(id);
-        console.log(skillsToRemove.current);
         return;
       }
     }
@@ -150,56 +148,63 @@ export default function EditExpertise() {
   }
 
   return (
-    <div>
+    <div className="w-full mb-8">
       <Head>
         <meta name="robots" content="noindex,nofollow" key="noRobots" />
       </Head>
-      <div className="my-4">
-        <div>
-          {categories.map((category) => {
-            return (
-              <div key={category}>
-                <h3>{capitalizeFirstLetter(category)}</h3>
-                <div className="grid grid-cols-2 xl:grid-cols-3 gap-3 my-2">
-                  {areas.map((area, index) => {
-                    const remove = () => {
-                      handleDelete(area.skill_id, index);
-                    };
+      <div className="mb-8">
+        <div className="flex flex-col gap-8">
+          {categories.map((category) => (
+            <div key={category}>
+              <h3 className="text-xl font-semibold mb-2 text-zinc-800 dark:text-zinc-100">
+                {capitalizeFirstLetter(category)}
+              </h3>
+              <div className="border rounded-2xl bg-[var(--background-tertiary)] border-[var(--border-secondary)] p-4 max-h-80 overflow-y-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {areas
+                    .filter((area) => area.category === category)
+                    .map((area, index) => {
+                      const remove = () => {
+                        handleDelete(area.skill_id, index);
+                      };
 
-                    if (area.category !== category) return null;
-
-                    return (
-                      <div
-                        key={area.name + "area"}
-                        className="flex justify-between p-1 rounded-xl border-[var(--border)] border-1 text-sm"
-                      >
-                        <div className="flex gap-4">
-                          <div className="flex gap-3">
-                            <div className="ml-2 flex flex-col justify-center items-center">
-                              <Image
-                                height={16}
-                                width={16}
-                                src={
-                                  area.image_url === ""
-                                    ? "/profileIcon.svg"
-                                    : area.image_url
-                                }
-                                alt={area.name}
-                                className="w-4 h-4"
-                              />
-                            </div>
-                            <span className="my-auto font-bold">
-                              {area.name}
+                      return (
+                        <div
+                          key={area.name + "area"}
+                          className="flex justify-between items-center p-3 rounded-xl border border-[var(--border-secondary)] bg-zinc-50 dark:bg-zinc-800 shadow-sm gap-2 min-w-0"
+                        >
+                          <div className="flex gap-3 items-center min-w-0 flex-1">
+                            <span className="flex flex-col gap-1 min-w-0">
+                              <span className="inline-flex gap-3">
+                                {area.image_url && area.image_url !== "" && (
+                                  <Image
+                                    height={24}
+                                    width={24}
+                                    src={area.image_url}
+                                    alt={area.name}
+                                    className="p-1 w-6 h-6 rounded bg-zinc-600 object-contain border border-zinc-200 dark:border-zinc-700"
+                                  />
+                                )}
+                                <span
+                                  className="font-bold truncate max-w-[8rem] text-zinc-900 dark:text-zinc-100"
+                                  title={area.name}
+                                >
+                                  {area.name}
+                                </span>
+                              </span>
+                              <span
+                                className="text-xs text-zinc-500 truncate max-w-[9rem]"
+                                title={area.subcategory}
+                              >
+                                {capitalizeFirstLetter(area.subcategory)}
+                              </span>
                             </span>
-                          </div>
-                          <p className="my-auto">
-                            {capitalizeFirstLetter(area.subcategory)}
-                          </p>
-                          {area.parent_skill_id &&
-                            area.parent_skill_id !== -1 && (
-                              <span className="flex gap-2">
-                                <span className="my-auto">Parent: </span>
-                                <div className="flex flex-col justify-center items-center">
+                            {area.parent_skill_id &&
+                              area.parent_skill_id !== -1 && (
+                                <span className="flex items-center gap-1 ml-2">
+                                  <span className="text-xs text-zinc-400">
+                                    Parent:
+                                  </span>
                                   <Image
                                     src={getParentUrl(
                                       area.parent_skill_id || -1
@@ -207,114 +212,169 @@ export default function EditExpertise() {
                                     height={16}
                                     width={16}
                                     alt="Parent"
-                                    className="h-4 w-4"
+                                    className="h-6 w-6 rounded bg-zinc-600 p-1 border border-zinc-200 dark:border-zinc-700"
                                   />
-                                </div>
-                              </span>
-                            )}
+                                </span>
+                              )}
+                          </div>
+                          <Button
+                            onClick={remove}
+                            className="bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded-lg text-xs"
+                          >
+                            Delete
+                          </Button>
                         </div>
-                        <Button
-                          onClick={remove}
-                          className="bg-red-700 py-1 my-0 mx-0"
-                        >
-                          Delete
-                        </Button>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                 </div>
+                {areas.filter((a) => a.category === category).length === 0 && (
+                  <div className="text-zinc-400 text-sm text-center py-4">
+                    No skills in this category.
+                  </div>
+                )}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
-      <div>
-        <h2>New</h2>
-        <hr></hr>
-        <form className="flex gap-4 my-2 [&>*]:p-1 flex-wrap">
-          <input
-            type="text"
-            name="name"
-            placeholder="Name (required)"
-            onChange={onChange}
-            autoComplete="off"
-            value={formData.name}
-          />
-          <input
-            type="url"
-            name="image_url"
-            placeholder="Image URL"
-            onChange={onChange}
-            autoComplete="off"
-            value={formData.image_url}
-          />
-          <select
-            name="category"
-            onChange={handleCategory}
-            value={formData.category || "language"}
-          >
-            <option value="software" className="text-black">
-              Software
-            </option>
-            <option value="hardware" className="text-black">
-              Hardware
-            </option>
-            <option value="technical" className="text-black">
-              Technical Skill
-            </option>
-            <option value="soft" className="text-black">
-              Soft Skill
-            </option>
-          </select>
-          <input
-            onChange={onChange}
-            value={formData.subcategory}
-            name="subcategory"
-            type="text"
-            placeholder="Subcategory... (required)"
-            required
-          />
-          <select
-            onChange={handleSelectParent}
-            value={formData.parent_skill_id || -1}
-          >
-            <option value={-1} className="bg-[var(--background-tertiary)]">
-              Select Parent
-            </option>
-            {areas.map((skill) => {
-              if (skill.parent_skill_id || skill.category !== formData.category)
-                return null;
+      <div className="mb-8">
+        <h2 className="text-lg font-semibold mb-2 text-zinc-800 dark:text-zinc-100">
+          Add New Skill
+        </h2>
+        <hr className="mb-4 border-zinc-200 dark:border-zinc-700" />
+        <form
+          className="flex flex-wrap gap-4 items-end"
+          onSubmit={newArea}
+          autoComplete="off"
+        >
+          <div className="flex flex-col gap-1">
+            <label className="text-xs text-zinc-600 dark:text-zinc-300">
+              Name<span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              onChange={onChange}
+              autoComplete="off"
+              value={formData.name}
+              required
+              className="px-3 py-2 rounded-lg border border-[var(--border-secondary)] bg-zinc-50 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-400 transition w-40"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-xs text-zinc-600 dark:text-zinc-300">
+              Image URL
+            </label>
+            <input
+              type="url"
+              name="image_url"
+              placeholder="Image URL"
+              onChange={onChange}
+              autoComplete="off"
+              value={formData.image_url}
+              className="px-3 py-2 rounded-lg border border-[var(--border-secondary)] bg-zinc-50 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-400 transition w-52"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-xs text-zinc-600 dark:text-zinc-300">
+              Category
+            </label>
+            <select
+              name="category"
+              onChange={handleCategory}
+              value={formData.category || "software"}
+              className="px-3 py-2 rounded-lg border border-[var(--border-secondary)] bg-zinc-50 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-400 transition w-40"
+            >
+              <option value="software" className="text-black">
+                Software
+              </option>
+              <option value="hardware" className="text-black">
+                Hardware
+              </option>
+              <option value="technical" className="text-black">
+                Technical Skill
+              </option>
+              <option value="soft" className="text-black">
+                Soft Skill
+              </option>
+            </select>
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-xs text-zinc-600 dark:text-zinc-300">
+              Subcategory<span className="text-red-500">*</span>
+            </label>
+            <input
+              onChange={onChange}
+              value={formData.subcategory}
+              name="subcategory"
+              type="text"
+              placeholder="Subcategory"
+              required
+              className="px-3 py-2 rounded-lg border border-[var(--border-secondary)] bg-zinc-50 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-400 transition w-40"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-xs text-zinc-600 dark:text-zinc-300">
+              Parent Skill
+            </label>
+            <select
+              onChange={handleSelectParent}
+              value={formData.parent_skill_id || -1}
+              className="px-3 py-2 rounded-lg border border-[var(--border-secondary)] bg-zinc-50 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-400 transition w-44"
+            >
+              <option value={-1} className="bg-[var(--background-tertiary)]">
+                Select Parent
+              </option>
+              {areas.map((skill) => {
+                if (
+                  skill.parent_skill_id ||
+                  skill.category !== formData.category
+                )
+                  return null;
 
-              return (
-                <option
-                  key={skill.name + "selector"}
-                  value={skill.skill_id}
-                  className="bg-[var(--background-tertiary)]"
-                >
-                  {skill.name}
-                </option>
-              );
-            })}
-          </select>
-          <Button onClick={newArea} className="py-1 px-4">
-            Add +
-          </Button>
+                return (
+                  <option
+                    key={skill.name + "selector"}
+                    value={skill.skill_id}
+                    className="bg-[var(--background-tertiary)]"
+                  >
+                    {skill.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-xs text-zinc-600 dark:text-zinc-300">
+              Add Skill
+            </label>
+            <Button className="mx-0 my-0 py-2 px-6 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors">
+              Add +
+            </Button>
+          </div>
         </form>
       </div>
-      <div className="flex gap-4 justify-start items-center">
+      <div className="flex gap-4 items-center mb-8">
         <Upload
           onComplete={(result) => {
             setDisplayedImageUrl(result.ufsUrl);
           }}
         />
-        <p>{displayedImageUrl}</p>
+        <p className="truncate max-w-xs text-zinc-500">{displayedImageUrl}</p>
       </div>
-      <div className="flex gap-4">
-        <Button className="mt-4" onClick={save}>
+      <div className="flex gap-4 items-center">
+        <Button
+          className="py-3 px-8 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors"
+          onClick={save}
+        >
           Save
         </Button>
         <div className="flex flex-col justify-center">
-          <p>NO CHANGES ARE SAVED UNTIL THE BUTTON IS PRESSED.</p>
+          <p className="text-xs text-zinc-500">
+            <span className="font-semibold text-red-600 mr-1">NOTE:</span> No
+            changes are saved until the button is pressed.
+          </p>
         </div>
       </div>
     </div>

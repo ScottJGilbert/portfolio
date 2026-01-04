@@ -1,4 +1,4 @@
-import EditAllExperience from "@/app/components/about/edit-all-experience";
+import EditAllExperience from "../components/edit-all-experience";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

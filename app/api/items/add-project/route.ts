@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { updateProject, updateItem } from "@/lib/db"; // your DB update function
+import { addProject, addItem } from "@/lib/db"; // your DB update function
 import { Project, Item } from "@/lib/definitions";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -16,28 +16,15 @@ export async function POST(req: NextRequest) {
   const projectItem = item as Item;
   const projectData = data as Project;
 
-  if (!projectItem.markdown || projectItem.markdown === "") {
-    return NextResponse.json(
-      { error: "Markdown content cannot be empty." },
-      { status: 400 }
-    );
-  }
-
-  if (!projectItem.id || projectItem.id <= 0) {
-    return NextResponse.json(
-      { error: "Invalid item ID for post." },
-      { status: 400 }
-    );
-  }
-
   try {
-    await updateItem(projectItem);
-    await updateProject(projectData);
+    const id = await addItem(projectItem.markdown);
+    projectData.item_id = id;
+    await addProject(projectData);
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.log("Error updating project: ", err);
+    console.log("Error adding project: ", err);
     return NextResponse.json(
-      { error: ("Failed to update project: " + err) as string },
+      { error: ("Failed to add project: " + err) as string },
       { status: 500 }
     );
   }

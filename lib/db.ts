@@ -334,55 +334,66 @@ export async function fetchProject(slug: string): Promise<Project | null> {
     return null;
   }
 }
+export async function addProject(data: Project) {
+  try {
+    const skillStrings: string[] = data?.skills.map((skill) => {
+      return typeof skill === "string" ? skill : skill.name;
+    });
+    if (data.slug !== "") {
+      throw new Error("Project slug must be empty when adding a new project.");
+    }
+    const lowercase = data.title.toLowerCase();
+    data.slug = lowercase.replaceAll(" ", "-");
+    // Sanitize slug by removing special characters
+    data.slug = data.slug.replace(/[^a-z0-9\-]/g, "");
+    await sql`
+      INSERT 
+      INTO projects
+        (title,
+        start_date,
+        end_date,
+        description,
+        categories,
+        slug,
+        image_url,
+        skills,
+        item_id)
+      VALUES (
+        ${data.title},
+        ${data.start_date},
+        ${data.end_date},
+        ${data.description},
+        ${data.categories},
+        ${data.slug},
+        ${data.image_url},
+        ${skillStrings},
+        ${data.item_id}
+      );
+    `;
+  } catch (err) {
+    console.error("Error adding project: ", err);
+    throw err;
+  }
+}
 
 export async function updateProject(data: Project) {
   try {
     const skillStrings: string[] = data?.skills.map((skill) => {
       return typeof skill === "string" ? skill : skill.name;
     });
-    if (data.slug === "") {
-      const lowercase = data.title.toLowerCase();
-      data.slug = lowercase.replaceAll(" ", "-");
-      await sql`
-        INSERT 
-        INTO projects
-          (title,
-          start_date,
-          end_date,
-          description,
-          categories,
-          slug,
-          image_url,
-          skills,
-          item_id)
-        VALUES (
-          ${data.title},
-          ${data.start_date},
-          ${data.end_date},
-          ${data.description},
-          ${data.categories},
-          ${data.slug},
-          ${data.image_url},
-          ${skillStrings},
-          ${data.item_id}
-        );
-      `;
-    } else {
-      console.log(data);
-      await sql`
-        UPDATE projects
-        SET
-          title = ${data.title},
-          start_date = ${data.start_date},
-          end_date = ${data.end_date ? data.end_date : null},
-          description = ${data.description},
-          categories = ${data.categories},
-          image_url = ${data.image_url},
-          skills = ${skillStrings},
-          item_id = ${data.item_id}
-        WHERE slug = ${data.slug}
-      `;
-    }
+    await sql`
+      UPDATE projects
+      SET
+        title = ${data.title},
+        start_date = ${data.start_date},
+        end_date = ${data.end_date ? data.end_date : null},
+        description = ${data.description},
+        categories = ${data.categories},
+        image_url = ${data.image_url},
+        skills = ${skillStrings},
+        item_id = ${data.item_id}
+      WHERE slug = ${data.slug}
+    `;
   } catch (err) {
     console.error("Error updating project: ", err);
     throw err;
@@ -548,12 +559,16 @@ export async function fetchPost(slug: string): Promise<Post | null> {
   }
 }
 
-export async function updatePost(data: Post) {
+export async function addPost(data: Post) {
   try {
-    if (data.slug === "") {
-      const lowercase = data.title.toLowerCase();
-      data.slug = lowercase.replaceAll(" ", "-");
-      await sql`
+    if (data.slug !== "") {
+      throw new Error("Post slug must be empty when adding a new post.");
+    }
+    const lowercase = data.title.toLowerCase();
+    data.slug = lowercase.replaceAll(" ", "-");
+    // Sanitize slug by removing special characters
+    data.slug = data.slug.replace(/[^a-z0-9\-]/g, "");
+    await sql`
       INSERT 
       INTO posts
         (title,
@@ -574,9 +589,16 @@ export async function updatePost(data: Post) {
         ${data.image_url},
         ${data.item_id}
       );
-      `;
-    } else {
-      await sql`
+    `;
+  } catch (err) {
+    console.error("Error adding post: ", err);
+    throw err;
+  }
+}
+
+export async function updatePost(data: Post) {
+  try {
+    await sql`
       UPDATE posts
       SET
         title = ${data.title},
@@ -586,8 +608,8 @@ export async function updatePost(data: Post) {
         categories = ${data.categories},
         image_url = ${data.image_url},
         item_id = ${data.item_id}
-      WHERE slug = ${data.slug}`;
-    }
+      WHERE slug = ${data.slug};
+    `;
   } catch (err) {
     console.error("Error updating post: ", err);
     throw err;

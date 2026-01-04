@@ -1,5 +1,5 @@
 import { Experience } from "@/lib/definitions";
-import MDXExperience from "../mdx/mdx-experience";
+import MDXExperience from "@/app/components/mdx/mdx-experience";
 import clsx from "clsx";
 import SkillBox from "@/app/ui/skill-box";
 
@@ -75,10 +75,23 @@ export default function ExperienceDisplay({
                 <h3>{experience.title}</h3>
                 <h4>{experience.self_employed ? "(Self Employed)" : ""}</h4>
                 <MDXExperience markdown={experience.markdown} />
-                <div className="flex flex-wrap gap-2 mt-4 mb-4">
-                  {experience.skills.map((skill) => {
-                    return <SkillBox key={skill.name + "area"} area={skill} />;
-                  })}
+                {/* Show skills in a dropdown on mobile, always visible on desktop */}
+                <div className="block md:hidden mt-4 mb-4">
+                  <details>
+                    <summary className="cursor-pointer text-sm font-semibold mb-2">
+                      Show Skills
+                    </summary>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {experience.skills.map((skill) => (
+                        <SkillBox key={skill.name + "area"} area={skill} />
+                      ))}
+                    </div>
+                  </details>
+                </div>
+                <div className="hidden md:flex flex-wrap gap-2 mt-4 mb-4">
+                  {experience.skills.map((skill) => (
+                    <SkillBox key={skill.name + "area"} area={skill} />
+                  ))}
                 </div>
               </div>
             </div>

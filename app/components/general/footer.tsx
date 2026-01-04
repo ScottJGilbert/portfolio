@@ -13,42 +13,47 @@ const linkSections = [
   {
     title: "Navigation",
     links: [
-      { name: "About", href: "/about" },
-      { name: "Skills", href: "/skills" },
-      { name: "Projects", href: "/projects" },
-      { name: "Blog", href: "/blog" },
+      { name: "About", href: "/about", external: false },
+      { name: "Skills", href: "/skills", external: false },
+      { name: "Projects", href: "/projects", external: false },
+      { name: "Blog", href: "/blog", external: false },
     ],
     adminOnly: false,
   },
   {
     title: "External Links",
     links: [
-      { name: "GitHub", href: "https://github.com/ScottJGilbert" },
+      {
+        name: "GitHub",
+        href: "https://github.com/ScottJGilbert",
+        external: true,
+      },
       {
         name: "Linkedin",
         href: "https://www.linkedin.com/in/scott-j-gilbert/",
+        external: true,
       },
-      { name: "Email", href: "mailto:scott7gilbert@gmail.com" },
-      { name: "Resume", href: "/resume.pdf" },
+      { name: "Email", href: "mailto:scott7gilbert@gmail.com", external: true },
+      { name: "Resume", href: "/resume.pdf", external: true },
     ],
     adminOnly: false,
   },
   {
     title: "More",
     links: [
-      { name: "Attributions", href: "/attributions" },
-      { name: "Sitemap", href: "/sitemap.xml" },
-      { name: "RSS", href: "/rss.xml" },
-      { name: "Legal", href: "/legal" },
+      { name: "Attributions", href: "/attributions", external: false },
+      { name: "Legal", href: "/legal", external: false },
+      { name: "Sitemap", href: "/sitemap.xml", external: true },
+      { name: "RSS", href: "/rss.xml", external: true },
     ],
     adminOnly: false,
   },
   {
     title: "Admin",
     links: [
-      { name: "Home", href: "/admin/" },
-      { name: "Images", href: "/admin/images" },
-      { name: "Users", href: "/admin/users" },
+      { name: "Home", href: "/admin/", external: false },
+      { name: "Images", href: "/admin/images", external: false },
+      { name: "Users", href: "/admin/users", external: false },
     ],
     adminOnly: true,
   },
@@ -160,7 +165,8 @@ export default function Footer() {
                                 }}
                                 className="flex gap-2 hover:text-gray-400"
                                 target={
-                                  section.title === "External Links"
+                                  section.title === "External Links" ||
+                                  link.external
                                     ? "_blank"
                                     : ""
                                 }

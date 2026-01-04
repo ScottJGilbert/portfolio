@@ -59,10 +59,10 @@ export default async function Expertise() {
           </div>
         ))}
       </div> */}
-      <div className="flex flex-wrap justify-center gap-4 py-8 mx-auto max-w-full overflow-hidden rounded-2xl">
+      <div className="flex flex-wrap justify-center gap-4 py-8 px-2 mx-auto max-w-full md:max-w-4xl overflow-hidden rounded-2xl">
         {areas.map((area, index) => (
           <React.Fragment key={area.name + "fragment"}>
-            {index < 30 && (
+            {index < 20 && (
               <SkillBox
                 key={area.name + "skill"}
                 area={area}

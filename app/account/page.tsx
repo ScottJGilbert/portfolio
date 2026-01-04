@@ -32,7 +32,7 @@ export default async function AccountPage() {
   return (
     <div>
       <h1 className="mt-4">Account</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-[var(--background-secondary)] rounded-3xl shadow-xl p-8 flex flex-col gap-6 border border-[var(--border-secondary)]">
           <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
             Manage Subscriptions
