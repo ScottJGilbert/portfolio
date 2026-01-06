@@ -81,9 +81,7 @@ export default async function skillsPage() {
                           key={group.parent.name}
                           className={`w-full ${flexGrow} ${flexBasis} bg-[var(--background-secondary)] border border-[var(--border-secondary)] rounded-2xl shadow-md p-4 sm:p-6`}
                         >
-                          <div className="mb-4 flex gap-4 items-center">
-                            <Title group={group} />
-                          </div>
+                          <Title group={group} />
                           <div className="flex flex-col gap-6 sm:flex-row sm:flex-wrap">
                             {group.childGroups.map((childgroup) => (
                               <div

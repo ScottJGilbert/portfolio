@@ -46,52 +46,58 @@ export const fetchSkills = cache(async (names: string[]) => {
   }
 });
 
-export async function updateSkills(
-  skillsToAdd: Skill[],
-  skillsToRemove: number[]
-) {
+export async function addSkill(skill: Skill) {
   try {
-    for (const id of skillsToRemove) {
-      await sql`
-        DELETE 
-        FROM skills 
-        WHERE skill_id = ${id};
-      `;
-    }
-    for (const area of skillsToAdd) {
-      await sql`
-        INSERT
-        INTO skills (
-          name,
-          image_url,
-          category,
-          subcategory,
-          parent_skill_id
-        ) 
-        VALUES (
-          ${area.name},
-          ${area.image_url},
-          ${area.category},
-          ${area.subcategory},
-          ${area.parent_skill_id ?? null}
-        );
-      `;
-    }
+    await sql`
+      INSERT
+      INTO skills (
+        name,
+        image_url,
+        category,
+        subcategory,
+        parent_skill_id
+      ) 
+      VALUES (
+        ${skill.name},
+        ${skill.image_url},
+        ${skill.category},
+        ${skill.subcategory},
+        ${skill.parent_skill_id ?? null}
+      );
+    `;
   } catch (err) {
-    console.error("Error updating skills: ", err);
+    console.error("Error adding skill: ", err);
     throw err;
   }
 }
 
-export async function fetchSkillSequence(): Promise<number> {
+export async function updateSkill(skill: Skill) {
   try {
-    const sequence = await sql<{ value: number }[]>`
-      SELECT nextval('public.skills_skill_id_seq') AS value;
+    await sql`
+      UPDATE skills
+      SET
+        name = ${skill.name},
+        image_url = ${skill.image_url},
+        category = ${skill.category},
+        subcategory = ${skill.subcategory},
+        parent_skill_id = ${skill.parent_skill_id ?? null}
+      WHERE skill_id = ${skill.skill_id};
     `;
-
-    return sequence[0].value;
   } catch (err) {
-    console.error("Error fetching skill sequence: ", err);
+    console.error("Error updating skill: ", err);
+    throw err;
+  }
+}
+
+export async function deleteSkill(id: number) {
+  try {
+    await sql`
+      DELETE 
+      FROM skills 
+      WHERE skill_id = ${id};
+    `;
+  } catch (err) {
+    console.error("Error deleting skill: ", err);
     throw err;
   }
 }

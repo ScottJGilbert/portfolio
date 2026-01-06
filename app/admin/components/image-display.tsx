@@ -4,7 +4,6 @@ import { useState, useEffect, Suspense } from "react";
 import { ImageData } from "@/lib/definitions";
 import Link from "next/link";
 import Search from "../../ui/search";
-import { fetchImages } from "@/lib/db";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Button from "@/app/ui/button";
@@ -15,15 +14,20 @@ export default function ImageDisplay() {
 
   useEffect(() => {
     async function getImages() {
-      setImages(
-        (await fetchImages(searchParams.get("query") || "")) as ImageData[]
+      const res = await fetch(
+        "/api/images/fetch-images?query=" +
+          encodeURIComponent(searchParams.get("query") || "")
       );
+      if (res.ok) {
+        const data = await res.json();
+        setImages(data.images);
+      }
     }
     getImages();
   }, [searchParams]);
 
   const deleteImage = async (key: string) => {
-    const res = await fetch("/api/delete-image", {
+    const res = await fetch("/api/images/delete-image", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
