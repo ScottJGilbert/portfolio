@@ -85,7 +85,10 @@ export default function EditPost(props: {
         const res = await fetch("/api/items/add-post", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ item: { markdown: text }, data: formData }),
+          body: JSON.stringify({
+            item: { markdown: text },
+            data: { ...formData, description: description },
+          }),
         });
 
         setIsSaving(false);
@@ -103,7 +106,7 @@ export default function EditPost(props: {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             item: { ...item, markdown: text },
-            data: formData,
+            data: { ...formData, description: description },
           }),
         });
         setIsSaving(false);
