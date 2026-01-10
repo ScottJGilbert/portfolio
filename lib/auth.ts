@@ -24,12 +24,12 @@ export const auth = betterAuth({
       },
       comments: {
         type: "number",
-        default: 0,
+        defaultValue: 0,
         input: false,
       },
       firstCommentTime: {
         type: "date",
-        default: new Date(),
+        defaultValue: new Date(),
         input: false,
       },
       deleted: {

@@ -129,7 +129,7 @@ export default function EditPost(props: {
           prompt("Please type in the post slug to proceed.") ===
           initialData.slug
         ) {
-          const url = "/api/delete-post";
+          const url = "/api/items/delete-post";
 
           const res = await fetch(url, {
             method: "POST",

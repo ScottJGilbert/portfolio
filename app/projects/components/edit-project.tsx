@@ -150,7 +150,7 @@ export default function EditProject({
           prompt("Please type in the project slug to proceed.") ===
           initialData.slug
         ) {
-          const url = "/api/delete-project";
+          const url = "/api/items/delete-project";
           const res = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
