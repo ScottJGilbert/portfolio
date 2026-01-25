@@ -6,7 +6,7 @@ Please note that **this project is not finished yet.** I have only uploaded the 
 
 ## Usage Instructions
 
-If you would just like to visit the website, go to [the url here](https://scott-gilbert.vercel.app). If you would like to toy around with the website features yourself, follow the instructions below.
+If you would just like to visit the website, go to [the url here](https://scottgilbert.dev). If you would like to toy around with the website features yourself, follow the instructions below.
 
 First, download the repository.
 

@@ -32,6 +32,7 @@ export default function SkillBox({
             height={16}
             loading="lazy"
             className="w-4 h-4"
+            unoptimized
           />
         </div>
       )}

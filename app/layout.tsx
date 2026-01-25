@@ -17,7 +17,7 @@ import { ToastContainer } from "react-toastify";
 export const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://scott-gilbert.vercel.app"),
+  metadataBase: new URL(process.env.BASE_URL || "https://scottgilbert.dev"),
   title: {
     template: "%s | Scott Gilbert",
     default: "Scott Gilbert - Computer Engineer",
@@ -34,10 +34,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <meta
-          name="google-site-verification"
-          content="n2DByM96BZf3uCqxJ3eF5kUp19e9aIjI5P4M2Pnl-Fs"
-        />
         <script
           dangerouslySetInnerHTML={{
             __html: `

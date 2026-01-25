@@ -12,9 +12,9 @@ export default function LegalPage() {
         policy, please contact me at{" "}
         <Link
           className="text-blue-600 hover:underline"
-          href="mailto:scott7gilbert@gmail.com"
+          href="mailto:hello@scottgilbert.dev"
         >
-          scott7gilbert@gmail.com
+          hello@scottgilbert.dev
         </Link>
         .
       </p>

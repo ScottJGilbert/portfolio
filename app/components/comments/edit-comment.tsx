@@ -66,9 +66,7 @@ export function BannedEditComment() {
     <div className="p-4 border border-[var(--border-color)] rounded-md bg-[var(--background-tertiary)] text-center">
       <p>
         You have been banned from posting comments. Please contact me at{" "}
-        <Link href="mailto:scott7gilbert@gmail.com">
-          scott7gilbert@gmail.com
-        </Link>{" "}
+        <Link href="mailto:hello@scottgilbert.dev">hello@scottgilbert.dev</Link>{" "}
         if you believe this is a mistake.
       </p>
     </div>

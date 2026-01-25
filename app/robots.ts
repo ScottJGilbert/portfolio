@@ -15,6 +15,6 @@ export default function robots(): MetadataRoute.Robots {
         "/no-access",
       ],
     },
-    sitemap: `https://scott-gilbert.vercel.app/sitemap.xml`,
+    sitemap: `${process.env.BASE_URL || "https://scottgilbert.dev"}/sitemap.xml`,
   };
 }

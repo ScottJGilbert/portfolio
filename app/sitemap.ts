@@ -7,43 +7,43 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     {
-      url: `https://scott-gilbert.vercel.app`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/`,
       priority: 1,
     },
     {
-      url: `https://scott-gilbert.vercel.app/about`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/about`,
       priority: 0.8,
     },
     {
-      url: `https://scott-gilbert.vercel.app/skills`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/skills`,
       priority: 0.6,
     },
     {
-      url: `https://scott-gilbert.vercel.app/projects`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/projects`,
       priority: 0.5,
     },
     {
-      url: `https://scott-gilbert.vercel.app/blog`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/blog`,
       priority: 0.5,
     },
     {
-      url: `https://scott-gilbert.vercel.app/resume.pdf`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/resume.pdf`,
       priority: 0.8,
     },
     {
-      url: `https://scott-gilbert.vercel.app/attributions`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/attributions`,
       priority: 0.1,
     },
     {
-      url: `https://scott-gilbert.vercel.app/legal`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/legal`,
       priority: 0.1,
     },
     {
-      url: `https://scott-gilbert.vercel.app/signin`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/signin`,
       priority: 0.25,
     },
     {
-      url: `https://scott-gilbert.vercel.app/signup`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/signup`,
       priority: 0.25,
     },
     ...projectMap,
@@ -55,7 +55,7 @@ async function projects() {
   const slugs: string[] = await fetchProjectSlugs();
   const map: MetadataRoute.Sitemap = slugs.map((slug) => {
     return {
-      url: `https://scott-gilbert.vercel.app/projects/${slug}`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/projects/${slug}`,
       priority: 0.35,
     };
   });
@@ -67,7 +67,7 @@ async function posts() {
   const slugs: string[] = await fetchPostSlugs();
   const map: MetadataRoute.Sitemap = slugs.map((slug) => {
     return {
-      url: `https://scott-gilbert.vercel.app/blog/${slug}`,
+      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/blog/${slug}`,
       priority: 0.35,
     };
   });

@@ -33,7 +33,7 @@ const linkSections = [
         href: "https://www.linkedin.com/in/scott-j-gilbert/",
         external: true,
       },
-      { name: "Email", href: "mailto:scott7gilbert@gmail.com", external: true },
+      { name: "Email", href: "mailto:hello@scottgilbert.dev", external: true },
       { name: "Resume", href: "/resume.pdf", external: true },
     ],
     adminOnly: false,
@@ -70,7 +70,7 @@ export default function Footer() {
   // Sync theme on mount
   useEffect(() => {
     const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     ).matches;
     const stored = localStorage.theme;
     const activeDark = stored === "dark" || (!stored && prefersDark);
@@ -106,7 +106,7 @@ export default function Footer() {
                 </h1>
                 <Link
                   className="block mx-auto my-4"
-                  href="mailto:scott7gilbert@gmail.com"
+                  href="mailto:hello@scottgilbert.dev"
                   target="_blank"
                 >
                   <Button className="block mx-auto">Contact Me →</Button>

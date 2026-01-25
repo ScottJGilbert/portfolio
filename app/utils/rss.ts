@@ -7,7 +7,7 @@ export default async function generateRssFeed() {
 
   const site_url =
     process.env.NODE_ENV === "production"
-      ? "https://scott-gilbert.vercel.app"
+      ? process.env.BASE_URL || "https://scottgilbert.dev"
       : "http://localhost:3000";
 
   const feedOptions = {

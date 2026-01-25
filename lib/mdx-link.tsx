@@ -9,12 +9,14 @@ function isNavigatingToLocalPage(href: string): boolean {
     (href.startsWith("/") &&
       !href.startsWith("//") &&
       !href.startsWith("/api")) ||
-    href.startsWith("https://scott-gilbert.vercel.app/")
+    href.startsWith(
+      process.env.NEXT_PUBLIC_BASE_URL || "https://scottgilbert.dev",
+    )
   );
 }
 
 export default function MdxLink(
-  props: React.AnchorHTMLAttributes<HTMLAnchorElement>
+  props: React.AnchorHTMLAttributes<HTMLAnchorElement>,
 ) {
   const { setIsLoading } = usePageLoading();
 

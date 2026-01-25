@@ -48,4 +48,18 @@ export const auth = betterAuth({
       clientSecret: process.env.AUTH_GITHUB_SECRET as string,
     },
   },
+  advanced: {
+    cookiePrefix: "portfolio_",
+    crossSubDomainCookies: {
+      enabled: true,
+      domain:
+        process.env.NODE_ENV === "development"
+          ? "localhost"
+          : "portfolio.scottgilbert.dev",
+    },
+  },
+  trustedOrigins:
+    process.env.NODE_ENV === "development"
+      ? Array.from({ length: 21 }, (_, i) => `http://localhost:${3000 + i}`)
+      : [...(process.env.TRUSTED_ORIGINS?.split(",") || [])],
 });

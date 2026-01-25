@@ -18,7 +18,7 @@ const links = [
     href: "https://www.linkedin.com/in/scott-j-gilbert/",
     icon: FaLinkedin,
   },
-  { name: "Email", href: "mailto:scott7gilbert@gmail.com", icon: EnvelopeIcon },
+  { name: "Email", href: "mailto:hello@scottgilbert.dev", icon: EnvelopeIcon },
   { name: "Resume", href: "/resume.pdf", icon: DocumentDuplicateIcon },
 ];
 

@@ -33,11 +33,11 @@ export default async function Page() {
             regarding the use of a copyrighted/trademarked branding, please
             email me at{" "}
             <a
-              href="mailto:scott7gilbert@gmail.com"
+              href="mailto:hello@scottgilbert.dev"
               target="_blank"
               className="text-blue-500 hover:text-blue-700 underline"
             >
-              scott7gilbert@gmail.com
+              hello@scottgilbert.dev
             </a>
             .
           </i>
