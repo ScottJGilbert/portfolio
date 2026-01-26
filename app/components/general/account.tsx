@@ -12,7 +12,7 @@ export default function AccountComponent() {
   const nameSplit = name?.split(" ");
 
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex items-center justify-center md:justify-between gap-2">
       {!session && (
         <>
           <SignIn>
