@@ -49,7 +49,6 @@ const nextConfig = {
     mdxRs: true,
   },
   // Optionally, add any other Next.js config below
-  transpilePackages: ["@exodus/bytes", "html-encoding-sniffer"],
 };
 
 const withMDX = createMDX({

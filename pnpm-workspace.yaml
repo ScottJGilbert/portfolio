@@ -9,4 +9,5 @@ onlyBuiltDependencies:
   - unrs-resolver
 
 patchedDependencies:
+  html-encoding-sniffer: patches/html-encoding-sniffer.patch
   motion: patches/motion.patch

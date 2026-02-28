@@ -1,0 +1,11 @@
+diff --git a/lib/html-encoding-sniffer.js b/lib/html-encoding-sniffer.js
+index 08a92d3746ffb7da66451e407f00884df6828f99..648f89eb935016e44232beeadd0e3760a80ea741 100644
+--- a/lib/html-encoding-sniffer.js
++++ b/lib/html-encoding-sniffer.js	
+@@ -1,5 +1,5 @@
+ "use strict";
+-const { getBOMEncoding, labelToName } = require("@exodus/bytes/encoding-lite.js");
++import { getBOMEncoding, labelToName } from "@exodus/bytes/encoding-lite.js";
+ 
+ // https://html.spec.whatwg.org/#encoding-sniffing-algorithm
+ module.exports = (uint8Array, { xml = false, transportLayerEncodingLabel, defaultEncoding } = {}) => {
