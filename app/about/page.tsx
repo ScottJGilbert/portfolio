@@ -18,7 +18,7 @@ const schools = [
     image_url:
       "https://brand.illinois.edu/wp-content/uploads/2025/02/Illinois_logo_fullcolor_%C2%AE_rgb.png",
     description:
-      "Activities and Societies: Marching Illini, Illini Solar Car, Project: Code UIUC, IEEE UIUC, Campus Honors Program",
+      "Activities and Societies: Marching Illini, Illini Solar Car, Project: Code UIUC, IEEE UIUC, Engineers without Borders, Campus Honors Program",
   },
   {
     name: "James B. Conant High School",

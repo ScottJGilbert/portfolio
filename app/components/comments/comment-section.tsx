@@ -29,11 +29,11 @@ export default function CommentSection({
   useEffect(() => {
     const fetchComments = async () => {
       const data: CommentType[] = await fetch(
-        "/api/comments/fetch-comments?item_id=" + item_id
+        "/api/comments/fetch-comments?item_id=" + item_id,
       ).then((res) => res.json());
 
       const userIDs = Array.from(
-        new Set(data.map((comment) => comment.user_id))
+        new Set(data.map((comment) => comment.user_id)),
       );
 
       const json = await fetch("/api/users/fetch-users", {
@@ -56,7 +56,6 @@ export default function CommentSection({
       setComments(sortComments(data, usersMap));
     };
     fetchComments();
-    setRefetch(false);
   }, [item_id, refetch]);
 
   const newComment = (text: string, parent_id?: number): Promise<boolean> => {
@@ -73,7 +72,7 @@ export default function CommentSection({
       res.then((response) => {
         if (response.ok) {
           ToastSuccess("Comment posted successfully!");
-          setRefetch(true);
+          setRefetch(!refetch);
           return true;
         } else {
           ToastError("Failed to post, please try again later.");
@@ -93,7 +92,7 @@ export default function CommentSection({
       res.then((response) => {
         if (response.ok) {
           ToastSuccess("Comment posted successfully!");
-          setRefetch(true);
+          setRefetch(!refetch);
           return true;
         } else {
           ToastError("Failed to post, please try again later.");
@@ -120,7 +119,7 @@ export default function CommentSection({
     res.then((response) => {
       if (response.ok) {
         ToastSuccess("Comment edited successfully!");
-        setRefetch(true);
+        setRefetch(!refetch);
         return true;
       } else {
         ToastError("Failed to edit, please try again later.");
@@ -145,7 +144,7 @@ export default function CommentSection({
       res.then((response) => {
         if (response.ok) {
           ToastSuccess("Comment deleted successfully!");
-          setRefetch(true);
+          setRefetch(!refetch);
         } else {
           ToastError("Failed to delete, please try again later.");
         }
@@ -222,7 +221,7 @@ export default function CommentSection({
 
 function sortComments(
   comments: CommentType[],
-  users: Map<string, User>
+  users: Map<string, User>,
 ): SortedComments[] {
   const sortedComments: SortedComments[] = [];
 
@@ -264,6 +263,5 @@ function sortComments(
       children: childrenMap,
     });
   }
-  console.log(sortedComments);
   return sortedComments;
 }

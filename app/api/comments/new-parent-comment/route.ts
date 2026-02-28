@@ -28,7 +28,6 @@ const purify = DOMPurify(window);
 !!! JSON structure:
 {
   item_id: number; // ID of the item being commented on
-  parent_id: number; // ID of the parent comment
   text: string; // New content of the comment
 }
 */
@@ -44,7 +43,7 @@ export async function POST(req: NextRequest) {
     if (!session || !user) {
       return NextResponse.json(
         { error: "User not authenticated" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -55,7 +54,7 @@ export async function POST(req: NextRequest) {
     if (!(await checkRateLimit(user))) {
       return NextResponse.json(
         { error: "Rate limit exceeded" },
-        { status: 429 }
+        { status: 429 },
       );
     }
 
@@ -75,7 +74,7 @@ export async function POST(req: NextRequest) {
     if (!checkCommentLength(newComment)) {
       return NextResponse.json(
         { error: "Comment length exceeds the allowed limit" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -83,7 +82,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { message: "Comment added successfully" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (err) {
     console.log("Error adding new comment: ", err);
@@ -93,7 +92,7 @@ export async function POST(req: NextRequest) {
           "Internal server error: " +
           (err instanceof Error ? err.message : String(err)),
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
