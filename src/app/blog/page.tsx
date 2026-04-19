@@ -1,7 +1,6 @@
 import React from 'react';
 import { TonalSurface } from '@/components/ui/TonalSurface';
 import { EditorialChip } from '@/components/ui/EditorialChip';
-import { cn } from '@/lib/utils';
 
 interface BlogPost {
   title: string;

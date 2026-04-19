@@ -1,6 +1,5 @@
 import React from 'react';
 import { TonalSurface } from '@/components/ui/TonalSurface';
-import { cn } from '@/lib/utils';
 
 export default function LegalPage() {
   return (

@@ -82,7 +82,7 @@ export default function Home() {
             initialTier="highest"
           >
             <div className="flex-1 space-y-2">
-              <h3 className="text-2xl font-bold tracking-tight">Let's build something atmospheric.</h3>
+              <h3 className="text-2xl font-bold tracking-tight">Let&apos;s build something atmospheric.</h3>
               <p className="text-on-surface/60 text-sm">Currently accepting select projects for Q3 2026.</p>
             </div>
             <PillButton variant="secondary">Get in touch</PillButton>
@@ -94,7 +94,7 @@ export default function Home() {
             initialTier="high"
           >
             <span className="text-4xl">🌿</span>
-            <p className="text-sm font-medium italic opacity-80">"Structure is the canvas, organicism is the soul."</p>
+            <p className="text-sm font-medium italic opacity-80">&quot;Structure is the canvas, organicism is the soul.&quot;</p>
           </BentoCard>
 
           {/* Journal Teaser - Small Square */}

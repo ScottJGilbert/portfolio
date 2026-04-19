@@ -38,7 +38,7 @@ export default function AboutPage() {
               atmospheric sensibility.
             </p>
             <p>
-              By removing the noise of traditional "app" patterns—the endless borders, the pure greys,
+              By removing the noise of traditional &quot;app&quot; patterns—the endless borders, the pure greys,
               the sterile grids—we can create spaces that invite a slower, more editorial form of engagement.
             </p>
           </div>
