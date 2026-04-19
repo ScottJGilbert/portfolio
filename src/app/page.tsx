@@ -5,6 +5,9 @@ import { GhostBorder } from "@/components/ui/GhostBorder";
 import { BentoCard } from "@/components/ui/BentoCard";
 import { PillButton } from "@/components/ui/PillButton";
 import { EditorialChip } from "@/components/ui/EditorialChip";
+import { Modal } from "@/components/ui/Modal";
+import { Dropdown, DropdownItem, DropdownSeparator, DropdownLabel } from "@/components/ui/Dropdown";
+
 
 export default function Home() {
   return (
@@ -20,6 +23,37 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+          {/* Interactive Components Gallery */}
+          <BentoCard className="p-8 space-y-6 col-span-1 md:col-span-2">
+            <h2 className="font-bold text-xl">Interactive Components</h2>
+            <p className="text-sm opacity-70">Testing Radix-based interactive primitives with Tonal depth layers.</p>
+            <div className="flex flex-wrap gap-6 items-center pt-4">
+              <Modal
+                trigger={<PillButton>Open Modal</PillButton>}
+                title="Interactive Modal"
+                description="This modal uses Tier Highest surface and glassmorphic backdrop."
+              >
+                <div className="space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    The backdrop is blurred with <code>backdrop-blur-xl</code> and a semi-transparent surface.
+                    The content is wrapped in <code>AmbientShadow</code>.
+                  </p>
+                  <PillButton variant="secondary" className="w-full">Action Inside Modal</PillButton>
+                </div>
+              </Modal>
+
+              <Dropdown
+                trigger={<PillButton variant="secondary">Open Menu</PillButton>}
+              >
+                <DropdownLabel>Settings</DropdownLabel>
+                <DropdownItem>Profile</DropdownItem>
+                <DropdownItem>Account</DropdownItem>
+                <DropdownSeparator />
+                <DropdownItem className="text-destructive">Logout</DropdownItem>
+              </Dropdown>
+            </div>
+          </BentoCard>
+
           {/* Signature Components Gallery */}
           <BentoCard className="p-8 space-y-4 col-span-1 md:col-span-2">
             <h2 className="font-bold text-xl">Signature Brand Components</h2>
@@ -32,6 +66,7 @@ export default function Home() {
               <EditorialChip>Tailwind 4</EditorialChip>
             </div>
           </BentoCard>
+
 
           {/* Tier Base */}
           <TonalSurface tier="base" className="p-8 rounded-3xl space-y-4">
