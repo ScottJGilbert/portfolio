@@ -1,100 +1,117 @@
-import Image from "next/image";
-import { TonalSurface } from "@/components/ui/TonalSurface";
-import { AmbientShadow } from "@/components/ui/AmbientShadow";
-import { GhostBorder } from "@/components/ui/GhostBorder";
+import React from "react";
 import { BentoCard } from "@/components/ui/BentoCard";
 import { PillButton } from "@/components/ui/PillButton";
 import { EditorialChip } from "@/components/ui/EditorialChip";
-import { Modal } from "@/components/ui/Modal";
-import { Dropdown, DropdownItem, DropdownSeparator, DropdownLabel } from "@/components/ui/Dropdown";
-
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center min-h-screen bg-surface font-sans">
-      <main className="flex flex-1 w-full max-w-4xl flex-col items-center justify-center py-32 px-16 gap-12">
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight text-on-surface">
-            Tonal Base Verification
-          </h1>
-          <p className="text-lg text-on-surface/70">
-            Testing Organic Brutalism depth layers.
-          </p>
-        </div>
+    <div className="min-h-screen bg-surface font-sans text-on-surface selection:bg-primary/20">
+      <main className="max-w-7xl mx-auto px-6 py-20 md:py-32">
+        {/* The Assortment Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[minmax(200px,auto)]">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
-          {/* Interactive Components Gallery */}
-          <BentoCard className="p-8 space-y-6 col-span-1 md:col-span-2">
-            <h2 className="font-bold text-xl">Interactive Components</h2>
-            <p className="text-sm opacity-70">Testing Radix-based interactive primitives with Tonal depth layers.</p>
-            <div className="flex flex-wrap gap-6 items-center pt-4">
-              <Modal
-                trigger={<PillButton>Open Modal</PillButton>}
-                title="Interactive Modal"
-                description="This modal uses Tier Highest surface and glassmorphic backdrop."
-              >
-                <div className="space-y-4">
-                  <p className="text-sm text-muted-foreground">
-                    The backdrop is blurred with <code>backdrop-blur-xl</code> and a semi-transparent surface.
-                    The content is wrapped in <code>AmbientShadow</code>.
-                  </p>
-                  <PillButton variant="secondary" className="w-full">Action Inside Modal</PillButton>
-                </div>
-              </Modal>
-
-              <Dropdown
-                trigger={<PillButton variant="secondary">Open Menu</PillButton>}
-              >
-                <DropdownLabel>Settings</DropdownLabel>
-                <DropdownItem>Profile</DropdownItem>
-                <DropdownItem>Account</DropdownItem>
-                <DropdownSeparator />
-                <DropdownItem className="text-destructive">Logout</DropdownItem>
-              </Dropdown>
+          {/* Hero Introduction - Wide & Tall */}
+          <BentoCard
+            className="md:col-span-3 md:row-span-2 p-8 md:p-12 flex flex-col justify-end min-h-[400px]"
+            initialTier="high"
+          >
+            <div className="space-y-6 max-w-2xl">
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[0.9] text-on-surface">
+                Curating digital <br />
+                <span className="text-primary">experiences</span> through organic brutalism.
+              </h1>
+              <p className="text-lg md:text-xl text-on-surface/70 max-w-md font-medium leading-relaxed">
+                A synthesis of raw structural engineering and lush organicism.
+                Designing systems that feel atmospheric, editorial, and human.
+              </p>
+              <div className="pt-4">
+                <PillButton>Explore Work</PillButton>
+              </div>
             </div>
           </BentoCard>
 
-          {/* Signature Components Gallery */}
-          <BentoCard className="p-8 space-y-4 col-span-1 md:col-span-2">
-            <h2 className="font-bold text-xl">Signature Brand Components</h2>
-            <p className="text-sm opacity-70">Testing interaction and brand styling for the redesigned portfolio.</p>
-            <div className="flex flex-wrap gap-4 items-center pt-4">
-              <PillButton>Primary Action</PillButton>
-              <PillButton variant="secondary">Secondary Action</PillButton>
-              <EditorialChip>Design System</EditorialChip>
-              <EditorialChip>Next.js 16</EditorialChip>
-              <EditorialChip>Tailwind 4</EditorialChip>
+          {/* Profile/Status - Small Square */}
+          <BentoCard
+            className="md:col-span-1 p-8 flex flex-col justify-between"
+            initialTier="low"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
+              <span className="text-xs font-bold uppercase tracking-widest opacity-60">Available for work</span>
+            </div>
+            <div className="mt-8">
+              <p className="text-2xl font-bold leading-tight">Based in <br />Brooklyn, NY</p>
             </div>
           </BentoCard>
 
+          {/* Featured Skill - Tall */}
+          <BentoCard
+            className="md:col-span-1 md:row-span-2 p-8 flex flex-col justify-between"
+            initialTier="high"
+          >
+            <div className="space-y-4">
+              <EditorialChip>Core Focus</EditorialChip>
+              <h3 className="text-3xl font-bold tracking-tight">System Design</h3>
+            </div>
+            <p className="text-on-surface/70 text-sm leading-relaxed">
+              Building scalable design languages that bridge the gap between rigid logic and fluid aesthetics.
+            </p>
+          </BentoCard>
 
-          {/* Tier Base */}
-          <TonalSurface tier="base" className="p-8 rounded-3xl space-y-4">
-            <h2 className="font-semibold">Tier: Base</h2>
-            <p className="text-sm opacity-70">The primary canvas. Subtle ring inset for boundary softening.</p>
-          </TonalSurface>
+          {/* Toolset - Wide */}
+          <BentoCard
+            className="md:col-span-2 p-8 flex flex-col justify-between"
+            initialTier="low"
+          >
+            <div className="flex justify-between items-start">
+              <h3 className="text-xl font-bold tracking-tight">The Toolset</h3>
+              <EditorialChip>2026 Stack</EditorialChip>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-6">
+              {["Next.js 16", "Tailwind 4", "TypeScript", "Radix UI", "Framer Motion", "PostgreSQL"].map((tool) => (
+                <EditorialChip key={tool} className="text-[10px] uppercase tracking-wider">
+                  {tool}
+                </EditorialChip>
+              ))}
+            </div>
+          </BentoCard>
 
-          {/* Tier Low */}
-          <TonalSurface tier="low" className="p-8 rounded-3xl space-y-4">
-            <h2 className="font-semibold">Tier: Low</h2>
-            <p className="text-sm opacity-70">Subtle sectioning.- Used for background grouping.</p>
-          </TonalSurface>
+          {/* Call to Action - Wide & Asymmetrical Offset */}
+          <BentoCard
+            className="md:col-span-2 p-8 flex items-center gap-8 group-hover:translate-x-2 transition-transform duration-300"
+            initialTier="highest"
+          >
+            <div className="flex-1 space-y-2">
+              <h3 className="text-2xl font-bold tracking-tight">Let's build something atmospheric.</h3>
+              <p className="text-on-surface/60 text-sm">Currently accepting select projects for Q3 2026.</p>
+            </div>
+            <PillButton variant="secondary">Get in touch</PillButton>
+          </BentoCard>
 
-          {/* Tier High + Ambient Shadow */}
-          <AmbientShadow>
-            <TonalSurface tier="high" className="p-8 rounded-3xl space-y-4">
-              <h2 className="font-semibold">Tier: High + Ambient Shadow</h2>
-              <p className="text-sm opacity-70">Elevated container with the tinted high-blur shadow.</p>
-            </TonalSurface>
-          </AmbientShadow>
+          {/* Philosophy - Small Square */}
+          <BentoCard
+            className="md:col-span-1 p-8 flex flex-col justify-center items-center text-center space-y-4"
+            initialTier="high"
+          >
+            <span className="text-4xl">🌿</span>
+            <p className="text-sm font-medium italic opacity-80">"Structure is the canvas, organicism is the soul."</p>
+          </BentoCard>
 
-          {/* Tier Highest + Ghost Border */}
-          <GhostBorder>
-            <TonalSurface tier="highest" className="p-8 rounded-3xl space-y-4">
-              <h2 className="font-semibold">Tier: Highest + Ghost Border</h2>
-              <p className="text-sm opacity-70">Focus area with the accessibility boundary utility.</p>
-            </TonalSurface>
-          </GhostBorder>
+          {/* Journal Teaser - Small Square */}
+          <BentoCard
+            className="md:col-span-1 p-8 flex flex-col justify-between"
+            initialTier="low"
+          >
+            <EditorialChip>Journal</EditorialChip>
+            <div className="mt-4">
+              <p className="font-bold text-lg leading-tight">Thoughts on Tonal Surfaces</p>
+              <div className="mt-2 flex items-center gap-2 text-xs opacity-60">
+                <span>Apr 19, 2026</span>
+                <span>•</span>
+                <span>5 min read</span>
+              </div>
+            </div>
+          </BentoCard>
         </div>
       </main>
     </div>
