@@ -1,43 +1,26 @@
 @import "tailwindcss";
 
-@theme {
-  /* Monochromatic Green Palette */
-  --color-surface: #F8FAF8;
-  --color-surface-container-low: #F2F4F2;
-  --color-surface-container-high: #1A2E26;
-  --color-surface-container-highest: #FFFFFF;
-  --color-primary: #012D1D;
-  --color-primary-container: #1B4332;
-  --color-on-surface: #191C1B;
-  --color-outline-variant: #C1ECD4;
-
-  /* Typography */
-  --font-display: "Epilogue", "Inter", ui-sans-serif, system-ui;
-  --font-body: "Manrope", "Inter", ui-sans-serif, system-ui;
-}
-
-@utility ambient-shadow {
-  box-shadow: 0 40px 80px -20px rgba(25, 28, 27, 0.06);
-}
-
-@utility ghost-border {
-  border: 1px solid rgba(193, 236, 212, 0.2);
-}
-
 :root {
-  --background: var(--color-surface);
-  --foreground: var(--color-on-surface);
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body);
-  line-height: 1.6;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  letter-spacing: -0.02em;
-  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
 }
