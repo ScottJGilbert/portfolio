@@ -1,11 +1,6 @@
 import React from 'react';
 import { GhostBorder } from './GhostBorder';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { cn } from '@/lib/utils';
 
 interface PillButtonProps {
   children: React.ReactNode;
@@ -43,13 +38,16 @@ export const PillButton = ({
   };
 
   const content = (
-    <div className={cn(
-      'px-6 py-2.5 rounded-full transition-all duration-200 inline-flex items-center justify-center',
-      variants[variant],
-      className
-    )}>
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        'px-6 py-2.5 rounded-full transition-all duration-200 inline-flex items-center justify-center',
+        variants[variant],
+        className
+      )}>
       {children}
-    </div>
+    </button>
   );
 
   if (variant === 'secondary') {
