@@ -3,42 +3,7 @@ import Image from 'next/image';
 import { TonalSurface } from '@/components/ui/TonalSurface';
 import { EditorialChip } from '@/components/ui/EditorialChip';
 import { cn } from '@/lib/utils';
-
-interface Project {
-  title: string;
-  description: string;
-  category: string;
-  year: string;
-  image: string;
-  tags: string[];
-}
-
-const PROJECTS: Project[] = [
-  {
-    title: 'Atmospheric Architectures',
-    description: 'An exploration of structural honesty and organic forms in digital space, focusing on the intersection of brutalist layouts and lush, atmospheric detailing.',
-    category: 'Digital Design',
-    year: '2026',
-    image: '/api/placeholder/1600/900',
-    tags: ['Next.js 16', 'Tailwind 4', 'Three.js'],
-  },
-  {
-    title: 'The Tonal System',
-    description: 'A comprehensive study on monochromatic depth and surface hierarchies, replacing traditional borders with tonal shifts to create intuitive visual boundaries.',
-    category: 'Design System',
-    year: '2025',
-    image: '/api/placeholder/1600/900',
-    tags: ['TypeScript', 'Figma', 'CSS Architecture'],
-  },
-  {
-    title: 'Organic Brutalism',
-    description: 'A conceptual framework for the modern web that balances raw, unadorned layouts with a high-end editorial sensibility and generous breathing room.',
-    category: 'Conceptual',
-    year: '2024',
-    image: '/api/placeholder/1600/900',
-    tags: ['Editorial', 'UX Research', 'Typography'],
-  },
-];
+import { PROJECTS } from '@/data/projects';
 
 export default function ProjectsPage() {
   return (
@@ -47,8 +12,8 @@ export default function ProjectsPage() {
 
         {/* Header Section */}
         <section className="w-full max-w-4xl px-6 py-16 md:py-24 flex flex-col items-start">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-primary mb-8 leading-[1.1]">
-            Selected <br /> Works
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-primary mb-8 leading-[1.1] max-w-fit">
+            Selected Works
           </h1>
           <p className="text-lg md:text-xl text-on-surface/80 max-w-2xl leading-relaxed font-medium">
             A curated collection of projects exploring the balance between engineered structure and ephemeral atmosphere.
@@ -70,7 +35,7 @@ export default function ProjectsPage() {
                 index % 2 === 0 ? "text-left" : "text-right"
               )}>
                 {/* Metadata */}
-                <div className="flex flex-wrap gap-2" style={{ justifyContent: index % 2 === 0 ? 'flex-start' : 'flex-end' }}>
+                <div className={cn("flex flex-wrap gap-2", index % 2 === 0 ? "justify-start" : "justify-end")}>
                   <EditorialChip>{project.category}</EditorialChip>
                   <span className="text-xs font-medium uppercase tracking-wider text-on-surface/60 px-3 py-1">
                     {project.year}
@@ -88,7 +53,7 @@ export default function ProjectsPage() {
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2" style={{ justifyContent: index % 2 === 0 ? 'flex-start' : 'flex-end' }}>
+                <div className={cn("flex flex-wrap gap-2", index % 2 === 0 ? "justify-start" : "justify-end")}>
                   {project.tags.map(tag => (
                     <EditorialChip key={tag} className="opacity-80 hover:opacity-100 transition-opacity cursor-default">
                       {tag}
@@ -104,6 +69,8 @@ export default function ProjectsPage() {
                   alt={project.title}
                   fill
                   className="object-cover"
+                  priority={index === 0}
+                  sizes="100vw"
                 />
               </div>
             </section>
