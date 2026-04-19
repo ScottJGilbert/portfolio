@@ -15,7 +15,9 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="p-4">
           <ThemeToggle />
         </div>
-        <main id="main-content">{children}</main>
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
         <Footer />
       </div>
     </div>
