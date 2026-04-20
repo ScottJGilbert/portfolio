@@ -1,18 +1,15 @@
-import Link from "next/link";
-import { coreNav } from "@/data/navigation";
+import { coreNav, externalNav } from "@/data/navigation";
+import { ExternalLinksGroup } from "./ExternalLinksGroup";
+import { SidebarNavGroup } from "./SidebarNavGroup";
+import { SidebarPanel } from "./SidebarPanel";
 
 export function DesktopSidebar() {
   return (
-    <aside className="hidden md:block w-64 p-6" aria-label="Desktop Navigation">
-      <nav aria-label="Desktop Navigation">
-        <ul className="space-y-3">
-          {coreNav.map((item) => (
-            <li key={item.href}>
-              <Link href={item.href}>{item.label}</Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </aside>
+    <SidebarPanel className="hidden md:block w-72 p-6" aria-label="Desktop Navigation">
+      <div className="space-y-8">
+        <SidebarNavGroup ariaLabel="Desktop Navigation" items={coreNav} />
+        <ExternalLinksGroup ariaLabel="Desktop External Links" items={externalNav} />
+      </div>
+    </SidebarPanel>
   );
 }

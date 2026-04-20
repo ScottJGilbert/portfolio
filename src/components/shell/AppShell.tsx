@@ -7,7 +7,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export function AppShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen md:grid md:grid-cols-[16rem_1fr]">
+    <div className="min-h-screen md:grid md:grid-cols-[18rem_1fr]">
       <SkipLink />
       <DesktopSidebar />
       <div className="min-w-0">
