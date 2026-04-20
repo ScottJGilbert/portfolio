@@ -8,6 +8,8 @@ describe("projects and blog", () => {
     expect(screen.getByRole("heading", { name: /projects/i })).toBeInTheDocument();
     expect(screen.getAllByText(/case study/i).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("heading", { name: /^outcome$/i }).length).toBeGreaterThan(0);
+    expect(screen.getByText(/standardized pages around reusable primitives/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/80% faster/i).length).toBeGreaterThan(0);
   });
 
   it("renders blog list with category and date", () => {
@@ -16,5 +18,7 @@ describe("projects and blog", () => {
     expect(screen.getAllByText(/engineering notes/i).length).toBeGreaterThan(0);
     expect(screen.getByRole("heading", { name: /^featured essay$/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /^archive$/i })).toBeInTheDocument();
+    expect(screen.getByText(/featured essay\s*·\s*2026-04-10\s*·\s*7 min/i)).toBeInTheDocument();
+    expect(screen.getByText(/translating infrastructure complexity/i)).toBeInTheDocument();
   });
 });
