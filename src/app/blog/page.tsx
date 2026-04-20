@@ -1,4 +1,5 @@
 import { EditorialListItem } from "@/components/primitives/EditorialListItem";
+import { MotionSection } from "@/components/motion/MotionSection";
 import { PageIntro } from "@/components/primitives/PageIntro";
 import { SectionHeader } from "@/components/primitives/SectionHeader";
 import { blogPosts, featuredEssay } from "@/data/blog";
@@ -10,7 +11,7 @@ export default function BlogPage() {
         title="Blog"
         summary="Long-form essays and engineering notes on system clarity, delivery rigor, and product architecture."
       />
-      <section className="space-y-4">
+      <MotionSection className="space-y-4" delay={0.05}>
         <SectionHeader
           title="Featured Essay"
           subtitle="One in-depth piece focused on systems thinking and interface decisions."
@@ -23,8 +24,8 @@ export default function BlogPage() {
           readingTime={featuredEssay.readingTime}
           variant="project"
         />
-      </section>
-      <section className="space-y-4">
+      </MotionSection>
+      <MotionSection className="space-y-4" delay={0.1}>
         <SectionHeader
           title="Archive"
           subtitle="Field notes and implementation reflections from recent delivery cycles."
@@ -39,9 +40,9 @@ export default function BlogPage() {
               category={post.category}
               readingTime={post.readingTime}
             />
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+      </MotionSection>
     </div>
   );
 }

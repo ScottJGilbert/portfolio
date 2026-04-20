@@ -1,6 +1,7 @@
 import { BentoCard } from "@/components/primitives/BentoCard";
 import { Button } from "@/components/primitives/Button";
 import { EditorialListItem } from "@/components/primitives/EditorialListItem";
+import { MotionSection } from "@/components/motion/MotionSection";
 import { PageIntro } from "@/components/primitives/PageIntro";
 import { SectionHeader } from "@/components/primitives/SectionHeader";
 import { StatPill } from "@/components/primitives/StatPill";
@@ -12,7 +13,7 @@ export default function HomePage() {
       <PageIntro title={homeContent.title} summary={homeContent.summary} />
       <Button variant="primary">{homeContent.cta}</Button>
 
-      <section className="space-y-4">
+      <MotionSection className="space-y-4" delay={0.05}>
         <SectionHeader
           title={homeContent.selectedWorkHeading}
           subtitle={homeContent.selectedWorkSubtitle}
@@ -31,18 +32,18 @@ export default function HomePage() {
             />
           ))}
         </div>
-      </section>
+      </MotionSection>
 
-      <section className="space-y-4">
+      <MotionSection className="space-y-4" delay={0.1}>
         <SectionHeader title={homeContent.impactHeading} subtitle={homeContent.impactSubtitle} />
         <div className="flex flex-wrap gap-3">
           {homeContent.metrics.map((metric) => (
             <StatPill key={metric.label} label={metric.label} value={metric.value} />
           ))}
         </div>
-      </section>
+      </MotionSection>
 
-      <section className="space-y-4">
+      <MotionSection className="space-y-4" delay={0.15}>
         <SectionHeader title={homeContent.highlightsHeading} subtitle="" />
         <div className="grid gap-4 md:grid-cols-3">
           {homeContent.highlights.map((item) => (
@@ -51,7 +52,7 @@ export default function HomePage() {
             </BentoCard>
           ))}
         </div>
-      </section>
+      </MotionSection>
     </div>
   );
 }

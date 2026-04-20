@@ -1,4 +1,5 @@
 import { EditorialListItem } from "@/components/primitives/EditorialListItem";
+import { MotionSection } from "@/components/motion/MotionSection";
 import { PageIntro } from "@/components/primitives/PageIntro";
 import { SectionHeader } from "@/components/primitives/SectionHeader";
 import { StatPill } from "@/components/primitives/StatPill";
@@ -12,7 +13,7 @@ export default function ProjectsPage() {
         title="Projects"
         summary="Case studies focused on challenge framing, implementation strategy, and measurable outcomes."
       />
-      <section className="space-y-4">
+      <MotionSection className="space-y-4" delay={0.05}>
         <SectionHeader
           title="Case Studies"
           subtitle="Each study captures the problem context, delivery approach, and post-launch effect."
@@ -48,8 +49,8 @@ export default function ProjectsPage() {
             </article>
           ))}
         </div>
-      </section>
-      <section className="space-y-4">
+      </MotionSection>
+      <MotionSection className="space-y-4" delay={0.1}>
         <SectionHeader
           title="Outcome Signals"
           subtitle="Cross-project indicators used to evaluate reliability, speed, and editorial quality."
@@ -65,7 +66,7 @@ export default function ProjectsPage() {
             ))
           )}
         </div>
-      </section>
+      </MotionSection>
     </div>
   );
 }
