@@ -69,4 +69,25 @@ describe("primitives", () => {
       "https://example.com"
     );
   });
+
+  it("enforces noopener and noreferrer on external social links", () => {
+    render(
+      <SocialLinkChip
+        href="https://example.com"
+        label="GitHub"
+        rel="author"
+        target="_blank"
+      />
+    );
+
+    const socialLink = screen.getByRole("link", { name: "GitHub" });
+    const relTokens = socialLink
+      .getAttribute("rel")
+      ?.split(/\s+/)
+      .filter(Boolean);
+
+    expect(relTokens).toEqual(
+      expect.arrayContaining(["author", "noopener", "noreferrer"])
+    );
+  });
 });

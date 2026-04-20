@@ -14,7 +14,22 @@ export function SocialLinkChip({
   target,
   ...props
 }: SocialLinkChipProps) {
-  const secureRel = target === "_blank" ? rel ?? "noreferrer" : rel;
+  const secureRel =
+    target === "_blank"
+      ? (() => {
+          const relTokens = (rel ?? "").split(/\s+/).filter(Boolean);
+          const normalizedTokens = new Set(relTokens.map((token) => token.toLowerCase()));
+
+          if (!normalizedTokens.has("noopener")) {
+            relTokens.push("noopener");
+          }
+          if (!normalizedTokens.has("noreferrer")) {
+            relTokens.push("noreferrer");
+          }
+
+          return relTokens.join(" ");
+        })()
+      : rel;
 
   return (
     <a
