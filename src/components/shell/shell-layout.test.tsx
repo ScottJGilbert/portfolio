@@ -58,4 +58,18 @@ describe("AppShell navigation chrome", () => {
       expect(within(mobileExternalNav).queryByRole("link", { name: `${item.label} ↗` })).not.toBeInTheDocument();
     }
   });
+
+  it("renders three-column footer headings", () => {
+    render(
+      <AppShell>
+        <div>content</div>
+      </AppShell>
+    );
+
+    const footer = screen.getByRole("contentinfo");
+
+    expect(within(footer).getByRole("heading", { name: "Sitemap" })).toBeInTheDocument();
+    expect(within(footer).getByRole("heading", { name: "Legal" })).toBeInTheDocument();
+    expect(within(footer).getByRole("heading", { name: "Elsewhere" })).toBeInTheDocument();
+  });
 });

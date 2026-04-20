@@ -1,16 +1,14 @@
-import Link from "next/link";
-import { utilityNav } from "@/data/navigation";
+import { footerColumns } from "@/data/navigation";
+import { FooterColumn } from "./FooterColumn";
 
 export function Footer() {
   return (
-    <footer className="p-6" role="contentinfo">
-      <ul className="flex gap-4 flex-wrap">
-        {utilityNav.map((item) => (
-          <li key={item.href}>
-            <Link href={item.href}>{item.label}</Link>
-          </li>
+    <footer className="mt-12 p-6 md:p-8" role="contentinfo">
+      <div className="grid gap-6 md:grid-cols-3">
+        {footerColumns.map((column) => (
+          <FooterColumn key={column.title} title={column.title} links={column.links} />
         ))}
-      </ul>
+      </div>
     </footer>
   );
 }
