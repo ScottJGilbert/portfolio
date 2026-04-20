@@ -4,6 +4,20 @@ import { externalNav } from "@/data/navigation";
 import { AppShell } from "./AppShell";
 
 describe("AppShell navigation chrome", () => {
+  it("applies responsive shell visibility classes", () => {
+    render(
+      <AppShell>
+        <div>content</div>
+      </AppShell>
+    );
+
+    const desktopSidebar = screen.getByRole("complementary", { name: "Desktop Navigation" });
+    const mobileHeader = screen.getByRole("banner", { name: "Mobile Navigation" });
+
+    expect(desktopSidebar).toHaveClass("hidden", "md:block");
+    expect(mobileHeader).toHaveClass("md:hidden");
+  });
+
   it("renders external links in desktop shell", () => {
     render(
       <AppShell>
