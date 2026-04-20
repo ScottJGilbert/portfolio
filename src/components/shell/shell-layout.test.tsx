@@ -4,6 +4,18 @@ import { externalNav } from "@/data/navigation";
 import { AppShell } from "./AppShell";
 
 describe("AppShell navigation chrome", () => {
+  it("exposes named shell landmarks", () => {
+    render(
+      <AppShell>
+        <div>content</div>
+      </AppShell>
+    );
+
+    expect(screen.getByRole("complementary", { name: "Desktop Navigation" })).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "Desktop Navigation" })).toBeInTheDocument();
+    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+  });
+
   it("applies responsive shell visibility classes", () => {
     render(
       <AppShell>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { coreNav, utilityNav } from "@/data/navigation";
+import { coreNav, externalNav, footerColumns, utilityNav } from "@/data/navigation";
 import { themeTokens } from "@/lib/design/tokens";
 
 describe("smoke", () => {
@@ -17,5 +17,10 @@ describe("smoke", () => {
       "/legal",
       "/attributions",
     ]);
+  });
+
+  it("keeps shell contracts wired", () => {
+    expect(externalNav).toHaveLength(4);
+    expect(footerColumns).toHaveLength(3);
   });
 });
