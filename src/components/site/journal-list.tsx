@@ -23,7 +23,7 @@ export function JournalList({ content }: JournalListProps) {
             <li key={entry.index}>
               <Link
                 href={entry.href}
-                className="group flex flex-col gap-4 rounded-xl px-4 py-6 transition-colors hover:bg-surface-alt md:flex-row md:items-center md:justify-between md:px-6 md:py-8"
+                className="group flex flex-col gap-4 rounded-xl px-4 py-6 transition-colors hover:bg-surface-alt active:bg-surface-alt/80 md:flex-row md:items-center md:justify-between md:px-6 md:py-8"
               >
                 <div className="flex items-center gap-6 md:gap-12">
                   <span className="text-sm font-bold tabular-nums text-foreground/30 transition-colors group-hover:text-primary">
