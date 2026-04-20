@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Headphones, Network, Quote } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
@@ -87,12 +86,14 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
                 </div>
               </div>
               <div className="h-48 w-full overflow-hidden rounded-lg md:w-48 md:shrink-0">
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element -- intentional plain image to avoid unoptimized next/image usage */}
+                <img
                   src={content.beyondCode.image.src}
                   alt={content.beyondCode.image.alt}
                   width={192}
                   height={192}
-                  unoptimized
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover"
                 />
               </div>

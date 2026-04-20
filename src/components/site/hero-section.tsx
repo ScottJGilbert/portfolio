@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import type { HomeHeroContent } from "@/lib/site-content";
 
 interface HeroSectionProps {
@@ -18,12 +18,12 @@ export function HeroSection({ content }: HeroSectionProps) {
         <p className="max-w-2xl text-lg font-medium leading-relaxed text-muted md:text-2xl">
           {content.description}
         </p>
-        <Button
-          size="lg"
-          className="rounded-full px-8 py-4 text-sm font-bold uppercase tracking-[0.16em] shadow-sm"
+        <Link
+          href="/about"
+          className="inline-flex items-center justify-center gap-[var(--space-xs)] rounded-full border border-transparent bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.16em] text-primary-foreground shadow-sm transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           {content.ctaLabel}
-        </Button>
+        </Link>
       </div>
     </section>
   );

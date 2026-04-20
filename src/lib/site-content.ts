@@ -222,9 +222,9 @@ export const homeContent: HomeContent = {
     name: "Scott Gilbert",
     statement: "© 2024 Scott Gilbert. Built for Systems.",
     links: [
-      { label: "Privacy", href: "#" },
-      { label: "Accessibility", href: "#" },
-      { label: "Colophon", href: "#" },
+      { label: "Privacy", href: "/about#privacy" },
+      { label: "Accessibility", href: "/about#accessibility" },
+      { label: "Colophon", href: "/about#colophon" },
     ],
   },
 };
