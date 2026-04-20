@@ -69,6 +69,7 @@ export function MobileNav({
           </p>
         </div>
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <IconButton
             icon={isOpen ? <X className="size-4" /> : <Menu className="size-4" />}
             label={isOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -133,10 +134,6 @@ export function MobileNav({
             </ul>
           </div>
 
-          <div className="flex items-center justify-between border-t border-border/60 pt-4">
-            <p className="text-sm text-foreground/70">Appearance</p>
-            <ThemeToggle />
-          </div>
         </div>
       ) : null}
     </nav>
