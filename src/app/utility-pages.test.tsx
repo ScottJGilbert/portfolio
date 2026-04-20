@@ -6,12 +6,31 @@ describe("utility pages", () => {
   it("renders legal page with policy sections", () => {
     render(<LegalPage />);
     expect(screen.getByRole("heading", { name: /legal/i })).toBeInTheDocument();
-    expect(screen.getByText(/privacy/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /privacy and data handling/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /content usage and licensing/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /contact and policy updates/i }),
+    ).toBeInTheDocument();
   });
 
-  it("renders attributions with source list", () => {
+  it("renders attributions with source list and source links", () => {
     render(<AttributionsPage />);
     expect(screen.getByRole("heading", { name: /attributions/i })).toBeInTheDocument();
     expect(screen.getByRole("list")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /next\.js documentation/i })).toHaveAttribute(
+      "href",
+      "https://nextjs.org/docs",
+    );
+    expect(
+      screen.getByRole("link", { name: /tailwind css documentation/i }),
+    ).toHaveAttribute("href", "https://tailwindcss.com/docs");
+    expect(screen.getByRole("link", { name: /heroicons/i })).toHaveAttribute(
+      "href",
+      "https://heroicons.com",
+    );
   });
 });
