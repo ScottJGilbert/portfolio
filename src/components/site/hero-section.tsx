@@ -11,7 +11,7 @@ export function HeroSection({ content }: HeroSectionProps) {
       <div className="max-w-3xl space-y-8">
         <h1
           id="home-hero-heading"
-          className="text-5xl font-extrabold leading-[1] tracking-tight text-foreground md:text-[5rem] md:leading-[0.9]"
+          className="text-5xl font-extrabold leading-[1] tracking-tighter text-foreground md:text-[5rem] md:leading-[0.9]"
         >
           {content.title}
         </h1>
@@ -20,7 +20,7 @@ export function HeroSection({ content }: HeroSectionProps) {
         </p>
         <Link
           href="/about"
-          className="inline-flex items-center justify-center gap-[var(--space-xs)] rounded-full border border-transparent bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.16em] text-primary-foreground shadow-sm transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="inline-flex items-center justify-center gap-[var(--space-xs)] rounded-full border border-transparent bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.16em] text-primary-foreground shadow-xl shadow-primary/10 transition-all hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           {content.ctaLabel}
         </Link>

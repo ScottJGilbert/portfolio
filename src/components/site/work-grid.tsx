@@ -21,7 +21,7 @@ export function WorkGrid({ content }: WorkGridProps) {
           action={
             <Link
               href={content.archiveHref}
-              className="text-sm font-bold uppercase tracking-[0.16em] text-primary transition-opacity hover:opacity-80"
+              className="text-sm font-bold uppercase tracking-[0.16em] text-primary transition-colors hover:underline hover:underline-offset-8"
             >
               {content.archiveLabel}
             </Link>

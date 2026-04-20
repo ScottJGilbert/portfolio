@@ -30,10 +30,10 @@ export function NavItem({
       scroll={scroll}
       aria-current={active ? "page" : undefined}
       className={joinClassNames(
-        "inline-flex items-center gap-[var(--space-xs)] rounded-md border px-[var(--space-sm)] py-[var(--space-xs)] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "inline-flex items-center gap-[var(--space-sm)] rounded-lg px-[var(--space-xs)] py-[var(--space-xs)] text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         active
-          ? "border-transparent bg-accent text-accent-foreground"
-          : "border-transparent text-muted hover:bg-surface-alt hover:text-foreground",
+          ? "font-bold text-primary"
+          : "text-foreground/65 hover:bg-surface-alt hover:text-foreground",
         className,
       )}
       {...props}

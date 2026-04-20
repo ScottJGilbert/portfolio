@@ -20,7 +20,12 @@ export default function SiteLayout({
         siteTagline={siteTagline}
       />
       <div className="flex min-h-screen min-w-0 flex-1 flex-col">
-        <MobileNav navItems={navItems} externalLinks={externalLinks} siteTitle={siteTitle} />
+        <MobileNav
+          navItems={navItems}
+          externalLinks={externalLinks}
+          siteTitle={siteTitle}
+          siteTagline={siteTagline}
+        />
         <TopActionBar externalLinks={externalLinks} />
         <main className="flex-1">{children}</main>
       </div>

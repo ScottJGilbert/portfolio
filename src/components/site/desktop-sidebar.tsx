@@ -50,37 +50,41 @@ export function DesktopSidebar({
 
   return (
     <aside
-      className="hidden w-72 shrink-0 border-r border-border bg-surface/70 px-6 py-8 lg:flex lg:flex-col"
+      className="hidden w-72 shrink-0 border-r border-border bg-surface/70 px-8 py-8 backdrop-blur-xl lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:gap-12"
       aria-label="Desktop sidebar"
     >
-      <div className="space-y-[var(--space-xs)]">
-        <Link href="/" className="text-lg font-semibold tracking-tight">
+      <div className="space-y-1">
+        <Link href="/" className="text-xl font-bold tracking-tight text-foreground">
           {siteTitle}
         </Link>
-        <p className="text-sm text-muted">{siteTagline}</p>
+        <p className="text-xs font-medium uppercase tracking-[0.15em] text-foreground/50">{siteTagline}</p>
       </div>
 
-      <nav className="mt-[var(--space-xl)] flex flex-col gap-[var(--space-xs)]" aria-label="Primary">
-        {navItems.map((item) => {
-          const Icon = navIconMap[item.icon];
+      <nav className="flex flex-col gap-6" aria-label="Primary">
+        <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-muted">Navigation</p>
+        <ul className="flex flex-col gap-2">
+          {navItems.map((item) => {
+            const Icon = navIconMap[item.icon];
 
-          return (
-            <NavItem
-              key={item.href}
-              href={item.href}
-              active={isItemActive(pathname, item.href)}
-              className="w-full justify-start"
-              icon={<Icon className="size-4" />}
-            >
-              {item.label}
-            </NavItem>
-          );
-        })}
+            return (
+              <li key={item.href}>
+                <NavItem
+                  href={item.href}
+                  active={isItemActive(pathname, item.href)}
+                  className="w-full justify-start"
+                  icon={<Icon className="size-4" />}
+                >
+                  {item.label}
+                </NavItem>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
 
-      <div className="mt-auto space-y-[var(--space-sm)]">
-        <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">Connect</p>
-        <ul className="flex flex-wrap gap-[var(--space-xs)]">
+      <div className="mt-auto space-y-6">
+        <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-muted">Connect</p>
+        <ul className="space-y-4">
           {externalLinks.map((link) => {
             const Icon = externalIconMap[link.icon];
 
@@ -90,10 +94,11 @@ export function DesktopSidebar({
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex size-9 items-center justify-center rounded-md border border-border bg-surface text-foreground transition-colors hover:bg-surface-alt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  className="inline-flex items-center gap-3 text-sm text-foreground/65 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   aria-label={link.label}
                 >
                   <Icon className="size-4" aria-hidden />
+                  <span>{link.label}</span>
                 </a>
               </li>
             );

@@ -12,8 +12,8 @@ export interface SectionHeadingProps extends HTMLAttributes<HTMLDivElement> {
 
 const titleClassName: Record<HeadingLevel, string> = {
   h1: "text-[length:var(--text-heading)] font-semibold tracking-tight",
-  h2: "text-2xl font-semibold tracking-tight",
-  h3: "text-xl font-semibold tracking-tight",
+  h2: "text-2xl font-bold tracking-tight",
+  h3: "text-xl font-bold tracking-tight",
 };
 
 const joinClassNames = (...classNames: Array<string | undefined>) =>
@@ -40,7 +40,7 @@ export function SectionHeading({
     >
       <div className="space-y-[var(--space-xs)]">
         {eyebrow ? (
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
+          <p className="text-[length:var(--text-eyebrow)] font-bold uppercase tracking-[var(--tracking-eyebrow)] text-primary">
             {eyebrow}
           </p>
         ) : null}
