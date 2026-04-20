@@ -32,8 +32,8 @@ export function NavItem({
       className={joinClassNames(
         "inline-flex items-center gap-[var(--space-sm)] rounded-lg px-[var(--space-xs)] py-[var(--space-xs)] text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         active
-          ? "font-bold text-primary"
-          : "text-foreground/65 hover:bg-surface-alt hover:text-foreground",
+          ? "bg-primary-container/70 font-semibold text-primary"
+          : "text-muted hover:bg-surface-alt/70 hover:text-foreground/85",
         className,
       )}
       {...props}

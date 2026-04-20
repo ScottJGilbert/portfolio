@@ -12,9 +12,9 @@ const chipBaseClassName =
   "inline-flex items-center rounded-full border font-medium leading-none";
 
 const chipVariantClassName: Record<ChipVariant, string> = {
-  neutral: "border-border bg-surface-alt text-foreground",
-  accent: "border-transparent bg-accent text-accent-foreground",
-  outline: "border-border bg-transparent text-muted",
+  neutral: "border-outline-ghost bg-surface-alt/80 text-foreground/85",
+  accent: "border-primary/20 bg-primary-container/85 text-primary",
+  outline: "border-outline-ghost bg-surface/55 text-muted",
 };
 
 const chipSizeClassName: Record<ChipSize, string> = {

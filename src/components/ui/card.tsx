@@ -8,11 +8,11 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   padding?: CardPadding;
 }
 
-const cardBaseClassName = "rounded-xl border border-border text-foreground";
+const cardBaseClassName = "rounded-xl border border-outline-ghost text-foreground";
 
 const cardVariantClassName: Record<CardVariant, string> = {
-  surface: "bg-surface",
-  alt: "bg-surface-alt",
+  surface: "bg-surface/90 shadow-ambient backdrop-blur supports-[backdrop-filter]:bg-surface/80",
+  alt: "bg-surface-alt/85 shadow-ambient backdrop-blur supports-[backdrop-filter]:bg-surface-alt/75",
   outline: "bg-transparent",
 };
 

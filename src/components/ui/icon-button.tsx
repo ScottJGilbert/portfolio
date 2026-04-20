@@ -16,10 +16,11 @@ const iconButtonBaseClassName =
 
 const iconButtonVariantClassName: Record<ButtonVariant, string> = {
   primary:
-    "border-transparent bg-primary text-primary-foreground hover:opacity-90",
-  secondary: "border-border bg-surface text-foreground hover:bg-surface-alt",
+    "border-primary/25 bg-gradient-to-b from-primary to-primary-container text-primary-foreground hover:brightness-105",
+  secondary:
+    "border-outline-ghost bg-surface/75 text-primary backdrop-blur hover:bg-primary-container/50",
   ghost:
-    "border-transparent bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground",
+    "border-transparent bg-transparent text-foreground/75 hover:border-outline-ghost hover:bg-surface-alt/65 hover:text-foreground",
 };
 
 const iconButtonSizeClassName: Record<IconButtonSize, string> = {

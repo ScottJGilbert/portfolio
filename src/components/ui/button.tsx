@@ -13,10 +13,11 @@ const buttonBaseClassName =
 
 const buttonVariantClassName: Record<ButtonVariant, string> = {
   primary:
-    "border border-transparent bg-primary text-primary-foreground hover:opacity-90",
-  secondary: "border border-border bg-surface text-foreground hover:bg-surface-alt",
+    "border border-primary/25 bg-gradient-to-b from-primary to-primary-container text-primary-foreground hover:brightness-105",
+  secondary:
+    "border border-outline-ghost bg-transparent text-primary hover:bg-primary-container/45",
   ghost:
-    "border border-transparent bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground",
+    "border border-transparent bg-transparent text-foreground/75 hover:border-outline-ghost hover:bg-surface-alt/65 hover:text-foreground",
 };
 
 const buttonSizeClassName: Record<ButtonSize, string> = {

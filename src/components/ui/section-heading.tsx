@@ -40,14 +40,14 @@ export function SectionHeading({
     >
       <div className="space-y-[var(--space-xs)]">
         {eyebrow ? (
-          <p className="text-[length:var(--text-eyebrow)] font-bold uppercase tracking-[var(--tracking-eyebrow)] text-primary">
+          <p className="text-[length:var(--text-eyebrow)] font-bold uppercase tracking-[var(--tracking-eyebrow)] text-primary/80">
             {eyebrow}
           </p>
         ) : null}
         <TitleTag className={joinClassNames(titleClassName[level], "text-foreground")}>
           {title}
         </TitleTag>
-        {description ? <p className="max-w-prose text-sm text-muted">{description}</p> : null}
+        {description ? <p className="max-w-prose text-sm text-foreground/70">{description}</p> : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
     </header>
