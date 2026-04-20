@@ -13,8 +13,12 @@ describe("utility pages", () => {
       screen.getByRole("heading", { name: /content usage and licensing/i }),
     ).toBeInTheDocument();
     expect(
+      screen.getByRole("heading", { name: /accuracy and availability/i }),
+    ).toBeInTheDocument();
+    expect(
       screen.getByRole("heading", { name: /contact and policy updates/i }),
     ).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(4);
   });
 
   it("renders attributions with source list and source links", () => {
