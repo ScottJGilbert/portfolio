@@ -85,7 +85,7 @@ export function MobileNav({
       {isOpen ? (
         <div
           id="mobile-site-menu"
-          className="space-y-8 border-t border-outline-ghost bg-surface/90 px-6 py-8 shadow-ambient backdrop-blur supports-[backdrop-filter]:bg-surface/80"
+          className="space-y-8 border-t border-outline-ghost bg-surface/90 px-6 py-8 backdrop-blur supports-[backdrop-filter]:bg-surface/80"
         >
           <div className="space-y-4">
             <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-muted">Navigation</p>

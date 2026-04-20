@@ -15,9 +15,9 @@ const buttonVariantClassName: Record<ButtonVariant, string> = {
   primary:
     "border border-primary/25 bg-gradient-to-b from-primary to-primary-container text-primary-foreground hover:brightness-105",
   secondary:
-    "border border-outline-ghost bg-transparent text-primary hover:bg-primary-container/45",
+    "border border-outline-ghost bg-transparent text-primary hover:bg-primary-container/55",
   ghost:
-    "border border-transparent bg-transparent text-foreground/75 hover:border-outline-ghost hover:bg-surface-alt/65 hover:text-foreground",
+    "border border-transparent bg-transparent text-foreground/75 hover:border-outline-ghost/80 hover:bg-surface-alt/75 hover:text-foreground",
 };
 
 const buttonSizeClassName: Record<ButtonSize, string> = {

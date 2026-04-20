@@ -33,7 +33,7 @@ export function TopActionBar({ externalLinks }: TopActionBarProps) {
             href={link.href}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-[var(--space-2xs)] rounded-md border border-outline-ghost bg-surface/75 px-[var(--space-xs)] py-[var(--space-2xs)] text-sm text-foreground/90 backdrop-blur transition-colors hover:bg-surface-alt/80 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex items-center gap-[var(--space-2xs)] rounded-md border border-outline-ghost bg-surface/75 px-[var(--space-xs)] py-[var(--space-2xs)] text-sm text-foreground/90 backdrop-blur transition-colors hover:bg-surface-alt/75 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <Icon className="size-4" aria-hidden />
             <span>{link.label}</span>

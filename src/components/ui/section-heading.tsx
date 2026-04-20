@@ -47,7 +47,7 @@ export function SectionHeading({
         <TitleTag className={joinClassNames(titleClassName[level], "text-foreground")}>
           {title}
         </TitleTag>
-        {description ? <p className="max-w-prose text-sm text-foreground/70">{description}</p> : null}
+        {description ? <p className="max-w-prose text-sm text-foreground/75">{description}</p> : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
     </header>
