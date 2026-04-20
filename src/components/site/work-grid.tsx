@@ -35,7 +35,7 @@ export function WorkGrid({ content }: WorkGridProps) {
               <Card
                 variant="surface"
                 padding="none"
-                className="overflow-hidden border-border/60 transition-colors hover:bg-surface-alt"
+                className="overflow-hidden border-outline-ghost/80 bg-surface/85 transition-colors hover:bg-surface-alt/80"
               >
                 <div className="aspect-video overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element -- intentional plain image to avoid unoptimized next/image usage */}
@@ -53,7 +53,7 @@ export function WorkGrid({ content }: WorkGridProps) {
                   <div className="flex items-start justify-between gap-4">
                     <h3 className="text-2xl font-bold leading-tight">{project.title}</h3>
                     <ArrowUpRight
-                      className="mt-1 size-5 shrink-0 text-muted transition-colors group-hover:text-primary"
+                      className="mt-1 size-5 shrink-0 text-muted/85 transition-colors group-hover:text-primary"
                       aria-hidden
                     />
                   </div>

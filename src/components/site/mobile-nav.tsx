@@ -56,7 +56,7 @@ export function MobileNav({
 
   return (
     <nav
-      className="sticky top-0 z-40 border-b border-border/60 bg-surface/90 backdrop-blur lg:hidden"
+      className="sticky top-0 z-40 border-b border-outline-ghost bg-surface/85 shadow-ambient backdrop-blur-xl supports-[backdrop-filter]:bg-surface/75 lg:hidden"
       aria-label="Mobile navigation"
     >
       <div className="flex h-16 items-center justify-between gap-[var(--space-sm)] px-6">
@@ -64,7 +64,7 @@ export function MobileNav({
           <Link href="/" className="text-sm font-bold tracking-tight">
             {siteTitle}
           </Link>
-          <p className="text-[10px] font-medium uppercase tracking-[0.15em] text-foreground/50">
+          <p className="text-[10px] font-medium uppercase tracking-[0.15em] text-muted">
             {siteTagline}
           </p>
         </div>
@@ -85,7 +85,7 @@ export function MobileNav({
       {isOpen ? (
         <div
           id="mobile-site-menu"
-          className="space-y-8 border-t border-border/60 bg-surface px-6 py-8 shadow-xl"
+          className="space-y-8 border-t border-outline-ghost bg-surface/90 px-6 py-8 shadow-ambient backdrop-blur supports-[backdrop-filter]:bg-surface/80"
         >
           <div className="space-y-4">
             <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-muted">Navigation</p>
@@ -123,7 +123,7 @@ export function MobileNav({
                       target="_blank"
                       rel="noreferrer"
                       onClick={() => setIsOpen(false)}
-                      className="inline-flex items-center gap-3 text-sm text-foreground/70 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                      className="inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     >
                       <Icon className="size-4" aria-hidden />
                       <span>{link.label}</span>

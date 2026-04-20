@@ -23,18 +23,18 @@ export function JournalList({ content }: JournalListProps) {
             <li key={entry.index}>
               <Link
                 href={entry.href}
-                className="group flex flex-col gap-4 rounded-xl px-4 py-6 transition-colors hover:bg-surface-alt active:bg-surface-alt/80 md:flex-row md:items-center md:justify-between md:px-6 md:py-8"
+                className="group flex flex-col gap-4 rounded-xl bg-surface/55 px-4 py-6 ring-1 ring-inset ring-outline-ghost/55 transition-colors hover:bg-surface-alt/70 active:bg-surface-alt/65 md:flex-row md:items-center md:justify-between md:px-6 md:py-8"
               >
                 <div className="flex items-center gap-6 md:gap-12">
-                  <span className="text-sm font-bold tabular-nums text-foreground/30 transition-colors group-hover:text-primary">
+                  <span className="text-sm font-bold tabular-nums text-muted/70 transition-colors group-hover:text-primary">
                     {entry.index}
                   </span>
                   <div>
                     <h3 className="text-xl font-bold">{entry.title}</h3>
-                    <p className="text-sm text-foreground/50">{entry.description}</p>
+                    <p className="text-sm text-muted">{entry.description}</p>
                   </div>
                 </div>
-                <span className="self-end text-sm font-medium text-foreground/40 md:self-auto">{entry.date}</span>
+                <span className="self-end text-sm font-medium text-muted/85 md:self-auto">{entry.date}</span>
               </Link>
             </li>
           ))}

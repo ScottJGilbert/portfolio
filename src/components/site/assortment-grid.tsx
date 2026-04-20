@@ -29,7 +29,7 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
           <Card
             variant="surface"
             padding="lg"
-            className="space-y-8 border-border/60 transition-colors hover:bg-surface-alt md:col-span-8"
+            className="space-y-8 border-outline-ghost/80 transition-colors hover:bg-surface-alt/80 md:col-span-8"
           >
             <div className="space-y-6">
               <h3 className="text-xl font-bold">{content.coreStack.title}</h3>
@@ -47,7 +47,7 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
           <Card
             variant="alt"
             padding="lg"
-            className="border-border/60 bg-primary/10 text-foreground transition-opacity hover:opacity-95 md:col-span-4"
+            className="border-outline-ghost/80 bg-primary-container/55 text-foreground transition-colors hover:bg-primary-container/70 md:col-span-4"
           >
             <Quote className="mb-6 size-9 text-primary" aria-hidden />
             <p className="text-xl font-medium italic leading-snug">{content.philosophy.quote}</p>
@@ -56,7 +56,7 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
           <Card
             variant="surface"
             padding="lg"
-            className="space-y-8 border-border/60 transition-colors hover:bg-surface-alt md:col-span-5"
+            className="space-y-8 border-outline-ghost/80 transition-colors hover:bg-surface-alt/80 md:col-span-5"
           >
             <h3 className="text-xl font-bold">{content.lab.title}</h3>
             <ul className="space-y-4">
@@ -72,7 +72,7 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
           <Card
             variant="surface"
             padding="lg"
-            className="border-border/60 transition-colors hover:bg-surface-alt md:col-span-7"
+            className="border-outline-ghost/80 transition-colors hover:bg-surface-alt/80 md:col-span-7"
           >
             <div className="flex flex-col gap-8 md:flex-row md:items-center">
               <div className="flex-1 space-y-5">

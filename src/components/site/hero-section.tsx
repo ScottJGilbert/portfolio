@@ -20,7 +20,7 @@ export function HeroSection({ content }: HeroSectionProps) {
         </p>
         <Link
           href="/about"
-          className="inline-flex items-center justify-center gap-[var(--space-xs)] rounded-full border border-transparent bg-primary px-8 py-4 text-sm font-bold uppercase tracking-[0.16em] text-primary-foreground shadow-xl shadow-primary/10 transition-all hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="inline-flex items-center justify-center gap-[var(--space-xs)] rounded-full border border-primary/25 bg-gradient-to-b from-primary to-primary-container px-8 py-4 text-sm font-bold uppercase tracking-[0.16em] text-primary-foreground shadow-ambient transition-[filter] hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           {content.ctaLabel}
         </Link>

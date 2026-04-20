@@ -50,14 +50,14 @@ export function DesktopSidebar({
 
   return (
     <aside
-      className="hidden w-72 shrink-0 border-r border-border bg-surface/70 px-8 py-8 backdrop-blur-xl lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:gap-12"
+      className="hidden w-72 shrink-0 border-r border-outline-ghost bg-surface/80 px-8 py-8 shadow-ambient backdrop-blur-xl supports-[backdrop-filter]:bg-surface/70 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:gap-12"
       aria-label="Desktop sidebar"
     >
       <div className="space-y-1">
         <Link href="/" className="text-xl font-bold tracking-tight text-foreground">
           {siteTitle}
         </Link>
-        <p className="text-xs font-medium uppercase tracking-[0.15em] text-foreground/50">{siteTagline}</p>
+        <p className="text-xs font-medium uppercase tracking-[0.15em] text-muted">{siteTagline}</p>
       </div>
 
       <nav className="flex flex-col gap-6" aria-label="Primary">
@@ -94,7 +94,7 @@ export function DesktopSidebar({
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-3 text-sm text-foreground/65 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  className="inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   aria-label={link.label}
                 >
                   <Icon className="size-4" aria-hidden />
