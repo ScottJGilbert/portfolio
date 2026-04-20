@@ -28,6 +28,7 @@ export function NavItem({
       prefetch={prefetch}
       replace={replace}
       scroll={scroll}
+      aria-current={active ? "page" : undefined}
       className={joinClassNames(
         "inline-flex items-center gap-[var(--space-xs)] rounded-md border px-[var(--space-sm)] py-[var(--space-xs)] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         active

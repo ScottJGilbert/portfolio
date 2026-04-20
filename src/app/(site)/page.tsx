@@ -13,6 +13,7 @@ export default function SiteHomePage() {
         eyebrow="Task 3"
         title="UI primitive sandbox"
         description="Temporary usage to validate primitive APIs before homepage section assembly."
+        level="h1"
         action={<Button variant="secondary">Inspect tokens</Button>}
       />
 
