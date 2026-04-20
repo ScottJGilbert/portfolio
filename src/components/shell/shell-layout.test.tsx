@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { externalNav } from "@/data/navigation";
 import { AppShell } from "./AppShell";
 
 describe("AppShell navigation chrome", () => {
@@ -10,8 +11,10 @@ describe("AppShell navigation chrome", () => {
       </AppShell>
     );
 
-    expect(screen.getByRole("link", { name: "GitHub" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "LinkedIn" })).toBeInTheDocument();
+    const desktopExternalNav = screen.getByRole("navigation", { name: "Desktop External Links" });
+
+    expect(within(desktopExternalNav).getByRole("link", { name: "GitHub" })).toBeInTheDocument();
+    expect(within(desktopExternalNav).getByRole("link", { name: "LinkedIn" })).toBeInTheDocument();
   });
 
   it("adds safe external link attributes for absolute URLs", () => {
@@ -21,8 +24,24 @@ describe("AppShell navigation chrome", () => {
       </AppShell>
     );
 
-    const githubLink = screen.getAllByRole("link", { name: "GitHub" })[0];
+    const desktopExternalNav = screen.getByRole("navigation", { name: "Desktop External Links" });
+    const githubLink = within(desktopExternalNav).getByRole("link", { name: "GitHub" });
     expect(githubLink).toHaveAttribute("target", "_blank");
     expect(githubLink).toHaveAttribute("rel", "noreferrer noopener");
+  });
+
+  it("renders mobile external link labels exactly as nav labels", () => {
+    render(
+      <AppShell>
+        <div>content</div>
+      </AppShell>
+    );
+
+    const mobileExternalNav = screen.getByRole("navigation", { name: "Mobile External Links" });
+
+    for (const item of externalNav) {
+      expect(within(mobileExternalNav).getByRole("link", { name: item.label })).toBeInTheDocument();
+      expect(within(mobileExternalNav).queryByRole("link", { name: `${item.label} ↗` })).not.toBeInTheDocument();
+    }
   });
 });

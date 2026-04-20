@@ -5,7 +5,6 @@ type ExternalLinksGroupProps = {
   ariaLabel: string;
   items: readonly NavItem[];
   listClassName?: string;
-  labelSuffix?: string;
 };
 
 function isAbsoluteHttpUrl(href: string) {
@@ -16,7 +15,6 @@ export function ExternalLinksGroup({
   ariaLabel,
   items,
   listClassName = "space-y-3",
-  labelSuffix = "",
 }: ExternalLinksGroupProps) {
   return (
     <nav aria-label={ariaLabel}>
@@ -32,7 +30,6 @@ export function ExternalLinksGroup({
                 rel={absoluteUrl ? "noreferrer noopener" : undefined}
               >
                 {item.label}
-                {labelSuffix}
               </Link>
             </li>
           );

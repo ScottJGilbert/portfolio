@@ -11,7 +11,6 @@ export function MobileHeader() {
           ariaLabel="Mobile External Links"
           items={externalNav}
           listClassName="flex gap-3 flex-wrap text-sm"
-          labelSuffix=" ↗"
         />
       </div>
     </header>
