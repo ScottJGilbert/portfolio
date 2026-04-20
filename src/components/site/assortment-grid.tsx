@@ -92,6 +92,7 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
                   alt={content.beyondCode.image.alt}
                   width={192}
                   height={192}
+                  unoptimized
                   className="h-full w-full object-cover"
                 />
               </div>
