@@ -79,6 +79,7 @@ export default function ProjectsPage() {
 
               <Link
                 href={project.href}
+                aria-label={`View project: ${project.title}`}
                 className="inline-flex text-sm font-semibold text-primary transition-colors hover:text-primary/80"
               >
                 View Project
