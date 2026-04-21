@@ -1,6 +1,19 @@
 import Link from "next/link";
 import { SectionHeading } from "@/components/ui/section-heading";
-import type { HomeJournalContent } from "@/lib/site-content";
+
+interface HomeJournalEntry {
+  index: string;
+  title: string;
+  description: string;
+  date: string;
+  href: string;
+}
+
+export interface HomeJournalContent {
+  eyebrow: string;
+  title: string;
+  entries: readonly HomeJournalEntry[];
+}
 
 interface JournalListProps {
   content: HomeJournalContent;
@@ -8,7 +21,10 @@ interface JournalListProps {
 
 export function JournalList({ content }: JournalListProps) {
   return (
-    <section className="px-6 py-20 md:px-12 md:py-24" aria-labelledby="journal-heading">
+    <section
+      className="px-6 py-20 md:px-12 md:py-24"
+      aria-labelledby="journal-heading"
+    >
       <div className="mx-auto max-w-5xl space-y-12">
         <SectionHeading
           eyebrow={content.eyebrow}
@@ -34,7 +50,9 @@ export function JournalList({ content }: JournalListProps) {
                     <p className="text-sm text-muted">{entry.description}</p>
                   </div>
                 </div>
-                <span className="self-end text-sm font-medium text-muted md:self-auto">{entry.date}</span>
+                <span className="self-end text-sm font-medium text-muted md:self-auto">
+                  {entry.date}
+                </span>
               </Link>
             </li>
           ))}
@@ -43,4 +61,3 @@ export function JournalList({ content }: JournalListProps) {
     </section>
   );
 }
-

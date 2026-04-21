@@ -3,6 +3,7 @@ import { DesktopSidebar } from "@/components/site/desktop-sidebar";
 import { MobileNav } from "@/components/site/mobile-nav";
 import { TopActionBar } from "@/components/site/top-action-bar";
 import { siteShellContent } from "@/lib/site-content";
+import { SiteFooter } from "@/components/site/site-footer";
 
 export default function SiteLayout({
   children,
@@ -28,6 +29,7 @@ export default function SiteLayout({
         />
         <TopActionBar externalLinks={externalLinks} />
         <main className="flex-1">{children}</main>
+        <SiteFooter />
       </div>
     </div>
   );

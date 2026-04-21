@@ -18,9 +18,16 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       onClick={() => setTheme(nextTheme)}
       className={`inline-flex items-center justify-center rounded-md border border-outline-ghost bg-surface/75 p-2 text-foreground/80 backdrop-blur transition-colors hover:bg-surface-alt/75 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${className}`.trim()}
       aria-label={`Switch to ${nextTheme} mode`}
+      suppressHydrationWarning
     >
-      {isDark ? <Sun className="size-4" aria-hidden /> : <Moon className="size-4" aria-hidden />}
-      <span className="sr-only">Switch to {nextTheme} mode</span>
+      {isDark ? (
+        <Sun className="size-4" aria-hidden suppressHydrationWarning />
+      ) : (
+        <Moon className="size-4" aria-hidden suppressHydrationWarning />
+      )}
+      <span className="sr-only" suppressHydrationWarning>
+        Switch to {nextTheme} mode
+      </span>
     </button>
   );
 }

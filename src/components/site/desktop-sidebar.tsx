@@ -2,19 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  AtSign,
-  BriefcaseBusiness,
-  Globe,
-  House,
-  Link2,
-  Mail,
-  NotebookPen,
-  type LucideIcon,
-  UserRound,
-} from "lucide-react";
 import { NavItem } from "@/components/ui/nav-item";
-import type { ExternalLink, ExternalLinkIcon, SiteNavIcon, SiteNavItem } from "@/lib/site-content";
+import {
+  type ExternalLink,
+  type SiteNavItem,
+  navIconMap,
+  externalIconMapSidebar,
+} from "@/lib/site-content";
 
 interface DesktopSidebarProps {
   navItems: readonly SiteNavItem[];
@@ -23,22 +17,10 @@ interface DesktopSidebarProps {
   siteTagline?: string;
 }
 
-const navIconMap: Record<SiteNavIcon, LucideIcon> = {
-  home: House,
-  work: BriefcaseBusiness,
-  journal: NotebookPen,
-  about: UserRound,
-  contact: Mail,
-};
-
-const externalIconMap: Record<ExternalLinkIcon, LucideIcon> = {
-  github: Link2,
-  linkedin: Globe,
-  email: AtSign,
-};
-
 const isItemActive = (pathname: string, href: string) =>
-  href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+  href === "/"
+    ? pathname === "/"
+    : pathname === href || pathname.startsWith(`${href}/`);
 
 export function DesktopSidebar({
   navItems,
@@ -50,18 +32,25 @@ export function DesktopSidebar({
 
   return (
     <aside
-      className="hidden w-72 shrink-0 border-r border-outline-ghost bg-surface/80 px-8 py-8 shadow-ambient backdrop-blur-xl supports-[backdrop-filter]:bg-surface/70 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:gap-12"
+      className="hidden w-72 shrink-0 border-r border-outline-ghost bg-surface/80 px-8 py-8 shadow-ambient backdrop-blur-xl supports-backdrop-filter:bg-surface/70 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:gap-12"
       aria-label="Desktop sidebar"
     >
       <div className="space-y-1">
-        <Link href="/" className="text-xl font-bold tracking-tight text-foreground">
+        <Link
+          href="/"
+          className="text-xl font-bold tracking-tight text-foreground"
+        >
           {siteTitle}
         </Link>
-        <p className="text-xs font-medium uppercase tracking-[0.15em] text-muted">{siteTagline}</p>
+        <p className="text-xs font-medium uppercase tracking-[0.15em] text-muted">
+          {siteTagline}
+        </p>
       </div>
 
       <nav className="flex flex-col gap-6" aria-label="Primary">
-        <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-muted">Navigation</p>
+        <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-muted">
+          Navigation
+        </p>
         <ul className="flex flex-col gap-2">
           {navItems.map((item) => {
             const Icon = navIconMap[item.icon];
@@ -83,10 +72,12 @@ export function DesktopSidebar({
       </nav>
 
       <div className="mt-auto space-y-6">
-        <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-muted">Connect</p>
+        <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-muted">
+          Connect
+        </p>
         <ul className="space-y-4">
           {externalLinks.map((link) => {
-            const Icon = externalIconMap[link.icon];
+            const Icon = externalIconMapSidebar[link.icon];
 
             return (
               <li key={link.href}>
