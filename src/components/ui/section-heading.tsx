@@ -33,24 +33,29 @@ export function SectionHeading({
   return (
     <header
       className={joinClassNames(
-        "flex flex-wrap items-end justify-between gap-[var(--space-md)]",
+        "flex flex-wrap items-end justify-between gap-(--space-md)",
         className,
       )}
       {...props}
     >
-      <div className="space-y-[var(--space-xs)]">
+      <div className="space-y-(--space-xs)">
         {eyebrow ? (
-          <p className="text-[length:var(--text-eyebrow)] font-bold uppercase tracking-[var(--tracking-eyebrow)] text-primary/80">
+          <p className="text-(length:--text-eyebrow) font-bold uppercase tracking-(--tracking-eyebrow) text-primary/80">
             {eyebrow}
           </p>
         ) : null}
-        <TitleTag className={joinClassNames(titleClassName[level], "text-foreground")}>
+        <TitleTag
+          className={joinClassNames(titleClassName[level], "text-foreground")}
+        >
           {title}
         </TitleTag>
-        {description ? <p className="max-w-prose text-sm text-foreground/75">{description}</p> : null}
+        {description ? (
+          <p className="max-w-prose text-sm text-foreground/75">
+            {description}
+          </p>
+        ) : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
     </header>
   );
 }
-

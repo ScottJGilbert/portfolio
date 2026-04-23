@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const content = {
   name: "Scott Gilbert",
-  statement: "© 2024 Scott Gilbert. Built for Systems.",
+  statement: "© 2026 Scott Gilbert.",
   links: [
     { label: "Terms", href: "/legal#terms" },
     { label: "Privacy", href: "/legal#privacy" },

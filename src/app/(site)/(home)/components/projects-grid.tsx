@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
 interface HomeProject {
   title: string;
@@ -79,7 +79,7 @@ export function ProjectsGrid({ content }: ProjectsGridProps) {
                     <h3 className="text-2xl font-bold leading-tight">
                       {project.title}
                     </h3>
-                    <ArrowUpRight
+                    <FaArrowUpRightFromSquare
                       className="mt-1 size-5 shrink-0 text-muted/85 transition-colors group-hover:text-primary"
                       aria-hidden
                     />

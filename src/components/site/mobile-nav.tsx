@@ -2,29 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  AtSign,
-  BriefcaseBusiness,
-  Globe,
-  House,
-  Link2,
-  Mail,
-  Menu,
-  NotebookPen,
-  UserRound,
-  X,
-  type LucideIcon,
-} from "lucide-react";
 import { useState } from "react";
 import { IconButton } from "@/components/ui/icon-button";
 import { NavItem } from "@/components/ui/nav-item";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import type {
-  ExternalLink,
-  ExternalLinkIcon,
-  SiteNavIcon,
-  SiteNavItem,
+import type { ExternalLink, SiteNavItem } from "@/lib/site-content";
+import {
+  navIconMap,
+  externalIconMapSidebar as externalIconMap,
 } from "@/lib/site-content";
+import { FaBars as MenuIcon } from "react-icons/fa";
+import { BsX } from "react-icons/bs";
 
 interface MobileNavProps {
   navItems: readonly SiteNavItem[];
@@ -32,21 +20,6 @@ interface MobileNavProps {
   siteTitle?: string;
   siteTagline?: string;
 }
-
-const navIconMap: Record<SiteNavIcon, LucideIcon> = {
-  home: House,
-  projects: BriefcaseBusiness,
-  journal: NotebookPen,
-  about: UserRound,
-  contact: Mail,
-};
-
-const externalIconMap: Record<ExternalLinkIcon, LucideIcon> = {
-  blog: Globe,
-  github: Link2,
-  linkedin: Globe,
-  email: AtSign,
-};
 
 const isItemActive = (pathname: string, href: string) =>
   href === "/"
@@ -80,7 +53,11 @@ export function MobileNav({
           <ThemeToggle />
           <IconButton
             icon={
-              isOpen ? <X className="size-4" /> : <Menu className="size-4" />
+              isOpen ? (
+                <BsX className="size-4" />
+              ) : (
+                <MenuIcon className="size-4" />
+              )
             }
             label={isOpen ? "Close navigation menu" : "Open navigation menu"}
             onClick={() => setIsOpen((current) => !current)}
@@ -95,7 +72,7 @@ export function MobileNav({
       {isOpen ? (
         <div
           id="mobile-site-menu"
-          className="space-y-8 border-t border-outline-ghost bg-surface/90 px-6 py-8 backdrop-blur supports-backdrop-filter:bg-surface/80"
+          className="fixed inset-x-0 top-16 z-50 space-y-8 border-b border-outline-ghost bg-surface/90 px-6 py-8 backdrop-blur supports-backdrop-filter:bg-surface/80 lg:hidden"
         >
           <div className="space-y-4">
             <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-muted">

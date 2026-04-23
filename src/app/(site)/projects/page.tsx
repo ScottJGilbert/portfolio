@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
-import { projectsPageContent } from "@/lib/page-content";
+import { projectsPageContent } from "./content";
 
 export default function ProjectsPage() {
   return (

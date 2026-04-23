@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { legalPageContent } from "@/lib/page-content";
+import { legalPageContent } from "./content";
 
 export default function LegalPage() {
   return (

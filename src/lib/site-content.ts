@@ -1,14 +1,14 @@
 import {
-  AtSign,
-  BriefcaseBusiness,
-  Globe,
-  House,
-  Link2,
-  Mail,
-  NotebookPen,
-  UserRound,
-  type LucideIcon,
-} from "lucide-react";
+  FaGithub as GitHub,
+  FaLinkedin as LinkedIn,
+  FaGlobe as Globe,
+  FaPen as Pen,
+  FaUser as User,
+  FaEnvelope as Envelope,
+  FaHouseUser as HouseUser,
+  FaBriefcase as Briefcase,
+  type FaIcons,
+} from "react-icons/fa";
 
 export type SiteNavIcon = "home" | "projects" | "journal" | "about" | "contact";
 
@@ -20,26 +20,30 @@ export interface SiteNavItem {
 
 export type ExternalLinkIcon = "blog" | "github" | "linkedin" | "email";
 
-export const navIconMap: Record<SiteNavIcon, LucideIcon> = {
-  home: House,
-  projects: BriefcaseBusiness,
-  journal: NotebookPen,
-  about: UserRound,
-  contact: Mail,
+export const navIconMap: Record<SiteNavIcon, typeof FaIcons> = {
+  home: HouseUser,
+  projects: Briefcase,
+  journal: Pen,
+  about: User,
+  contact: Envelope,
 };
 
-export const externalIconMapSidebar: Record<ExternalLinkIcon, LucideIcon> = {
-  blog: Globe,
-  github: Link2,
-  linkedin: Globe,
-  email: AtSign,
-};
+export const externalIconMapSidebar: Record<ExternalLinkIcon, typeof FaIcons> =
+  {
+    blog: Globe,
+    github: GitHub,
+    linkedin: LinkedIn,
+    email: Envelope,
+  };
 
-export const externalIconMapActionbar: Record<ExternalLinkIcon, LucideIcon> = {
+export const externalIconMapActionbar: Record<
+  ExternalLinkIcon,
+  typeof FaIcons
+> = {
   blog: Globe,
-  github: Link2,
-  linkedin: Globe,
-  email: AtSign,
+  github: GitHub,
+  linkedin: LinkedIn,
+  email: Envelope,
 };
 
 export interface ExternalLink {
@@ -67,7 +71,7 @@ export const externalLinks: readonly ExternalLink[] = [
   { href: "https://blog.scottgilbert.dev", label: "Blog", icon: "blog" },
   { href: "https://github.com/ScottJGilbert", label: "GitHub", icon: "github" },
   {
-    href: "https://www.linkedin.com/in/scottjgilbert",
+    href: "https://www.linkedin.com/in/scott-j-gilbert",
     label: "LinkedIn",
     icon: "linkedin",
   },
@@ -76,7 +80,7 @@ export const externalLinks: readonly ExternalLink[] = [
 
 export const siteShellContent: SiteShellContent = {
   siteTitle: "Scott Gilbert",
-  siteTagline: "Portfolio.",
+  siteTagline: "Computer Engineer",
   navItems,
   externalLinks,
 };

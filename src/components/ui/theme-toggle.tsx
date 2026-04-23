@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { FaMoon as Moon, FaSun as Sun } from "react-icons/fa";
 import { useTheme } from "./theme-provider";
 
 interface ThemeToggleProps {

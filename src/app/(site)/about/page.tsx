@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { aboutPageContent } from "@/lib/page-content";
+import { aboutPageContent } from "./content";
 
 export default function AboutPage() {
   return (

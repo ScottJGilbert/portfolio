@@ -1,4 +1,4 @@
-import { ExternalLink as ExternalLinkIconGlyph } from "lucide-react";
+import { FaExternalLinkAlt as ExternalLinkIconGlyph } from "react-icons/fa";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import {
   type ExternalLink,

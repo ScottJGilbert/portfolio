@@ -1,4 +1,4 @@
-import { Headphones, Network, Quote } from "lucide-react";
+import { FaHeadphones, FaNetworkWired, FaQuoteLeft } from "react-icons/fa";
 import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -35,9 +35,9 @@ interface AssortmentGridProps {
   content: HomeAssortmentContent;
 }
 
-const iconMap: Record<HomeBeyondCodeIcon, typeof Headphones> = {
-  headphones: Headphones,
-  infrastructure: Network,
+const iconMap: Record<HomeBeyondCodeIcon, typeof FaHeadphones> = {
+  headphones: FaHeadphones,
+  infrastructure: FaNetworkWired,
 };
 
 export function AssortmentGrid({ content }: AssortmentGridProps) {
@@ -85,7 +85,7 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
             padding="lg"
             className="border-outline-ghost/80 bg-primary-container/55 text-foreground transition-colors hover:bg-primary-container/70 md:col-span-4"
           >
-            <Quote className="mb-6 size-9 text-primary" aria-hidden />
+            <FaQuoteLeft className="mb-6 size-9 text-primary" aria-hidden />
             <p className="text-xl font-medium italic leading-snug">
               {content.philosophy.quote}
             </p>
