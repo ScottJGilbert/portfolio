@@ -45,7 +45,7 @@
   margin: 1.25rem 0;
   border-left: 3px solid var(--primary);
   padding: 0.625rem 0 0.625rem 1rem;
-  color: var(--muted);
+  color: var(--foreground);
   font-style: italic;
   background: color-mix(in srgb, var(--primary-container) 45%, transparent);
   border-radius: 0.4rem;
@@ -74,9 +74,16 @@
   transition: color 140ms ease;
 }
 
-.project-article .ViewerTheme__link:hover,
+.project-article .ViewerTheme__link:hover {
+  color: color-mix(in srgb, var(--primary) 75%, var(--foreground));
+}
+
 .project-article .ViewerTheme__link:focus-visible {
   color: color-mix(in srgb, var(--primary) 75%, var(--foreground));
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 0.2rem;
+  text-decoration-thickness: 0.12em;
 }
 
 .project-article .ViewerTheme__textCode {
