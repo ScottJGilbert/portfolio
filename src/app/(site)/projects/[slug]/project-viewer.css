@@ -1,0 +1,142 @@
+.project-article {
+  --article-body-size: 1rem;
+  --article-body-line: 1.75;
+  --article-heading-line: 1.2;
+}
+
+.project-article .LexicalBlogViewer__Error {
+  border: 1px solid var(--outline-ghost);
+  border-radius: 0.875rem;
+  background: color-mix(in srgb, var(--surface-alt) 70%, transparent);
+  color: var(--foreground);
+  padding: 0.875rem 1rem;
+  font-size: 0.9rem;
+}
+
+.project-article .ViewerTheme__paragraph {
+  color: var(--foreground);
+  font-size: var(--article-body-size);
+  line-height: var(--article-body-line);
+  margin: 0 0 1rem;
+}
+
+.project-article .ViewerTheme__h1,
+.project-article .ViewerTheme__h2,
+.project-article .ViewerTheme__h3 {
+  color: var(--foreground);
+  line-height: var(--article-heading-line);
+  letter-spacing: -0.015em;
+  margin: 2rem 0 0.75rem;
+}
+
+.project-article .ViewerTheme__h1 {
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.2rem);
+}
+
+.project-article .ViewerTheme__h2 {
+  font-size: clamp(1.35rem, 1.2rem + 0.7vw, 1.75rem);
+}
+
+.project-article .ViewerTheme__h3 {
+  font-size: clamp(1.1rem, 1.05rem + 0.45vw, 1.35rem);
+}
+
+.project-article .ViewerTheme__quote {
+  margin: 1.25rem 0;
+  border-left: 3px solid var(--primary);
+  padding: 0.625rem 0 0.625rem 1rem;
+  color: var(--muted);
+  font-style: italic;
+  background: color-mix(in srgb, var(--primary-container) 45%, transparent);
+  border-radius: 0.4rem;
+}
+
+.project-article .ViewerTheme__ul,
+.project-article .ViewerTheme__ol1,
+.project-article .ViewerTheme__ol2,
+.project-article .ViewerTheme__ol3,
+.project-article .ViewerTheme__ol4,
+.project-article .ViewerTheme__ol5 {
+  margin: 0 0 1rem;
+  padding-left: 1.5rem;
+}
+
+.project-article .ViewerTheme__listItem {
+  margin: 0.35rem 0;
+  line-height: 1.7;
+}
+
+.project-article .ViewerTheme__link {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+  transition: color 140ms ease;
+}
+
+.project-article .ViewerTheme__link:hover,
+.project-article .ViewerTheme__link:focus-visible {
+  color: color-mix(in srgb, var(--primary) 75%, var(--foreground));
+}
+
+.project-article .ViewerTheme__textCode {
+  font-family:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+  font-size: 0.88em;
+  background: var(--surface-alt);
+  border: 1px solid var(--outline-ghost);
+  border-radius: 0.35rem;
+  padding: 0.1rem 0.35rem;
+}
+
+.project-article .ViewerTheme__code {
+  margin: 1.25rem 0;
+  border: 1px solid var(--outline-ghost);
+  border-radius: 0.9rem;
+  background: var(--surface-inset);
+  color: var(--foreground);
+  overflow-x: auto;
+}
+
+.project-article .ViewerTheme__code code,
+.project-article .ViewerTheme__code pre {
+  font-family:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.project-article .ViewerTheme__hr {
+  border: 0;
+  border-top: 1px solid var(--outline-ghost);
+  margin: 2rem 0;
+}
+
+.project-article .ViewerTheme__tableScrollableWrapper {
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  border: 1px solid var(--outline-ghost);
+  border-radius: 0.75rem;
+  background: var(--surface);
+}
+
+.project-article .ViewerTheme__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 36rem;
+}
+
+.project-article .ViewerTheme__tableCell,
+.project-article .ViewerTheme__table th,
+.project-article .ViewerTheme__table td {
+  border: 1px solid var(--outline-ghost);
+  padding: 0.55rem 0.65rem;
+  vertical-align: top;
+}
+
+.project-article .ViewerTheme__table th {
+  background: var(--surface-alt);
+  text-align: left;
+}
