@@ -3,24 +3,14 @@ import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
-
-interface HomeProject {
-  title: string;
-  description: string;
-  tags: readonly string[];
-  href: string;
-  image: {
-    src: string;
-    alt: string;
-  };
-}
+import { Project } from "@/app/(site)/projects/content";
 
 export interface HomeProjectsContent {
   eyebrow: string;
   title: string;
   archiveLabel: string;
   archiveHref: string;
-  projects: readonly HomeProject[];
+  projects: readonly Project[];
 }
 
 interface ProjectsGridProps {
@@ -54,7 +44,7 @@ export function ProjectsGrid({ content }: ProjectsGridProps) {
           {content.projects.map((project) => (
             <Link
               key={project.title}
-              href={project.href}
+              href={`/projects/${project.slug}`}
               className="group block"
             >
               <Card
@@ -65,8 +55,8 @@ export function ProjectsGrid({ content }: ProjectsGridProps) {
                 <div className="aspect-video overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element -- intentional plain image to avoid unoptimized next/image usage */}
                   <img
-                    src={project.image.src}
-                    alt={project.image.alt}
+                    src={project.image_url}
+                    alt={project.title}
                     width={1280}
                     height={720}
                     loading="lazy"
@@ -88,7 +78,7 @@ export function ProjectsGrid({ content }: ProjectsGridProps) {
                     {project.description}
                   </p>
                   <ul className="flex flex-wrap gap-3">
-                    {project.tags.map((tag) => (
+                    {project.categories.map((tag) => (
                       <li key={tag}>
                         <Chip
                           variant="outline"
