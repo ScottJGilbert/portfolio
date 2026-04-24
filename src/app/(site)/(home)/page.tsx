@@ -3,10 +3,8 @@ import { HeroSection } from "./components/hero-section";
 import { HomeJournalContent, JournalList } from "./components/journal-list";
 import { HomeHeroContent } from "./components/hero-section";
 import { HomeAssortmentContent } from "./components/assortment-grid";
-import {
-  HomeProjectsContent,
-  ProjectsGrid,
-} from "./components/projects-grid";
+import { HomeProjectsContent, ProjectsGrid } from "./components/projects-grid";
+import { projects } from "../projects/content";
 
 interface HomeContent {
   hero: HomeHeroContent;
@@ -17,7 +15,7 @@ interface HomeContent {
 
 const homeContent: HomeContent = {
   hero: {
-    title: "I'm Scott Gilbert",
+    title: "Hi, I'm Scott Gilbert",
     description:
       "A systems engineer building resilient backends and high-fidelity gaming experiences. Bridging the gap between kernel-level performance and user-centric design.",
     ctaLabel: "Learn More",
@@ -55,30 +53,6 @@ const homeContent: HomeContent = {
     title: "Selected Projects",
     archiveLabel: "View Archive",
     archiveHref: "/projects",
-    projects: [
-      {
-        title: "Vector Engine v2.0",
-        description:
-          "A custom-built physics engine for 2D spatial simulations, written entirely in Rust for maximum throughput.",
-        tags: ["Rust", "WASM"],
-        href: "/projects",
-        image: {
-          src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBVirNabt4MGo8NdfcP7iE-zUWP6LXFij6g7M-gWG0YYq2Q5TkRFqwrEa1HiY96vFctwk-VQy9YHDStBgu0DJjG54XduSmpOtp9-1G-jkVvY64SLL7bzkKgKmQRJVcVlXmH4jHoJxUhGB9OIPlhs63iyPE7zL9f2m7F0foKmgbw0iAjfDHeq2aWWc-8iqbGyqXRNpRPmjbpFg3tFcR3PxSMWSzwVpPkbs9FhQ7QsQNawWAiV7kqB0srviN5WZ1ULIF2EWgOwSuuC39o",
-          alt: "Abstract visualization of complex data structures and nodes glowing with emerald green light against a dark background",
-        },
-      },
-      {
-        title: "Chlorophyll.ui",
-        description:
-          "An organic-inspired design system focusing on sustainability and high-performance frontend rendering.",
-        tags: ["React", "Tailwind"],
-        href: "/projects",
-        image: {
-          src: "https://lh3.googleusercontent.com/aida-public/AB6AXuCkkPrTjWS_EESzZGm-VgnoTdgY7S4ynmtOpACPZfPJr8w07_sP_UNxbjxJIoX3vHAzywZpVuU7kd8lTZR-ve3KvTDsDrarbAlj-T9Rjrfs-GcS52HBOzYyejhBdEUeA0JxyV26x_xjYgDcjM4LqzMMRgP-fCz3YuhRWmV_iZinjDEAnPK4gcfZua52eXehZYIhg6wZkC-LDSXpB94G4LcLpsyC499GiBwpLuF-MESxlLqQWxFqKNylwUS6IeYGF0UNIyLtMnzUTVAr",
-          alt: "Sleek user interface wireframe on a high-resolution display with soft green accents and minimalist design elements",
-        },
-      },
-    ],
   },
   journal: {
     eyebrow: "Journal",
@@ -110,11 +84,30 @@ const homeContent: HomeContent = {
 };
 
 export default function SiteHomePage() {
+  const featuredProjects = projects
+    .filter((p) => !p.description.includes("(WIP)"))
+    .slice(0, 2)
+    .map((p) => ({
+      title: p.title,
+      description: p.description,
+      tags: p.categories,
+      href: `/projects/${p.slug}`,
+      image: {
+        src: p.image_url,
+        alt: p.title,
+      },
+    }));
+
   return (
     <>
       <HeroSection content={homeContent.hero} />
       <AssortmentGrid content={homeContent.assortment} />
-      <ProjectsGrid content={homeContent.projects} />
+      <ProjectsGrid
+        content={{
+          ...homeContent.projects,
+          projects: featuredProjects,
+        }}
+      />
       <JournalList content={homeContent.journal} />
     </>
   );
