@@ -3,12 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavItem } from "@/components/ui/nav-item";
-import {
-  type ExternalLink,
-  type SiteNavItem,
-  navIconMap,
-  externalIconMapSidebar,
-} from "@/lib/site-content";
+import { type ExternalLink, type SiteNavItem } from "@/lib/site-content";
 
 interface DesktopSidebarProps {
   navItems: readonly SiteNavItem[];
@@ -47,13 +42,13 @@ export function DesktopSidebar({
         </p>
       </div>
 
-      <nav className="flex flex-col gap-6" aria-label="Primary">
+      <nav className="flex flex-col gap-4" aria-label="Primary">
         <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-muted">
           Navigation
         </p>
         <ul className="flex flex-col gap-2">
           {navItems.map((item) => {
-            const Icon = navIconMap[item.icon];
+            // const Icon = item.icon;
 
             return (
               <li key={item.href}>
@@ -61,7 +56,7 @@ export function DesktopSidebar({
                   href={item.href}
                   active={isItemActive(pathname, item.href)}
                   className="w-full justify-start"
-                  icon={<Icon className="size-4" />}
+                  icon={item.icon}
                 >
                   {item.label}
                 </NavItem>
@@ -71,26 +66,24 @@ export function DesktopSidebar({
         </ul>
       </nav>
 
-      <div className="mt-auto space-y-6">
+      <div className="flex flex-col gap-4" aria-label="Secondary">
         <p className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-muted">
           Connect
         </p>
-        <ul className="space-y-4">
+        <ul className="flex flex-col gap-2">
           {externalLinks.map((link) => {
-            const Icon = externalIconMapSidebar[link.icon];
-
             return (
               <li key={link.href}>
-                <a
+                <NavItem
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  className="w-full inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   aria-label={link.label}
+                  icon={link.icon}
                 >
-                  <Icon className="size-4" aria-hidden />
                   <span>{link.label}</span>
-                </a>
+                </NavItem>
               </li>
             );
           })}

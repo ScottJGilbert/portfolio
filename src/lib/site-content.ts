@@ -2,54 +2,24 @@ import {
   FaGithub as GitHub,
   FaLinkedin as LinkedIn,
   FaGlobe as Globe,
-  FaPen as Pen,
   FaUser as User,
   FaEnvelope as Envelope,
   FaHouseUser as HouseUser,
   FaBriefcase as Briefcase,
-  type FaIcons,
+  FaFileAlt as File,
 } from "react-icons/fa";
-
-export type SiteNavIcon = "home" | "projects" | "journal" | "about" | "contact";
+import { createElement, ReactNode } from "react";
 
 export interface SiteNavItem {
   href: "/" | `/${string}`;
   label: string;
-  icon: SiteNavIcon;
+  icon: ReactNode;
 }
-
-export type ExternalLinkIcon = "blog" | "github" | "linkedin" | "email";
-
-export const navIconMap: Record<SiteNavIcon, typeof FaIcons> = {
-  home: HouseUser,
-  projects: Briefcase,
-  journal: Pen,
-  about: User,
-  contact: Envelope,
-};
-
-export const externalIconMapSidebar: Record<ExternalLinkIcon, typeof FaIcons> =
-  {
-    blog: Globe,
-    github: GitHub,
-    linkedin: LinkedIn,
-    email: Envelope,
-  };
-
-export const externalIconMapActionbar: Record<
-  ExternalLinkIcon,
-  typeof FaIcons
-> = {
-  blog: Globe,
-  github: GitHub,
-  linkedin: LinkedIn,
-  email: Envelope,
-};
 
 export interface ExternalLink {
   href: string;
   label: string;
-  icon: ExternalLinkIcon;
+  icon: ReactNode;
 }
 
 export interface SiteShellContent {
@@ -60,22 +30,34 @@ export interface SiteShellContent {
 }
 
 export const navItems: readonly SiteNavItem[] = [
-  { href: "/", label: "Home", icon: "home" },
-  { href: "/projects", label: "Projects", icon: "projects" },
-  { href: "/journal", label: "Journal", icon: "journal" },
-  { href: "/about", label: "About", icon: "about" },
-  { href: "/contact", label: "Contact", icon: "contact" },
+  { href: "/", label: "Home", icon: createElement(HouseUser) },
+  { href: "/about", label: "About", icon: createElement(User) },
+  { href: "/projects", label: "Projects", icon: createElement(Briefcase) },
+  { href: "/contact", label: "Contact", icon: createElement(Envelope) },
 ];
 
 export const externalLinks: readonly ExternalLink[] = [
-  { href: "https://blog.scottgilbert.dev", label: "Blog", icon: "blog" },
-  { href: "https://github.com/ScottJGilbert", label: "GitHub", icon: "github" },
+  {
+    href: "https://blog.scottgilbert.dev",
+    label: "Blog",
+    icon: createElement(Globe),
+  },
+  { href: "/resume.pdf", label: "Resume", icon: createElement(File) },
+  {
+    href: "https://github.com/ScottJGilbert",
+    label: "GitHub",
+    icon: createElement(GitHub),
+  },
   {
     href: "https://www.linkedin.com/in/scott-j-gilbert",
     label: "LinkedIn",
-    icon: "linkedin",
+    icon: createElement(LinkedIn),
   },
-  { href: "mailto:hello@scottgilbert.dev", label: "Email", icon: "email" },
+  {
+    href: "mailto:hello@scottgilbert.dev",
+    label: "Email",
+    icon: createElement(Envelope),
+  },
 ];
 
 export const siteShellContent: SiteShellContent = {

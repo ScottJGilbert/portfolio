@@ -1,15 +1,18 @@
 import { notFound } from "next/navigation";
-import { projects, type Project } from "./content";
+import { projects, type Project } from "../content";
 import Viewer, {
   type ViewerProps,
 } from "@scottjgilbert/lexical-blog-editor/viewer";
 import "@scottjgilbert/lexical-blog-editor/styles/ViewerTheme.css";
 import "./project-viewer.css";
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project: Project | undefined = projects.find(
-    (p) => p.slug === params.slug,
-  );
+export default async function ProjectPage(props: {
+  params: Promise<{ slug: string }>;
+}) {
+  const params = await props.params;
+  const slug = params.slug;
+
+  const project: Project | undefined = projects.find((p) => p.slug === slug);
 
   if (!project) {
     notFound();
@@ -21,11 +24,11 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   };
 
   const hasCategories = project.categories.length > 0;
-  const hasSkills = project.skills.length > 0;
+  const hasStack = project.stack.length > 0;
 
   return (
     <section className="px-6 py-10 md:px-10 lg:px-12">
-      <article className="project-article mx-auto max-w-3xl space-y-8">
+      <article className="project-article mx-auto space-y-8">
         <header className="space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
             Project
@@ -48,8 +51,10 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 Timeline
               </dt>
               <dd className="text-sm text-foreground">
-                {project.start_date}
-                {project.end_date ? ` - ${project.end_date}` : " - Present"}
+                {new Date(project.start_date).toLocaleDateString()}
+                {project.end_date
+                  ? ` - ${new Date(project.end_date).toLocaleDateString()}`
+                  : " - Present"}
               </dd>
             </div>
 
@@ -71,18 +76,18 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               </div>
             ) : null}
 
-            {hasSkills ? (
+            {hasStack ? (
               <div className="space-y-2 md:col-span-2">
                 <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-muted">
-                  Skills
+                  Stack
                 </dt>
                 <dd className="flex flex-wrap gap-2">
-                  {project.skills.map((skill) => (
+                  {project.stack.map((item) => (
                     <span
-                      key={skill}
+                      key={item}
                       className="rounded-full border border-outline-ghost bg-surface px-2.5 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-muted"
                     >
-                      {skill}
+                      {item}
                     </span>
                   ))}
                 </dd>

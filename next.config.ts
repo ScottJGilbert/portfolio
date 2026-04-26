@@ -10,6 +10,21 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "m9mv2a6pya.ufs.sh",
+        pathname: "/f/**",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+    ],
+  },
+  output: "standalone",
 };
 
 export default nextConfig;

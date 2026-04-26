@@ -3,7 +3,8 @@ import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
-import { Project } from "@/app/(site)/projects/content";
+import { Project } from "../../projects/content";
+import Image from "next/image";
 
 export interface HomeProjectsContent {
   eyebrow: string;
@@ -53,8 +54,7 @@ export function ProjectsGrid({ content }: ProjectsGridProps) {
                 className="overflow-hidden border-outline-ghost/80 bg-surface/85 transition-colors hover:bg-surface-alt/80"
               >
                 <div className="aspect-video overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- intentional plain image to avoid unoptimized next/image usage */}
-                  <img
+                  <Image
                     src={project.image_url}
                     alt={project.title}
                     width={1280}
@@ -78,16 +78,17 @@ export function ProjectsGrid({ content }: ProjectsGridProps) {
                     {project.description}
                   </p>
                   <ul className="flex flex-wrap gap-3">
-                    {project.categories.map((tag) => (
-                      <li key={tag}>
-                        <Chip
-                          variant="outline"
-                          className="text-[0.7rem] font-bold uppercase tracking-[0.14em]"
-                        >
-                          {tag}
-                        </Chip>
-                      </li>
-                    ))}
+                    {project.categories &&
+                      project.categories.map((tag) => (
+                        <li key={tag}>
+                          <Chip
+                            variant="outline"
+                            className="text-[0.7rem] font-bold uppercase tracking-[0.14em]"
+                          >
+                            {tag}
+                          </Chip>
+                        </li>
+                      ))}
                   </ul>
                 </div>
               </Card>

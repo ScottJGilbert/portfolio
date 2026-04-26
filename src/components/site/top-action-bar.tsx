@@ -12,10 +12,16 @@ interface TopActionBarProps {
 export function TopActionBar({ externalLinks }: TopActionBarProps) {
   return (
     <header
-      className="hidden items-center justify-end gap-(--space-xs) border-b border-outline-ghost bg-surface/85 px-6 py-3 shadow-ambient backdrop-blur-xl supports-backdrop-filter:bg-surface/75 lg:flex"
+      className="hidden items-center justify-end gap-(--space-xs) border-b border-outline-ghost bg-surface/85 px-6 py-3 shadow-ambient backdrop-blur-xl supports-backdrop-filter:bg-surface/75 lg:sticky lg:top-0 lg:z-30 lg:flex"
       aria-label="Top action bar"
     >
-      {externalLinks.map((link) => {
+      <p
+        className="flex-1 text-center text-xs uppercase tracking-[0.16em] text-muted"
+        aria-label="Announcement"
+      >
+        New portfolio is live!
+      </p>
+      {/* {externalLinks.map((link) => {
         const Icon = externalIconMapActionbar[link.icon];
 
         return (
@@ -34,7 +40,7 @@ export function TopActionBar({ externalLinks }: TopActionBarProps) {
             />
           </a>
         );
-      })}
+      })} */}
       <ThemeToggle />
     </header>
   );

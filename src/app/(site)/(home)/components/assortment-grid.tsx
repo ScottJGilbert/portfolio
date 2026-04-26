@@ -1,9 +1,9 @@
-import { FaHeadphones, FaNetworkWired, FaQuoteLeft } from "react-icons/fa";
+import { FaQuoteLeft } from "react-icons/fa";
 import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { SectionHeading } from "@/components/ui/section-heading";
-
-export type HomeBeyondCodeIcon = "headphones" | "infrastructure";
+import type { IconType } from "react-icons";
+import React from "react";
 
 export interface HomeAssortmentContent {
   eyebrow: string;
@@ -11,7 +11,6 @@ export interface HomeAssortmentContent {
   coreStack: {
     title: string;
     technologies: readonly string[];
-    description: string;
   };
   philosophy: {
     quote: string;
@@ -23,7 +22,7 @@ export interface HomeAssortmentContent {
   beyondCode: {
     title: string;
     description: string;
-    icons: readonly HomeBeyondCodeIcon[];
+    icons: readonly IconType[];
     image: {
       src: string;
       alt: string;
@@ -34,11 +33,6 @@ export interface HomeAssortmentContent {
 interface AssortmentGridProps {
   content: HomeAssortmentContent;
 }
-
-const iconMap: Record<HomeBeyondCodeIcon, typeof FaHeadphones> = {
-  headphones: FaHeadphones,
-  infrastructure: FaNetworkWired,
-};
 
 export function AssortmentGrid({ content }: AssortmentGridProps) {
   return (
@@ -64,20 +58,20 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
             <div className="space-y-6">
               <h3 className="text-xl font-bold">{content.coreStack.title}</h3>
               <div className="flex flex-wrap gap-3">
-                {content.coreStack.technologies.map((technology) => (
-                  <Chip
-                    key={technology}
-                    variant="neutral"
-                    className="px-5 py-2 text-sm font-bold text-primary"
-                  >
-                    {technology}
-                  </Chip>
+                {content.coreStack.technologies.map((technology, index) => (
+                  <React.Fragment key={technology}>
+                    {index < 25 && (
+                      <Chip
+                        variant="neutral"
+                        className="px-5 py-2 text-sm font-bold text-primary"
+                      >
+                        {technology}
+                      </Chip>
+                    )}
+                  </React.Fragment>
                 ))}
               </div>
             </div>
-            <p className="max-w-md leading-relaxed text-muted">
-              {content.coreStack.description}
-            </p>
           </Card>
 
           <Card
@@ -127,9 +121,10 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
                   {content.beyondCode.description}
                 </p>
                 <div className="flex gap-4 text-muted">
-                  {content.beyondCode.icons.map((icon) => {
-                    const Icon = iconMap[icon];
-                    return <Icon key={icon} className="size-5" aria-hidden />;
+                  {content.beyondCode.icons.map((Icon) => {
+                    return (
+                      <Icon key={Icon.name} className="size-5" aria-hidden />
+                    );
                   })}
                 </div>
               </div>

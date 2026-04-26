@@ -1,8 +1,14 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+const TypeWriter = dynamic(() => import("typewriter-effect"), { ssr: false });
 
 export interface HomeHeroContent {
   title: string;
   description: string;
+  typewriterPhrases: string[];
   ctaLabel: string;
 }
 
@@ -19,6 +25,15 @@ export function HeroSection({ content }: { content: HomeHeroContent }) {
         >
           {content.title}
         </h1>
+        <span className="max-w-2xl text-lg font-medium leading-relaxed text-muted md:text-2xl">
+          <TypeWriter
+            options={{
+              strings: content.typewriterPhrases,
+              autoStart: true,
+              loop: true,
+            }}
+          />
+        </span>
         <p className="max-w-2xl text-lg font-medium leading-relaxed text-muted md:text-2xl">
           {content.description}
         </p>

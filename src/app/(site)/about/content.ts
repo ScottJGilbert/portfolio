@@ -17,51 +17,65 @@ export interface EducationEntry {
 export const aboutPageContent = {
   title: "About",
   intro: [
-    "I'm a systems-focused software engineer who enjoys building software that remains clear under pressure: products with resilient architecture, sharp interfaces, and practical developer ergonomics.",
-    "My work tends to sit at the intersection of backend reliability and user-facing experience. I care deeply about maintainability, observability, and thoughtful product details that make tools easier to trust and use.",
+    "Hello! I'm Scott, an undergraduate computer engineering student at the University of Illinois at Urbana-Champaign and a graduate of James B. Conant High School in Hoffman Estates, Illinois.",
+    "I am a hard-working full-stack developer, problem-solver, and computer engineer who is dedicated to deploying information technology, computing, and electrical engineering solutions to both solve complex problems and working miracles in peoples' lives.",
+    "...I also like the color green.",
   ] as const,
   experience: [
     {
-      role: "Senior Systems Engineer",
-      company: "Independent / Contract",
-      location: "Remote",
-      period: "2022 - Present",
+      role: "Webmaster & Array/MPPT Subteam Lead (formerly Electrical Team Member)",
+      company: "Illini Solar Car",
+      location: "Urbana-Champaign Area · On-site",
+      period: "Oct 2025 - Present",
       summary:
-        "Designing and delivering full-stack platforms with an emphasis on robust backend workflows and clean frontend systems.",
+        "Contributing across web development and electrical systems for a student engineering team, spanning website operations, subsystem leadership, and hardware development.",
       highlights: [
-        "Built fault-tolerant service layers with strong runtime diagnostics and health instrumentation.",
-        "Partnered with product and design to align architecture decisions with user outcomes.",
-        "Standardized delivery workflows to reduce regression risk and improve release confidence.",
+        "Leading development of the array and Maximum Power Point Tracking (MPPT) subsystems.",
+        "Serving as lead developer for the Power Distribution subsystem.",
+        "Supporting motor controller, battery pack, and monohassis substructure development while assisting with team operations and sponsorship tasks.",
       ],
     },
     {
-      role: "Software Engineer",
-      company: "Product Engineering Team",
-      location: "United States",
-      period: "2019 - 2022",
+      role: "Computer Administrator",
+      company: "University of Illinois Campus Honors Program",
+      location: "Urbana, Illinois, United States · Hybrid",
+      period: "Oct 2025 - Present",
       summary:
-        "Contributed to internal and customer-facing products across web interfaces, service integrations, and platform reliability.",
+        "Maintaining and modernizing CHP technical systems, with a focus on website reliability and data interoperability.",
       highlights: [
-        "Delivered iterative frontend improvements that increased clarity and reduced support load.",
-        "Improved backend service observability and incident response readiness.",
-        "Introduced reusable UI and API patterns that sped up cross-team delivery.",
+        "Updating and maintaining the official CHP website in accordance with university standards.",
+        "Automating interfaces with external data sources using CHP computing hardware.",
+        "Assisting with application processing and transfer of core information across persistent storage services.",
+      ],
+    },
+    {
+      role: "Summer Intern",
+      company: "Team2Go, Inc.",
+      location: "Remote",
+      period: "Jun 2025 - Aug 2025",
+      summary:
+        "Built and shipped internal web tools and AI-driven interfaces during a focused summer internship.",
+      highlights: [
+        "Engineered and deployed Dockerized, reverse-proxied Next.js applications for internal platforms.",
+        "Integrated custom OpenAI GPT models with streaming output, secure authentication, and Zod-based form validation.",
+        "Connected applications to AWS infrastructure and delivered projects ahead of schedule through regular executive updates.",
       ],
     },
   ] as const satisfies readonly AboutExperienceEntry[],
   education: [
     {
-      credential: "B.S. in Computer Science",
-      institution: "State University",
-      period: "2015 - 2019",
+      credential: "B.S. Computer Engineering",
+      institution: "University of Illinois at Urbana-Champaign",
+      period: "2025 - Present",
       details:
-        "Focused on systems programming, distributed systems fundamentals, and human-computer interaction.",
+        "Activities and Societies: Marching Illini, Illini Solar Car, Project: Code UIUC, IEEE UIUC, Engineers without Borders, Campus Honors Program",
     },
     {
-      credential: "Professional Coursework: Cloud & DevOps",
-      institution: "Continuing Education",
-      period: "Ongoing",
+      credential: "High School Diploma",
+      institution: "James B. Conant High School",
+      period: "2021 - 2025",
       details:
-        "Applied studies in cloud architecture, container orchestration, and production operations.",
+        "Academic Scholar, GPA: 4.911./4.00 (Weighted), 4.00/4.00 (Unweighted)",
     },
   ] as const satisfies readonly EducationEntry[],
 } as const;
