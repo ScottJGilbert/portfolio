@@ -23,6 +23,7 @@ export interface ExternalLink {
 }
 
 export interface SiteShellContent {
+  announcement?: string;
   siteTitle: string;
   siteTagline: string;
   navItems: readonly SiteNavItem[];
@@ -61,6 +62,7 @@ export const externalLinks: readonly ExternalLink[] = [
 ];
 
 export const siteShellContent: SiteShellContent = {
+  announcement: "New portfolio is live!",
   siteTitle: "Scott Gilbert",
   siteTagline: "Computer Engineer",
   navItems,

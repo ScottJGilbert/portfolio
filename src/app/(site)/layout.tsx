@@ -10,7 +10,8 @@ export default function SiteLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const { externalLinks, navItems, siteTagline, siteTitle } = siteShellContent;
+  const { announcement, externalLinks, navItems, siteTagline, siteTitle } =
+    siteShellContent;
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -27,7 +28,7 @@ export default function SiteLayout({
           siteTitle={siteTitle}
           siteTagline={siteTagline}
         />
-        <TopActionBar externalLinks={externalLinks} />
+        <TopActionBar announcement={announcement} />
         <main className="flex-1">{children}</main>
         <SiteFooter />
       </div>

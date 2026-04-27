@@ -4,6 +4,7 @@ import { Chip } from "@/components/ui/chip";
 import { SectionHeading } from "@/components/ui/section-heading";
 import type { IconType } from "react-icons";
 import React from "react";
+import Image from "next/image";
 
 export interface HomeAssortmentContent {
   eyebrow: string;
@@ -129,8 +130,7 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
                 </div>
               </div>
               <div className="h-48 w-full overflow-hidden rounded-lg md:w-48 md:shrink-0">
-                {/* eslint-disable-next-line @next/next/no-img-element -- intentional plain image to avoid unoptimized next/image usage */}
-                <img
+                <Image
                   src={content.beyondCode.image.src}
                   alt={content.beyondCode.image.alt}
                   width={192}

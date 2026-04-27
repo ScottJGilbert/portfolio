@@ -1,26 +1,31 @@
-import { FaExternalLinkAlt as ExternalLinkIconGlyph } from "react-icons/fa";
+// import { FaExternalLinkAlt as ExternalLinkIconGlyph } from "react-icons/fa";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import {
-  type ExternalLink,
-  externalIconMapActionbar,
-} from "@/lib/site-content";
+// import {
+//   type ExternalLink,
+// } from "@/lib/site-content";
 
 interface TopActionBarProps {
-  externalLinks: readonly ExternalLink[];
+  // externalLinks: readonly ExternalLink[];
+  announcement?: string;
 }
 
-export function TopActionBar({ externalLinks }: TopActionBarProps) {
+export function TopActionBar({
+  // externalLinks,
+  announcement,
+}: TopActionBarProps) {
   return (
     <header
       className="hidden items-center justify-end gap-(--space-xs) border-b border-outline-ghost bg-surface/85 px-6 py-3 shadow-ambient backdrop-blur-xl supports-backdrop-filter:bg-surface/75 lg:sticky lg:top-0 lg:z-30 lg:flex"
       aria-label="Top action bar"
     >
-      <p
-        className="flex-1 text-center text-xs uppercase tracking-[0.16em] text-muted"
-        aria-label="Announcement"
-      >
-        New portfolio is live!
-      </p>
+      {announcement && (
+        <p
+          className="flex-1 text-center text-xs uppercase tracking-[0.16em] text-muted"
+          aria-label="Announcement"
+        >
+          {announcement}
+        </p>
+      )}
       {/* {externalLinks.map((link) => {
         const Icon = externalIconMapActionbar[link.icon];
 
