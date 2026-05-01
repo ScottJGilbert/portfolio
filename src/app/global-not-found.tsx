@@ -56,12 +56,13 @@ export default function GlobalNotFound() {
                     for.
                   </p>
                   <div className="relative mt-8 flex items-center justify-center gap-3">
-                    <Link
+                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                    <a
                       href="/"
                       className="inline-flex items-center rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
                     >
                       Go back home
-                    </Link>
+                    </a>
                   </div>
                 </section>
               </main>
