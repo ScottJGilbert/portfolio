@@ -3,7 +3,6 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 
-import Link from "next/link";
 import { DesktopSidebar } from "@/components/site/desktop-sidebar";
 import { MobileNav } from "@/components/site/mobile-nav";
 import { TopActionBar } from "@/components/site/top-action-bar";

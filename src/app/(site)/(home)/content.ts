@@ -3,7 +3,7 @@ import { HomeHeroContent } from "./components/hero-section";
 import { HomeAssortmentContent } from "./components/assortment-grid";
 import { HomeProjectsContent } from "./components/projects-grid";
 import { projects } from "../projects/content";
-import { GiTrombone } from "react-icons/gi";
+import { GiTrombone, GiGamepad } from "react-icons/gi";
 import { FaRunning } from "react-icons/fa";
 
 export interface HomeContent {
@@ -104,8 +104,8 @@ export const homeContent: HomeContent = {
     beyondCode: {
       title: "Beyond Code",
       description:
-        "When I'm not engineering something new, you can find me running, playing video games, or playing trombone in the marching band.",
-      icons: [GiTrombone, FaRunning],
+        "When I'm not engineering something new, you can find me running, gaming with friends, or playing trombone in the marching band.",
+      icons: [GiTrombone, GiGamepad, FaRunning],
       image: {
         src: "/marchingillini.webp",
         alt: "Modern desk setup with professional audio equipment, studio monitors, and a mechanical keyboard in soft natural lighting",
