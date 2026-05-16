@@ -41,7 +41,7 @@ export function JournalList({ content }: JournalListProps) {
             <li key={entry.index}>
               <Link
                 href={entry.href}
-                className="group flex flex-col gap-4 rounded-xl bg-surface/55 px-4 py-6 ring-1 ring-inset ring-outline-ghost/55 transition-colors hover:bg-surface-alt/75 active:bg-surface-alt/70 md:flex-row md:items-center md:justify-between md:px-6 md:py-8"
+                className="group flex flex-col gap-4 rounded-xl bg-surface/55 px-4 py-8 ring-1 ring-inset ring-outline-ghost/55 transition-colors hover:bg-surface-alt/75 active:bg-surface-alt/70 md:flex-row md:items-center md:justify-between md:px-6 md:py-8"
               >
                 <div className="flex items-center gap-4 md:gap-8">
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg ring-1 ring-inset ring-outline-ghost/55 md:h-20 md:w-20">
@@ -63,7 +63,7 @@ export function JournalList({ content }: JournalListProps) {
                     </div>
                   </div>
                 </div>
-                <span className="self-end whitespace-nowrap text-sm font-medium text-muted md:self-auto">
+                <span className="self-end whitespace-nowrap text-sm hidden md:block font-medium text-muted md:self-auto">
                   {entry.date}
                 </span>
               </Link>

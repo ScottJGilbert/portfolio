@@ -62,7 +62,7 @@ export const projects: Project[] = [
     categories: ["Frontend", "Full Stack"],
     slug: "icda-website",
     image_url:
-      "https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfEkIu7GY2XngWiKMLNTRs5Sk0qz9jY3P4xrOo",
+      "https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfUx4z18H2OkrGivuB5YZznLWoy4qtmIjDpwAE",
     stack: [
       "JavaScript",
       "React",

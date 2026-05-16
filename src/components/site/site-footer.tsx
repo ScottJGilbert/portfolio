@@ -32,7 +32,11 @@ const content = {
           href: "https://linkedin.com/in/scottgilbert",
           external: true,
         },
-        { label: "Email", href: "mailto:scott@gilbert.dev", external: true },
+        {
+          label: "Email",
+          href: "mailto:hello@scottgilbert.dev",
+          external: true,
+        },
       ],
     },
     {
