@@ -3,6 +3,8 @@ import { projectsPageData } from "./content";
 import ProjectCard from "./components/project-card";
 import { projects } from "./content";
 
+export { metadata } from "./content";
+
 export default function ProjectsPage() {
   return (
     <section className="px-6 py-10 md:px-10 lg:px-12">

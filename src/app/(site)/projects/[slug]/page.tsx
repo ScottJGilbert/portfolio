@@ -6,6 +6,24 @@ import Viewer, {
 import "@scottjgilbert/lexical-blog-editor/styles/ViewerTheme.css";
 import "./project-viewer.css";
 
+import type { Metadata } from "next";
+
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await props.params;
+  const data = projects.find((p) => p.slug === slug);
+  if (!data) {
+    return {
+      title: "Project Not Found",
+      description: "",
+    };
+  }
+  return {
+    title: data.title ?? "",
+    description: data.description ?? "",
+  };
+}
 export default async function ProjectPage(props: {
   params: Promise<{ slug: string }>;
 }) {

@@ -1,3 +1,10 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "RSS Feed",
+  description: "Stay updated with the latest news and updates from my website.",
+};
+
 export default function RSSPage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-12 md:px-12">

@@ -1,6 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { contactPageContent } from "./content";
 
+export { metadata } from "./content";
+
 export default function ContactPage() {
   return (
     <section className="px-6 py-10 md:px-10 lg:px-12">
@@ -70,6 +72,7 @@ export default function ContactPage() {
                   required
                   className="w-full rounded-md border border-outline-ghost bg-surface-alt px-3 py-2 text-sm text-foreground"
                   placeholder="Your name"
+                  disabled
                 />
               </label>
               <label className="space-y-2 text-sm text-foreground">
@@ -82,6 +85,7 @@ export default function ContactPage() {
                   required
                   className="w-full rounded-md border border-outline-ghost bg-surface-alt px-3 py-2 text-sm text-foreground"
                   placeholder="you@example.com"
+                  disabled
                 />
               </label>
             </div>
@@ -96,6 +100,7 @@ export default function ContactPage() {
                 rows={6}
                 className="w-full rounded-md border border-outline-ghost bg-surface-alt px-3 py-2 text-sm text-foreground"
                 placeholder="Tell me a bit about what you’d like to discuss."
+                disabled
               />
             </label>
 

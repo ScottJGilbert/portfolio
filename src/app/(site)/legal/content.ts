@@ -1,8 +1,16 @@
+import { Metadata } from "next";
+
 export interface LegalSection {
   id: string;
   title: string;
   paragraphs: readonly string[];
 }
+
+export const metadata: Metadata = {
+  title: "Legal",
+  description:
+    "Legal information regarding the use of this website and related intellectual property.",
+};
 
 export const legalPageContent = {
   title: "Legal",

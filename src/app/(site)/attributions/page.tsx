@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 type AttributionBlock =
   | {
       type: "intro";
@@ -74,6 +76,12 @@ const attributionBlocks: AttributionBlock[] = [
     text: '...and a "little bit" of help from Google, W3Schools, ChatGPT, Gemini, Reddit, GitHub Copilot, and a lot more.',
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Attributions",
+  description:
+    "A list of attributions for the resources used in building this website.",
+};
 
 function AttributionsContent({ blocks }: { blocks: AttributionBlock[] }) {
   return (

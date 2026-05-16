@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@scottjgilbert/lexical-blog-editor':
-        specifier: file:.yalc\@scottjgilbert\lexical-blog-editor
-        version: file:.yalc/@scottjgilbert/lexical-blog-editor(@types/react@19.2.14)(lexical@0.40.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: 1.1.0
+        version: 1.1.0(@types/react@19.2.14)(lexical@0.40.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@vercel/analytics':
         specifier: ^2.0.1
         version: 2.0.1(next@16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
@@ -592,8 +592,8 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
-  '@scottjgilbert/lexical-blog-editor@file:.yalc/@scottjgilbert/lexical-blog-editor':
-    resolution: {directory: .yalc/@scottjgilbert/lexical-blog-editor, type: directory}
+  '@scottjgilbert/lexical-blog-editor@1.1.0':
+    resolution: {integrity: sha512-G9nuZQnJ7yhoYl8ClJ1I32Q1hVopm6niLCDjXrZ8AFbumOlxl84k+O0rAPqNROxZik2vuA4mBSQXamoqg7RhKw==}
     peerDependencies:
       lexical: ^0.40.0
       react: ^18.0.0 || ^19.0.0
@@ -1778,8 +1778,8 @@ packages:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
 
-  katex@0.16.46:
-    resolution: {integrity: sha512-WHy4Coo+bGZyH7NwJKHkS04YFsFcarWbAEOAC3EMndzdN6VSZqklLLIgfxzyaW9jDoeGYJX9SWbJPKpecox0Uw==}
+  katex@0.16.47:
+    resolution: {integrity: sha512-Eeo8Ys1doU1z+x8AZsPpQu+p/QcZBI5PeOo7QGQdy2x2m0MU/hYagBbGOmXwr5KVbEfVuWv9LpnQWeehogurjg==}
     hasBin: true
 
   keyv@4.5.4:
@@ -3178,7 +3178,7 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@scottjgilbert/lexical-blog-editor@file:.yalc/@scottjgilbert/lexical-blog-editor(@types/react@19.2.14)(lexical@0.40.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@scottjgilbert/lexical-blog-editor@1.1.0(@types/react@19.2.14)(lexical@0.40.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@floating-ui/react': 0.27.19(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@igorskyflyer/strip-html': 2.1.0
@@ -3208,7 +3208,7 @@ snapshots:
       dompurify: 3.4.3
       html-react-parser: 5.2.17(@types/react@19.2.14)(react@19.2.4)
       jsdom: 26.1.0
-      katex: 0.16.46
+      katex: 0.16.47
       lexical: 0.40.0
       lodash: 4.18.1
       lodash-es: 4.18.1
@@ -4565,7 +4565,7 @@ snapshots:
       object.assign: 4.1.7
       object.values: 1.2.1
 
-  katex@0.16.46:
+  katex@0.16.47:
     dependencies:
       commander: 8.3.0
 

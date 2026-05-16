@@ -1,6 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { legalPageContent } from "./content";
 
+export { metadata } from "./content";
+
 export default function LegalPage() {
   return (
     <section className="px-6 py-10 md:px-10 lg:px-12">

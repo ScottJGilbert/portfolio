@@ -1,3 +1,10 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "My background, experience, education, and more.",
+};
+
 export interface AboutExperienceEntry {
   role: string;
   company: string;
@@ -23,8 +30,8 @@ export const aboutPageContent = {
   ] as const,
   experience: [
     {
-      role: "Webmaster & Array/MPPT Subteam Lead (formerly Electrical Team Member)",
-      company: "Illini Solar Car",
+      role: "Webmaster & Array/MPPT Subteam Lead",
+      company: "Electrical Team - Illini Solar Car",
       location: "Urbana-Champaign Area · On-site",
       period: "Oct 2025 - Present",
       summary:
@@ -33,6 +40,18 @@ export const aboutPageContent = {
         "Leading development of the array and Maximum Power Point Tracking (MPPT) subsystems.",
         "Serving as lead developer for the Power Distribution subsystem.",
         "Supporting motor controller, battery pack, and monohassis substructure development while assisting with team operations and sponsorship tasks.",
+      ],
+    },
+    {
+      role: "President & Systems Administrator",
+      company: "Illini Redstone Computing",
+      location: "Urbana-Champaign Area · On-site",
+      period: "Jan 2026 - Present",
+      summary:
+        "Manage the organization's day-to-day financial, administrative, and technical decision-making.",
+      highlights: [
+        "Act as primary liaison to the university and other organizations at UIUC.",
+        "Develop and maintain a network of containerized applications across gaming, authentication, user management, and data pipelining services.",
       ],
     },
     {

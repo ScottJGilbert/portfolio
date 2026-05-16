@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { aboutPageContent } from "./content";
 
+export { metadata } from "./content";
+
 export default function AboutPage() {
   return (
     <section className="px-6 py-10 md:px-10 lg:px-12">

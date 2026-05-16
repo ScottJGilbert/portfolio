@@ -18,10 +18,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Personal Portfolio",
-    template: "%s | Personal Portfolio",
+    default: "Scott Gilbert - Computer Engineer",
+    template: "%s | Scott Gilbert",
   },
-  description: "A personal portfolio and content system built with Next.js.",
+  description:
+    "Full-stack developer, tinkerer, problem-solver, and computer engineering student at the University of Illinois Urbana-Champaign.",
 };
 
 export default function RootLayout({
