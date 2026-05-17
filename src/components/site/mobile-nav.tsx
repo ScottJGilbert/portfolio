@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { IconButton } from "@/components/ui/icon-button";
 import { NavItem } from "@/components/ui/nav-item";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -34,12 +35,12 @@ export function MobileNav({
 
   return (
     <nav
-      className="sticky top-0 z-40 border-b border-outline-ghost bg-surface/85 shadow-ambient supports-backdrop-filter:bg-surface/75 lg:hidden"
+      className="sticky top-0 z-50 border-b border-outline-ghost bg-surface/85 shadow-ambient supports-backdrop-filter:bg-surface/75 lg:hidden"
       aria-label="Mobile navigation"
     >
       <div
         className={clsx(
-          "flex h-16 items-center justify-between gap-(--space-sm) px-6 backdrop-blur-xl border-b-gray-200",
+          "relative flex z-60 h-16 items-center justify-between gap-(--space-sm) px-6 backdrop-blur-xl border-b-gray-200",
           { "border-b": isOpen, "border-b-0": !isOpen },
         )}
       >
@@ -71,65 +72,71 @@ export function MobileNav({
         </div>
       </div>
 
-      {isOpen ? (
-        <div
-          id="mobile-site-menu"
-          className="fixed inset-x-0 top-16 z-50 space-y-8 border-b border-outline-ghost bg-surface/90 px-6 py-8 backdrop-blur-xl supports-backdrop-filter:bg-surface/80 lg:hidden"
-        >
-          <div className="space-y-4">
-            <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-muted">
-              Navigation
-            </p>
-            <ul className="space-y-1">
-              {navItems.map((item) => {
-                return (
-                  <li key={item.href}>
-                    <NavItem
-                      href={item.href}
-                      active={isItemActive(pathname, item.href)}
-                      className="w-full justify-start py-3"
-                      icon={item.icon}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.label}
-                    </NavItem>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-muted">
-              Connect
-            </p>
-            <ul className="grid grid-cols-2 gap-4">
-              {externalLinks.map((link) => {
-                return (
-                  <li key={link.href}>
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => setIsOpen(false)}
-                      className="inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                    >
-                      <span
-                        className="inline-flex size-4 items-center justify-center"
-                        aria-hidden
-                        suppressHydrationWarning
+      <AnimatePresence>
+        {isOpen ? (
+          <motion.div
+            id="mobile-site-menu"
+            className="fixed inset-x-0 top-16 z-40 space-y-8 border-b border-outline-ghost bg-surface/90 px-6 py-8 backdrop-blur-xl supports-backdrop-filter:bg-surface/80 lg:hidden"
+            initial={{ y: "-140%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-140%" }}
+            transition={{ type: "spring", stiffness: 300, damping: 35 }}
+          >
+            <div className="space-y-4">
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-muted">
+                Navigation
+              </p>
+              <ul className="space-y-1">
+                {navItems.map((item) => {
+                  return (
+                    <li key={item.href}>
+                      <NavItem
+                        href={item.href}
+                        active={isItemActive(pathname, item.href)}
+                        className="w-full justify-start py-3"
+                        icon={item.icon}
+                        onClick={() => setIsOpen(false)}
                       >
-                        {link.icon}
-                      </span>
-                      <span>{link.label}</span>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </div>
-      ) : null}
+                        {item.label}
+                      </NavItem>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-muted">
+                Connect
+              </p>
+              <ul className="grid grid-cols-2 gap-4">
+                {externalLinks.map((link) => {
+                  return (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={() => setIsOpen(false)}
+                        className="inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                      >
+                        <span
+                          className="inline-flex size-4 items-center justify-center"
+                          aria-hidden
+                          suppressHydrationWarning
+                        >
+                          {link.icon}
+                        </span>
+                        <span>{link.label}</span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </nav>
   );
 }

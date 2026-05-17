@@ -27,7 +27,7 @@ export function JournalList({ content }: JournalListProps) {
       className="px-6 py-20 md:px-12 md:py-24"
       aria-labelledby="journal-heading"
     >
-      <div className="mx-auto max-w-5xl space-y-12">
+      <div className="space-y-12">
         <SectionHeading
           eyebrow={content.eyebrow}
           title={content.title}

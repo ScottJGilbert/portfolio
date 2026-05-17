@@ -55,7 +55,7 @@ const content = {
 export function SiteFooter() {
   return (
     <footer className="px-6 py-12 md:px-12" aria-label="Site footer">
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 border-t border-outline-ghost/70 px-2 pt-10 text-center backdrop-blur md:flex-row md:justify-between md:text-left md:gap-x-8">
+      <div className="flex flex-col gap-10 border-t border-outline-ghost/70 px-2 pt-10 text-center backdrop-blur md:flex-row md:justify-between md:text-left md:gap-x-8">
         <div className="space-y-2">
           <p className="font-medium text-foreground">{content.name}</p>
           <p className="text-xs uppercase tracking-[0.16em] text-muted">

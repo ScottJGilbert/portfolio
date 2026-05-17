@@ -7,7 +7,7 @@ export { metadata } from "./content";
 export default function AboutPage() {
   return (
     <section className="px-6 py-10 md:px-10 lg:px-12">
-      <div className="mx-auto max-w-5xl space-y-10">
+      <div className="space-y-10">
         <header className="grid gap-6 md:grid-cols-[minmax(0,220px)_1fr] md:items-start">
           <div className="overflow-hidden rounded-2xl bg-surface shadow-sm ring-1 ring-border/60">
             <Image

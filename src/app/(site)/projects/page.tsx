@@ -8,7 +8,7 @@ export { metadata } from "./content";
 export default function ProjectsPage() {
   return (
     <section className="px-6 py-10 md:px-10 lg:px-12">
-      <div className="mx-auto max-w-6xl space-y-10">
+      <div className="mx-auto max-w-7xl space-y-10">
         <header className="space-y-3">
           <h1 className="text-3xl font-semibold tracking-tight">
             {projectsPageData.title}

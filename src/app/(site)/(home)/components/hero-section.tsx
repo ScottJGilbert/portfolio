@@ -39,9 +39,11 @@ export function HeroSection({ content }: { content: HomeHeroContent }) {
         </p>
         <Link
           href="/about"
-          className="inline-flex items-center justify-center gap-(--space-xs) rounded-full border border-primary/25 px-8 py-4 text-sm font-bold uppercase tracking-[0.16em] text-primary-foreground shadow-ambient transition-[filter] hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="bg-surface-alt group relative inline-flex items-center justify-center gap-(--space-xs) rounded-full border border-primary/25 px-8 py-4 text-sm font-bold uppercase tracking-[0.16em] text-primary-foreground shadow-ambient overflow-hidden transform transition duration-300 ease-out hover:scale-105 hover:brightness-105 active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          {content.ctaLabel}
+          {/* subtle animated gradient overlay on hover */}
+          <span className="absolute inset-0 bg-linear-to-r from-primary/20 via-transparent to-primary/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" />
+          <span className="relative z-10">{content.ctaLabel}</span>
         </Link>
       </div>
     </section>

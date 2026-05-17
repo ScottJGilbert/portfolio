@@ -29,8 +29,10 @@ export default function SiteLayout({
           siteTagline={siteTagline}
         />
         <TopActionBar announcement={announcement} />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+        <main className="max-w-7xl flex-1 px-6 pt-8 md:px-12 md:pt-12 md:mx-auto">
+          {children}
+          <SiteFooter />
+        </main>
       </div>
     </div>
   );
