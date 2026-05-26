@@ -47,3 +47,7 @@ next-env.d.ts
 # Yalc
 .yalc/
 yalc.lock
+
+# Agent session data
+docs/superpowers/*
+

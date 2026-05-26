@@ -18,12 +18,32 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://scottgilbert.dev",
+  ),
   title: {
     default: "Scott Gilbert - Computer Engineer",
     template: "%s | Scott Gilbert",
   },
   description:
     "Full-stack developer, tinkerer, problem-solver, and computer engineering student at the University of Illinois Urbana-Champaign.",
+  openGraph: {
+    title: "Scott Gilbert - Computer Engineer",
+    description:
+      "Full-stack developer, tinkerer, problem-solver, and computer engineering student at the University of Illinois Urbana-Champaign.",
+    url: "/",
+    siteName: "Scott Gilbert Portfolio",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Scott Gilbert Portfolio",
+      },
+    ],
+    locale: "en-US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

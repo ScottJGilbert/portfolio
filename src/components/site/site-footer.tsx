@@ -46,7 +46,6 @@ const content = {
         { label: "Terms", href: "/legal#terms", external: false },
         { label: "Privacy", href: "/legal#privacy", external: false },
         { label: "Sitemap", href: "/sitemap.xml", external: true },
-        { label: "RSS", href: "/rss", external: true },
       ],
     },
   ],
