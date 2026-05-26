@@ -3,8 +3,10 @@ import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { SectionHeading } from "@/components/ui/section-heading";
 import type { IconType } from "react-icons";
-import React from "react";
+import { Fragment } from "react";
 import Image from "next/image";
+import { techStack } from "@/lib/tech-stack";
+import TechStackComponent from "@/components/ui/tech-stack";
 
 export interface HomeAssortmentContent {
   eyebrow: string;
@@ -59,8 +61,8 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
             <div className="space-y-6">
               <h3 className="text-xl font-bold">{content.coreStack.title}</h3>
               <div className="flex flex-wrap gap-3">
-                {content.coreStack.technologies.map((technology, index) => (
-                  <React.Fragment key={technology}>
+                {/* {content.coreStack.technologies.map((technology, index) => (
+                  <Fragment key={technology}>
                     {index < 25 && (
                       <Chip
                         variant="neutral"
@@ -69,7 +71,12 @@ export function AssortmentGrid({ content }: AssortmentGridProps) {
                         {technology}
                       </Chip>
                     )}
-                  </React.Fragment>
+                  </Fragment>
+                ))} */}
+                {techStack.map((tech, index) => (
+                  <Fragment key={tech.name}>
+                    {index < 15 && <TechStackComponent element={tech} />}
+                  </Fragment>
                 ))}
               </div>
             </div>

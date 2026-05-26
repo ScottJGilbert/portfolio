@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { contactPageContent } from "./content";
+import ContactForm from "./components/contact-form";
 
 export { metadata } from "./content";
 
@@ -60,65 +61,7 @@ export default function ContactPage() {
         </Card>
 
         <Card variant="surface" padding="lg" className="space-y-6">
-          <form className="space-y-5" aria-describedby="contact-form-note">
-            <div className="grid gap-5 md:grid-cols-2">
-              <label className="space-y-2 text-sm text-foreground">
-                <span className="text-xs uppercase tracking-[0.14em] text-muted">
-                  Name<span className="text-red-500">*</span>
-                </span>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  className="w-full rounded-md border border-outline-ghost bg-surface-alt px-3 py-2 text-sm text-foreground"
-                  placeholder="Your name"
-                  disabled
-                />
-              </label>
-              <label className="space-y-2 text-sm text-foreground">
-                <span className="text-xs uppercase tracking-[0.14em] text-muted">
-                  Email<span className="text-red-500">*</span>
-                </span>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  className="w-full rounded-md border border-outline-ghost bg-surface-alt px-3 py-2 text-sm text-foreground"
-                  placeholder="you@example.com"
-                  disabled
-                />
-              </label>
-            </div>
-
-            <label className="space-y-2 text-sm text-foreground">
-              <span className="text-xs uppercase tracking-[0.14em] text-muted">
-                Message<span className="text-red-500">*</span>
-              </span>
-              <textarea
-                name="message"
-                required
-                rows={6}
-                className="w-full rounded-md border border-outline-ghost bg-surface-alt px-3 py-2 text-sm text-foreground"
-                placeholder="Tell me a bit about what you’d like to discuss."
-                disabled
-              />
-            </label>
-
-            <button
-              type="button"
-              className="inline-flex items-center rounded-md border border-outline-ghost bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
-            >
-              Send Message (submission coming soon)
-            </button>
-
-            <p
-              id="contact-form-note"
-              className="text-xs uppercase tracking-[0.14em] text-muted"
-            >
-              This form is currently static with no backend submission. For
-              fastest response, use one of the direct channels below.
-            </p>
-          </form>
+          <ContactForm />
         </Card>
       </div>
     </section>

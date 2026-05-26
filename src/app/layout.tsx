@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { ToastContainer } from "react-toastify";
 
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import "./globals.css";
@@ -40,6 +41,12 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
           <Analytics />
+          <ToastContainer
+            closeButton={false}
+            hideProgressBar
+            newestOnTop
+            toastClassName="!bg-transparent !p-0 !shadow-none !mb-3 !overflow-visible"
+          />
         </ThemeProvider>
       </body>
     </html>

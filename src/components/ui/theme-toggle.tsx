@@ -1,7 +1,8 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { FaMoon as Moon, FaSun as Sun } from "react-icons/fa";
+import { FaMoon as Moon } from "react-icons/fa";
+import { IoIosSunny as Sun } from "react-icons/io";
 import { useTheme } from "./theme-provider";
 
 interface ThemeToggleProps {

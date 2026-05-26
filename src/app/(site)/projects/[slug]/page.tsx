@@ -5,6 +5,8 @@ import Viewer, {
 } from "@scottjgilbert/lexical-blog-editor/viewer";
 import "@scottjgilbert/lexical-blog-editor/styles/ViewerTheme.css";
 import "./project-viewer.css";
+import { fetchStack, TechStackElement } from "@/lib/tech-stack";
+import TechStackComponent from "@/components/ui/tech-stack";
 
 import type { Metadata } from "next";
 
@@ -43,6 +45,8 @@ export default async function ProjectPage(props: {
 
   const hasCategories = project.categories.length > 0;
   const hasStack = project.stack.length > 0;
+
+  const icons = fetchStack(project.stack);
 
   return (
     <section className="px-6 py-10 md:px-10 lg:px-12">
@@ -100,13 +104,8 @@ export default async function ProjectPage(props: {
                   Stack
                 </dt>
                 <dd className="flex flex-wrap gap-2">
-                  {project.stack.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-outline-ghost bg-surface px-2.5 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-muted"
-                    >
-                      {item}
-                    </span>
+                  {icons.map((icon) => (
+                    <TechStackComponent key={icon.name} element={icon} />
                   ))}
                 </dd>
               </div>

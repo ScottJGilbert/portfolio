@@ -3,8 +3,12 @@ import { Project } from "../content";
 import { Chip } from "@/components/ui/chip";
 import Link from "next/link";
 import React from "react";
+import { fetchStack } from "@/lib/tech-stack";
+import TechStackComponent from "@/components/ui/tech-stack";
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const stack = fetchStack(project.stack);
+
   return (
     <Card
       key={project.title}
@@ -25,9 +29,9 @@ export default function ProjectCard({ project }: { project: Project }) {
             {item}
           </Chip>
         ))}
-        {project.stack.map((item, index) => (
-          <React.Fragment key={`${project.title}-${item}`}>
-            {index < 10 && <Chip variant="outline">{item}</Chip>}
+        {stack.map((item, index) => (
+          <React.Fragment key={`${project.title}-${item.name}`}>
+            {index < 7 && <TechStackComponent element={item} />}
           </React.Fragment>
         ))}
       </div>

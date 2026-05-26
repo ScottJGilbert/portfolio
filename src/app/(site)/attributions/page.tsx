@@ -28,9 +28,9 @@ const attributionBlocks: AttributionBlock[] = [
   {
     type: "section",
     title: "Icons",
-    url: "https://simpleicons.org",
+    url: "https://react-icons.github.io/react-icons/",
     description:
-      "Most expertise icons have been fetched via either the Simple Icon CDN or through the React Icons library. All trademarks, brands, logos, and otherwise are property of their respective owners. If more detailed attributions are required for any logos, they are listed below.",
+      "The icons on this site are part of the React Icons library. All trademarks, brands, logos, and otherwise are property of their respective owners. If more detailed attributions are required for any logos, they are listed below.",
   },
   {
     type: "section",
