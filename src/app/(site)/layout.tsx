@@ -10,14 +10,21 @@ export default function SiteLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const { announcement, externalLinks, navItems, siteTagline, siteTitle } =
-    siteShellContent;
+  const {
+    announcement,
+    externalLinks,
+    promiseLink,
+    navItems,
+    siteTagline,
+    siteTitle,
+  } = siteShellContent;
 
   return (
     <div className="flex min-h-screen bg-background">
       <DesktopSidebar
         navItems={navItems}
         externalLinks={externalLinks}
+        promiseLink={promiseLink}
         siteTitle={siteTitle}
         siteTagline={siteTagline}
       />
@@ -25,6 +32,7 @@ export default function SiteLayout({
         <MobileNav
           navItems={navItems}
           externalLinks={externalLinks}
+          promiseLink={promiseLink}
           siteTitle={siteTitle}
           siteTagline={siteTagline}
         />

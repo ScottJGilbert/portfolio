@@ -7,6 +7,7 @@ import {
   FaHouseUser as HouseUser,
   FaBriefcase as Briefcase,
   FaFileAlt as File,
+  FaShieldAlt as Shield,
 } from "react-icons/fa";
 import { createElement, ReactNode } from "react";
 
@@ -28,6 +29,7 @@ export interface SiteShellContent {
   siteTagline: string;
   navItems: readonly SiteNavItem[];
   externalLinks: readonly ExternalLink[];
+  promiseLink: ExternalLink;
 }
 
 export const navItems: readonly SiteNavItem[] = [
@@ -61,10 +63,17 @@ export const externalLinks: readonly ExternalLink[] = [
   },
 ];
 
+export const promiseLink: ExternalLink = {
+  href: "https://promise.scottgilbert.dev",
+  label: "My Promise",
+  icon: createElement(Shield),
+};
+
 export const siteShellContent: SiteShellContent = {
   announcement: "New portfolio is live!",
   siteTitle: "Scott Gilbert",
   siteTagline: "Computer Engineer",
   navItems,
   externalLinks,
+  promiseLink,
 };

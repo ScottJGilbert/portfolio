@@ -15,6 +15,7 @@ import clsx from "clsx";
 interface MobileNavProps {
   navItems: readonly SiteNavItem[];
   externalLinks: readonly ExternalLink[];
+  promiseLink: ExternalLink;
   siteTitle?: string;
   siteTagline?: string;
 }
@@ -27,6 +28,7 @@ const isItemActive = (pathname: string, href: string) =>
 export function MobileNav({
   navItems,
   externalLinks,
+  promiseLink,
   siteTitle = "Portfolio",
   siteTagline = "Personal content system",
 }: MobileNavProps) {
@@ -132,6 +134,31 @@ export function MobileNav({
                     </li>
                   );
                 })}
+              </ul>
+            </div>
+            <div className="bg-foreground/10 -my-2 py-2 border border-outline-ghost rounded-lg text-center space-y-4">
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-muted">
+                Need someone to talk to?
+              </p>
+              <ul className="flex justify-center">
+                <li key={promiseLink.href}>
+                  <a
+                    href={promiseLink.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setIsOpen(false)}
+                    className="inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  >
+                    <span
+                      className="inline-flex size-4 items-center justify-center"
+                      aria-hidden
+                      suppressHydrationWarning
+                    >
+                      {promiseLink.icon}
+                    </span>
+                    <span>{promiseLink.label}</span>
+                  </a>
+                </li>
               </ul>
             </div>
           </motion.div>
