@@ -11,8 +11,14 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { siteShellContent } from "@/lib/site-content";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
-const { announcement, externalLinks, navItems, siteTagline, siteTitle } =
-  siteShellContent;
+const {
+  announcement,
+  externalLinks,
+  navItems,
+  promiseLink,
+  siteTagline,
+  siteTitle,
+} = siteShellContent;
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +36,7 @@ export default function GlobalNotFound() {
             <DesktopSidebar
               navItems={navItems}
               externalLinks={externalLinks}
+              promiseLink={promiseLink}
               siteTitle={siteTitle}
               siteTagline={siteTagline}
             />
@@ -37,6 +44,7 @@ export default function GlobalNotFound() {
               <MobileNav
                 navItems={navItems}
                 externalLinks={externalLinks}
+                promiseLink={promiseLink}
                 siteTitle={siteTitle}
                 siteTagline={siteTagline}
               />
