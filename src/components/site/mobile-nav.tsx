@@ -18,6 +18,7 @@ interface MobileNavProps {
   promiseLink: ExternalLink;
   siteTitle?: string;
   siteTagline?: string;
+  useAnchors?: boolean;
 }
 
 const isItemActive = (pathname: string, href: string) =>
@@ -31,6 +32,7 @@ export function MobileNav({
   promiseLink,
   siteTitle = "Portfolio",
   siteTagline = "Personal content system",
+  useAnchors = false,
 }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -47,9 +49,16 @@ export function MobileNav({
         )}
       >
         <div className="flex flex-col">
-          <Link href="/" className="text-sm font-bold tracking-tight">
-            {siteTitle}
-          </Link>
+          {useAnchors ? (
+            // eslint-disable-next-line @next/next/no-html-link-for-pages
+            <a href="/" className="text-sm font-bold tracking-tight">
+              {siteTitle}
+            </a>
+          ) : (
+            <Link href="/" className="text-sm font-bold tracking-tight">
+              {siteTitle}
+            </Link>
+          )}
           <p className="text-[10px] font-medium uppercase tracking-[0.15em] text-muted">
             {siteTagline}
           </p>
@@ -98,6 +107,7 @@ export function MobileNav({
                         className="w-full justify-start py-3"
                         icon={item.icon}
                         onClick={() => setIsOpen(false)}
+                        useAnchor={useAnchors}
                       >
                         {item.label}
                       </NavItem>
@@ -115,22 +125,18 @@ export function MobileNav({
                 {externalLinks.map((link) => {
                   return (
                     <li key={link.href}>
-                      <a
+                      <NavItem
                         href={link.href}
+                        className="w-full inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        aria-label={link.label}
+                        icon={link.icon}
+                        onClick={() => setIsOpen(false)}
+                        useAnchor={useAnchors}
                         target="_blank"
                         rel="noreferrer"
-                        onClick={() => setIsOpen(false)}
-                        className="inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       >
-                        <span
-                          className="inline-flex size-4 items-center justify-center"
-                          aria-hidden
-                          suppressHydrationWarning
-                        >
-                          {link.icon}
-                        </span>
-                        <span>{link.label}</span>
-                      </a>
+                        {link.label}
+                      </NavItem>
                     </li>
                   );
                 })}
@@ -142,22 +148,18 @@ export function MobileNav({
               </p>
               <ul className="flex justify-center">
                 <li key={promiseLink.href}>
-                  <a
+                  <NavItem
                     href={promiseLink.href}
+                    className="w-full inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    aria-label={promiseLink.label}
+                    icon={promiseLink.icon}
+                    onClick={() => setIsOpen(false)}
+                    useAnchor={useAnchors}
                     target="_blank"
                     rel="noreferrer"
-                    onClick={() => setIsOpen(false)}
-                    className="inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
-                    <span
-                      className="inline-flex size-4 items-center justify-center"
-                      aria-hidden
-                      suppressHydrationWarning
-                    >
-                      {promiseLink.icon}
-                    </span>
-                    <span>{promiseLink.label}</span>
-                  </a>
+                    {promiseLink.label}
+                  </NavItem>
                 </li>
               </ul>
             </div>

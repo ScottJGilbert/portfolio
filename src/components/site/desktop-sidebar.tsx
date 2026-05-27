@@ -11,6 +11,7 @@ interface DesktopSidebarProps {
   promiseLink: ExternalLink;
   siteTitle?: string;
   siteTagline?: string;
+  useAnchors?: boolean;
 }
 
 const isItemActive = (pathname: string, href: string) =>
@@ -24,6 +25,7 @@ export function DesktopSidebar({
   promiseLink,
   siteTitle = "Scott Gilbert",
   siteTagline = "Computer Engineer",
+  useAnchors = false,
 }: DesktopSidebarProps) {
   const pathname = usePathname();
 
@@ -33,12 +35,22 @@ export function DesktopSidebar({
       aria-label="Desktop sidebar"
     >
       <div className="space-y-1">
-        <Link
-          href="/"
-          className="text-xl font-bold tracking-tight text-foreground"
-        >
-          {siteTitle}
-        </Link>
+        {useAnchors ? (
+          // eslint-disable-next-line @next/next/no-html-link-for-pages
+          <a
+            href="/"
+            className="text-xl font-bold tracking-tight text-foreground"
+          >
+            {siteTitle}
+          </a>
+        ) : (
+          <Link
+            href="/"
+            className="text-xl font-bold tracking-tight text-foreground"
+          >
+            {siteTitle}
+          </Link>
+        )}
         <p className="text-xs font-medium uppercase tracking-[0.15em] text-muted">
           {siteTagline}
         </p>
@@ -59,6 +71,7 @@ export function DesktopSidebar({
                   active={isItemActive(pathname, item.href)}
                   className="w-full justify-start"
                   icon={item.icon}
+                  useAnchor={useAnchors}
                 >
                   {item.label}
                 </NavItem>
@@ -83,6 +96,7 @@ export function DesktopSidebar({
                   className="w-full inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   aria-label={link.label}
                   icon={link.icon}
+                  useAnchor={useAnchors}
                 >
                   <span>{link.label}</span>
                 </NavItem>
@@ -107,6 +121,7 @@ export function DesktopSidebar({
               className="w-full px-4 inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label={promiseLink.label}
               icon={promiseLink.icon}
+              useAnchor={useAnchors}
             >
               <span>{promiseLink.label}</span>
             </NavItem>

@@ -51,7 +51,7 @@ const content = {
   ],
 };
 
-export function SiteFooter() {
+export function SiteFooter({ useAnchors = false }: { useAnchors?: boolean }) {
   return (
     <footer className="px-6 py-12 md:px-12" aria-label="Site footer">
       <div className="flex flex-col gap-10 border-t border-outline-ghost/70 px-2 pt-10 text-center backdrop-blur md:flex-row md:justify-between md:text-left md:gap-x-8">
@@ -69,15 +69,27 @@ export function SiteFooter() {
             <ul className="mx-auto md:mx-0 flex md:flex-col gap-4 md:gap-2">
               {section.links.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted transition-colors hover:text-primary"
-                    {...(link.external
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                  >
-                    {link.label}
-                  </Link>
+                  {useAnchors ? (
+                    <a
+                      href={link.href}
+                      className="text-sm text-muted transition-colors hover:text-primary"
+                      {...(link.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted transition-colors hover:text-primary"
+                      {...(link.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

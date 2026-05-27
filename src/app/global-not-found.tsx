@@ -39,6 +39,7 @@ export default function GlobalNotFound() {
               promiseLink={promiseLink}
               siteTitle={siteTitle}
               siteTagline={siteTagline}
+              useAnchors
             />
             <div className="flex min-h-screen min-w-0 flex-1 flex-col">
               <MobileNav
@@ -47,6 +48,7 @@ export default function GlobalNotFound() {
                 promiseLink={promiseLink}
                 siteTitle={siteTitle}
                 siteTagline={siteTagline}
+                useAnchors
               />
               <TopActionBar announcement={announcement} />
               <main className="flex-1">
@@ -73,7 +75,7 @@ export default function GlobalNotFound() {
                   </div>
                 </section>
               </main>
-              <SiteFooter />
+              <SiteFooter useAnchors />
             </div>
           </div>
           <Analytics />
