@@ -19,6 +19,7 @@ export interface EducationEntry {
   institution: string;
   period: string;
   details: string;
+  logo: string;
 }
 
 export const aboutPageContent = {
@@ -88,6 +89,7 @@ export const aboutPageContent = {
       period: "2025 - Present",
       details:
         "Activities and Societies: Marching Illini, Illini Solar Car, Project: Code UIUC, IEEE UIUC, Engineers without Borders, Campus Honors Program",
+      logo: "/illinois.png",
     },
     {
       credential: "High School Diploma",
@@ -95,6 +97,7 @@ export const aboutPageContent = {
       period: "2021 - 2025",
       details:
         "Academic Scholar, GPA: 4.911./4.00 (Weighted), 4.00/4.00 (Unweighted)",
+      logo: "/conant.png",
     },
   ] as const satisfies readonly EducationEntry[],
 } as const;

@@ -84,15 +84,26 @@ export default function AboutPage() {
                 key={`${entry.institution}-${entry.credential}`}
                 variant="surface"
                 padding="lg"
-                className="space-y-2"
+                className="flex items-start gap-4"
               >
-                <p className="text-base font-semibold text-foreground">
-                  {entry.credential}
-                </p>
-                <p className="text-xs uppercase tracking-[0.14em] text-muted">
-                  {entry.institution} · {entry.period}
-                </p>
-                <p className="text-sm leading-7 text-muted">{entry.details}</p>
+                <Image
+                  src={entry.logo}
+                  alt={`${entry.institution} logo`}
+                  width={48}
+                  height={48}
+                  className="h-12 w-12 rounded-lg object-contain border border-border bg-surface"
+                />
+                <div className="space-y-2">
+                  <p className="text-base font-semibold text-foreground">
+                    {entry.credential}
+                  </p>
+                  <p className="text-xs uppercase tracking-[0.14em] text-muted">
+                    {entry.institution} · {entry.period}
+                  </p>
+                  <p className="text-sm leading-7 text-muted">
+                    {entry.details}
+                  </p>
+                </div>
               </Card>
             ))}
           </div>
