@@ -25,7 +25,7 @@ export interface EducationEntry {
 export const aboutPageContent = {
   title: "About",
   intro: [
-    "Hello! I'm Scott, an undergraduate computer engineering student at the University of Illinois at Urbana-Champaign and a graduate of James B. Conant High School in Hoffman Estates, Illinois.",
+    "Hello! I'm Scott Gilbert, an undergraduate computer engineering student at the University of Illinois Urbana-Champaign and a graduate of James B. Conant High School in Hoffman Estates, Illinois.",
     "I am a hard-working full-stack developer, problem-solver, and computer engineer who is dedicated to deploying information technology, computing, and electrical engineering solutions to both solve complex problems and working miracles in peoples' lives.",
     "...I also like the color green.",
   ] as const,
@@ -88,7 +88,7 @@ export const aboutPageContent = {
       institution: "University of Illinois at Urbana-Champaign",
       period: "2025 - Present",
       details:
-        "Activities and Societies: Marching Illini, Illini Solar Car, Project: Code UIUC, IEEE UIUC, Engineers without Borders, Campus Honors Program",
+        "Dean's List | GPA: 4.00/4.00\nActivities and Societies: Marching Illini, Illini Solar Car, Project: Code UIUC, IEEE UIUC, Engineers without Borders, Campus Honors Program",
       logo: "/illinois.png",
     },
     {
@@ -96,7 +96,7 @@ export const aboutPageContent = {
       institution: "James B. Conant High School",
       period: "2021 - 2025",
       details:
-        "Academic Scholar, GPA: 4.911./4.00 (Weighted), 4.00/4.00 (Unweighted)",
+        "Academic Scholar | GPA: 4.911./4.00 (Weighted), 4.00/4.00 (Unweighted)",
       logo: "/conant.png",
     },
   ] as const satisfies readonly EducationEntry[],

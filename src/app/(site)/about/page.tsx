@@ -100,7 +100,7 @@ export default function AboutPage() {
                   <p className="text-xs uppercase tracking-[0.14em] text-muted">
                     {entry.institution} · {entry.period}
                   </p>
-                  <p className="text-sm leading-7 text-muted">
+                  <p className="text-sm leading-7 text-muted whitespace-break-spaces">
                     {entry.details}
                   </p>
                 </div>
