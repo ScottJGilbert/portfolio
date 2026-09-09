@@ -5,7 +5,7 @@ import Viewer, {
 } from "@scottjgilbert/lexical-blog-editor/viewer";
 import "@scottjgilbert/lexical-blog-editor/styles/ViewerTheme.css";
 import "./project-viewer.css";
-import { fetchStack, TechStackElement } from "@/lib/tech-stack";
+import { fetchStack } from "@/lib/tech-stack";
 import TechStackComponent from "@/components/ui/tech-stack";
 
 import type { Metadata } from "next";
@@ -49,8 +49,8 @@ export default async function ProjectPage(props: {
   const icons = fetchStack(project.stack);
 
   return (
-    <section className="px-6 py-10 md:px-10 lg:px-12">
-      <article className="project-article mx-auto space-y-8">
+    <section className="w-full px-6 py-10 md:px-10 lg:px-12">
+      <article className="project-article mx-auto w-full space-y-8">
         <header className="space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
             Project

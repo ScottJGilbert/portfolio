@@ -55,7 +55,11 @@ export function ProjectsGrid({ content }: ProjectsGridProps) {
               >
                 <div className="aspect-video overflow-hidden">
                   <Image
-                    src={project.image_url}
+                    src={
+                      project.image_url === ""
+                        ? "/marchingillini.webp"
+                        : project.image_url
+                    }
                     alt={project.title}
                     width={1280}
                     height={720}

@@ -6,6 +6,8 @@ export const metadata: Metadata = {
 };
 
 export interface AboutExperienceEntry {
+  group: "Professional Experience" | "Leadership & Involvement";
+  groupKey?: string;
   role: string;
   company: string;
   location: string;
@@ -31,19 +33,50 @@ export const aboutPageContent = {
   ] as const,
   experience: [
     {
-      role: "Webmaster & Array/MPPT Subteam Lead",
-      company: "Electrical Team - Illini Solar Car",
+      group: "Leadership & Involvement",
+      groupKey: "illini-solar-car",
+      role: "Array/MPPT Lead",
+      company: "Illini Solar Car",
       location: "Urbana-Champaign Area · On-site",
-      period: "Oct 2025 - Present",
+      period: "May 2026 - Present",
       summary:
-        "Contributing across web development and electrical systems for a student engineering team, spanning website operations, subsystem leadership, and hardware development.",
+        "Leading the solar array and Maximum Power Point Tracking (MPPT) subsystems for a student-built solar-electric vehicle.",
       highlights: [
-        "Leading development of the array and Maximum Power Point Tracking (MPPT) subsystems.",
-        "Serving as lead developer for the Power Distribution subsystem.",
-        "Supporting motor controller, battery pack, and monohassis substructure development while assisting with team operations and sponsorship tasks.",
+        "Develop maximum power point tracking firmware and use OpenGL-based tools to determine solar array layout specifications.",
+        "Manage budgets and sponsorship agreements in the tens of thousands of dollars while contributing to overall electrical and vehicle optimization.",
       ],
     },
     {
+      group: "Leadership & Involvement",
+      groupKey: "illini-solar-car",
+      role: "Webmaster",
+      company: "Illini Solar Car",
+      location: "Urbana-Champaign Area · On-site",
+      period: "May 2026 - Present",
+      summary:
+        "Serve on the executive board, connecting the team's web presence and infrastructure across hosting services.",
+      highlights: [
+        "Integrate software across hosting services and manage containerization, DNS, and reverse proxies.",
+        "Identify and resolve technical issues related to the team's web infrastructure within minutes of discovering a failure.",
+      ],
+    },
+    {
+      group: "Leadership & Involvement",
+      groupKey: "illini-solar-car",
+      role: "Electrical Team Member",
+      company: "Illini Solar Car",
+      location: "Urbana-Champaign Area · On-site",
+      period: "Oct 2025 - Present",
+      summary:
+        "Participate in the design and implementation of both the the car's individual electrical components and the vehicle's high/low-voltage systems as a whole.",
+      highlights: [
+        "Design and test printed circuit boards (PCBs) with integrated NXP LPC15xx microcontrollers that control various vehicle systems.",
+        "Integrate lights, solar array, battery management, and other electrical systems into the overall vehicle design.",
+        "Participated in the 2026 Formula Sun Grand Prix and American Solar Challenge as part of the team's electrical pit crew, debugging car issues as they appeared and supporting the team's overall performance across 650+ miles of driving.",
+      ],
+    },
+    {
+      group: "Leadership & Involvement",
       role: "President & Systems Administrator",
       company: "Illini Redstone Computing",
       location: "Urbana-Champaign Area · On-site",
@@ -56,29 +89,44 @@ export const aboutPageContent = {
       ],
     },
     {
+      group: "Professional Experience",
       role: "Computer Administrator",
       company: "University of Illinois Campus Honors Program",
       location: "Urbana, Illinois, United States · Hybrid",
       period: "Oct 2025 - Present",
       summary:
-        "Maintaining and modernizing CHP technical systems, with a focus on website reliability and data interoperability.",
+        "Maintaining CHP's computing hardware infrastructure, external storage integrations, and web services across multiple providers.",
       highlights: [
+        "Collaborating with CHP staff, IT services, and other teams to modernize computing and internet resources for students.",
+        "Supporting data synchronization between university admissions and CHP databases, reducing record-processing time by up to two weeks.",
         "Updating and maintaining the official CHP website in accordance with university standards.",
-        "Automating interfaces with external data sources using CHP computing hardware.",
-        "Assisting with application processing and transfer of core information across persistent storage services.",
       ],
     },
     {
-      role: "Summer Intern",
+      group: "Professional Experience",
+      role: "Full-Stack/AI Intern",
       company: "Team2Go, Inc.",
-      location: "Remote",
+      location: "Yongin-si, Gyeonggi, South Korea · Remote",
       period: "Jun 2025 - Aug 2025",
       summary:
-        "Built and shipped internal web tools and AI-driven interfaces during a focused summer internship.",
+        "Built and shipped Dockerized systems and AI-driven interfaces for internal and external-facing tools.",
       highlights: [
-        "Engineered and deployed Dockerized, reverse-proxied Next.js applications for internal platforms.",
-        "Integrated custom OpenAI GPT models with streaming output, secure authentication, and Zod-based form validation.",
-        "Connected applications to AWS infrastructure and delivered projects ahead of schedule through regular executive updates.",
+        "Engineered Dockerized systems that improved integration between backend applications and user interfaces.",
+        "Integrated custom OpenAI GPT models with streaming output, document-based vector embedding, and explicit instruction boundaries.",
+        "Collaborated with executives through regular progress updates and delivered projects ahead of schedule.",
+      ],
+    },
+    {
+      group: "Leadership & Involvement",
+      role: "Eagle Scout",
+      company: "Scouting America",
+      location: "",
+      period: "Mar 2018 - Dec 2024",
+      summary:
+        "Led a community nature restoration project from planning through completion.",
+      highlights: [
+        "Planned and organized a coordinated restoration effort where volunteers contributed over 100 working hours.",
+        "Collaborated with sponsors to secure resources and tooling, finishing the project a week ahead of schedule with zero workplace incidents.",
       ],
     },
   ] as const satisfies readonly AboutExperienceEntry[],

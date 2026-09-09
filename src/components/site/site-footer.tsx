@@ -21,7 +21,7 @@ const content = {
           href: "https://blog.scottgilbert.dev",
           external: true,
         }, // Example external link
-        { label: "Resume", href: "/resume", external: true },
+        { label: "Resume", href: "/resume.pdf", external: true },
         {
           label: "GitHub",
           href: "https://github.com/scottgilbert",

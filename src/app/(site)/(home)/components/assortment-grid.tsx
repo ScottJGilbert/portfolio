@@ -1,6 +1,5 @@
 import { FaQuoteLeft } from "react-icons/fa";
 import { Card } from "@/components/ui/card";
-import { Chip } from "@/components/ui/chip";
 import { SectionHeading } from "@/components/ui/section-heading";
 import type { IconType } from "react-icons";
 import { Fragment } from "react";

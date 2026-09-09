@@ -31,42 +31,126 @@ export default function AboutPage() {
           </div>
         </header>
 
-        <section
-          className="space-y-4"
-          aria-labelledby="about-experience-heading"
-        >
-          <h2
-            id="about-experience-heading"
-            className="text-xl font-semibold tracking-tight"
-          >
-            Work Experience
-          </h2>
-          <div className="space-y-4">
-            {aboutPageContent.experience.map((entry) => (
-              <Card
-                key={`${entry.company}-${entry.role}`}
-                variant="surface"
-                padding="lg"
+        {(["Professional Experience", "Leadership & Involvement"] as const).map(
+          (group) => {
+            const entries = aboutPageContent.experience.filter(
+              (entry) => entry.group === group,
+            );
+            const entryGroups = entries.reduce<
+              Array<{
+                key: string;
+                groupKey?: string;
+                entries: Array<(typeof entries)[number]>;
+              }>
+            >((groups, entry) => {
+              const groupKey = "groupKey" in entry ? entry.groupKey : undefined;
+              const key = groupKey ?? `${entry.company}-${entry.role}`;
+              const existingGroup = groups.find((item) => item.key === key);
+
+              if (existingGroup) {
+                existingGroup.entries.push(entry);
+              } else {
+                groups.push({
+                  key,
+                  groupKey,
+                  entries: [entry],
+                });
+              }
+
+              return groups;
+            }, []);
+
+            return (
+              <section
+                key={group}
                 className="space-y-4"
+                aria-labelledby={`about-${group.toLowerCase().replaceAll(" ", "-")}-heading`}
               >
-                <div className="space-y-1">
-                  <p className="text-base font-semibold text-foreground">
-                    {entry.role}
-                  </p>
-                  <p className="text-xs uppercase tracking-[0.14em] text-muted">
-                    {entry.company} · {entry.location} · {entry.period}
-                  </p>
+                <div className="flex items-end justify-between gap-4 border-b border-border pb-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                      Career timeline
+                    </p>
+                    <h2
+                      id={`about-${group.toLowerCase().replaceAll(" ", "-")}-heading`}
+                      className="mt-1 text-xl font-semibold tracking-tight"
+                    >
+                      {group}
+                    </h2>
+                  </div>
+                  <span className="hidden text-xs text-muted sm:block">
+                    {entries.length} {entries.length === 1 ? "role" : "roles"}
+                  </span>
                 </div>
-                <p className="text-sm leading-7 text-muted">{entry.summary}</p>
-                <ul className="list-disc space-y-2 pl-5 text-sm leading-7 text-muted">
-                  {entry.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
+                <div className="relative space-y-4">
+                  {entryGroups.map((entryGroup) => (
+                    <div
+                      key={entryGroup.key}
+                      className={
+                        entryGroup.groupKey ? "space-y-0" : "space-y-4"
+                      }
+                    >
+                      {entryGroup.groupKey && (
+                        <div className="rounded-xl mb-2 border-l-4 border-primary bg-primary/5 px-5 py-3">
+                          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+                            {entryGroup.entries[0].company}
+                          </p>
+                          <p className="mt-1 text-xs text-muted">
+                            Multiple roles ·{" "}
+                            {
+                              entryGroup.entries[entryGroup.entries.length - 1]
+                                .period
+                            }
+                          </p>
+                        </div>
+                      )}
+                      {entryGroup.entries.map((entry) => (
+                        <Card
+                          key={`${entry.company}-${entry.role}`}
+                          variant="surface"
+                          padding="lg"
+                          className={`relative ml-0 space-y-4 border-l-4 border-l-primary/70 pl-5 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg ${
+                            entryGroup.groupKey ? "rounded-b-xl ml-4" : ""
+                          }`}
+                        >
+                          {/* <span className="absolute -left-6.25 top-7 h-3 w-3 rounded-full border-2 border-background bg-primary" /> */}
+                          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                            <div className="space-y-1">
+                              <p className="text-base font-semibold text-foreground">
+                                {entry.role}
+                              </p>
+                              {!entryGroup.groupKey && (
+                                <p className="text-sm font-medium text-primary">
+                                  {entry.company}
+                                </p>
+                              )}
+                            </div>
+                            <p className="shrink-0 text-xs font-semibold uppercase tracking-[0.12em] text-muted sm:text-right">
+                              {entry.period}
+                            </p>
+                          </div>
+                          {entry.location && (
+                            <p className="text-xs uppercase tracking-[0.14em] text-muted">
+                              {entry.location}
+                            </p>
+                          )}
+                          <p className="text-sm leading-7 text-muted">
+                            {entry.summary}
+                          </p>
+                          <ul className="list-disc space-y-2 pl-5 text-sm leading-7 text-muted marker:text-primary">
+                            {entry.highlights.map((highlight) => (
+                              <li key={highlight}>{highlight}</li>
+                            ))}
+                          </ul>
+                        </Card>
+                      ))}
+                    </div>
                   ))}
-                </ul>
-              </Card>
-            ))}
-          </div>
-        </section>
+                </div>
+              </section>
+            );
+          },
+        )}
 
         <section
           className="space-y-4"
