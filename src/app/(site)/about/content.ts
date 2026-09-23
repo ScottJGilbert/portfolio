@@ -14,6 +14,7 @@ export interface AboutExperienceEntry {
   period: string;
   summary: string;
   highlights: readonly string[];
+  logo?: string;
 }
 
 export interface EducationEntry {
@@ -22,6 +23,15 @@ export interface EducationEntry {
   period: string;
   details: string;
   logo: string;
+  minor?: string;
+}
+
+export interface CertificationEntry {
+  name: string;
+  issuer: string;
+  date: string;
+  detail?: string;
+  group?: string;
 }
 
 export const aboutPageContent = {
@@ -138,6 +148,7 @@ export const aboutPageContent = {
       details:
         "Dean's List | GPA: 4.00/4.00\nActivities and Societies: Marching Illini, Illini Solar Car, Project: Code UIUC, IEEE UIUC, Engineers without Borders, Campus Honors Program",
       logo: "/illinois.png",
+      minor: "Business (Gies College of Business) — in progress",
     },
     {
       credential: "High School Diploma",
@@ -148,4 +159,40 @@ export const aboutPageContent = {
       logo: "/conant.png",
     },
   ] as const satisfies readonly EducationEntry[],
+  certifications: [
+    {
+      name: "Amateur Radio General Operator Class License",
+      issuer: "Federal Communications Commission",
+      date: "Issued Mar 2026 · Expires Mar 2036",
+      detail: "Credential ID: KE9FEX",
+    },
+    {
+      name: "Next.js SEO Fundamentals",
+      issuer: "Vercel",
+      date: "Issued Jun 2025",
+      detail: "Credential ID: seo",
+      group: "Next.js by Vercel",
+    },
+    {
+      name: "Next.js Pages Router Fundamentals",
+      issuer: "Vercel",
+      date: "Issued Jun 2025",
+      detail: "Credential ID: pages-router",
+      group: "Next.js by Vercel",
+    },
+    {
+      name: "React Foundations for Next.js",
+      issuer: "Vercel",
+      date: "Issued May 2025",
+      detail: "Credential ID: react-foundations",
+      group: "Next.js by Vercel",
+    },
+    {
+      name: "Next.js App Router Fundamentals",
+      issuer: "Vercel",
+      date: "Issued Jun 2025",
+      detail: "Credential ID: dashboard-app",
+      group: "Next.js by Vercel",
+    },
+  ] as const satisfies readonly CertificationEntry[],
 } as const;
