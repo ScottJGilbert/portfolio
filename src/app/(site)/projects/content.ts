@@ -36,7 +36,7 @@ export const projects: Project[] = [
     start_date: "2025-10-01 00:00:00",
     end_date: null,
     description:
-      "Designing and building the University of Illinois' most powerful and capable solar electric vehicle to date.",
+      "The University of Illinois' most powerful and capable solar electric vehicle to date.",
     categories: ["Mechanical", "Electrical", "Software"],
     slug: "delos",
     image_url: "/delos.webp",
@@ -49,7 +49,7 @@ export const projects: Project[] = [
     start_date: "2025-05-01 00:00:00",
     end_date: null,
     description:
-      "A modular platform for publishing a portfolio and blog while coordinating identity, automation, and AI-assisted content workflows.",
+      "A modular platform for my portfolio, blog, automations, AI-assisted workflows, and more.",
     categories: ["Full Stack", "DevOps", "AI/ML"],
     slug: "personal-content-system",
     image_url: "/portfolio.png",
@@ -83,7 +83,7 @@ export const projects: Project[] = [
     start_date: "2025-06-01 00:00:00",
     end_date: "2025-08-31 00:00:00",
     description:
-      "Exploring Docker, proxies, and more while building AI-powered applications at a full-stack internship with Team2Go Inc.",
+      "Exploring Docker, proxies, and more while building AI-powered applications at a full-stack internship.",
     categories: ["Full Stack", "AI/ML", "DevOps"],
     slug: "team2go-ai-tools",
     image_url: "",
@@ -143,7 +143,7 @@ export const projects: Project[] = [
     start_date: "2025-09-27 00:00:00",
     end_date: "2025-12-04 00:00:00",
     description:
-      "Leading the backend team for a data-driven plant-monitoring and growth-supporting web application. (WIP)",
+      "Leading the backend team for a data-driven plant-monitoring and growth-supporting web application.",
     categories: ["Arduino"],
     slug: "agri-sense",
     image_url:
@@ -157,7 +157,7 @@ export const projects: Project[] = [
     start_date: "2025-11-17 00:00:00",
     end_date: null,
     description:
-      "My final project (a hybrid quantum computing and orbitals and art video game) for my PHYS 199 CHP class. (WIP)",
+      "My final project (a hybrid quantum computing and orbitals and art video game) for my PHYS 199 CHP class.",
     categories: [],
     slug: "clouds-and-computers",
     image_url:
