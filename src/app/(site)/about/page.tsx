@@ -5,10 +5,6 @@ import { aboutPageContent } from "./content";
 
 export { metadata } from "./content";
 
-function getEntryLogo(entry: { logo?: string } | Record<string, unknown>) {
-  return "logo" in entry ? (entry.logo as string | undefined) : undefined;
-}
-
 function getEntryMinor(entry: { minor?: string } | Record<string, unknown>) {
   return "minor" in entry ? (entry.minor as string | undefined) : undefined;
 }
@@ -107,7 +103,7 @@ export default function AboutPage() {
                 </strong>{" "}
                 dedicated to deploying information technology, computing, and
                 electrical engineering solutions — to both solve complex
-                problems <em>and</em>{" "}work miracles in people&apos;s lives.
+                problems <em>and</em> work miracles in people&apos;s lives.
               </p>
               <p className="italic">
                 ...and yes, I also like the color{" "}
@@ -181,7 +177,7 @@ export default function AboutPage() {
                         {isGrouped && (
                           <div className="flex items-center gap-3 rounded-xl border border-outline-ghost bg-primary/5 px-5 py-3">
                             <OrgLogo
-                              src={getEntryLogo(entryGroup.entries[0])}
+                              src={entryGroup.entries[0].logo}
                               alt={`${primaryCompany} logo`}
                               initials={getInitials(primaryCompany)}
                               size={40}
@@ -235,9 +231,11 @@ export default function AboutPage() {
                                 >
                                   {!isGrouped && (
                                     <OrgLogo
-                                      src={getEntryLogo(entry)}
-                                      alt={`${entry.company} logo`}
-                                      initials={getInitials(entry.company)}
+                                      src={entryGroup.entries[0].logo}
+                                      alt={`${entryGroup.entries[0].company} logo`}
+                                      initials={getInitials(
+                                        entryGroup.entries[0].company,
+                                      )}
                                       size={40}
                                     />
                                   )}
@@ -338,62 +336,59 @@ export default function AboutPage() {
             Certifications &amp; Licenses
           </h2>
           <ul className="grid gap-3 sm:grid-cols-2">
-            {groupCertifications(aboutPageContent.certifications).map(
-              (row) =>
-                row.type === "single" ? (
-                  <li
-                    key={row.cert.name}
-                    className="rounded-lg border border-outline-ghost/70 bg-surface/60 px-4 py-3"
-                  >
-                    <p className="text-sm font-medium text-foreground">
-                      {row.cert.name}
+            {groupCertifications(aboutPageContent.certifications).map((row) =>
+              row.type === "single" ? (
+                <li
+                  key={row.cert.name}
+                  className="rounded-lg border border-outline-ghost/70 bg-surface/60 px-4 py-3"
+                >
+                  <p className="text-sm font-medium text-foreground">
+                    {row.cert.name}
+                  </p>
+                  <p className="text-xs text-muted">
+                    {row.cert.issuer} · {row.cert.date}
+                  </p>
+                  {row.cert.detail && (
+                    <p className="mt-1 text-xs italic text-muted">
+                      {row.cert.detail}
                     </p>
-                    <p className="text-xs text-muted">
-                      {row.cert.issuer} · {row.cert.date}
-                    </p>
-                    {row.cert.detail && (
-                      <p className="mt-1 text-xs italic text-muted">
-                        {row.cert.detail}
-                      </p>
-                    )}
-                  </li>
-                ) : (
-                  <li key={row.group}>
-                    <details className="group rounded-lg border border-outline-ghost/70 bg-surface/60 px-4 py-3">
-                      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 marker:hidden">
-                        <span className="text-sm font-medium text-foreground">
-                          {row.group}
+                  )}
+                </li>
+              ) : (
+                <li key={row.group}>
+                  <details className="group rounded-lg border border-outline-ghost/70 bg-surface/60 px-4 py-3">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 marker:hidden">
+                      <span className="text-sm font-medium text-foreground">
+                        {row.group}
+                      </span>
+                      <span className="flex items-center gap-2 text-xs text-muted">
+                        {row.certs.length} credentials
+                        <span
+                          className="text-primary transition-transform group-open:rotate-45"
+                          aria-hidden
+                        >
+                          +
                         </span>
-                        <span className="flex items-center gap-2 text-xs text-muted">
-                          {row.certs.length} credentials
-                          <span
-                            className="text-primary transition-transform group-open:rotate-45"
-                            aria-hidden
-                          >
-                            +
-                          </span>
-                        </span>
-                      </summary>
-                      <ul className="mt-3 space-y-2 border-t border-outline-ghost/60 pt-3">
-                        {row.certs.map((cert) => (
-                          <li key={cert.name}>
-                            <p className="text-sm text-foreground">
-                              {cert.name}
+                      </span>
+                    </summary>
+                    <ul className="mt-3 space-y-2 border-t border-outline-ghost/60 pt-3">
+                      {row.certs.map((cert) => (
+                        <li key={cert.name}>
+                          <p className="text-sm text-foreground">{cert.name}</p>
+                          <p className="text-xs text-muted">
+                            {cert.issuer} · {cert.date}
+                          </p>
+                          {cert.detail && (
+                            <p className="mt-1 text-xs italic text-muted">
+                              {cert.detail}
                             </p>
-                            <p className="text-xs text-muted">
-                              {cert.issuer} · {cert.date}
-                            </p>
-                            {cert.detail && (
-                              <p className="mt-1 text-xs italic text-muted">
-                                {cert.detail}
-                              </p>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    </details>
-                  </li>
-                ),
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </li>
+              ),
             )}
           </ul>
         </section>

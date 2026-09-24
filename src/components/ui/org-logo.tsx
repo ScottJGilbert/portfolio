@@ -24,8 +24,14 @@ export interface OrgLogoProps {
   className?: string;
 }
 
-export function OrgLogo({ src, alt, initials, size = 48, className }: OrgLogoProps) {
-  const boxClassName = `shrink-0 rounded-lg border border-border bg-surface object-contain ${className ?? ""}`;
+export function OrgLogo({
+  src,
+  alt,
+  initials,
+  size = 48,
+  className,
+}: OrgLogoProps) {
+  const boxClassName = `shrink-0 rounded-lg border border-border bg-surface object-contain text-center ${className ?? ""}`;
 
   if (src) {
     return (
@@ -42,7 +48,7 @@ export function OrgLogo({ src, alt, initials, size = 48, className }: OrgLogoPro
 
   return (
     <div
-      className={`flex items-center justify-center bg-surface-alt text-xs font-semibold uppercase tracking-[0.04em] text-muted ${boxClassName}`}
+      className={`flex items-center justify-center bg-surface-alt text-xs font-semibold uppercase tracking-[0.04em] text-muted text-ce ${boxClassName}`}
       style={{ width: size, height: size }}
       aria-hidden
     >

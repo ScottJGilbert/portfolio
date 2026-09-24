@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { FaMoon as Moon } from "react-icons/fa";
 import { IoIosSunny as Sun } from "react-icons/io";
-import { useTheme } from "./theme-provider";
+import { useTheme } from "../providers/theme-provider";
 
 interface ThemeToggleProps {
   className?: string;

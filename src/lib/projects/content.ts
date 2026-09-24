@@ -23,13 +23,26 @@ export type RecruiterCategory =
   | "cloud-devops"
   | "quantum";
 
+export type ProjectCategory =
+  | "Mechanical"
+  | "Electrical"
+  | "Software"
+  | "Full Stack"
+  | "DevOps"
+  | "AI/ML"
+  | "Systems"
+  | "Frontend"
+  | "Embedded"
+  | "Circuitry"
+  | "Quantum";
+
 export interface ProjectMeta {
   slug: string;
   title: string;
   start_date: string;
   end_date: string | null;
   description: string;
-  categories: string[];
+  categories: ProjectCategory[];
   recruiterCategories: RecruiterCategory[];
   image_url: string;
   stack: string[];
@@ -92,7 +105,7 @@ export const projects: ProjectMeta[] = [
     end_date: null,
     description:
       "Developing and supporting the infrastructure for a student-led computing and gaming organization.",
-    categories: ["Systems", "DevOps", "Leadership"],
+    categories: ["Software", "Systems", "DevOps"],
     recruiterCategories: ["software", "cloud-devops"],
     slug: "illini-redstone-computing",
     image_url: "",
@@ -108,7 +121,7 @@ export const projects: ProjectMeta[] = [
     end_date: "2025-08-31 00:00:00",
     description:
       "Exploring Docker, proxies, and more while building AI-powered applications at a full-stack internship.",
-    categories: ["Full Stack", "AI/ML", "DevOps"],
+    categories: ["Software", "Full Stack", "AI/ML"],
     recruiterCategories: ["software", "cloud-devops"],
     slug: "team2go-ai-tools",
     image_url: "",
@@ -161,7 +174,7 @@ export const projects: ProjectMeta[] = [
     end_date: "2025-04-25 00:00:00",
     description:
       "Collecting temperature data with an Arduino and displaying it with Django.",
-    categories: ["Circuitry", "Arduino"],
+    categories: ["Circuitry", "Embedded", "Full Stack"],
     recruiterCategories: ["hardware", "embedded"],
     slug: "solar-heater-demonstration",
     image_url:
@@ -178,7 +191,7 @@ export const projects: ProjectMeta[] = [
     end_date: "2025-12-04 00:00:00",
     description:
       "Leading the backend team for a data-driven plant-monitoring and growth-supporting web application.",
-    categories: ["Arduino"],
+    categories: ["Embedded", "Full Stack"],
     recruiterCategories: ["hardware", "embedded"],
     slug: "agri-sense",
     image_url:

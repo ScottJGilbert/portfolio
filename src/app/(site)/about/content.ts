@@ -45,6 +45,7 @@ export const aboutPageContent = {
       groupKey: "illini-solar-car",
       role: "Array/MPPT Lead",
       company: "Illini Solar Car",
+      logo: "/isc-logo.png",
       location: "Urbana-Champaign Area · On-site",
       period: "May 2026 - Present",
       summary:
@@ -59,6 +60,7 @@ export const aboutPageContent = {
       groupKey: "illini-solar-car",
       role: "Webmaster",
       company: "Illini Solar Car",
+      logo: "/isc-logo.png",
       location: "Urbana-Champaign Area · On-site",
       period: "May 2026 - Present",
       summary:
@@ -73,6 +75,7 @@ export const aboutPageContent = {
       groupKey: "illini-solar-car",
       role: "Electrical Team Member",
       company: "Illini Solar Car",
+      logo: "/isc-logo.png",
       location: "Urbana-Champaign Area · On-site",
       period: "Oct 2025 - Present",
       summary:
@@ -87,6 +90,7 @@ export const aboutPageContent = {
       group: "Leadership & Involvement",
       role: "President & Systems Administrator",
       company: "Illini Redstone Computing",
+      logo: "/irc-logo.png",
       location: "Urbana-Champaign Area · On-site",
       period: "Jan 2026 - Present",
       summary:
@@ -100,6 +104,7 @@ export const aboutPageContent = {
       group: "Professional Experience",
       role: "Computer Administrator",
       company: "University of Illinois Campus Honors Program",
+      logo: "/illinois.png",
       location: "Urbana, Illinois, United States · Hybrid",
       period: "Oct 2025 - Present",
       summary:
@@ -114,6 +119,7 @@ export const aboutPageContent = {
       group: "Professional Experience",
       role: "Full-Stack/AI Intern",
       company: "Team2Go, Inc.",
+      logo: "/team2go-logo.jpg",
       location: "Yongin-si, Gyeonggi, South Korea · Remote",
       period: "Jun 2025 - Aug 2025",
       summary:
@@ -128,6 +134,7 @@ export const aboutPageContent = {
       group: "Leadership & Involvement",
       role: "Eagle Scout",
       company: "Scouting America",
+      logo: "/bsa-logo.webp",
       location: "",
       period: "Mar 2018 - Dec 2024",
       summary:

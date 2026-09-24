@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { getProjectMeta } from "@/lib/projects/content";
-import { ProjectShell } from "../components/project-shell";
-import { ProjectTabs, type ProjectTab } from "../components/project-tabs";
+import { ProjectShell } from "../../components/project-shell";
+import { ProjectTabs, type ProjectTab } from "../../components/project-tabs";
 
 const tabs: ProjectTab[] = [
   { href: "/projects/delos", label: "Overview" },

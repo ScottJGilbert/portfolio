@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
 import ProjectCard from "./project-card";
-import type { ProjectMeta } from "@/lib/projects/content";
+import type { ProjectCategory, ProjectMeta } from "@/lib/projects/content";
 
 const PAGE_SIZE = 6;
 
@@ -13,7 +13,7 @@ export function ProjectsExplorer({
   projects: readonly ProjectMeta[];
 }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState<"all" | ProjectCategory>("all");
   const [sort, setSort] = useState<"newest" | "oldest">("newest");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
@@ -80,7 +80,7 @@ export function ProjectsExplorer({
             <select
               value={category}
               onChange={(event) => {
-                setCategory(event.target.value);
+                setCategory(event.target.value as "all" | ProjectCategory);
                 resetPaging();
               }}
               className="mt-1 w-full rounded-md border border-outline-ghost bg-surface-alt px-3 py-2 text-sm text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
@@ -119,8 +119,7 @@ export function ProjectsExplorer({
         </div>
       ) : (
         <p className="text-sm text-muted">
-          No projects match your search — try a different keyword or
-          category.
+          No projects match your search — try a different keyword or category.
         </p>
       )}
 
