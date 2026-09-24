@@ -50,6 +50,10 @@ export const projects: ProjectMeta[] = [
     slug: "delos",
     image_url: "/delos.webp",
     stack: ["C++", "NXP", "Arm", "MCUxpresso", "MQTT"],
+    role: "Electrical Engineer, Illini Solar Car",
+    teamSize: "Multi-disciplinary student engineering team",
+    contribution:
+      "Composites fabrication, battery characterization/assembly, general car wiring, and PCB/firmware debugging — led integration of the dashboard, array, and MPPT subsystems into the car.",
   },
   {
     title: "Personal Content System",
@@ -70,6 +74,16 @@ export const projects: ProjectMeta[] = [
       "GitHub",
       "Vercel",
     ],
+    role: "Sole developer",
+    teamSize: "Solo project",
+    contribution:
+      "Designed and built the entire platform end-to-end — portfolio, content system, and hosting infrastructure.",
+    links: [
+      {
+        label: "Source code",
+        href: "https://github.com/ScottJGilbert/portfolio",
+      },
+    ],
   },
   {
     title: "Illini Redstone Computing",
@@ -82,6 +96,10 @@ export const projects: ProjectMeta[] = [
     slug: "illini-redstone-computing",
     image_url: "",
     stack: ["Docker", "Linux", "GitHub", "Python", "PostgreSQL"],
+    role: "President & Systems Administrator",
+    teamSize: "Student-led computing and gaming organization",
+    contribution:
+      "Guide day-to-day financial/administrative decisions and lead development of the org's containerized service infrastructure.",
   },
   {
     title: "Team2Go AI Tools",
@@ -94,6 +112,10 @@ export const projects: ProjectMeta[] = [
     slug: "team2go-ai-tools",
     image_url: "",
     stack: ["Python", "Docker", "OpenAI", "GitHub", "Linux"],
+    role: "Full-Stack/AI Intern",
+    teamSize: "Remote internship team",
+    contribution:
+      "Engineered Dockerized systems connecting backend applications and user interfaces; integrated custom OpenAI GPT models with streaming output and document-based vector embeddings.",
   },
   {
     title: "ICDA Website",
@@ -126,6 +148,11 @@ export const projects: ProjectMeta[] = [
       "Backend Development",
       "Frontend Design",
     ],
+    role: "Website Developer",
+    teamSize: "2-person team",
+    contribution:
+      "Co-built v1.0's full frontend redesign with a friend, then led v2.0's PHP/MySQL backend build so circuit administrators could update content without editing code.",
+    links: [{ label: "Live site", href: "https://icdadebate.org" }],
   },
   {
     title: "Solar Heater Demonstration",
@@ -139,6 +166,10 @@ export const projects: ProjectMeta[] = [
     image_url:
       "https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfGci14qrlOfnR2QEFZu59e8aW0moPky13Vsxd",
     stack: ["Django", "Python", "SQLite", "SQL", "Arduino"],
+    role: "Sole developer",
+    teamSize: "Solo project",
+    contribution:
+      "Designed and built the Django web app, Arduino/DS18B20 sensor pipeline, and live temperature dashboard end-to-end for a high school Civic Engagement Project.",
   },
   {
     title: "Agri-Sense",
@@ -152,6 +183,7 @@ export const projects: ProjectMeta[] = [
     image_url:
       "https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfH2gOSu7j2dCwemRUNlzQhFXrvxGb6VPuOWIA",
     stack: ["Git", "Arduino", "GitHub", "JSON", "Flask", "Python"],
+    role: "Backend Team Lead",
   },
   {
     title: "Clouds and Computers",
@@ -165,6 +197,8 @@ export const projects: ProjectMeta[] = [
     image_url:
       "https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfs6QqbpUgFivDeYLpORhK0W6GkVxaZbol7qEr",
     stack: ["Blender", "UPBGE", "NumPy", "SciPy", "Matplotlib", "Python"],
+    role: "Solo project (PHYS 199 CHP final project)",
+    teamSize: "Solo project",
   },
   {
     title: "Miracle Makers",

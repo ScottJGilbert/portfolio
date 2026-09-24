@@ -3,8 +3,9 @@ import {
   FaCode,
   FaDatabase,
   FaGithub,
-  FaCogs,
   FaShieldAlt,
+  FaMicrochip,
+  FaGamepad,
 } from "react-icons/fa";
 import {
   SiBlender,
@@ -39,6 +40,8 @@ import {
   SiCplusplus,
   SiComposer,
   SiWolfram,
+  SiWolframmathematica,
+  SiWolframlanguage,
   SiJson,
   SiEslint,
   SiWordpress,
@@ -47,10 +50,22 @@ import {
   SiLinux,
   SiPython,
   SiGnubash,
+  SiNumpy,
+  SiScipy,
+  SiPhpmyadmin,
+  SiZod,
 } from "react-icons/si";
 import { BsOpenai } from "react-icons/bs";
 import { TbBrandPowershell } from "react-icons/tb";
 import { DiJava } from "react-icons/di";
+import { MatplotlibOriginal, LibgdxOriginal } from "devicons-react";
+
+// devicons-react ships its own (older) React type definitions, which don't
+// line up with react-icons' IconType under React 19 — the components render
+// identically to react-icons ones at runtime, so this cast just reconciles
+// the two libraries' type signatures.
+const MatplotlibIcon = MatplotlibOriginal as unknown as IconType;
+const LibgdxIcon = LibgdxOriginal as unknown as IconType;
 
 export interface TechStackElement {
   name: string;
@@ -123,7 +138,7 @@ const iconMap: Record<string, IconType> = {
   TypeScript: SiTypescript,
   JavaScript: SiJavascript,
   Django: SiDjango,
-  UPBGE: FaCode,
+  UPBGE: FaGamepad,
   React: SiReact,
   PostgreSQL: SiPostgresql,
   MySQL: SiMysql,
@@ -144,7 +159,7 @@ const iconMap: Record<string, IconType> = {
   Docker: SiDocker,
   NGINX: SiNginx,
   Apache: SiApache,
-  Zod: FaCogs,
+  Zod: SiZod,
   Arduino: SiArduino,
   Arm: SiArm,
   Java: DiJava,
@@ -157,24 +172,24 @@ const iconMap: Record<string, IconType> = {
   C: SiC,
   "C++": SiCplusplus,
   Composer: SiComposer,
-  Vivado: FaCode,
-  MCUxpresso: FaCogs,
-  phpMyAdmin: FaDatabase,
+  Vivado: FaMicrochip,
+  MCUxpresso: FaMicrochip,
+  phpMyAdmin: SiPhpmyadmin,
   Wolfram: SiWolfram,
-  "Wolfram Language": SiWolfram,
-  libGDX: DiJava,
+  "Wolfram Language": SiWolframlanguage,
+  libGDX: LibgdxIcon,
   JSON: SiJson,
   "Auth.js": FaShieldAlt,
   ESLint: SiEslint,
-  NumPy: FaCode,
-  SciPy: FaCode,
-  Matplotlib: FaCode,
+  NumPy: SiNumpy,
+  SciPy: SiScipy,
+  Matplotlib: MatplotlibIcon,
   Wordpress: SiWordpress,
   Flask: SiFlask,
   OpenAI: BsOpenai,
   Linux: SiLinux,
   "Better Auth": FaShieldAlt,
-  Mathematica: SiWolfram,
+  Mathematica: SiWolframmathematica,
   Python: SiPython,
 };
 
