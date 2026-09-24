@@ -36,11 +36,9 @@ export interface CertificationEntry {
 
 export const aboutPageContent = {
   title: "About",
-  intro: [
-    "Hello! I'm Scott Gilbert, an undergraduate computer engineering student at the University of Illinois Urbana-Champaign and a graduate of James B. Conant High School in Hoffman Estates, Illinois.",
-    "I am a hard-working full-stack developer, problem-solver, and computer engineer who is dedicated to deploying information technology, computing, and electrical engineering solutions to both solve complex problems and working miracles in peoples' lives.",
-    "...I also like the color green.",
-  ] as const,
+  // Bio intro is hand-authored JSX directly in page.tsx (it needs inline
+  // bold/italic emphasis a plain string array can't carry) — no `intro`
+  // field here.
   experience: [
     {
       group: "Leadership & Involvement",

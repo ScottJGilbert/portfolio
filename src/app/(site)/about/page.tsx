@@ -76,10 +76,46 @@ export default function AboutPage() {
             <h1 className="text-3xl font-semibold tracking-tight">
               {aboutPageContent.title}
             </h1>
+            {/*
+              Hand-authored JSX rather than pulled from content.ts's plain
+              strings — this bio benefits from real inline emphasis, which a
+              flat string array can't carry (same reasoning as project body
+              content: prose that wants formatting lives as JSX).
+            */}
             <div className="space-y-3 text-sm leading-7 text-muted">
-              {aboutPageContent.intro.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+              <p>
+                Hello! I&apos;m Scott Gilbert, an undergraduate{" "}
+                <strong className="font-semibold text-foreground">
+                  computer engineering
+                </strong>{" "}
+                student at the University of Illinois Urbana-Champaign and a
+                graduate of James B. Conant High School in Hoffman Estates,
+                Illinois.
+              </p>
+              <p>
+                I am a hard-working{" "}
+                <strong className="font-semibold text-foreground">
+                  full-stack developer
+                </strong>
+                ,{" "}
+                <strong className="font-semibold text-foreground">
+                  problem-solver
+                </strong>
+                , and{" "}
+                <strong className="font-semibold text-foreground">
+                  computer engineer
+                </strong>{" "}
+                dedicated to deploying information technology, computing, and
+                electrical engineering solutions — to both solve complex
+                problems <em>and</em>{" "}work miracles in people&apos;s lives.
+              </p>
+              <p className="italic">
+                ...and yes, I also like the color{" "}
+                <span className="font-semibold not-italic text-primary">
+                  green
+                </span>
+                .
+              </p>
             </div>
           </div>
         </header>
