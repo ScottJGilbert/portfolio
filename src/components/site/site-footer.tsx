@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { navItems, externalLinks } from "@/lib/site-content";
 
 const content = {
   name: "Scott Gilbert",
@@ -6,38 +7,21 @@ const content = {
   sections: [
     {
       title: "Navigation",
-      links: [
-        { label: "Home", href: "/", external: false },
-        { label: "About", href: "/about", external: false },
-        { label: "Projects", href: "/projects", external: false },
-        { label: "Contact", href: "/contact", external: false },
-      ],
+      // Sourced from site-content.ts, the single source of truth also used
+      // by the sidebar/mobile nav, so this can't drift out of sync with it.
+      links: navItems.map((item) => ({
+        label: item.label,
+        href: item.href,
+        external: false,
+      })),
     },
     {
       title: "External",
-      links: [
-        {
-          label: "Blog",
-          href: "https://blog.scottgilbert.dev",
-          external: true,
-        }, // Example external link
-        { label: "Resume", href: "/resume.pdf", external: true },
-        {
-          label: "GitHub",
-          href: "https://github.com/scottgilbert",
-          external: true,
-        },
-        {
-          label: "LinkedIn",
-          href: "https://linkedin.com/in/scottgilbert",
-          external: true,
-        },
-        {
-          label: "Email",
-          href: "mailto:hello@scottgilbert.dev",
-          external: true,
-        },
-      ],
+      links: externalLinks.map((link) => ({
+        label: link.label,
+        href: link.href,
+        external: true,
+      })),
     },
     {
       title: "Other",

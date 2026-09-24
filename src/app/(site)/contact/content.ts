@@ -15,7 +15,7 @@ export const contactPageContent = {
     { label: "Email", href: "mailto:hello@scottgilbert.dev", icon: FaEnvelope },
     {
       label: "LinkedIn",
-      href: "https://www.linkedin.com/in/scottjgilbert",
+      href: "https://www.linkedin.com/in/scott-j-gilbert",
       icon: FaLinkedin,
     },
   ] as const,
