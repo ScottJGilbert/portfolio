@@ -1,14 +1,7 @@
 import type { MetadataRoute } from "next";
 
 function getBaseUrl(): string {
-  const raw =
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    process.env.SITE_URL ??
-    (process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000");
-
-  return /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+  return process.env.NEXT_PUBLIC_BASE_URL || "https://scottgilbert.dev";
 }
 
 export default function robots(): MetadataRoute.Robots {
@@ -16,7 +9,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/attributions"],
+      // /attributions has no unique indexable content; /r/* are vanity
+      // recruiter-tracking redirects, not canonical pages.
+      disallow: ["/attributions", "/r/"],
     },
     sitemap: `${getBaseUrl()}/sitemap.xml`,
   };
