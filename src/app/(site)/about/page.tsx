@@ -316,7 +316,7 @@ export default function AboutPage() {
                       {row.cert.issuer} · {row.cert.date}
                     </p>
                     {row.cert.detail && (
-                      <p className="mt-1 text-xs italic text-muted/80">
+                      <p className="mt-1 text-xs italic text-muted">
                         {row.cert.detail}
                       </p>
                     )}
@@ -348,7 +348,7 @@ export default function AboutPage() {
                               {cert.issuer} · {cert.date}
                             </p>
                             {cert.detail && (
-                              <p className="mt-1 text-xs italic text-muted/80">
+                              <p className="mt-1 text-xs italic text-muted">
                                 {cert.detail}
                               </p>
                             )}

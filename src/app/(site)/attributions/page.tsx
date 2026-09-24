@@ -135,7 +135,7 @@ function AttributionsContent({ blocks }: { blocks: AttributionBlock[] }) {
         return (
           <p
             key={`footer-${index}`}
-            className="pt-8 text-center text-sm text-muted/80"
+            className="pt-8 text-center text-sm text-muted"
           >
             {block.text}
           </p>

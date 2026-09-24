@@ -77,6 +77,8 @@ export default function FeaturedProjectCard({
           </div>
           <Link
             href={`/projects/${project.slug}`}
+            aria-label={`View project: ${project.title}`}
+            tabIndex={-1}
             className="inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary/80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
           >
             <FaArrowUpRightFromSquare

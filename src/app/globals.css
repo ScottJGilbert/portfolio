@@ -9,7 +9,7 @@
   --muted: #5d6f63;
   --border: rgb(58 87 67 / 0.22);
   --ring: #6b8f77;
-  --primary: #4f7b61;
+  --primary: #4a735b;
   --primary-foreground: #f4f8f3;
   --accent: #dfe9dc;
   --accent-foreground: #223127;
@@ -108,6 +108,14 @@ h4 {
   line-height: var(--line-height-heading);
 }
 
-a {
-  color: inherit;
+/*
+ * Layered (not a bare rule) so Tailwind color utilities like
+ * text-primary/text-primary-foreground on an <a> can still override it —
+ * unlayered CSS always beats @layer rules regardless of specificity, which
+ * was silently forcing every colored link back to its inherited text color.
+ */
+@layer base {
+  a {
+    color: inherit;
+  }
 }

@@ -20,8 +20,8 @@ export function TopActionBar({
     >
       {announcement && (
         <p
+          role="status"
           className="flex-1 text-center text-xs uppercase tracking-[0.16em] text-muted"
-          aria-label="Announcement"
         >
           {announcement}
         </p>
