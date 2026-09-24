@@ -20,7 +20,8 @@ export type RecruiterCategory =
   | "embedded"
   | "hardware"
   | "software"
-  | "cloud-devops";
+  | "cloud-devops"
+  | "quantum";
 
 export interface ProjectMeta {
   slug: string;
@@ -192,7 +193,7 @@ export const projects: ProjectMeta[] = [
     description:
       "My final project (a hybrid quantum computing and orbitals and art video game) for my PHYS 199 CHP class.",
     categories: [],
-    recruiterCategories: ["software"],
+    recruiterCategories: ["software", "quantum"],
     slug: "clouds-and-computers",
     image_url:
       "https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfs6QqbpUgFivDeYLpORhK0W6GkVxaZbol7qEr",

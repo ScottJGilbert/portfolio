@@ -11,13 +11,27 @@ import type { RecruiterCategory } from "./projects/content";
  * case-insensitively by the route handler.
  */
 export const recruiterLinks: Record<string, RecruiterCategory[]> = {
+  // Generic, role-shaped codes (print on a resume/business card when you
+  // don't have a company-specific code yet).
   embedded: ["embedded", "hardware"],
   hardware: ["hardware", "embedded"],
   software: ["software"],
   swe: ["software"],
   cloud: ["cloud-devops"],
   devops: ["cloud-devops"],
-  general: ["software", "hardware", "embedded", "cloud-devops"],
+  general: ["software", "hardware", "embedded", "cloud-devops", "quantum"],
+
+  // Company/role-specific codes.
+  // "firmware" isn't its own category (see RecruiterCategory in
+  // src/lib/projects/content.ts) — it's folded into "embedded", which is
+  // what it means in practice for every project here.
+  "spacex-swe-intern": ["software", "embedded"],
+  "ibm-quantum-intern": ["quantum", "embedded", "software"],
+  // Role name is "IBM Cloud", so cloud-devops is added on top of the
+  // "software" you listed — drop it back to just ["software"] if that's
+  // too broad for what this recruiter cares about.
+  "ibm-cloud-intern": ["software", "cloud-devops"],
+  "arm-hardware": ["hardware", "embedded"],
 };
 
 export const RECRUITER_COOKIE_NAME = "recruiter_categories";
@@ -28,6 +42,7 @@ const KNOWN_CATEGORIES: readonly RecruiterCategory[] = [
   "hardware",
   "software",
   "cloud-devops",
+  "quantum",
 ];
 
 export function isRecruiterCategory(

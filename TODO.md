@@ -6,7 +6,7 @@ Things intentionally deferred during the September 2026 finishing pass, not gaps
 
 - [ ] Org logo images for Illini Solar Car, Illini Redstone Computing, UIUC CHP, Team2Go, and Scouting America — the About page falls back to initials avatars (`OrgLogo`/`getInitials`) until real logo assets are supplied.
 - [ ] Full write-ups for the still-WIP projects (Agri-Sense, Clouds and Computers, Miracle Makers) — they currently render through the `[slug]` fallback with a "coming soon" message. Clouds and Computers in particular already has partial narrative content that was never migrated off the old Lexical system; it needs a proper JSX pass, not just a copy-paste of what existed before.
-- [ ] Specific recruiter-link codes beyond the generic categories in `src/lib/recruiter-links.ts` (`embedded`, `hardware`, `software`, `swe`, `cloud`, `devops`, `general`) — add company/role-specific codes there as they're handed out.
+- [ ] More company/role-specific recruiter-link codes as roles firm up — `spacex-swe-intern`, `ibm-quantum-intern`, `ibm-cloud-intern`, and `arm-hardware` are in `src/lib/recruiter-links.ts` now; Northrop Grumman, Google, NVIDIA, AbbVie, Broadcom, and Synopsys are being looked into but don't have locked-down roles/categories yet.
 
 ### Icons
 
