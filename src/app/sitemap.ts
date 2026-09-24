@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { projects as projectsJSON } from "./(site)/projects/content";
+import { projects as projectsJSON } from "@/lib/projects/content";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projectMap = await projects();

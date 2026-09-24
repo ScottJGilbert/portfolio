@@ -2,7 +2,6 @@ import { HomeJournalContent } from "./components/journal-list";
 import { HomeHeroContent } from "./components/hero-section";
 import { HomeAssortmentContent } from "./components/assortment-grid";
 import { HomeProjectsContent } from "./components/projects-grid";
-import { projects } from "../projects/content";
 import { GiTrombone, GiGamepad } from "react-icons/gi";
 import { FaRunning } from "react-icons/fa";
 
@@ -117,7 +116,9 @@ export const homeContent: HomeContent = {
     title: "Selected Projects",
     archiveLabel: "View Archive",
     archiveHref: "/projects",
-    projects,
+    // Overridden per-request in page.tsx with the (possibly
+    // recruiter-personalized) featured project selection.
+    projects: [],
   },
   journal: {
     eyebrow: "Journal",

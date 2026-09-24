@@ -8,7 +8,7 @@ import TechStackComponent from "@/components/ui/tech-stack";
 import { fetchStack } from "@/lib/tech-stack";
 import { Card } from "@/components/ui/card";
 
-import { Project } from "../content";
+import { ProjectMeta } from "@/lib/projects/content";
 
 function formatProjectDate(value: string) {
   return new Intl.DateTimeFormat("en-US", {
@@ -21,7 +21,7 @@ export default function FeaturedProjectCard({
   project,
   prominent = false,
 }: {
-  project: Project;
+  project: ProjectMeta;
   prominent?: boolean;
 }) {
   const stack = fetchStack(project.stack).slice(0, 7);

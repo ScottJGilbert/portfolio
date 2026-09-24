@@ -1,12 +1,12 @@
 import { Card } from "@/components/ui/card";
-import { Project } from "../content";
+import { ProjectMeta } from "@/lib/projects/content";
 import { Chip } from "@/components/ui/chip";
 import Link from "next/link";
 import React from "react";
 import { fetchStack } from "@/lib/tech-stack";
 import TechStackComponent from "@/components/ui/tech-stack";
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({ project }: { project: ProjectMeta }) {
   const stack = fetchStack(project.stack);
 
   return (

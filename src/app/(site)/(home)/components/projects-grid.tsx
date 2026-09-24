@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
-import { Project } from "../../projects/content";
+import { ProjectMeta } from "@/lib/projects/content";
 import Image from "next/image";
 
 export interface HomeProjectsContent {
@@ -11,7 +11,7 @@ export interface HomeProjectsContent {
   title: string;
   archiveLabel: string;
   archiveHref: string;
-  projects: readonly Project[];
+  projects: readonly ProjectMeta[];
 }
 
 interface ProjectsGridProps {
