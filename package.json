@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@scottjgilbert/lexical-blog-editor": "1.1.0",
     "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
     "devicons-react": "^1.5.0",

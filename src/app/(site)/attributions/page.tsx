@@ -30,13 +30,27 @@ const attributionBlocks: AttributionBlock[] = [
     title: "Icons",
     url: "https://react-icons.github.io/react-icons/",
     description:
-      "The icons on this site are part of the React Icons library. All trademarks, brands, logos, and otherwise are property of their respective owners. If more detailed attributions are required for any logos, they are listed below.",
+      "Most icons on this site are part of the React Icons library. A small number of technology logos not covered by React Icons (Matplotlib, libGDX) are drawn from Devicon via the devicons-react package. All trademarks, brands, logos, and otherwise are property of their respective owners. If more detailed attributions are required for any logos, they are listed below.",
   },
   {
     type: "section",
     title: "Vercel/Next.js",
     description:
-      "This website is built with Next.js and is hosted on the Vercel platform. Vercel, the Vercel design, Next.js and related marks, designs and logos are trademarks or registered trademarks of Vercel, Inc. or its affiliates in the US and other countries.",
+      "This website is built with Next.js, hosted on the Vercel platform, and uses Vercel Analytics for anonymized, privacy-friendly traffic metrics. Vercel, the Vercel design, Next.js and related marks, designs and logos are trademarks or registered trademarks of Vercel, Inc. or its affiliates in the US and other countries.",
+  },
+  {
+    type: "section",
+    title: "Motion",
+    url: "https://motion.dev/",
+    description:
+      "Page and interaction animations use the Motion (formerly Framer Motion) library. Motion and related marks are trademarks of their respective owners.",
+  },
+  {
+    type: "section",
+    title: "typewriter-effect",
+    url: "https://github.com/tameemsafi/typewriterjs",
+    description:
+      "The rotating phrases in the homepage hero are rendered with the typewriter-effect library.",
   },
   // {
   //   type: "section",
