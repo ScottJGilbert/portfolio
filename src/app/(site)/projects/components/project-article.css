@@ -1,0 +1,98 @@
+/*
+ * Plain-tag typography for hand-authored project body JSX (h2/h3/p/ul/ol/a/
+ * strong/em), scoped under .project-article-body. Mirrors the sizing/spacing
+ * that the old Lexical ViewerTheme classes used, so migrating a project from
+ * Lexical JSON to JSX doesn't change how it reads.
+ */
+
+.project-article-body {
+  --article-body-size: 1rem;
+  --article-body-line: 1.75;
+  --article-heading-line: 1.2;
+}
+
+.project-article-body p {
+  color: var(--foreground);
+  font-size: var(--article-body-size);
+  line-height: var(--article-body-line);
+  margin: 0 0 1rem;
+}
+
+.project-article-body h2,
+.project-article-body h3 {
+  color: var(--foreground);
+  line-height: var(--article-heading-line);
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+}
+
+.project-article-body h2 {
+  font-size: clamp(1.35rem, 1.2rem + 0.7vw, 1.75rem);
+}
+
+.project-article-body h3 {
+  font-size: clamp(1.1rem, 1.05rem + 0.45vw, 1.35rem);
+}
+
+.project-article-body ul,
+.project-article-body ol {
+  margin: 0 0 1rem;
+  padding-left: 1.5rem;
+}
+
+.project-article-body ul {
+  list-style-type: disc;
+}
+
+.project-article-body ol {
+  list-style-type: decimal;
+}
+
+.project-article-body li {
+  margin: 0.35rem 0;
+  line-height: 1.7;
+  color: var(--foreground);
+}
+
+.project-article-body li strong {
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.project-article-body a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+  transition: color 140ms ease;
+}
+
+.project-article-body a:hover {
+  color: color-mix(in srgb, var(--primary) 75%, var(--foreground));
+}
+
+.project-article-body a:focus-visible {
+  color: color-mix(in srgb, var(--primary) 75%, var(--foreground));
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 0.2rem;
+}
+
+.project-article-body figure {
+  margin: 1.25rem 0;
+}
+
+.project-article-body figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.9rem;
+  border: 1px solid var(--outline-ghost);
+}
+
+.project-article-body figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: center;
+}

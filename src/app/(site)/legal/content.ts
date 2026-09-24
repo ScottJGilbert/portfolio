@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export const legalPageContent = {
   title: "Legal",
-  lastUpdated: "April 24, 2026",
+  lastUpdated: "September 24, 2026",
   terms: [
     {
       id: "terms-use",
@@ -76,6 +76,14 @@ export const legalPageContent = {
       title: "How I Use Your Information",
       paragraphs: [
         "I use the information I collect to respond to your inquiries, provide support, and improve/maintain the security of this website. I do not sell or rent your personal information to third parties.",
+      ],
+    },
+    {
+      id: "cookies-and-analytics",
+      title: "Cookies & Analytics",
+      paragraphs: [
+        "This site uses Vercel Analytics to collect anonymized, aggregate traffic metrics (such as page views and referrers). It does not use cookies and does not track you individually across sites.",
+        'Links shared with recruiters in the form "scottgilbert.dev/r/<code>" set a first-party cookie named recruiter_categories, which stores only a short category label (e.g. "embedded" or "software") describing the context the link was shared in. This cookie contains no personal or identifying information, is not shared with any third party, and is used solely to reorder which of my projects are shown first on this site. It expires automatically after 90 days, and you can remove it at any time by clearing your browser\'s cookies for this site.',
       ],
     },
     {

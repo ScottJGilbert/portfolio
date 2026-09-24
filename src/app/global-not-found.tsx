@@ -9,7 +9,7 @@ import { TopActionBar } from "@/components/site/top-action-bar";
 import { SiteFooter } from "@/components/site/site-footer";
 
 import { siteShellContent } from "@/lib/site-content";
-import { ThemeProvider } from "@/components/ui/theme-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 const {
   announcement,

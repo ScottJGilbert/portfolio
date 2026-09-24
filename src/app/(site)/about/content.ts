@@ -14,6 +14,7 @@ export interface AboutExperienceEntry {
   period: string;
   summary: string;
   highlights: readonly string[];
+  logo?: string;
 }
 
 export interface EducationEntry {
@@ -22,21 +23,29 @@ export interface EducationEntry {
   period: string;
   details: string;
   logo: string;
+  minor?: string;
+}
+
+export interface CertificationEntry {
+  name: string;
+  issuer: string;
+  date: string;
+  detail?: string;
+  group?: string;
 }
 
 export const aboutPageContent = {
   title: "About",
-  intro: [
-    "Hello! I'm Scott Gilbert, an undergraduate computer engineering student at the University of Illinois Urbana-Champaign and a graduate of James B. Conant High School in Hoffman Estates, Illinois.",
-    "I am a hard-working full-stack developer, problem-solver, and computer engineer who is dedicated to deploying information technology, computing, and electrical engineering solutions to both solve complex problems and working miracles in peoples' lives.",
-    "...I also like the color green.",
-  ] as const,
+  // Bio intro is hand-authored JSX directly in page.tsx (it needs inline
+  // bold/italic emphasis a plain string array can't carry) — no `intro`
+  // field here.
   experience: [
     {
       group: "Leadership & Involvement",
       groupKey: "illini-solar-car",
       role: "Array/MPPT Lead",
       company: "Illini Solar Car",
+      logo: "/isc-logo.png",
       location: "Urbana-Champaign Area · On-site",
       period: "May 2026 - Present",
       summary:
@@ -51,6 +60,7 @@ export const aboutPageContent = {
       groupKey: "illini-solar-car",
       role: "Webmaster",
       company: "Illini Solar Car",
+      logo: "/isc-logo.png",
       location: "Urbana-Champaign Area · On-site",
       period: "May 2026 - Present",
       summary:
@@ -65,6 +75,7 @@ export const aboutPageContent = {
       groupKey: "illini-solar-car",
       role: "Electrical Team Member",
       company: "Illini Solar Car",
+      logo: "/isc-logo.png",
       location: "Urbana-Champaign Area · On-site",
       period: "Oct 2025 - Present",
       summary:
@@ -79,6 +90,7 @@ export const aboutPageContent = {
       group: "Leadership & Involvement",
       role: "President & Systems Administrator",
       company: "Illini Redstone Computing",
+      logo: "/irc-logo.png",
       location: "Urbana-Champaign Area · On-site",
       period: "Jan 2026 - Present",
       summary:
@@ -92,6 +104,7 @@ export const aboutPageContent = {
       group: "Professional Experience",
       role: "Computer Administrator",
       company: "University of Illinois Campus Honors Program",
+      logo: "/illinois.png",
       location: "Urbana, Illinois, United States · Hybrid",
       period: "Oct 2025 - Present",
       summary:
@@ -106,6 +119,7 @@ export const aboutPageContent = {
       group: "Professional Experience",
       role: "Full-Stack/AI Intern",
       company: "Team2Go, Inc.",
+      logo: "/team2go-logo.jpg",
       location: "Yongin-si, Gyeonggi, South Korea · Remote",
       period: "Jun 2025 - Aug 2025",
       summary:
@@ -120,6 +134,7 @@ export const aboutPageContent = {
       group: "Leadership & Involvement",
       role: "Eagle Scout",
       company: "Scouting America",
+      logo: "/bsa-logo.webp",
       location: "",
       period: "Mar 2018 - Dec 2024",
       summary:
@@ -138,6 +153,7 @@ export const aboutPageContent = {
       details:
         "Dean's List | GPA: 4.00/4.00\nActivities and Societies: Marching Illini, Illini Solar Car, Project: Code UIUC, IEEE UIUC, Engineers without Borders, Campus Honors Program",
       logo: "/illinois.png",
+      minor: "Business (Gies College of Business) — in progress",
     },
     {
       credential: "High School Diploma",
@@ -148,4 +164,40 @@ export const aboutPageContent = {
       logo: "/conant.png",
     },
   ] as const satisfies readonly EducationEntry[],
+  certifications: [
+    {
+      name: "Amateur Radio General Operator Class License",
+      issuer: "Federal Communications Commission",
+      date: "Issued Mar 2026 · Expires Mar 2036",
+      detail: "Credential ID: KE9FEX",
+    },
+    {
+      name: "Next.js SEO Fundamentals",
+      issuer: "Vercel",
+      date: "Issued Jun 2025",
+      detail: "Credential ID: seo",
+      group: "Next.js by Vercel",
+    },
+    {
+      name: "Next.js Pages Router Fundamentals",
+      issuer: "Vercel",
+      date: "Issued Jun 2025",
+      detail: "Credential ID: pages-router",
+      group: "Next.js by Vercel",
+    },
+    {
+      name: "React Foundations for Next.js",
+      issuer: "Vercel",
+      date: "Issued May 2025",
+      detail: "Credential ID: react-foundations",
+      group: "Next.js by Vercel",
+    },
+    {
+      name: "Next.js App Router Fundamentals",
+      issuer: "Vercel",
+      date: "Issued Jun 2025",
+      detail: "Credential ID: dashboard-app",
+      group: "Next.js by Vercel",
+    },
+  ] as const satisfies readonly CertificationEntry[],
 } as const;

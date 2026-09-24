@@ -40,7 +40,7 @@ export function SectionHeading({
     >
       <div className="space-y-(--space-xs)">
         {eyebrow ? (
-          <p className="text-(length:--text-eyebrow) font-bold uppercase tracking-(--tracking-eyebrow) text-primary/80">
+          <p className="text-(length:--text-eyebrow) font-bold uppercase tracking-(--tracking-eyebrow) text-primary">
             {eyebrow}
           </p>
         ) : null}

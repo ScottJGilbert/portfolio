@@ -1,8 +1,57 @@
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
+import { OrgLogo, getInitials } from "@/components/ui/org-logo";
 import { aboutPageContent } from "./content";
 
 export { metadata } from "./content";
+
+function getEntryMinor(entry: { minor?: string } | Record<string, unknown>) {
+  return "minor" in entry ? (entry.minor as string | undefined) : undefined;
+}
+
+interface CertificationLike {
+  name: string;
+  issuer: string;
+  date: string;
+  detail?: string;
+  group?: string;
+}
+
+function getCertGroup(cert: CertificationLike) {
+  return cert.group;
+}
+
+type CertificationRow =
+  | { type: "single"; cert: CertificationLike }
+  | { type: "group"; group: string; certs: CertificationLike[] };
+
+function groupCertifications(
+  certifications: readonly CertificationLike[],
+): CertificationRow[] {
+  const rows: CertificationRow[] = [];
+
+  for (const cert of certifications) {
+    const group = getCertGroup(cert);
+
+    if (!group) {
+      rows.push({ type: "single", cert });
+      continue;
+    }
+
+    const existingGroup = rows.find(
+      (row): row is Extract<CertificationRow, { type: "group" }> =>
+        row.type === "group" && row.group === group,
+    );
+
+    if (existingGroup) {
+      existingGroup.certs.push(cert);
+    } else {
+      rows.push({ type: "group", group, certs: [cert] });
+    }
+  }
+
+  return rows;
+}
 
 export default function AboutPage() {
   return (
@@ -23,10 +72,47 @@ export default function AboutPage() {
             <h1 className="text-3xl font-semibold tracking-tight">
               {aboutPageContent.title}
             </h1>
+            {/*
+              Hand-authored JSX rather than pulled from content.ts's plain
+              strings — this bio benefits from real inline emphasis, which a
+              flat string array can't carry (same reasoning as project body
+              content: prose that wants formatting lives as JSX).
+            */}
             <div className="space-y-3 text-sm leading-7 text-muted">
-              {aboutPageContent.intro.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+              <p>
+                Hello! I&apos;m Scott Gilbert, an undergraduate{" "}
+                <strong className="font-semibold text-foreground">
+                  computer engineering
+                </strong>{" "}
+                student at the University of Illinois Urbana-Champaign and a
+                graduate of James B. Conant High School in Hoffman Estates,
+                Illinois.
+              </p>
+              <p>
+                I am a hard-working{" "}
+                <strong className="font-semibold text-foreground">
+                  full-stack developer
+                </strong>
+                ,{" "}
+                <strong className="font-semibold text-foreground">
+                  problem-solver
+                </strong>
+                , and{" "}
+                <strong className="font-semibold text-foreground">
+                  computer engineer
+                </strong>{" "}
+                dedicated to deploying information technology, computing, and
+                electrical engineering solutions — to both solve complex
+                problems <em>and</em>{" "}
+                work miracles in people&apos;s lives.
+              </p>
+              <p className="italic">
+                ...and yes, I also like the color{" "}
+                <span className="font-semibold not-italic text-primary">
+                  green
+                </span>
+                .
+              </p>
             </div>
           </div>
         </header>
@@ -82,70 +168,112 @@ export default function AboutPage() {
                     {entries.length} {entries.length === 1 ? "role" : "roles"}
                   </span>
                 </div>
-                <div className="relative space-y-4">
-                  {entryGroups.map((entryGroup) => (
-                    <div
-                      key={entryGroup.key}
-                      className={
-                        entryGroup.groupKey ? "space-y-0" : "space-y-4"
-                      }
-                    >
-                      {entryGroup.groupKey && (
-                        <div className="rounded-xl mb-2 border-l-4 border-primary bg-primary/5 px-5 py-3">
-                          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-                            {entryGroup.entries[0].company}
-                          </p>
-                          <p className="mt-1 text-xs text-muted">
-                            Multiple roles ·{" "}
-                            {
-                              entryGroup.entries[entryGroup.entries.length - 1]
-                                .period
-                            }
-                          </p>
-                        </div>
-                      )}
-                      {entryGroup.entries.map((entry) => (
-                        <Card
-                          key={`${entry.company}-${entry.role}`}
-                          variant="surface"
-                          padding="lg"
-                          className={`relative ml-0 space-y-4 border-l-4 border-l-primary/70 pl-5 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg ${
-                            entryGroup.groupKey ? "rounded-b-xl ml-4" : ""
-                          }`}
-                        >
-                          {/* <span className="absolute -left-6.25 top-7 h-3 w-3 rounded-full border-2 border-background bg-primary" /> */}
-                          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-                            <div className="space-y-1">
-                              <p className="text-base font-semibold text-foreground">
-                                {entry.role}
+                <div className="relative space-y-6">
+                  {entryGroups.map((entryGroup) => {
+                    const isGrouped = Boolean(entryGroup.groupKey);
+                    const primaryCompany = entryGroup.entries[0].company;
+
+                    return (
+                      <div key={entryGroup.key} className="space-y-3">
+                        {isGrouped && (
+                          <div className="flex items-center gap-3 rounded-xl border border-outline-ghost bg-primary/5 px-5 py-3">
+                            <OrgLogo
+                              src={entryGroup.entries[0].logo}
+                              alt={`${primaryCompany} logo`}
+                              initials={getInitials(primaryCompany)}
+                              size={40}
+                            />
+                            <div>
+                              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+                                {primaryCompany}
                               </p>
-                              {!entryGroup.groupKey && (
-                                <p className="text-sm font-medium text-primary">
-                                  {entry.company}
+                              <p className="mt-1 text-xs text-muted">
+                                Multiple roles ·{" "}
+                                {
+                                  entryGroup.entries[
+                                    entryGroup.entries.length - 1
+                                  ].period
+                                }
+                              </p>
+                            </div>
+                          </div>
+                        )}
+                        <div
+                          className={
+                            isGrouped
+                              ? "relative ml-5 space-y-3 border-l-2 border-primary/25 pl-6"
+                              : "space-y-3"
+                          }
+                        >
+                          {entryGroup.entries.map((entry) => (
+                            <Card
+                              key={`${entry.company}-${entry.role}`}
+                              variant="surface"
+                              padding="lg"
+                              className={`relative space-y-4 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg ${
+                                isGrouped
+                                  ? ""
+                                  : "border-l-4 border-l-primary/70 pl-5"
+                              }`}
+                            >
+                              {isGrouped && (
+                                <span
+                                  className="absolute -left-[1.9rem] top-7 h-2.5 w-2.5 rounded-full border-2 border-background bg-primary"
+                                  aria-hidden
+                                />
+                              )}
+                              <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                                <div
+                                  className={
+                                    isGrouped
+                                      ? "space-y-1"
+                                      : "flex items-start gap-3"
+                                  }
+                                >
+                                  {!isGrouped && (
+                                    <OrgLogo
+                                      src={entryGroup.entries[0].logo}
+                                      alt={`${entryGroup.entries[0].company} logo`}
+                                      initials={getInitials(
+                                        entryGroup.entries[0].company,
+                                      )}
+                                      size={40}
+                                    />
+                                  )}
+                                  <div className="space-y-1">
+                                    <p className="text-base font-semibold text-foreground">
+                                      {entry.role}
+                                    </p>
+                                    {!isGrouped && (
+                                      <p className="text-sm font-medium text-primary">
+                                        {entry.company}
+                                      </p>
+                                    )}
+                                  </div>
+                                </div>
+                                <p className="shrink-0 text-xs font-semibold uppercase tracking-[0.12em] text-muted sm:text-right">
+                                  {entry.period}
+                                </p>
+                              </div>
+                              {entry.location && (
+                                <p className="text-xs uppercase tracking-[0.14em] text-muted">
+                                  {entry.location}
                                 </p>
                               )}
-                            </div>
-                            <p className="shrink-0 text-xs font-semibold uppercase tracking-[0.12em] text-muted sm:text-right">
-                              {entry.period}
-                            </p>
-                          </div>
-                          {entry.location && (
-                            <p className="text-xs uppercase tracking-[0.14em] text-muted">
-                              {entry.location}
-                            </p>
-                          )}
-                          <p className="text-sm leading-7 text-muted">
-                            {entry.summary}
-                          </p>
-                          <ul className="list-disc space-y-2 pl-5 text-sm leading-7 text-muted marker:text-primary">
-                            {entry.highlights.map((highlight) => (
-                              <li key={highlight}>{highlight}</li>
-                            ))}
-                          </ul>
-                        </Card>
-                      ))}
-                    </div>
-                  ))}
+                              <p className="text-sm leading-7 text-muted">
+                                {entry.summary}
+                              </p>
+                              <ul className="list-disc space-y-2 pl-5 text-sm leading-7 text-muted marker:text-primary">
+                                {entry.highlights.map((highlight) => (
+                                  <li key={highlight}>{highlight}</li>
+                                ))}
+                              </ul>
+                            </Card>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </section>
             );
@@ -184,6 +312,11 @@ export default function AboutPage() {
                   <p className="text-xs uppercase tracking-[0.14em] text-muted">
                     {entry.institution} · {entry.period}
                   </p>
+                  {getEntryMinor(entry) && (
+                    <p className="text-sm font-medium text-primary">
+                      Minor: {getEntryMinor(entry)}
+                    </p>
+                  )}
                   <p className="text-sm leading-7 text-muted whitespace-break-spaces">
                     {entry.details}
                   </p>
@@ -191,6 +324,74 @@ export default function AboutPage() {
               </Card>
             ))}
           </div>
+        </section>
+
+        <section
+          className="space-y-3"
+          aria-labelledby="about-certifications-heading"
+        >
+          <h2
+            id="about-certifications-heading"
+            className="text-sm font-semibold uppercase tracking-[0.14em] text-muted"
+          >
+            Certifications &amp; Licenses
+          </h2>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {groupCertifications(aboutPageContent.certifications).map((row) =>
+              row.type === "single" ? (
+                <li
+                  key={row.cert.name}
+                  className="rounded-lg border border-outline-ghost/70 bg-surface/60 px-4 py-3"
+                >
+                  <p className="text-sm font-medium text-foreground">
+                    {row.cert.name}
+                  </p>
+                  <p className="text-xs text-muted">
+                    {row.cert.issuer} · {row.cert.date}
+                  </p>
+                  {row.cert.detail && (
+                    <p className="mt-1 text-xs italic text-muted">
+                      {row.cert.detail}
+                    </p>
+                  )}
+                </li>
+              ) : (
+                <li key={row.group}>
+                  <details className="group rounded-lg border border-outline-ghost/70 bg-surface/60 px-4 py-3">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 marker:hidden">
+                      <span className="text-sm font-medium text-foreground">
+                        {row.group}
+                      </span>
+                      <span className="flex items-center gap-2 text-xs text-muted">
+                        {row.certs.length} credentials
+                        <span
+                          className="text-primary transition-transform group-open:rotate-45"
+                          aria-hidden
+                        >
+                          +
+                        </span>
+                      </span>
+                    </summary>
+                    <ul className="mt-3 space-y-2 border-t border-outline-ghost/60 pt-3">
+                      {row.certs.map((cert) => (
+                        <li key={cert.name}>
+                          <p className="text-sm text-foreground">{cert.name}</p>
+                          <p className="text-xs text-muted">
+                            {cert.issuer} · {cert.date}
+                          </p>
+                          {cert.detail && (
+                            <p className="mt-1 text-xs italic text-muted">
+                              {cert.detail}
+                            </p>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </li>
+              ),
+            )}
+          </ul>
         </section>
       </div>
     </section>

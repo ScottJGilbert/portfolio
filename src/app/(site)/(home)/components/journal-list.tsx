@@ -54,7 +54,7 @@ export function JournalList({ content }: JournalListProps) {
                     />
                   </div>
                   <div className="flex items-center gap-6 md:gap-12">
-                    <span className="text-sm font-bold tabular-nums text-muted/90 transition-colors group-hover:text-primary">
+                    <span className="text-sm font-bold tabular-nums text-muted transition-colors group-hover:text-primary">
                       {entry.index}
                     </span>
                     <div>

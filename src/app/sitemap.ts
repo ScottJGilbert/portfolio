@@ -1,62 +1,28 @@
 import type { MetadataRoute } from "next";
-import { projects as projectsJSON } from "./(site)/projects/content";
+import { projects, projectSubPages } from "@/lib/projects/content";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const projectMap = await projects();
-
-  return [
-    {
-      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/`,
-      priority: 1,
-    },
-    {
-      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/about`,
-      priority: 0.8,
-    },
-    {
-      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/skills`,
-      priority: 0.6,
-    },
-    {
-      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/projects`,
-      priority: 0.5,
-    },
-    {
-      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/blog`,
-      priority: 0.5,
-    },
-    {
-      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/resume.pdf`,
-      priority: 0.8,
-    },
-    {
-      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/attributions`,
-      priority: 0.1,
-    },
-    {
-      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/legal`,
-      priority: 0.1,
-    },
-    {
-      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/signin`,
-      priority: 0.25,
-    },
-    {
-      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/signup`,
-      priority: 0.25,
-    },
-    ...projectMap,
-  ];
+function getBaseUrl(): string {
+  return process.env.NEXT_PUBLIC_BASE_URL || "https://scottgilbert.dev";
 }
 
-async function projects() {
-  const slugs: string[] = projectsJSON.map((project) => project.slug);
-  const map: MetadataRoute.Sitemap = slugs.map((slug) => {
-    return {
-      url: `${process.env.BASE_URL || "https://scottgilbert.dev"}/projects/${slug}`,
-      priority: 0.35,
-    };
-  });
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = getBaseUrl();
 
-  return map;
+  return [
+    { url: `${baseUrl}/`, priority: 1 },
+    { url: `${baseUrl}/about`, priority: 0.8 },
+    { url: `${baseUrl}/projects`, priority: 0.7 },
+    { url: `${baseUrl}/contact`, priority: 0.6 },
+    { url: `${baseUrl}/resume.pdf`, priority: 0.8 },
+    { url: `${baseUrl}/legal`, priority: 0.1 },
+    { url: `${baseUrl}/attributions`, priority: 0.1 },
+    ...projects.map((project) => ({
+      url: `${baseUrl}/projects/${project.slug}`,
+      priority: 0.5,
+    })),
+    ...projectSubPages.map((subPage) => ({
+      url: `${baseUrl}/projects/${subPage.parentSlug}/${subPage.slug}`,
+      priority: 0.35,
+    })),
+  ];
 }

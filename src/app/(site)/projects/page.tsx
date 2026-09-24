@@ -1,29 +1,31 @@
-import { featuredProjectSlugs, projectsPageData } from "./content";
+import { cookies } from "next/headers";
+import { projectsPageData } from "./content";
 import FeaturedProjectCard from "./components/featured-project-card";
-import Search from "./components/search";
-import ProjectCard from "./components/project-card";
-import { projects } from "./content";
+import { ProjectsExplorer } from "./components/projects-explorer";
+import { projects } from "@/lib/projects/content";
+import { selectFeaturedProjects } from "@/lib/projects/select-featured";
+import {
+  RECRUITER_COOKIE_NAME,
+  parseRecruiterCategories,
+} from "@/lib/recruiter-links";
 
 export { metadata } from "./content";
 
-const featuredSlugSet = new Set<string>(featuredProjectSlugs);
-const featuredProjects = featuredProjectSlugs.reduce(
-  (selectedProjects, slug) => {
-    const project = projects.find((candidate) => candidate.slug === slug);
+export default async function ProjectsPage() {
+  const cookieStore = await cookies();
+  const recruiterCategories = parseRecruiterCategories(
+    cookieStore.get(RECRUITER_COOKIE_NAME)?.value,
+  );
 
-    if (!project || selectedProjects.some((item) => item.slug === slug)) {
-      return selectedProjects;
-    }
+  const featuredProjects = selectFeaturedProjects(
+    projects,
+    recruiterCategories,
+  );
+  const featuredSlugSet = new Set(featuredProjects.map((p) => p.slug));
+  const remainingProjects = projects.filter(
+    (project) => !featuredSlugSet.has(project.slug),
+  );
 
-    return [...selectedProjects, project];
-  },
-  [] as typeof projects,
-);
-const remainingProjects = projects.filter(
-  (project) => !featuredSlugSet.has(project.slug),
-);
-
-export default function ProjectsPage() {
   return (
     <section className="px-6 py-10 md:px-10 lg:px-12">
       <div className="mx-auto min-w-0 max-w-7xl space-y-14">
@@ -80,13 +82,8 @@ export default function ProjectsPage() {
               </span>
             </summary>
 
-            <div className="min-w-0 space-y-6 pt-2">
-              <Search />
-              <div className="grid min-w-0 gap-6 md:grid-cols-2">
-                {remainingProjects.map((project) => (
-                  <ProjectCard key={project.slug} project={project} />
-                ))}
-              </div>
+            <div className="min-w-0 pt-2">
+              <ProjectsExplorer projects={remainingProjects} />
             </div>
           </details>
         )}
