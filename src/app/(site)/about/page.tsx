@@ -103,7 +103,8 @@ export default function AboutPage() {
                 </strong>{" "}
                 dedicated to deploying information technology, computing, and
                 electrical engineering solutions — to both solve complex
-                problems <em>and</em> work miracles in people&apos;s lives.
+                problems <em>and</em>{" "}
+                work miracles in people&apos;s lives.
               </p>
               <p className="italic">
                 ...and yes, I also like the color{" "}

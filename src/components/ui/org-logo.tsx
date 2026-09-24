@@ -48,7 +48,7 @@ export function OrgLogo({
 
   return (
     <div
-      className={`flex items-center justify-center bg-surface-alt text-xs font-semibold uppercase tracking-[0.04em] text-muted text-ce ${boxClassName}`}
+      className={`flex items-center justify-center bg-surface-alt text-xs font-semibold uppercase tracking-[0.04em] text-muted ${boxClassName}`}
       style={{ width: size, height: size }}
       aria-hidden
     >
