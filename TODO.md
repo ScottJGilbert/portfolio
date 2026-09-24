@@ -1,16 +1,22 @@
-### General
+# Known follow-ups
 
-- [ ] Pass website through stitch to generate proper DESIGN.md
-- [ ] Clear up sidebar links and design
-- [ ] Clear up footer links and add new ones
+Things intentionally deferred during the September 2026 finishing pass, not gaps that were missed.
 
-### Backend Connection
+### Content
 
-- [ ] Setup simple GraphQL connection to backend
-- [ ] Implement fetching:
-  - [ ] Fetch portfolio items
-  - [ ] Fetch project details
-  - [ ] Fetch blog entries
-  - [ ] Fetch announcement
-- [ ] Create queries to fetch portfolio data
-- [ ] Create rich text displays for project items
+- [ ] Org logo images for Illini Solar Car, Illini Redstone Computing, UIUC CHP, Team2Go, and Scouting America — the About page falls back to initials avatars (`OrgLogo`/`getInitials`) until real logo assets are supplied.
+- [ ] Full write-ups for the still-WIP projects (Agri-Sense, Clouds and Computers, Miracle Makers) — they currently render through the `[slug]` fallback with a "coming soon" message. Clouds and Computers in particular already has partial narrative content that was never migrated off the old Lexical system; it needs a proper JSX pass, not just a copy-paste of what existed before.
+- [ ] Specific recruiter-link codes beyond the generic categories in `src/lib/recruiter-links.ts` (`embedded`, `hardware`, `software`, `swe`, `cloud`, `devops`, `general`) — add company/role-specific codes there as they're handed out.
+
+### Icons
+
+- [ ] Vivado, MCUxpresso, and UPBGE have no icon in either react-icons or devicons-react (confirmed by inspecting both libraries' full export lists, not by guessing — see `REFERENCES.md`). They currently use a closer-fitting generic icon (`FaMicrochip`/`FaGamepad`). Revisit if either library adds real coverage, or if it's worth commissioning/finding a proper logo asset for one of them.
+
+### Performance
+
+- [ ] The home page and `/projects` read `cookies()` for recruiter personalization, which opts them into dynamic (uncached) rendering and disables the back/forward cache (`Cache-Control: no-store`). This is an accepted tradeoff (see `DESIGN.md`), but if personalization traffic ever matters enough, revisit whether it can move to a narrower server island instead of opting the whole route.
+- [ ] Lighthouse performance-category insights (render-blocking CSS chunk, LCP) were reviewed during the accessibility pass but not addressed — they're framework/build-output-level, not something worth chasing without a concrete performance target.
+
+### Infrastructure
+
+- [ ] Containerization / self-hosting: intentionally left undecided. The site currently deploys to Vercel from this repo; `next.config.ts`'s `output: "standalone"` is a leftover Docker-oriented setting Vercel ignores, not a signal either way.
