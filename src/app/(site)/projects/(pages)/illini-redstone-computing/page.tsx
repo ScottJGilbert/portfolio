@@ -18,9 +18,9 @@ export default function IlliniRedstoneComputingPage() {
         Illini Redstone Computing (IRC) is a student-led computing and gaming
         organization at the University of Illinois. Members build things like
         working 8-bit CPUs, keyboards, and displays completely from scratch, and
-        the organization runs its own community servers. I&apos;m its
-        co-founder and president, so I split my time between running the
-        organization and building the infrastructure it runs on.
+        the organization runs its own community servers. I’m its co-founder and
+        president, so I split my time between running the organization and
+        building the infrastructure it runs on.
       </p>
 
       <Highlights
@@ -57,11 +57,11 @@ export default function IlliniRedstoneComputingPage() {
 
       <h2>The infrastructure</h2>
       <p>
-        I designed the organization&apos;s computing backbone as a set of
-        modular container stacks, so each service can be upgraded or replaced
-        without touching the others. The stacks bring together game servers,
-        file access, DNS, web-based administration, datastores, messaging,
-        staff authentication, API gateways, and secure connection tunneling.
+        I designed the organization’s computing backbone as a set of modular
+        container stacks, so each service can be upgraded or replaced without
+        touching the others. The stacks bring together game servers, file
+        access, DNS, web-based administration, datastores, messaging, staff
+        authentication, API gateways, and secure connection tunneling.
       </p>
 
       <ArchitectureDiagram
@@ -78,7 +78,10 @@ export default function IlliniRedstoneComputingPage() {
           {
             label: "Entry points",
             nodes: [
-              { name: "Minecraft proxy", note: "Routes players between servers" },
+              {
+                name: "Minecraft proxy",
+                note: "Routes players between servers",
+              },
               { name: "Reverse proxy", note: "HTTPS for web tools" },
             ],
           },
@@ -88,7 +91,10 @@ export default function IlliniRedstoneComputingPage() {
               { name: "Lobby" },
               { name: "Survival" },
               { name: "Onboarding" },
-              { name: "Redstone computing server", note: "For building CPUs in-game" },
+              {
+                name: "Redstone computing server",
+                note: "For building CPUs in-game",
+              },
               { name: "Project servers" },
             ],
           },

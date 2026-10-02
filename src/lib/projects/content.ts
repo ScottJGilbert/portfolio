@@ -63,7 +63,16 @@ export const projects: ProjectMeta[] = [
     recruiterCategories: ["hardware", "embedded", "software"],
     slug: "delos",
     image_url: "/delos.webp",
-    stack: ["C++", "Mbed OS", "NXP", "Arm", "MCUxpresso", "CAN", "KiCad", "MQTT"],
+    stack: [
+      "C++",
+      "Mbed OS",
+      "NXP",
+      "Arm",
+      "MCUxpresso",
+      "CAN",
+      "KiCad",
+      "MQTT",
+    ],
     role: "Electrical Engineer, Illini Solar Car",
     teamSize: "Multi-disciplinary student engineering team",
     contribution:

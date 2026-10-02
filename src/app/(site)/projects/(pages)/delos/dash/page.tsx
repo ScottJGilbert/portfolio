@@ -1,9 +1,5 @@
 import { projectMetadata } from "../../../lib/metadata";
-import {
-  CaseStudy,
-  FlowDiagram,
-  RoleSplit,
-} from "../../../components/blocks";
+import { CaseStudy, FlowDiagram, RoleSplit } from "../../../components/blocks";
 
 export const metadata = projectMetadata("delos", "dash");
 
@@ -11,11 +7,11 @@ export default function DelosDashPage() {
   return (
     <>
       <p>
-        The dashboard is one half of Delos&apos; driver interface. It reads the
-        inputs that aren&apos;t on the steering wheel, controls the car&apos;s
-        lights, horn, and reverse camera, and reports what it sees to the rest
-        of the car over CAN. I owned this board and its firmware once the design
-        was finished, and was responsible for getting it working in the car.
+        The dashboard is one half of Delos’ driver interface. It reads the
+        inputs that aren’t on the steering wheel, controls the car’s lights,
+        horn, and reverse camera, and reports what it sees to the rest of the
+        car over CAN. I owned this board and its firmware once the design was
+        finished, and was responsible for getting it working in the car.
       </p>
 
       <h2>What the dashboard does</h2>
@@ -28,16 +24,16 @@ export default function DelosDashPage() {
         <li>
           <strong>Runs the lights:</strong> daytime running lights, headlights,
           brake, reverse, parking, hazards, and turn signals. Turn signals flash
-          about 90 times a minute, inside the 60&ndash;120 range the race rules
+          about 90 times a minute, inside the 60–120 range the race rules
           require.
         </li>
         <li>
           <strong>Reports to the car:</strong> sends brake and drive-direction
           state, light state, and a regular heartbeat over CAN, so other boards
-          (and the telemetry team) can see it&apos;s alive.
+          (and the telemetry team) can see it’s alive.
         </li>
         <li>
-          <strong>Fails safe:</strong> if the steering wheel&apos;s horn messages
+          <strong>Fails safe:</strong> if the steering wheel’s horn messages
           stop arriving, the dash turns the horn off on its own, and a watchdog
           timer resets the board if its main loop ever hangs.
         </li>
@@ -46,8 +42,8 @@ export default function DelosDashPage() {
         The board is built around an NXP LPC15xx microcontroller running Mbed
         OS, with protection on its 24 V power inputs and an isolated CAN
         interface. Critical controls pass through the dash rather than the
-        wheel, because the wheel is removable and shouldn&apos;t be a single
-        point of failure.
+        wheel, because the wheel is removable and shouldn’t be a single point of
+        failure.
       </p>
 
       <FlowDiagram
@@ -101,11 +97,11 @@ export default function DelosDashPage() {
 
       <h2>Integration</h2>
       <p>
-        Beyond the board itself, I built and fitted the dashboard&apos;s
-        enclosures, ran its wiring harnesses, and validated the horn and reverse
-        camera so that none of them failed after installation. Wiring uses Molex
+        Beyond the board itself, I built and fitted the dashboard’s enclosures,
+        ran its wiring harnesses, and validated the horn and reverse camera so
+        that none of them failed after installation. Wiring uses Molex
         Micro-Fit, PicoBlade, and Anderson connectors, matching the rest of the
-        car&apos;s electrical harness standards.
+        car’s electrical harness standards.
       </p>
     </>
   );

@@ -11,20 +11,19 @@ export default function DelosOverviewPage() {
   return (
     <>
       <p>
-        Delos is Illini Solar Car&apos;s fourth-generation solar electric
-        vehicle, built to race in the 2026 American Solar Challenge. It is the
-        first car in the team&apos;s history built on a two-year design and
-        build cycle, with a 6-square-meter solar array, the team&apos;s most
-        advanced composites, a new dynamics system, and its most efficient
-        electrical subsystems to date.
+        Delos is Illini Solar Car’s fourth-generation solar electric vehicle,
+        built to race in the 2026 American Solar Challenge. It is the first car
+        in the team’s history built on a two-year design and build cycle, with a
+        6-square-meter solar array, the team’s most advanced composites, a new
+        dynamics system, and its most efficient electrical subsystems to date.
       </p>
       <p>
-        I joined the electrical team in fall 2025, after most of the
-        car&apos;s boards and firmware had already been designed. My job was to
-        take specific pieces of that electronics stack from &ldquo;designed&rdquo;
-        to &ldquo;working reliably in the car&rdquo;: finding and fixing the
-        problems that kept them from running, configuring and extending them, and
-        integrating them into the vehicle in time for the race.
+        I joined the electrical team in fall 2025, after most of the car’s
+        boards and firmware had already been designed. My job was to take
+        specific pieces of that electronics stack from “designed” to “working
+        reliably in the car”: finding and fixing the problems that kept them
+        from running, configuring and extending them, and integrating them into
+        the vehicle in time for the race.
       </p>
 
       <h2>My part</h2>
@@ -156,17 +155,19 @@ export default function DelosOverviewPage() {
           trackside base station
         </li>
         <li>
-          Wired a wheel-mounted push-to-talk system connecting the driver&apos;s
+          Wired a wheel-mounted push-to-talk system connecting the driver’s
           headset directly to a HAM radio
         </li>
         <li>
-          Kept the team&apos;s handheld radios charged and running, repairing
+          Kept the team’s handheld radios charged and running, repairing
           multiple broken chargers mid-race
         </li>
       </ul>
 
       <h2>Results</h2>
-      <p>These are results for the whole team and car, not just my subsystems.</p>
+      <p>
+        These are results for the whole team and car, not just my subsystems.
+      </p>
       <ul>
         <li>
           <strong>650+ miles</strong> driven in competition, including nearly

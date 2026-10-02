@@ -67,7 +67,11 @@ import {
 import { BsOpenai } from "react-icons/bs";
 import { TbBrandPowershell } from "react-icons/tb";
 import { DiJava } from "react-icons/di";
-import { MatplotlibOriginal, LibgdxOriginal } from "devicons-react";
+// Per-icon subpath imports: the package barrel is not tree-shaken by the
+// bundler and would add ~3 MB of icon data to every client bundle that
+// imports this file (e.g. the /projects explorer).
+import MatplotlibOriginal from "devicons-react/icons/MatplotlibOriginal";
+import LibgdxOriginal from "devicons-react/icons/LibgdxOriginal";
 
 // devicons-react ships its own (older) React type definitions, which don't
 // line up with react-icons' IconType under React 19 — the components render

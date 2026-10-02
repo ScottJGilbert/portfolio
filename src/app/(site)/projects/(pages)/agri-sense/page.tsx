@@ -18,7 +18,8 @@ export default function AgriSensePage() {
       <p>
         Agri-Sense is a data-driven web application for monitoring the health of
         plants in vertical and indoor farms. It was a semester-long project in
-        Project: Code UIUC, a student organization that builds software projects in teams. I served as backend team lead, managing a team of ten
+        Project: Code UIUC, a student organization that builds software projects
+        in teams. I served as backend team lead, managing a team of ten
         developers responsible for data handling, APIs, and the core logic that
         sits between the sensors and the web interface.
       </p>
@@ -73,7 +74,9 @@ export default function AgriSensePage() {
           },
           {
             label: "Frontend",
-            nodes: [{ name: "React web app", note: "The grower-facing interface" }],
+            nodes: [
+              { name: "React web app", note: "The grower-facing interface" },
+            ],
           },
         ]}
       />

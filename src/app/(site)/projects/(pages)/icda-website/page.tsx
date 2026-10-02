@@ -25,7 +25,7 @@ export default function IcdaWebsitePage() {
           height={450}
           className="h-auto w-full"
         />
-        <figcaption>The ICDA&apos;s website before the redesign.</figcaption>
+        <figcaption>The ICDA’s website before the redesign.</figcaption>
       </figure>
       <p>
         The Illinois Congressional Debate Association (ICDA) is the sole
@@ -39,8 +39,7 @@ export default function IcdaWebsitePage() {
         items={[
           {
             label: "~20K search impressions",
-            detail:
-              "Over four months, with about a 6% click-through rate.",
+            detail: "Over four months, with about a 6% click-through rate.",
           },
           {
             label: "Top-10 Google ranking",
@@ -88,8 +87,8 @@ export default function IcdaWebsitePage() {
           place.
         </li>
         <li>
-          <strong>Recruitment:</strong> encouraging schools that aren&apos;t
-          members to join.
+          <strong>Recruitment:</strong> encouraging schools that aren’t members
+          to join.
         </li>
       </ol>
       <p>
@@ -139,7 +138,10 @@ export default function IcdaWebsitePage() {
             label: "Visitors and staff",
             nodes: [
               { name: "Visitors", note: "Read news, schedules, results" },
-              { name: "Administrators", note: "Poster, Editor, or Administrator" },
+              {
+                name: "Administrators",
+                note: "Poster, Editor, or Administrator",
+              },
             ],
             connector: "Browser",
           },
@@ -164,7 +166,10 @@ export default function IcdaWebsitePage() {
           {
             label: "Data",
             nodes: [
-              { name: "MySQL", note: "Schools, tournaments, news, users, rules" },
+              {
+                name: "MySQL",
+                note: "Schools, tournaments, news, users, rules",
+              },
               { name: "Files", note: "Legislation, results, and archive PDFs" },
             ],
           },
@@ -195,9 +200,8 @@ export default function IcdaWebsitePage() {
       <p>
         Version 2.0 is my last major update. I still offer limited support and
         bug fixes, and the ICDA captains committee handles future updates. The
-        repository includes backup instructions and example
-        configuration to make
-        that handoff easier. See the live site at{" "}
+        repository includes backup instructions and example configuration to
+        make that handoff easier. See the live site at{" "}
         <a href="https://icdadebate.org" target="_blank" rel="noreferrer">
           icdadebate.org
         </a>

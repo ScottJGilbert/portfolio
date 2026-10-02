@@ -7,11 +7,11 @@ export default function DelosMpptsPage() {
   return (
     <>
       <p>
-        A solar array&apos;s voltage and current change constantly with sunlight,
+        A solar array’s voltage and current change constantly with sunlight,
         temperature, and shading. Maximum Power Point Trackers (MPPTs) sit
         between the array and the battery and continuously adjust their load so
-        the array delivers as much power as it can. Delos&apos; MPPT subsystem
-        keeps the array running at peak efficiency across changing conditions.
+        the array delivers as much power as it can. Delos’ MPPT subsystem keeps
+        the array running at peak efficiency across changing conditions.
       </p>
 
       <FlowDiagram

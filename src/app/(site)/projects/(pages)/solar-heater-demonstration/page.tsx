@@ -1,11 +1,7 @@
 import Image from "next/image";
 import { getProjectMeta } from "@/lib/projects/content";
 import { ProjectShell } from "../../components/project-shell";
-import {
-  CaseStudy,
-  FlowDiagram,
-  Highlights,
-} from "../../components/blocks";
+import { CaseStudy, FlowDiagram, Highlights } from "../../components/blocks";
 import { projectMetadata } from "../../lib/metadata";
 
 export const metadata = projectMetadata("solar-heater-demonstration");
@@ -16,11 +12,11 @@ export default function SolarHeaterDemonstrationPage() {
   return (
     <ProjectShell project={project}>
       <p>
-        For my high school&apos;s senior Civic Engagement Project, I built an
-        interactive solar energy demonstration for a local nature center&apos;s
-        Earth Day event. The centerpiece was a live temperature display for a
-        solar oven, driven by an Arduino sensor and a Django web app I wrote end
-        to end.
+        For my high school’s senior Civic Engagement Project, I built an
+        interactive solar energy demonstration for a local nature center’s Earth
+        Day event. The centerpiece was a live temperature display for a solar
+        oven, driven by an Arduino sensor and a Django web app I wrote end to
+        end.
       </p>
 
       <Highlights
@@ -88,23 +84,28 @@ export default function SolarHeaterDemonstrationPage() {
         steps={[
           {
             title: "DS18B20 sensor",
-            detail: "Measures the oven's temperature, read over the OneWire protocol",
+            detail:
+              "Measures the oven's temperature, read over the OneWire protocol",
           },
           {
             title: "Arduino",
-            detail: "Reads the sensor and prints each value over a serial connection",
+            detail:
+              "Reads the sensor and prints each value over a serial connection",
           },
           {
             title: "Python collector",
-            detail: "Reads the serial port, checks each value, and saves valid ones",
+            detail:
+              "Reads the serial port, checks each value, and saves valid ones",
           },
           {
             title: "Django + SQLite",
-            detail: "Stores readings and serves the latest one from a small API",
+            detail:
+              "Stores readings and serves the latest one from a small API",
           },
           {
             title: "Browser dashboard",
-            detail: "Polls the API several times a second and animates a thermometer",
+            detail:
+              "Polls the API several times a second and animates a thermometer",
           },
         ]}
       />

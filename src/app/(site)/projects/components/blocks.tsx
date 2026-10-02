@@ -11,6 +11,10 @@ import type { ReactNode } from "react";
 
 const labelClass =
   "text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-muted";
+// For labels on the stronger green (primary-container) fill, where muted text
+// falls below 4.5:1 contrast in dark mode.
+const labelClassStrong =
+  "text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-foreground";
 
 /** A row of short, scannable "at a glance" facts (numbers or capabilities). */
 export function Highlights({
@@ -103,7 +107,7 @@ export function RoleSplit({
           : "border-outline-ghost bg-surface-alt/60"
       }`}
     >
-      <div className={labelClass}>{title}</div>
+      <div className={emphasized ? labelClassStrong : labelClass}>{title}</div>
       <div role="list" className="mt-2 space-y-2">
         {items.map((item, index) => (
           <div
@@ -285,7 +289,12 @@ export function CodeSample({
 }) {
   return (
     <figure className="my-6">
-      <pre className="overflow-x-auto rounded-xl border border-outline-ghost bg-surface-inset p-4 text-[0.8rem] leading-6 text-foreground">
+      {/* tabIndex makes the scrollable block reachable by keyboard (WCAG 2.1.1). */}
+      <pre
+        tabIndex={0}
+        aria-label="Code example"
+        className="overflow-x-auto rounded-xl border border-outline-ghost bg-surface-inset p-4 text-[0.8rem] leading-6 text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+      >
         <code className="font-mono">{children}</code>
       </pre>
       <figcaption>{caption}</figcaption>

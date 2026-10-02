@@ -125,7 +125,7 @@ export default function PersonalContentSystemPage() {
         result="Core web vitals scores above 95, and a site built to work with keyboards and assistive technology."
       />
 
-      <h2>What I&apos;m adding next</h2>
+      <h2>What I’m adding next</h2>
       <ul>
         <li>LDAP-based authentication for the supporting services</li>
         <li>Newsletter publishing directly through SMTP</li>
@@ -134,7 +134,7 @@ export default function PersonalContentSystemPage() {
       </ul>
 
       <Note title="How I build it">
-        I use AI coding assistants on this project and keep the repository&apos;s
+        I use AI coding assistants on this project and keep the repository’s
         conventions in a guide file they follow. I make the design decisions and
         review what ships.
       </Note>

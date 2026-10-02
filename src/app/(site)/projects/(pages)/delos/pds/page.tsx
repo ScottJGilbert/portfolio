@@ -7,20 +7,20 @@ export default function DelosPdsPage() {
   return (
     <>
       <p>
-        The power distribution system (PDS) decides when the car&apos;s high
-        voltage is actually connected. It controls the contactors that join the
-        battery to the solar array and to the motor, and it brings them in
-        carefully so nothing sees a sudden surge. I took over the PDS firmware
-        after its initial design and worked through the issues found before it
-        went into the car.
+        The power distribution system (PDS) decides when the car’s high voltage
+        is actually connected. It controls the contactors that join the battery
+        to the solar array and to the motor, and it brings them in carefully so
+        nothing sees a sudden surge. I took over the PDS firmware after its
+        initial design and worked through the issues found before it went into
+        the car.
       </p>
 
       <h2>What the PDS does</h2>
       <ul>
         <li>
           <strong>Sequences power-up:</strong> waits for the battery management
-          system to report that it&apos;s alive, then connects the solar path
-          and the motor path one at a time.
+          system to report that it’s alive, then connects the solar path and the
+          motor path one at a time.
         </li>
         <li>
           <strong>Precharges before closing:</strong> each path is brought up
@@ -29,10 +29,10 @@ export default function DelosPdsPage() {
           capacitive loads.
         </li>
         <li>
-          <strong>Watches for contactor faults:</strong> a contactor&apos;s
-          auxiliary contact is read back to check that it did what it was told,
-          so the firmware can tell a contactor that failed to close from one
-          that is welded shut.
+          <strong>Watches for contactor faults:</strong> a contactor’s auxiliary
+          contact is read back to check that it did what it was told, so the
+          firmware can tell a contactor that failed to close from one that is
+          welded shut.
         </li>
         <li>
           <strong>Opens everything on loss of safety signals:</strong> if the

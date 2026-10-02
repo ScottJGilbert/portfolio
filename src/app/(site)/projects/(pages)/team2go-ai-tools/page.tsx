@@ -18,7 +18,7 @@ export default function Team2GoAiToolsPage() {
       <p>
         During a remote full-stack/AI internship with Team2Go Inc., a software
         company in South Korea, my intern team built a platform for publishing
-        AI chatbots. An administrator picks a model, writes the chatbot&apos;s
+        AI chatbots. An administrator picks a model, writes the chatbot’s
         instructions, and uploads reference documents. Users then chat with it
         in English or Korean and get answers grounded in those documents.
       </p>
@@ -27,7 +27,7 @@ export default function Team2GoAiToolsPage() {
         progress regularly to senior executives. I worked on the Docker
         deployment that connects the backend and user interfaces, and on the
         streaming and document-embedding features that connect the app to
-        OpenAI&apos;s models.
+        OpenAI’s models.
       </p>
 
       <Highlights
@@ -39,7 +39,8 @@ export default function Team2GoAiToolsPage() {
           },
           {
             label: "Streaming responses",
-            detail: "Text appears as the model writes it, not after a long wait.",
+            detail:
+              "Text appears as the model writes it, not after a long wait.",
           },
           {
             label: "English and Korean",
@@ -177,9 +178,9 @@ export default function Team2GoAiToolsPage() {
 
       <h2>Related deliverable</h2>
       <p>
-        I also worked on the company&apos;s bilingual marketing website, built
-        with the same Next.js and Docker setup, covering the company&apos;s
-        services, capabilities, and contact pages.
+        I also worked on the company’s bilingual marketing website, built with
+        the same Next.js and Docker setup, covering the company’s services,
+        capabilities, and contact pages.
       </p>
     </ProjectShell>
   );

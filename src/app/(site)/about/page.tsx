@@ -65,7 +65,9 @@ export default function AboutPage() {
               width={480}
               height={640}
               className="h-full w-full object-cover"
-              priority
+              sizes="(min-width: 768px) 220px, 100vw"
+              loading="eager"
+              fetchPriority="high"
             />
           </div>
           <div className="space-y-4">

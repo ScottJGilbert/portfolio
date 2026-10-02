@@ -16,9 +16,9 @@ export default function DelosWheelPage() {
         holds the turn signals, horn, cruise control, accelerator and regen
         controls, a flag button, menu buttons, and push-to-talk, plus a screen
         that shows live telemetry from the rest of the car. It is removable, so
-        it connects through a quick-disconnect hub and communicates entirely over
-        CAN. I owned the wheel board and firmware after the design was finished
-        and worked on getting it running reliably in the car.
+        it connects through a quick-disconnect hub and communicates entirely
+        over CAN. I owned the wheel board and firmware after the design was
+        finished and worked on getting it running reliably in the car.
       </p>
 
       <h2>What the wheel does</h2>
@@ -83,12 +83,12 @@ export default function DelosWheelPage() {
         <li>
           After a reset, or when the driver switches between accelerating and
           regen, the torque request stays at zero until the control returns near
-          its rest position. A stale or jumped position can&apos;t turn into a
-          sudden command.
+          its rest position. A stale or jumped position can’t turn into a sudden
+          command.
         </li>
         <li>
-          Cruise control is disabled automatically in states where it
-          shouldn&apos;t be active.
+          Cruise control is disabled automatically in states where it shouldn’t
+          be active.
         </li>
         <li>
           Turn signals use a request-then-confirm handshake with the dash, shown

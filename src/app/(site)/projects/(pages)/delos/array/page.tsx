@@ -9,9 +9,9 @@ export default function DelosArrayPage() {
     <>
       <p>
         Delos carries a 6-square-meter solar array, the largest Illini Solar Car
-        has built. It is the car&apos;s only source of power while racing, so
-        every part of it, from the carbon fiber substrate to the wiring and the
-        MPPTs behind it, has to work.
+        has built. It is the car’s only source of power while racing, so every
+        part of it, from the carbon fiber substrate to the wiring and the MPPTs
+        behind it, has to work.
       </p>
 
       <Highlights
@@ -36,11 +36,11 @@ export default function DelosArrayPage() {
       <ul>
         <li>
           Contributed to composites fabrication (carbon fiber layups) for the
-          array&apos;s substrate.
+          array’s substrate.
         </li>
-        <li>Led the array&apos;s physical installation onto the car.</li>
+        <li>Led the array’s physical installation onto the car.</li>
         <li>
-          Worked on the MPPTs that regulate the array&apos;s output. See the{" "}
+          Worked on the MPPTs that regulate the array’s output. See the{" "}
           <Link href="/projects/delos/mppts">MPPTs</Link> tab.
         </li>
       </ul>
