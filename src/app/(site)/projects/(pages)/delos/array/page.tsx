@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { projectMetadata } from "../../../lib/metadata";
+import { Highlights } from "../../../components/blocks";
 
 export const metadata = projectMetadata("delos", "array");
 
@@ -6,16 +8,42 @@ export default function DelosArrayPage() {
   return (
     <>
       <p>
-        Delos carries a 6-square-meter solar array — the largest Illini Solar
-        Car has built. I contributed to composites fabrication (carbon fiber
-        layups) for the array&apos;s substrate and led its physical installation
-        onto the car.
+        Delos carries a 6-square-meter solar array, the largest Illini Solar Car
+        has built. It is the car&apos;s only source of power while racing, so
+        every part of it, from the carbon fiber substrate to the wiring and the
+        MPPTs behind it, has to work.
       </p>
-      <p>
-        During racing at FSGP/ASC 2026, the array drew <strong>1.5+ kW</strong>,
-        more than any car the team has previously fielded, with zero electrical
-        failures beyond outside damage to the car.
-      </p>
+
+      <Highlights
+        items={[
+          {
+            label: "6 m² array",
+            detail: "The largest the team has built.",
+          },
+          {
+            label: "1.5+ kW",
+            detail:
+              "Drawn through the array during FSGP/ASC 2026, more than any previous car.",
+          },
+          {
+            label: "Zero electrical failures",
+            detail: "Beyond outside damage to the car.",
+          },
+        ]}
+      />
+
+      <h2>My part</h2>
+      <ul>
+        <li>
+          Contributed to composites fabrication (carbon fiber layups) for the
+          array&apos;s substrate.
+        </li>
+        <li>Led the array&apos;s physical installation onto the car.</li>
+        <li>
+          Worked on the MPPTs that regulate the array&apos;s output. See the{" "}
+          <Link href="/projects/delos/mppts">MPPTs</Link> tab.
+        </li>
+      </ul>
     </>
   );
 }

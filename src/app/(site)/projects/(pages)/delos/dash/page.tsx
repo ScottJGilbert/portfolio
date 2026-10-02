@@ -1,4 +1,9 @@
 import { projectMetadata } from "../../../lib/metadata";
+import {
+  CaseStudy,
+  FlowDiagram,
+  RoleSplit,
+} from "../../../components/blocks";
 
 export const metadata = projectMetadata("delos", "dash");
 
@@ -6,32 +11,101 @@ export default function DelosDashPage() {
   return (
     <>
       <p>
-        I led integration of Delos&apos; driver-facing dashboard, horns, and
-        reverse camera into the car — building and fitting enclosures, running
-        wiring harnesses, and validating each subsystem so none failed once
-        installed.
+        The dashboard is one half of Delos&apos; driver interface. It reads the
+        inputs that aren&apos;t on the steering wheel, controls the car&apos;s
+        lights, horn, and reverse camera, and reports what it sees to the rest
+        of the car over CAN. I owned this board and its firmware once the design
+        was finished, and was responsible for getting it working in the car.
       </p>
-      <p>
-        Along the way I debugged and repaired several PCB and firmware issues on
-        the dashboard&apos;s NXP LPC15xx-based controller, including:
-      </p>
+
+      <h2>What the dashboard does</h2>
       <ul>
         <li>
-          A firmware bug reading a nonexistent I2C expander that had disabled
-          the entire wheel PCB
+          <strong>Reads driver inputs:</strong> the brake sensor, the
+          forward/neutral/reverse switch, and the hazard, headlight, camera, and
+          charge-enable buttons, each debounced in software.
         </li>
         <li>
-          An uninitialized-pin reference causing a segmentation fault on the
-          dashboard microcontroller
+          <strong>Runs the lights:</strong> daytime running lights, headlights,
+          brake, reverse, parking, hazards, and turn signals. Turn signals flash
+          about 90 times a minute, inside the 60&ndash;120 range the race rules
+          require.
         </li>
         <li>
-          Faulty diodes undervolting the dashboard&apos;s low-voltage power path
+          <strong>Reports to the car:</strong> sends brake and drive-direction
+          state, light state, and a regular heartbeat over CAN, so other boards
+          (and the telemetry team) can see it&apos;s alive.
+        </li>
+        <li>
+          <strong>Fails safe:</strong> if the steering wheel&apos;s horn messages
+          stop arriving, the dash turns the horn off on its own, and a watchdog
+          timer resets the board if its main loop ever hangs.
         </li>
       </ul>
       <p>
-        Wiring throughout used Molex Micro-Fit/Picoblade and Anderson
-        connectors, matching the rest of the car&apos;s electrical harness
-        standards.
+        The board is built around an NXP LPC15xx microcontroller running Mbed
+        OS, with protection on its 24 V power inputs and an isolated CAN
+        interface. Critical controls pass through the dash rather than the
+        wheel, because the wheel is removable and shouldn&apos;t be a single
+        point of failure.
+      </p>
+
+      <FlowDiagram
+        title="From driver action to light"
+        caption="Simplified: how a turn signal request becomes a flashing light and an indicator on the wheel."
+        steps={[
+          {
+            title: "Driver flips a switch",
+            detail: "On the wheel or the dash",
+          },
+          {
+            title: "Request goes out on CAN",
+            detail: "The wheel sends its state",
+          },
+          {
+            title: "Dash updates its light groups",
+            detail: "Turn signals flash, DRLs yield",
+          },
+          {
+            title: "Dash reports the result",
+            detail: "Wheel indicators mirror it",
+          },
+        ]}
+      />
+
+      <h2>My part</h2>
+      <RoleSplit
+        context={[
+          "The dashboard board design and the original firmware, written before I joined.",
+          "The shared CAN library and message definitions the firmware builds on.",
+        ]}
+        mine={[
+          "Took over the board and firmware after the design was done.",
+          "Diagnosed and fixed the firmware and hardware issues below before the dash went into the car.",
+          "Integrated the dash, horn, and reverse camera into the car: enclosures, wiring harnesses, and validation of each subsystem.",
+        ]}
+      />
+
+      <CaseStudy
+        title="Microcontroller crashing on an uninitialized pin"
+        problem="The dashboard microcontroller hit a segmentation fault at runtime, which would have taken the lights and brake reporting offline."
+        action="Traced the fault to a reference to a pin that was never initialized, and fixed the firmware so the pin is set up before anything uses it."
+        result="The dash runs without crashing and stayed up through integration."
+      />
+      <CaseStudy
+        title="Low-voltage rail running under voltage"
+        problem="Faulty diodes on the dashboard's low-voltage power path were undervolting the board."
+        action="Tracked the undervoltage to those diodes and repaired the board."
+        result="The dash powers correctly once installed in the car."
+      />
+
+      <h2>Integration</h2>
+      <p>
+        Beyond the board itself, I built and fitted the dashboard&apos;s
+        enclosures, ran its wiring harnesses, and validated the horn and reverse
+        camera so that none of them failed after installation. Wiring uses Molex
+        Micro-Fit, PicoBlade, and Anderson connectors, matching the rest of the
+        car&apos;s electrical harness standards.
       </p>
     </>
   );

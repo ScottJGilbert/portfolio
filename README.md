@@ -35,6 +35,7 @@ src/app/(site)/          route groups sharing the sidebar/footer chrome
     <slug>/page.tsx        one hand-authored JSX route per project with a real write-up
     [slug]/page.tsx         fallback for WIP/metadata-only projects + 404
     components/             ProjectShell (facts panel), ProjectsExplorer (search/filter), tabs
+    components/blocks.tsx   write-up building blocks (Highlights, CaseStudy, RoleSplit, FlowDiagram, ArchitectureDiagram, CodeSample, Note)
   contact/, legal/, attributions/
 src/app/r/[code]/route.ts  recruiter-tracking vanity redirects (sets a cookie, see below)
 src/app/sitemap.ts, robots.ts

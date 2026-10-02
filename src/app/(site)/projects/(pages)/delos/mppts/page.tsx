@@ -1,4 +1,5 @@
 import { projectMetadata } from "../../../lib/metadata";
+import { FlowDiagram, RoleSplit } from "../../../components/blocks";
 
 export const metadata = projectMetadata("delos", "mppts");
 
@@ -6,17 +7,35 @@ export default function DelosMpptsPage() {
   return (
     <>
       <p>
-        Delos&apos; Maximum Power Point Tracking (MPPT) subsystem keeps the
-        solar array running at peak efficiency across changing sunlight and load
-        conditions. I worked with the strategy/telemetry team to extend CANdef
-        telemetry support to a fourth and fifth (hot-spare) MPPT, up from three
-        on the previous car.
+        A solar array&apos;s voltage and current change constantly with sunlight,
+        temperature, and shading. Maximum Power Point Trackers (MPPTs) sit
+        between the array and the battery and continuously adjust their load so
+        the array delivers as much power as it can. Delos&apos; MPPT subsystem
+        keeps the array running at peak efficiency across changing conditions.
       </p>
-      <p>
-        During scrutineering and racing at FSGP/ASC 2026, I debugged live MPPT
-        issues as part of the electrical pit crew, keeping the array feeding the
-        battery pack throughout the event.
-      </p>
+
+      <FlowDiagram
+        title="From sunlight to battery"
+        caption="Simplified. Each MPPT also reports its voltage and current on CAN, which the driver and the strategy team see."
+        steps={[
+          { title: "Solar array", detail: "6 m², 1.5+ kW at the race" },
+          { title: "MPPTs", detail: "Track the maximum power point" },
+          { title: "Battery pack", detail: "Charged by the array" },
+        ]}
+      />
+
+      <h2>My part</h2>
+      <RoleSplit
+        context={[
+          "The base CAN telemetry definitions, which covered three MPPTs on the previous car.",
+          "The strategy and telemetry team that uses the data.",
+        ]}
+        mine={[
+          "Configured the MPPTs for Delos.",
+          "Worked with the strategy and telemetry team to extend CAN telemetry support to a fourth and a fifth (hot-spare) MPPT, up from three.",
+          "Debugged live MPPT issues as part of the electrical pit crew during scrutineering and racing, keeping the array feeding the battery pack throughout FSGP/ASC 2026.",
+        ]}
+      />
     </>
   );
 }

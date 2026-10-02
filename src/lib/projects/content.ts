@@ -63,18 +63,18 @@ export const projects: ProjectMeta[] = [
     recruiterCategories: ["hardware", "embedded", "software"],
     slug: "delos",
     image_url: "/delos.webp",
-    stack: ["C++", "NXP", "Arm", "MCUxpresso", "MQTT"],
+    stack: ["C++", "Mbed OS", "NXP", "Arm", "MCUxpresso", "CAN", "KiCad", "MQTT"],
     role: "Electrical Engineer, Illini Solar Car",
     teamSize: "Multi-disciplinary student engineering team",
     contribution:
-      "Composites fabrication, battery characterization/assembly, general car wiring, and PCB/firmware debugging — led integration of the dashboard, array, and MPPT subsystems into the car.",
+      "Took the dashboard and steering-wheel boards, the PDS, and the MPPTs from finished designs to working parts in the car: fixed existing firmware and hardware issues, configured and extended MPPT telemetry, modeled enclosures in CAD, and handled wiring and integration. Also composites fabrication, battery assembly, and race-week debugging and radio support.",
   },
   {
     title: "Personal Content System",
     start_date: "2025-05-01 00:00:00",
     end_date: null,
     description:
-      "A modular platform for my portfolio, blog, automations, AI-assisted workflows, and more.",
+      "The platform behind my portfolio and blog: a Next.js site, a published rich-text editor package, and the services around them.",
     categories: ["Full Stack", "DevOps", "AI/ML"],
     recruiterCategories: ["software", "cloud-devops"],
     slug: "personal-content-system",
@@ -83,6 +83,8 @@ export const projects: ProjectMeta[] = [
       "TypeScript",
       "Next.js",
       "React",
+      "Tailwind CSS",
+      "Lexical",
       "PostgreSQL",
       "Docker",
       "GitHub",
@@ -91,41 +93,56 @@ export const projects: ProjectMeta[] = [
     role: "Sole developer",
     teamSize: "Solo project",
     contribution:
-      "Designed and built the entire platform end-to-end — portfolio, content system, and hosting infrastructure.",
-    links: [
-      {
-        label: "Source code",
-        href: "https://github.com/ScottJGilbert/portfolio",
-      },
-    ],
+      "Designed and built the entire platform end-to-end: this portfolio, a published rich-text editor package, and the hosting and delivery pipeline behind them.",
   },
   {
     title: "Illini Redstone Computing",
     start_date: "2026-01-01 00:00:00",
     end_date: null,
     description:
-      "Developing and supporting the infrastructure for a student-led computing and gaming organization.",
+      "Containerized infrastructure for a student computing and gaming organization: game servers, admin tools, automated backups, and secure access.",
     categories: ["Software", "Systems", "DevOps"],
     recruiterCategories: ["software", "cloud-devops"],
     slug: "illini-redstone-computing",
     image_url: "",
-    stack: ["Docker", "Linux", "GitHub", "Python", "PostgreSQL"],
-    role: "President & Systems Administrator",
+    stack: [
+      "Docker",
+      "Linux",
+      "GitHub",
+      "Python",
+      "PostgreSQL",
+      "MariaDB",
+      "NestJS",
+      "Svelte",
+      "Caddy",
+      "WireGuard",
+    ],
+    role: "Co-Founder, President & Systems Administrator",
     teamSize: "Student-led computing and gaming organization",
     contribution:
-      "Guide day-to-day financial/administrative decisions and lead development of the org's containerized service infrastructure.",
+      "Run the organization's operations, budget, and technical strategy, and designed its containerized service infrastructure. Membership grew by 100+ in a year.",
   },
   {
     title: "Team2Go AI Tools",
     start_date: "2025-06-01 00:00:00",
     end_date: "2025-08-31 00:00:00",
     description:
-      "Exploring Docker, proxies, and more while building AI-powered applications at a full-stack internship.",
+      "A bilingual (English and Korean) platform for publishing document-grounded AI chatbots, built during a remote full-stack internship.",
     categories: ["Software", "Full Stack", "AI/ML"],
     recruiterCategories: ["software", "cloud-devops"],
     slug: "team2go-ai-tools",
     image_url: "",
-    stack: ["Python", "Docker", "OpenAI", "GitHub", "Linux"],
+    stack: [
+      "TypeScript",
+      "Next.js",
+      "PostgreSQL",
+      "NGINX",
+      "Docker",
+      "OpenAI",
+      "Python",
+      "GitHub",
+      "Linux",
+    ],
     role: "Full-Stack/AI Intern",
     teamSize: "Remote internship team",
     contribution:
@@ -136,7 +153,7 @@ export const projects: ProjectMeta[] = [
     start_date: "2024-04-22 00:00:00",
     end_date: "2025-08-27 00:00:00",
     description:
-      "Overhauling a not-for-profit's website with new code, multimedia, and more.",
+      "Rebuilt a state debate association's website, then added a PHP/MySQL backend so administrators can update it without touching code.",
     categories: ["Frontend", "Full Stack"],
     recruiterCategories: ["software"],
     slug: "icda-website",
@@ -173,7 +190,7 @@ export const projects: ProjectMeta[] = [
     start_date: "2024-10-03 00:00:00",
     end_date: "2025-04-25 00:00:00",
     description:
-      "Collecting temperature data with an Arduino and displaying it with Django.",
+      "An Arduino temperature sensor feeding a live Django dashboard for a community Earth Day solar energy demo.",
     categories: ["Circuitry", "Embedded", "Full Stack"],
     recruiterCategories: ["hardware", "embedded"],
     slug: "solar-heater-demonstration",
@@ -190,7 +207,7 @@ export const projects: ProjectMeta[] = [
     start_date: "2025-09-27 00:00:00",
     end_date: "2025-12-04 00:00:00",
     description:
-      "Leading the backend team for a data-driven plant-monitoring and growth-supporting web application.",
+      "Led a ten-developer backend team building the API for a plant-monitoring platform for indoor and vertical farms.",
     categories: ["Embedded", "Full Stack"],
     recruiterCategories: ["hardware", "embedded"],
     slug: "agri-sense",
@@ -198,14 +215,17 @@ export const projects: ProjectMeta[] = [
       "https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfH2gOSu7j2dCwemRUNlzQhFXrvxGb6VPuOWIA",
     stack: ["Git", "Arduino", "GitHub", "JSON", "Flask", "Python"],
     role: "Backend Team Lead",
+    teamSize: "Backend team of ten developers (Project: Code UIUC)",
+    contribution:
+      "Led the backend developers and set the backend's structure, branch and review rules, and CI policy. Oversaw how sensor data from UART, OneWire, and I2C buses on IoT boards reaches the central backend.",
   },
   {
     title: "Clouds and Computers",
     start_date: "2025-11-17 00:00:00",
-    end_date: null,
+    end_date: "2025-12-10 00:00:00",
     description:
-      "My final project (a hybrid quantum computing and orbitals and art video game) for my PHYS 199 CHP class.",
-    categories: [],
+      "A 3D game that links a 3-qubit quantum computer simulator to a hydrogen-atom orbital model, built for an honors physics course.",
+    categories: ["Software", "Quantum"],
     recruiterCategories: ["software", "quantum"],
     slug: "clouds-and-computers",
     image_url:
@@ -213,6 +233,8 @@ export const projects: ProjectMeta[] = [
     stack: ["Blender", "UPBGE", "NumPy", "SciPy", "Matplotlib", "Python"],
     role: "Solo project (PHYS 199 CHP final project)",
     teamSize: "Solo project",
+    contribution:
+      "Designed the concept, modeled the 3D scenes in Blender, and connected a NumPy qubit simulator and a SciPy hydrogen-orbital solver to the game. Built with AI coding assistance, with credit to open-source and CC0 material.",
   },
   {
     title: "Miracle Makers",
@@ -247,7 +269,21 @@ export const projectSubPages: ProjectSubPage[] = [
     slug: "dash",
     title: "Delos — Dashboard",
     description:
-      "The driver-facing dashboard subsystem: display, controls, horns, and reverse camera integration.",
+      "The dashboard subsystem: brake, drive-direction, and light controls, horn, and reverse camera integration.",
+  },
+  {
+    parentSlug: "delos",
+    slug: "wheel",
+    title: "Delos — Steering Wheel",
+    description:
+      "The steering wheel subsystem: driver controls, telemetry display, and the firmware that sends driver commands over CAN.",
+  },
+  {
+    parentSlug: "delos",
+    slug: "pds",
+    title: "Delos — Power Distribution",
+    description:
+      "The power distribution system (PDS): contactor and precharge sequencing between the battery, solar array, and motor.",
   },
   {
     parentSlug: "delos",
