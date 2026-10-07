@@ -6,6 +6,7 @@ import {
   FaShieldAlt,
   FaMicrochip,
   FaGamepad,
+  FaNetworkWired,
 } from "react-icons/fa";
 import {
   SiBlender,
@@ -54,11 +55,23 @@ import {
   SiScipy,
   SiPhpmyadmin,
   SiZod,
+  SiCaddy,
+  SiMariadb,
+  SiSvelte,
+  SiNestjs,
+  SiWireguard,
+  SiN8N,
+  SiGithubactions,
+  SiMeta,
 } from "react-icons/si";
 import { BsOpenai } from "react-icons/bs";
 import { TbBrandPowershell } from "react-icons/tb";
 import { DiJava } from "react-icons/di";
-import { MatplotlibOriginal, LibgdxOriginal } from "devicons-react";
+// Per-icon subpath imports: the package barrel is not tree-shaken by the
+// bundler and would add ~3 MB of icon data to every client bundle that
+// imports this file (e.g. the /projects explorer).
+import MatplotlibOriginal from "devicons-react/icons/MatplotlibOriginal";
+import LibgdxOriginal from "devicons-react/icons/LibgdxOriginal";
 
 // devicons-react ships its own (older) React type definitions, which don't
 // line up with react-icons' IconType under React 19 — the components render
@@ -131,6 +144,16 @@ const names = [
   "Better Auth",
   "Mathematica",
   "Python",
+  "Mbed OS",
+  "CAN",
+  "Caddy",
+  "MariaDB",
+  "Svelte",
+  "NestJS",
+  "WireGuard",
+  "n8n",
+  "GitHub Actions",
+  "Lexical",
 ];
 
 const iconMap: Record<string, IconType> = {
@@ -191,6 +214,16 @@ const iconMap: Record<string, IconType> = {
   "Better Auth": FaShieldAlt,
   Mathematica: SiWolframmathematica,
   Python: SiPython,
+  "Mbed OS": FaMicrochip,
+  CAN: FaNetworkWired,
+  Caddy: SiCaddy,
+  MariaDB: SiMariadb,
+  Svelte: SiSvelte,
+  NestJS: SiNestjs,
+  WireGuard: SiWireguard,
+  n8n: SiN8N,
+  "GitHub Actions": SiGithubactions,
+  Lexical: SiMeta,
 };
 
 const colorMap: Record<string, string> = {
@@ -251,6 +284,16 @@ const colorMap: Record<string, string> = {
   "Better Auth": "#0EA5A4",
   Mathematica: "#FF6C00",
   Python: "#3776AB",
+  "Mbed OS": "#3B7DC4",
+  CAN: "#5D6F63",
+  Caddy: "#1F88C0",
+  MariaDB: "#003545",
+  Svelte: "#FF3E00",
+  NestJS: "#E0234E",
+  WireGuard: "#88171A",
+  n8n: "#EA4B71",
+  "GitHub Actions": "#2088FF",
+  Lexical: "#0467DF",
 };
 
 export const techStack: readonly TechStackElement[] = names.map((n) => ({

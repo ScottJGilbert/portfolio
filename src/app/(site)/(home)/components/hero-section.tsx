@@ -25,7 +25,8 @@ export function HeroSection({ content }: { content: HomeHeroContent }) {
         >
           {content.title}
         </h1>
-        <span className="max-w-2xl text-lg font-medium leading-relaxed text-muted md:text-2xl">
+        {/* block + min-height reserve the line the typewriter fills in after hydration, avoiding a layout shift */}
+        <span className="block min-h-[1.625em] max-w-2xl text-lg font-medium leading-relaxed text-muted md:text-2xl">
           <TypeWriter
             options={{
               strings: content.typewriterPhrases,

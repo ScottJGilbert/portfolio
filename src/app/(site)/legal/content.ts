@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export const legalPageContent = {
   title: "Legal",
-  lastUpdated: "September 24, 2026",
+  lastUpdated: "October 6, 2026",
   terms: [
     {
       id: "terms-use",
@@ -68,7 +68,6 @@ export const legalPageContent = {
       title: "Information Collection",
       paragraphs: [
         "I collect personal information that you voluntarily provide to me when you contact me through email or other means. This may include your name, email address, and any other information you choose to provide.",
-        "I also automatically collect certain authentication information when you sign up or log in (such as your IP address, browser type, and operating system) to help maintain the security of the site. If you sign up using a third-party service (like GitHub), I may also receive some basic profile information from that service, such as your name, email, and your profile picture.",
       ],
     },
     {
@@ -83,7 +82,7 @@ export const legalPageContent = {
       title: "Cookies & Analytics",
       paragraphs: [
         "This site uses Vercel Analytics to collect anonymized, aggregate traffic metrics (such as page views and referrers). It does not use cookies and does not track you individually across sites.",
-        'Links shared with recruiters in the form "scottgilbert.dev/r/<code>" set a first-party cookie named recruiter_categories, which stores only a short category label (e.g. "embedded" or "software") describing the context the link was shared in. This cookie contains no personal or identifying information, is not shared with any third party, and is used solely to reorder which of my projects are shown first on this site. It expires automatically after 90 days, and you can remove it at any time by clearing your browser\'s cookies for this site.',
+        'This site also uses first-party (meaning it is set by this site itself rather than a third party) cookies to personalize featured projects for specific users. Most users will never use these cookies. This cookie contains no personal or identifying information, is not shared with any third party, and is used solely to reorder which of my projects are shown first on this site. It expires automatically after 90 days, and you can remove it at any time by clearing your browser\'s cookies for this site.',
       ],
     },
     {
@@ -91,7 +90,6 @@ export const legalPageContent = {
       title: "Data Security",
       paragraphs: [
         "I implement reasonable security measures to protect your personal information from unauthorized access, disclosure, alteration, or destruction.",
-        "Please be aware that, in the event that your account is banned, your data is not automatically deleted. ",
       ],
     },
     {

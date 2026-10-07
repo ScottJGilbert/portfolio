@@ -47,9 +47,9 @@ export function SiteFooter({ useAnchors = false }: { useAnchors?: boolean }) {
         </div>
         {content.sections.map((section) => (
           <div key={section.title} className="flex flex-col gap-4">
-            <h3 className="text-xs uppercase tracking-[0.16em] text-muted font-medium">
+            <h2 className="text-xs uppercase tracking-[0.16em] text-muted font-medium">
               {section.title}
-            </h3>
+            </h2>
             <ul className="mx-auto md:mx-0 flex md:flex-col gap-4 md:gap-2">
               {section.links.map((link) => (
                 <li key={link.label}>

@@ -44,7 +44,16 @@ export default function FeaturedProjectCard({
           alt={project.title}
           width={1280}
           height={720}
-          loading="lazy"
+          // The prominent card is the page's likely LCP element, so load it
+          // eagerly at high priority (`priority` is deprecated in Next 16);
+          // the rest can wait until scrolled near.
+          loading={prominent ? "eager" : "lazy"}
+          fetchPriority={prominent ? "high" : "auto"}
+          sizes={
+            prominent
+              ? "(min-width: 1280px) 1100px, 100vw"
+              : "(min-width: 1024px) 50vw, 100vw"
+          }
           decoding="async"
           className="h-full w-full max-w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
