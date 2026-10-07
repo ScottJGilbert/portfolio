@@ -44,7 +44,7 @@ export default function DelosMpptsPage() {
       <ImageGrid
         images={[
           { src: "/projects/delos/IMG_7531.jpg", alt: "MPPTs 1" },
-          { src: "/projects/delos/IMG_7672.jpg", alt: "MPPTs 2" },
+          { src: "/projects/delos/IMG_7601.jpg", alt: "MPPTs 2" },
         ]}
       />
     </>
