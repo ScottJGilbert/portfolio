@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 /*
@@ -314,6 +315,42 @@ export function Note({
     <div className="my-6 rounded-xl border border-outline-ghost bg-surface-inset p-4">
       <div className={labelClass}>{title}</div>
       <div className="mt-1 text-sm leading-6 text-foreground">{children}</div>
+    </div>
+  );
+}
+
+/** Creates a dynamic image grid for displaying multiple images in a responsive layout. */
+export function ImageGrid({
+  images,
+}: {
+  images: { src: string; alt: string }[];
+}) {
+  return (
+    <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(100%,20rem),1fr))] items-start gap-4">
+      {images.map((image, index) => {
+        const aspectRatios = [
+          "aspect-[4/3]",
+          "aspect-square",
+          "aspect-[3/4]",
+          "aspect-[16/10]",
+          "aspect-[5/4]",
+        ];
+
+        return (
+          <div
+            key={image.src}
+            className={`relative w-full overflow-hidden rounded-lg ${aspectRatios[index % aspectRatios.length]}`}
+          >
+            <Image
+              src={image.src}
+              alt={image.alt}
+              className="h-full w-full object-cover"
+              fill
+              sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -15,7 +15,8 @@ export default function Team2GoAiToolsPage() {
 
   return (
     <ProjectShell project={project}>
-      <p>
+      <p>Work in progress. Check back later!</p>
+      {/* <p>
         During a remote full-stack/AI internship with Team2Go Inc., a software
         company in South Korea, my intern team built a platform for publishing
         AI chatbots. An administrator picks a model, writes the chatbot’s
@@ -181,7 +182,7 @@ export default function Team2GoAiToolsPage() {
         I also worked on the company’s bilingual marketing website, built with
         the same Next.js and Docker setup, covering the company’s services,
         capabilities, and contact pages.
-      </p>
+      </p> */}
     </ProjectShell>
   );
 }

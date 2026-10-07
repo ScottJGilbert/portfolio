@@ -122,29 +122,26 @@ state[outcome] = 1.0`}
 
       <h2>Engineering challenges</h2>
       <CaseStudy
-        title="Connecting two different kinds of math"
-        problem="A qubit register is discrete: a handful of complex numbers. A hydrogen atom is continuous: a function over 3D space. They don't share a natural representation."
-        action="I defined a mapping between them. The register's values set a vector's direction and a color (in CMYK-style channels). Saving the current state turns the same values into orbital quantum numbers (n, l, m) plus that color, so what the player does to the qubits visibly changes the cloud."
+        title="Visualizing complex math"
+        problem="State space in quantum mechanics is a complex vector space, but it's hard to visualize naturally or understand intuitively as a result. A 3D representation would be helpful, but how do you convert 8 dimensions to 3?"
+        action="I defined a mapping between quantum states and a 3D model of a hydrogen cloud. The register's values set orbital quantum numbers (n, l, m) and a color (in CMYK-style channels). What the player does to the qubits visibly changes the cloud, alongside a visible arrow that represents the actual state vector."
         result="One interface where gates, superposition, and orbitals respond to the same input."
       />
       <CaseStudy
         title="Making numerical physics robust"
-        problem="Dividing by a probability density that is nearly zero in parts of the grid produces infinities and NaNs, and gradients behave badly at the edges."
-        action="The velocity calculation masks out regions where the density is effectively zero before dividing, and uses second-order accurate gradients at the grid edges."
+        problem="Dividing by a probability density that is nearly zero in parts of the grid produces infinities and NaNs, and gradients behave badly at the edges of the cloud."
+        action="The velocity calculation masks out regions where the density is effectively zero before dividing."
         result="The velocity field stays finite where the cloud is thin."
       />
       <CaseStudy
         title="Testing the physics outside the game engine"
-        problem="Debugging math inside a game engine's scripting environment is slow."
+        problem="Beta testing in the game engine, especially verifying the cloud simulations, is slow and cumbersome."
         action="I made a second, standalone version with a text menu and Matplotlib 3D animation that exercises the same gate, orbital, and velocity code."
         result="A faster way to check the simulation before wiring it into the game."
       />
 
-      <Note title="Built with AI assistance, and with open material">
-        Large parts of the code were produced with AI tools (ChatGPT and GitHub
-        Copilot). My role was designing the concept and the mapping between
-        qubits and orbitals, modeling the 3D scenes in Blender, integrating the
-        pieces, and checking the physics. The orbital particle approach in
+      <Note title="Attributions">
+        Large parts of the source code were produced with AI tools. The orbital particle approach in
         Blender builds on public CC0 code from the YouTuber Least.Action, and
         the music is “Echoes of the Void” by AudioPapkin from Pixabay.
       </Note>

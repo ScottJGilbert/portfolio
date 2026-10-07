@@ -8,9 +8,9 @@ const tabs: ProjectTab[] = [
   { href: "/projects/delos", label: "Overview" },
   { href: "/projects/delos/dash", label: "Dashboard" },
   { href: "/projects/delos/wheel", label: "Steering Wheel" },
-  { href: "/projects/delos/pds", label: "PDS" },
   { href: "/projects/delos/array", label: "Solar Array" },
   { href: "/projects/delos/mppts", label: "MPPTs" },
+  { href: "/projects/delos/radio", label: "Radio" },
 ];
 
 export default function DelosLayout({ children }: { children: ReactNode }) {

@@ -1,5 +1,5 @@
-import { projectMetadata } from "../../../lib/metadata";
-import { CaseStudy, FlowDiagram, RoleSplit } from "../../../components/blocks";
+import { projectMetadata } from "../../../../lib/metadata";
+import { CaseStudy, FlowDiagram, RoleSplit } from "../../../../components/blocks";
 
 export const metadata = projectMetadata("delos", "dash");
 
@@ -10,27 +10,26 @@ export default function DelosDashPage() {
         The dashboard is one half of Delos’ driver interface. It reads the
         inputs that aren’t on the steering wheel, controls the car’s lights,
         horn, and reverse camera, and reports what it sees to the rest of the
-        car over CAN. I owned this board and its firmware once the design was
-        finished, and was responsible for getting it working in the car.
+        car over CAN. As we approached the race, I took ownership of this board and its firmware, enclosure, and integration into the car.
       </p>
 
       <h2>What the dashboard does</h2>
       <ul>
         <li>
-          <strong>Reads driver inputs:</strong> the brake sensor, the
+          <strong>Reads driver inputs:</strong> the board directly reads the brake sensor, the
           forward/neutral/reverse switch, and the hazard, headlight, camera, and
-          charge-enable buttons, each debounced in software.
+          charge-enable buttons, each debounced in software. It also reads the turn signal and horn states from the steering wheel over CAN.
         </li>
         <li>
-          <strong>Runs the lights:</strong> daytime running lights, headlights,
-          brake, reverse, parking, hazards, and turn signals. Turn signals flash
+          <strong>Runs the lights:</strong> sends out enable signals that turn on the daytime running lights, headlights,
+          brake, reverse, parking, hazards, and turn signals at specified times. Turn signals flash
           about 90 times a minute, inside the 60–120 range the race rules
           require.
         </li>
         <li>
-          <strong>Reports to the car:</strong> sends brake and drive-direction
+          <strong>Reports to the car:</strong> the board sends brake and drive-direction
           state, light state, and a regular heartbeat over CAN, so other boards
-          (and the telemetry team) can see it’s alive.
+          (and the strategy team via the telemetry board) can see it’s alive.
         </li>
         <li>
           <strong>Fails safe:</strong> if the steering wheel’s horn messages
@@ -47,7 +46,7 @@ export default function DelosDashPage() {
       </p>
 
       <FlowDiagram
-        title="From driver action to light"
+        title="Turn signal activation"
         caption="Simplified: how a turn signal request becomes a flashing light and an indicator on the wheel."
         steps={[
           {
@@ -82,26 +81,27 @@ export default function DelosDashPage() {
         ]}
       />
 
+      <h3>Key contributions</h3>
+
       <CaseStudy
         title="Microcontroller crashing on an uninitialized pin"
         problem="The dashboard microcontroller hit a segmentation fault at runtime, which would have taken the lights and brake reporting offline."
-        action="Traced the fault to a reference to a pin that was never initialized, and fixed the firmware so the pin is set up before anything uses it."
+        action="Traced the fault to a reference to a pin that was accessed before initialization, and fixed the firmware to wait until after setup to begin using the pin."
         result="The dash runs without crashing and stayed up through integration."
       />
       <CaseStudy
         title="Low-voltage rail running under voltage"
-        problem="Faulty diodes on the dashboard's low-voltage power path were undervolting the board."
-        action="Tracked the undervoltage to those diodes and repaired the board."
-        result="The dash powers correctly once installed in the car."
-      />
+        problem="Faulty diodes on the dashboard's low-voltage power path were undervolting the board and stopping the horns/cameras from turning on."
+        action="Tracked the undervoltage to those diodes and replaced them with proper ones."
+        result="The dash transmitted power correctly once installed in the car."
+      /> 
 
       <h2>Integration</h2>
       <p>
         Beyond the board itself, I built and fitted the dashboard’s enclosures,
-        ran its wiring harnesses, and validated the horn and reverse camera so
-        that none of them failed after installation. Wiring uses Molex
-        Micro-Fit, PicoBlade, and Anderson connectors, matching the rest of the
-        car’s electrical harness standards.
+        ran its wiring harnesses, and validated the lights, horn, and reverse camera so
+        that none of them failed after installation. Most of the wiring uses Molex
+        Micro-Fit connectors, while the brake sensor uses JST and the camera uses a RCA composite video cable.
       </p>
     </>
   );

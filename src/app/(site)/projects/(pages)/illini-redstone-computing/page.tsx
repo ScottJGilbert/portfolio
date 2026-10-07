@@ -16,10 +16,9 @@ export default function IlliniRedstoneComputingPage() {
     <ProjectShell project={project}>
       <p>
         Illini Redstone Computing (IRC) is a student-led computing and gaming
-        organization at the University of Illinois. Members build things like
-        working 8-bit CPUs, keyboards, and displays completely from scratch, and
-        the organization runs its own community servers. I’m its co-founder and
-        president, so I split my time between running the organization and
+        organization I co-founded at the University of Illinois in January 2026. Members build things like
+        working 8-bit CPUs, keyboards, and displays completely from scratch in the video game Minecraft, and
+        the organization runs its own community servers. As president, I split my time between running the organization and
         building the infrastructure it runs on.
       </p>
 
@@ -33,7 +32,7 @@ export default function IlliniRedstoneComputingPage() {
           {
             label: "3 container orchestrations",
             detail:
-              "Plus other services, spread across four hosting providers.",
+              "Plus other services, spread across multiple hosting providers.",
           },
           {
             label: "Automated backups",
@@ -49,7 +48,7 @@ export default function IlliniRedstoneComputingPage() {
 
       <h2>Running the organization</h2>
       <p>
-        As president I direct day-to-day operations, manage the budget, and set
+        As president, I direct day-to-day operations, manage the budget, and set
         the technical strategy. I also maintain the general infrastructure:
         gaming services, file storage, workplace productivity tools, and
         communication channels.
@@ -66,34 +65,30 @@ export default function IlliniRedstoneComputingPage() {
 
       <ArchitectureDiagram
         title="Main service stack (simplified)"
-        caption="The Minecraft servers are the community hook. The web services let officers run everything without a shell."
         lanes={[
-          {
-            label: "Players and staff",
-            nodes: [
-              { name: "Players", note: "Connect through one address" },
-              { name: "Officers", note: "Manage through the browser" },
-            ],
-          },
           {
             label: "Entry points",
             nodes: [
               {
-                name: "Minecraft proxy",
+                name: "WireGuard",
+                note: "Tunnel to off-site VPS that accepts public traffic"
+              },
+              {
+                name: "Velocity (Minecraft proxy)",
                 note: "Routes players between servers",
               },
-              { name: "Reverse proxy", note: "HTTPS for web tools" },
+              { name: "Caddy (Reverse proxy)", note: "HTTPS for web tools" },
             ],
           },
           {
             label: "Game servers",
             nodes: [
               { name: "Lobby" },
-              { name: "Survival" },
-              { name: "Onboarding" },
+              { name: "Survival Multiplayer" },
+              { name: "Onboarding", note: "New members start here" },
               {
-                name: "Redstone computing server",
-                note: "For building CPUs in-game",
+                name: "MCHPRS",
+                note: "High-speed testing server written in Rust",
               },
               { name: "Project servers" },
             ],
@@ -102,18 +97,45 @@ export default function IlliniRedstoneComputingPage() {
             label: "Web services",
             nodes: [
               { name: "Backend API" },
+              { name: "WebDAV access point" },
+            ],
+          },
+          {
+            label: "Data and safety",
+            nodes: [
+              { name: "MariaDB", note: "Player permissions" },
+              { name: "Shared volumes" },
+              { name: "Scheduled backups", note: "To S3-compatible storage" },
+            ],
+          },
+        ]}
+        arrows={false}
+      />
+
+      <ArchitectureDiagram
+        title="Administration stack (simplified)"
+        caption="The admin stack is a separate container orchestration that handles staff authentication, user management, and backups without exposing the main stack to direct access. It boils down application complexity into simple API calls to the main stack with all necessary information."
+        lanes={[
+          {
+            label: "Entry points",
+            nodes: [
+              { name: "Caddy (Reverse proxy)", note: "HTTPS for web tools" },
+              { name: "Cloudflare tunnel", note: "IP masking and secure connection to the admin stack" },
+            ],
+          },
+          {
+            label: "Web services",
+            nodes: [
               { name: "Admin panel" },
+              { name: "Backend API" },
               { name: "File manager" },
-              { name: "Permissions and SFTP tools" },
             ],
           },
           {
             label: "Data and safety",
             nodes: [
               { name: "PostgreSQL" },
-              { name: "MariaDB", note: "Player permissions" },
-              { name: "Shared volume" },
-              { name: "Scheduled backups", note: "To S3-compatible storage" },
+              { name: "Scheduled backups", note: "To external storage" },
             ],
           },
         ]}
@@ -123,27 +145,27 @@ export default function IlliniRedstoneComputingPage() {
       <h2>Design decisions</h2>
 
       <CaseStudy
-        title="Starting a dozen services in the right order"
-        problem="Many services depend on a database or on shared storage being ready. If they start in the wrong order, they crash or run against empty directories."
+        title="Properly configuring service volumes"
+        problem="Many services depend on a volume shared with the WebDAV file transfer and backup services. If they try to access the volume in the wrong order, they crash or run against empty directories."
         action="A small init container creates the shared folder structure and permissions first. Every other service declares what it depends on and waits for health checks to pass before it starts."
         result="One command brings the whole stack up from nothing, in the right order, every time."
       />
       <CaseStudy
-        title="Backups that don't corrupt live game worlds"
-        problem="Copying a game world while the server is writing to it can produce a backup that won't load."
-        action="A backup container runs on a schedule, briefly stops the labeled services while it snapshots their data, and uploads compressed archives to S3-compatible storage with a retention policy."
-        result="Consistent, restorable backups with no manual steps."
+        title="Managing player permissions"
+        problem="Setting access and permission for hundreds of players across multiple servers the old way - by editing JSON files - is error-prone and time-consuming."
+        action="A web-based admin panel interfaces with Luckperms, a permissions manager for Minecraft servers. Officers can set permissions and groups through the panel, and the changes propagate to all servers automatically via SQL messaging."
+        result="Officers can now manage player permissions efficiently and without the risk of errors."
       />
       <CaseStudy
         title="Letting officers manage servers without shell access"
-        problem="Officers need to edit server files, manage player permissions, and check on services, but giving everyone SSH access is a security risk and a support burden."
-        action="I put web tools in front of the stack: a file manager that signs in through the organization's own backend, an admin panel, a permissions interface, and SFTP behind an HTTPS reverse proxy. A WireGuard tunnel links a private host to the public-facing server."
+        problem="Officers need to edit server files, view logs, and check on services, but giving everyone SSH access is a security risk and a support burden."
+        action="I put web tools in front of the stack: file management and admin authentication is handled through a web interface in a separate container application, and file transfers are all managed through a single WebDAV connection."
         result="Staff handle day-to-day work from the browser, and the servers' shell stays locked down."
       />
       <CaseStudy
         title="Making it easy for the next person"
         problem="Student organizations turn over every few years, and infrastructure only one person understands doesn't survive that."
-        action="Each stack has a README that covers deployment, daily operations, backups, and troubleshooting. Adding a new game server takes a folder, a Dockerfile, and one block in the compose file. Secrets are supplied through example environment files and are never committed."
+        action="Each stack is built from the ground up with maintainability and modularity in mind, and has a README that covers deployment, daily operations, backups, and troubleshooting. Adding a new game server is as simple as pasting a folder template and adding one block in the compose file."
         result="New officers can deploy and extend the stack from the documentation."
       />
     </ProjectShell>

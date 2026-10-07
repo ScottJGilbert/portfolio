@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { legalPageContent } from "./content";
+import Link from "next/link";
 
 export { metadata } from "./content";
 
@@ -15,8 +16,11 @@ export default function LegalPage() {
             Last updated {legalPageContent.lastUpdated}
           </p>
           <p>
-            If you have any questions about these terms, please contact me at
-            hello@scottgilbert.dev.
+            If you have any questions about these terms, please contact me at {" "}
+            <Link href="mailto:hello@scottgilbert.dev" className="text-primary hover:underline">
+              hello@scottgilbert.dev
+            </Link>
+            .
           </p>
           <p>
             <b>

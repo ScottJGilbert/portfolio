@@ -100,22 +100,16 @@ export default function AgriSensePage() {
 
       <h2>Decisions I made as lead</h2>
       <CaseStudy
-        title="A backend structure ten people can work in at once"
+        title="A backend ten people can actually work in"
         problem="With ten developers adding features at the same time, a backend with no agreed structure turns into merge conflicts and files that do five jobs."
         action="I reorganized the starter code into an application-factory Flask app, with routes grouped in blueprints and business logic in a services folder following a one-service-per-file rule. Settings come from environment variables so no secrets live in the repository."
         result="New features have an obvious place to go, and developers can work in separate files without stepping on each other."
       />
       <CaseStudy
-        title="Choosing a database around the team, not the hype"
-        problem="Early on, it wasn't clear which database would suit the project or the experience of the people maintaining it."
-        action="The scaffold leaves storage open: it supports either a document database or an SQL ORM, with a note that an ORM would help if the team lacked SQL experience."
-        result="The team could start building the API immediately without being locked into a database decision."
-      />
-      <CaseStudy
-        title="Making code review automatic"
-        problem="Reviews fall through the cracks on a large student team, especially when pull requests touch both backend and frontend code."
-        action="The repository uses code-owner rules that automatically route backend changes to me and frontend changes to the frontend lead, and work reaches the main branch through pull requests."
-        result="Every change gets reviewed by the person who owns that part of the system."
+        title="Separating backend and frontend branches"
+        problem="Passing changes between branches owned by different teams can lead to conflicts and delays for no real reason."
+        action="I create a specific development branch for the backend team where all changes (made on individual feature branches) are merged before being integrated into the main branch. Backend and frontend code are merged in batches rather than once for every new feature."
+        result="Preventing merge conflicts became a lot easier (relatively speaking), and the frontend could continue asking a working (even if unfinished) backend without individual new features blocking it from running when needed."
       />
     </ProjectShell>
   );

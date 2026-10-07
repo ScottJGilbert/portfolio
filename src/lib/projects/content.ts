@@ -50,7 +50,47 @@ export interface ProjectMeta {
   teamSize?: string;
   contribution?: string;
   links?: { label: string; href: string }[];
+  subPages?: ProjectSubPage[];
 }
+
+export interface ProjectSubPage {
+  slug: string;
+  title: string;
+  description: string;
+}
+
+const delosSubPages: ProjectSubPage[] = [
+  {
+    slug: "dash",
+    title: "Delos — Dashboard",
+    description:
+      "The dashboard subsystem: brake, drive-direction, and light controls, horn, and reverse camera integration.",
+  },
+  {
+    slug: "wheel",
+    title: "Delos — Steering Wheel",
+    description:
+      "The steering wheel subsystem: driver controls, telemetry display, and the firmware that sends driver commands over CAN.",
+  },
+  {
+    slug: "array",
+    title: "Delos — Solar Array",
+    description:
+      "The 6-square-meter solar array subsystem: layout, installation, and integration.",
+  },
+  {
+    slug: "mppts",
+    title: "Delos — MPPTs",
+    description:
+      "The Maximum Power Point Tracking subsystem: firmware and CANdef telemetry across the array.",
+  },
+  {
+    slug: "radio",
+    title: "Delos — Radio",
+    description:
+      "The radio subsystem: communication with the pit crew and other teams.",
+  },
+];
 
 export const projects: ProjectMeta[] = [
   {
@@ -76,7 +116,14 @@ export const projects: ProjectMeta[] = [
     role: "Electrical Engineer, Illini Solar Car",
     teamSize: "Multi-disciplinary student engineering team",
     contribution:
-      "Took the dashboard and steering-wheel boards, the PDS, and the MPPTs from finished designs to working parts in the car: fixed existing firmware and hardware issues, configured and extended MPPT telemetry, modeled enclosures in CAD, and handled wiring and integration. Also composites fabrication, battery assembly, and race-week debugging and radio support.",
+      "Took the dashboard, steering-wheel, PDS, and MPPT boards from finished designs to working parts in the car: fixed existing firmware and hardware issues, configured and extended MPPT telemetry, and handled wiring and integration. Also assisted with composites fabrication, battery assembly, and race-week debugging and radio support.",
+    subPages: delosSubPages,
+    links: [
+      {
+        label: "Official Car Page",
+        href: "https://illinisolarcar.com/delos",
+      },
+    ],
   },
   {
     title: "Personal Content System",
@@ -265,51 +312,6 @@ export const featuredProjectSlugs = [
   "illini-redstone-computing",
 ] as const;
 
-export interface ProjectSubPage {
-  parentSlug: string;
-  slug: string;
-  title: string;
-  description: string;
-}
-
-export const projectSubPages: ProjectSubPage[] = [
-  {
-    parentSlug: "delos",
-    slug: "dash",
-    title: "Delos — Dashboard",
-    description:
-      "The dashboard subsystem: brake, drive-direction, and light controls, horn, and reverse camera integration.",
-  },
-  {
-    parentSlug: "delos",
-    slug: "wheel",
-    title: "Delos — Steering Wheel",
-    description:
-      "The steering wheel subsystem: driver controls, telemetry display, and the firmware that sends driver commands over CAN.",
-  },
-  {
-    parentSlug: "delos",
-    slug: "pds",
-    title: "Delos — Power Distribution",
-    description:
-      "The power distribution system (PDS): contactor and precharge sequencing between the battery, solar array, and motor.",
-  },
-  {
-    parentSlug: "delos",
-    slug: "array",
-    title: "Delos — Solar Array",
-    description:
-      "The 6-square-meter solar array subsystem: layout, installation, and integration.",
-  },
-  {
-    parentSlug: "delos",
-    slug: "mppts",
-    title: "Delos — MPPTs",
-    description:
-      "The Maximum Power Point Tracking subsystem: firmware and CANdef telemetry across the array.",
-  },
-];
-
 export function getProjectMeta(slug: string): ProjectMeta | undefined {
   return projects.find((project) => project.slug === slug);
 }
@@ -318,7 +320,6 @@ export function getSubPageMeta(
   parentSlug: string,
   slug: string,
 ): ProjectSubPage | undefined {
-  return projectSubPages.find(
-    (subPage) => subPage.parentSlug === parentSlug && subPage.slug === slug,
-  );
+  const projectSubPages = getProjectMeta(parentSlug)?.subPages;
+  return projectSubPages?.find((subPage) => subPage.slug === slug);
 }

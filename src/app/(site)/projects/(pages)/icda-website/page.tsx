@@ -185,27 +185,23 @@ export default function IcdaWebsitePage() {
       />
       <CaseStudy
         title="Archiving each season automatically"
-        problem="Every August the previous season's legislation and results have to be moved into an archive, which was a manual, error-prone task."
+        problem="Every August, the previous season's legislation and results have to be moved into an archive, which was a manual, error-prone task."
         action="A token-protected scheduled job runs regularly. It clears expired sessions, and on August 1 it moves the season's legislation and results PDFs into a dated archive folder, builds the archive page, and records that it ran so it can't repeat within the year."
         result="The archive updates itself, and old records stay available."
       />
       <CaseStudy
         title="Being found"
-        problem="A debate association's website is only useful if students and coaches can find it."
+        problem="The website is only useful to students and coaches if they can find it online, and ICDA leadership also wanted to use it to promote the activity to new schools."
         action="I added SEO and social-sharing metadata, a sitemap, markdown-based news posts that give the site fresh content, and performance fixes to page and component load times."
         result="About 20K search impressions at a 6% click-through rate over four months, ranking among the top ten student congress sites on Google."
       />
 
       <h2>Where it stands</h2>
       <p>
-        Version 2.0 is my last major update. I still offer limited support and
-        bug fixes, and the ICDA captains committee handles future updates. The
+        Version 2.0 is my last major update to the ICDA website. While I still offer limited support and
+        bug fixes, the ICDA captains committee handles the majority of future updates. The
         repository includes backup instructions and example configuration to
-        make that handoff easier. See the live site at{" "}
-        <a href="https://icdadebate.org" target="_blank" rel="noreferrer">
-          icdadebate.org
-        </a>
-        .
+        make that handoff easier.
       </p>
     </ProjectShell>
   );

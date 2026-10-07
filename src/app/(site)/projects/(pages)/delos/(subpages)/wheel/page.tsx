@@ -1,10 +1,10 @@
-import { projectMetadata } from "../../../lib/metadata";
+import { projectMetadata } from "../../../../lib/metadata";
 import {
   CaseStudy,
   CodeSample,
   FlowDiagram,
   RoleSplit,
-} from "../../../components/blocks";
+} from "../../../../components/blocks";
 
 export const metadata = projectMetadata("delos", "wheel");
 
@@ -17,8 +17,7 @@ export default function DelosWheelPage() {
         controls, a flag button, menu buttons, and push-to-talk, plus a screen
         that shows live telemetry from the rest of the car. It is removable, so
         it connects through a quick-disconnect hub and communicates entirely
-        over CAN. I owned the wheel board and firmware after the design was
-        finished and worked on getting it running reliably in the car.
+        over CAN. I co-owned the wheel board and firmware during integrationand worked on getting it running reliably in the car.
       </p>
 
       <h2>What the wheel does</h2>
@@ -95,7 +94,7 @@ export default function DelosWheelPage() {
           below, so the dash only ever sees well-defined state changes.
         </li>
       </ul>
-      <CodeSample caption="Simplified illustration of the wheel's turn-signal handshake with the dash (not the production code).">
+      <CodeSample caption="Simplified illustration of the wheel's turn-signal handshake with the dash.">
         {`// States the dash expects: off -> requestOn -> on -> requestOff -> off
 if (button_pressed) {
     if (state == off)             state = requestOn;
@@ -114,7 +113,6 @@ send_over_can(state);`}
           "The encoder, display, and LED driver code, and the shared CAN library the firmware builds on.",
         ]}
         mine={[
-          "Took over the board and firmware after the design was done.",
           "Found and fixed a firmware bug that had disabled the entire wheel PCB.",
           "Wired the wheel-mounted push-to-talk system that connects the driver's headset directly to a HAM radio.",
           "Integrated the wheel into the car.",
@@ -126,6 +124,13 @@ send_over_can(state);`}
         problem="The firmware read from an I2C I/O expander that isn't on the board, and that bad read disabled the entire wheel PCB."
         action="Identified the read of the nonexistent expander as the cause and fixed the firmware so the wheel no longer depends on it."
         result="The wheel PCB runs again, and it went into the car working."
+      />
+
+      <CaseStudy
+        title="Integrating the wheel into the car"
+        problem="To stay rotatable, the wheel had to be integrated into the car's systems with a special PicoBlade harness that wrapped around the steering column."
+        action="Assisted the wheel lead in assembling the harness and connecting it between the CAN bus and the proper pins on the wheel microcontroller."
+        result="The wheel was fully integrated into the car and functions as intended without inhibiting the driver's ability to control the vehicle."
       />
     </>
   );

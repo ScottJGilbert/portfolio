@@ -4,7 +4,6 @@ import {
   ArchitectureDiagram,
   CaseStudy,
   Highlights,
-  Note,
 } from "../../components/blocks";
 import { projectMetadata } from "../../lib/metadata";
 
@@ -42,9 +41,9 @@ export default function PersonalContentSystemPage() {
               "Performance and accessibility got a dedicated pass, including contrast, focus states, and SEO fixes.",
           },
           {
-            label: "Privacy-conscious personalization",
+            label: "AI-powered automations",
             detail:
-              "Recruiter links reorder featured projects with a first-party cookie and no third-party tracking.",
+              "Leverage n8n with AI capabilities to automate repetitive tasks and workflows.",
           },
         ]}
       />
@@ -106,16 +105,16 @@ export default function PersonalContentSystemPage() {
 
       <CaseStudy
         title="Personalizing without trackers"
-        problem="I wanted to show a recruiter the projects most relevant to their role first, but I didn't want to add a third-party tracker to do it."
-        action="Short vanity links (for example on a resume or QR code) hit a route handler that sets a first-party, httpOnly cookie listing a few categories. The server reads it to reorder the featured projects. The cookie is disclosed on the privacy page and can be cleared with one link."
+        problem="I want to show interested parties the projects most relevant to their roles first, but I didn't want to add a third-party tracker to do it."
+        action="Short vanity links (for example on a resume or QR code) hit a route handler that sets a first-party, httpOnly cookie listing a few categories. The server reads it to reorder the featured projects."
         result="Visitors see relevant projects immediately, with no flash of the wrong content. The tradeoff is that the pages reading the cookie render dynamically instead of being cached, which I documented and accepted."
       />
 
       <CaseStudy
         title="A reusable, safe rich-text editor"
         problem="Blog editing usually means one-off glue code, and rendering user-written rich text raises the risk of unsafe HTML."
-        action="I turned Meta's Lexical editor playground into a reusable package with a full toolbar, 30+ plugins, tables, images, embeds, equations, and syntax-highlighted code blocks. Its viewer is a separate entry point that sanitizes output with DOMPurify and an allowlist for embedded iframes. I published it to npm with typed props and documentation."
-        result="Any of my sites can drop in an editor and a viewer in a few lines. When a JSDOM version failed in a serverless environment, I dropped it and released a fix."
+        action="I turned Meta's Lexical editor playground into a reusable package with a full toolbar, 30+ plugins, tables, images, embeds, equations, and syntax-highlighted code blocks, as well as a headless renderer that sanitizes output with DOMPurify. I published it to npm with typed props and documentation."
+        result="Any of my sites can drop in an editor and a viewer in a few lines, even if they are server-rendered without a built-in Document Object Model. Since the package is open-source on npm, anyone can use it for free."
       />
 
       <CaseStudy
@@ -127,17 +126,10 @@ export default function PersonalContentSystemPage() {
 
       <h2>What I’m adding next</h2>
       <ul>
-        <li>LDAP-based authentication for the supporting services</li>
         <li>Newsletter publishing directly through SMTP</li>
         <li>Interoperability with open document standards</li>
         <li>Data caching to improve outreach and content quality</li>
       </ul>
-
-      <Note title="How I build it">
-        I use AI coding assistants on this project and keep the repository’s
-        conventions in a guide file they follow. I make the design decisions and
-        review what ships.
-      </Note>
     </ProjectShell>
   );
 }

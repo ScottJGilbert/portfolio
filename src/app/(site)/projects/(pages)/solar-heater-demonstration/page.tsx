@@ -48,11 +48,11 @@ export default function SolarHeaterDemonstrationPage() {
       </p>
       <figure>
         <Image
-          src="https://m9mv2a6pya.ufs.sh/f/W9HqZMlcXCSfqr8cK1MoCbFi54gd0fkcuswp7r2RtAKhTej9"
+          src="/projects/solar-heater-demonstration/goal7.svg"
           alt="UN Sustainable Development Goal 7"
           width={800}
           height={450}
-          className="h-auto w-full"
+          className="h-auto w-full max-h-128"
         />
       </figure>
       <p>
@@ -128,25 +128,25 @@ export default function SolarHeaterDemonstrationPage() {
         title="Keeping the hardware and the website independent"
         problem="A web page can't read an Arduino directly, and a display that depends on a fragile live connection can freeze in front of a crowd."
         action="A separate Python script reads the serial port and writes each reading to the database through Django's models. The web app only ever reads the most recent saved value."
-        result="The dashboard always has something to show, and each piece can be tested on its own."
+        result="The dashboard always has something to show, and each piece can be tested on its own. Persistent storage also allows me to analyze the temperature over time after the event."
       />
       <CaseStudy
         title="Dealing with noisy sensor data"
-        problem="Serial data can arrive garbled or half-formed, and one bad value would make the thermometer jump."
+        problem="Connections can come loose (consequence of using a breadboard), serial data can arrive garbled or half-formed, or one bad value would make the thermometer jump."
         action="The collector converts each line to a number and discards anything that isn't a valid, positive reading before it reaches the database."
         result="The display stays steady and only shows real measurements."
       />
       <CaseStudy
         title="Making the data readable for kids"
-        problem="A raw number like 143.5 doesn't mean much to a six-year-old."
+        problem="A raw number like 98.6 doesn't mean much to a six-year-old."
         action="The front end maps the temperature onto a thermometer graphic that fills as it heats up, and changes the page's background color across five temperature bands from cool to very hot."
         result="Attendees could tell at a glance how hot the oven was getting."
       />
 
       <h2>How it went</h2>
       <p>
-        The demo was a hit with attendees. I also learned that the kids liked
-        the solar-powered T-Rex toy I bought at Walmart even more. It was still
+        The demos were a hit with both attendees and the nature center staff alike. I also learned that the kids liked
+        the solar-powered T-Rex toy I bought at Walmart even more than the demos I spent multiple weeks building myself (welp ._.). Nevertheless, it was still
         a great learning experience in how circuits and electronics relate to
         computing and computer engineering.
       </p>
