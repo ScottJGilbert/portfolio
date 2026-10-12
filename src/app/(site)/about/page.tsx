@@ -72,7 +72,7 @@ export default function AboutPage() {
           </div>
           <div className="space-y-4">
             <h1 className="text-3xl font-semibold tracking-tight">
-              {aboutPageContent.title}
+              About
             </h1>
             {/*
               Hand-authored JSX rather than pulled from content.ts's plain
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 work miracles in people&apos;s lives.
               </p>
               <p className="italic">
-                ...and yes, I also like the color{" "}
+                ...I also like the color{" "}
                 <span className="font-semibold not-italic text-primary">
                   green
                 </span>
@@ -220,7 +220,7 @@ export default function AboutPage() {
                             >
                               {isGrouped && (
                                 <span
-                                  className="absolute -left-[1.9rem] top-7 h-2.5 w-2.5 rounded-full border-2 border-background bg-primary"
+                                  className="absolute left-[-1.9rem] top-7 h-2.5 w-2.5 rounded-full border-2 border-background bg-primary"
                                   aria-hidden
                                 />
                               )}
