@@ -15,13 +15,14 @@ export default function Team2GoAiToolsPage() {
 
   return (
     <ProjectShell project={project}>
-      <p>Work in progress. Check back later!</p>
-      {/* <p>
+      {/* <p>Work in progress. Check back later!</p> */}
+      <p>
         During a remote full-stack/AI internship with Team2Go Inc., a software
-        company in South Korea, my intern team built a platform for publishing
-        AI chatbots. An administrator picks a model, writes the chatbot’s
-        instructions, and uploads reference documents. Users then chat with it
-        in English or Korean and get answers grounded in those documents.
+        company in South Korea, my intern team was tasked with making key upgrades to the company&apos;s web infrastructure. My key contribution to this project was building a platform for publishing
+        AI chatbots: an administrator picks a model, writes the chatbot&apos;s
+        instructions, and uploads reference documents of various formats.. Users then chat with it
+        in English or Korean and get answers grounded in whatever relevant
+        information is available. 
       </p>
       <p>
         We shipped key deliverables two weeks ahead of schedule and reported
@@ -36,7 +37,7 @@ export default function Team2GoAiToolsPage() {
           {
             label: "Grounded answers",
             detail:
-              "Retrieval-augmented generation over each chatbot's own documents.",
+              "Chatbots leverage retrieval-augmented generation to fetch relevant information directly from documents.",
           },
           {
             label: "Streaming responses",
@@ -48,8 +49,8 @@ export default function Team2GoAiToolsPage() {
             detail: "Fully localized interfaces and bilingual chatbot data.",
           },
           {
-            label: "Easy spin-up and spin-down",
-            detail: "The whole stack runs from Docker Compose.",
+            label: "Full virtualization",
+            detail: "The entire stack runs from Docker Compose and is designed from the ground up for compatability with Amazon Web Services.",
           },
         ]}
       />
@@ -92,16 +93,32 @@ export default function Team2GoAiToolsPage() {
                 name: "PostgreSQL + pgvector",
                 note: "Users, chats, chatbots, document chunks",
               },
+              {
+                name: "S3-compatible object storage",
+                note: "Uploaded documents",
+              }
             ],
+            connector: "HTTPS",
           },
+          {
+            label: "AI Models",
+            nodes: [
+              {
+                name: "OpenAI API",
+                note: "Embeddings and model responses",
+              },
+              {
+                name: "Self-hosted LLMs",
+                note: "On premise deployments exposing the same API as OpenAI",
+              }
+            ],
+          }
         ]}
       />
-      <p>
-        The application layer also calls the OpenAI API for embeddings and for
-        model responses.
-      </p>
 
       <h2>How a document becomes an answer</h2>
+      <p>Rather than just regurgitate information, the system is designed to process and analyze documents for relevant context first and transfer that information directly. A key part of the system is the ability to transform documents into actionable information through a series of well-defined steps.</p>
+      <div className="flex flex-row items-stretch gap-8">
       <FlowDiagram
         title="Ingestion: when an administrator uploads a file"
         layout="column"
@@ -149,6 +166,7 @@ export default function Team2GoAiToolsPage() {
           },
         ]}
       />
+      </div>
 
       <h2>Engineering details</h2>
 
@@ -179,10 +197,10 @@ export default function Team2GoAiToolsPage() {
 
       <h2>Related deliverable</h2>
       <p>
-        I also worked on the company’s bilingual marketing website, built with
-        the same Next.js and Docker setup, covering the company’s services,
+        I also worked on infrastructure for the company’s bilingual marketing website, built with
+        the same Next.js and Docker setup, which covers the company’s services,
         capabilities, and contact pages.
-      </p> */}
+      </p>
     </ProjectShell>
   );
 }

@@ -35,7 +35,6 @@ export interface CertificationEntry {
 }
 
 export const aboutPageContent = {
-  title: "About",
   // Bio intro is hand-authored JSX directly in page.tsx (it needs inline
   // bold/italic emphasis a plain string array can't carry) — no `intro`
   // field here.
@@ -51,8 +50,9 @@ export const aboutPageContent = {
       summary:
         "Leading the solar array and Maximum Power Point Tracking (MPPT) subsystems for a student-built solar-electric vehicle.",
       highlights: [
-        "Develop maximum power point tracking firmware and use OpenGL-based tools to determine solar array layout specifications.",
-        "Manage budgets and sponsorship agreements in the tens of thousands of dollars while contributing to overall electrical and vehicle optimization.",
+        "Co-led the design of Illini Solar Car’s most efficient array to date (1.5 kW, 6 m²) by configuring MPPT firmware, modeling sun exposure in OpenGL, and evaluating array layouts.",
+        "Collaborate with the strategy team to model array output and with the finance team to manage ~$45K budgets.",
+        "Assist development and deployment of strategy/telemetry platforms, including cloud-based message brokers, databases, and web applications.",
       ],
     },
     {
@@ -66,8 +66,8 @@ export const aboutPageContent = {
       summary:
         "Serve on the executive board, connecting the team's web presence and infrastructure across hosting services.",
       highlights: [
-        "Integrate software across hosting services and manage containerization, DNS, and reverse proxies.",
-        "Identify and resolve technical issues related to the team's web infrastructure within minutes of discovering a failure.",
+        "Maintain mission-critical software across hosting providers, including the team's MediaWiki knowledgebase, institutional/outreach website, and communication platforms.",
+        "Manage the virtual machines, DNS, and reverse proxies behind these services, and address critical failures and other service requests on call.",
       ],
     },
     {
@@ -81,9 +81,11 @@ export const aboutPageContent = {
       summary:
         "Participate in the design and implementation of both the the car's individual electrical components and the vehicle's high/low-voltage systems as a whole.",
       highlights: [
-        "Design and test printed circuit boards (PCBs) with integrated NXP LPC15xx microcontrollers that control various vehicle systems.",
-        "Integrate lights, solar array, battery management, and other electrical systems into the overall vehicle design.",
-        "Participated in the 2026 Formula Sun Grand Prix and American Solar Challenge as part of the team's electrical pit crew, debugging car issues as they appeared and supporting the team's overall performance across 650+ miles of driving.",
+        "Design and test printed circuit boards with integrated NXP LPC15xx microcontrollers that control various vehicle systems.",
+        "Modernized firmware to support new Arm Cortex MCUs, I2C expander removal, boost converter power delivery, and CAN messaging, helping power the car 650+ miles without failure.",
+        "Finalized and deployed key wheel, dash, and MPPT embedded subsystems on the Delos solar electric vehicle within one month of the start of electrical integration.",
+        "Coordinated development, testing, and/or integration (enclosures, cooling, and wiring within the vehicle) of key systems like MPPTs, wheel, solar array, power distribution, and dash.",
+        "Participated in the 2026 Formula Sun Grand Prix and American Solar Challenge as part of the team's electrical pit crew, debugging car issues as they appeared and supporting overall performance across over a week and a half of competition.",
       ],
     },
     {
@@ -96,8 +98,10 @@ export const aboutPageContent = {
       summary:
         "Manage the organization's day-to-day financial, administrative, and technical decision-making.",
       highlights: [
-        "Act as primary liaison to the university and other organizations at UIUC.",
-        "Develop and maintain a network of containerized applications across gaming, authentication, user management, and data pipelining services.",
+        "Direct executive operations, budget management, and technical strategy for an engineering student organization that empowers students to build devices like fully functional 8-bit CPUs, keyboards, and displays completely from scratch.",
+        "Added 100+ new members in 2026 and built relationships with multiple campus departments and student organizations through coordinated outreach.",
+        "Designed the organization's computing backbone, deploying three container orchestrations and various other services across four hosting providers.",
+        "Integrated gaming servers, WebDAV, DNS, web-based administration, datastores, messaging services, staff/admin authentication, API gateways, and secure connection tunneling into one modular stack that supports future upgrades and expansions.",
       ],
     },
     {
@@ -110,8 +114,8 @@ export const aboutPageContent = {
       summary:
         "Maintaining CHP's computing hardware infrastructure, external storage integrations, and web services across multiple providers.",
       highlights: [
-        "Collaborating with CHP staff, IT services, and other teams to modernize computing and internet resources for students.",
-        "Supporting data synchronization between university admissions and CHP databases, reducing record-processing time by up to two weeks.",
+        "Coordinating with 15+ CHP staff, IT staff, and other administrators to modernize computing resources and increase their accessibility and utility to students.",
+        "Synchronizing data between university admissions and CHP databases, reducing entry time for critical record processing by up to two weeks.",
         "Updating and maintaining the official CHP website in accordance with university standards.",
       ],
     },
@@ -125,9 +129,25 @@ export const aboutPageContent = {
       summary:
         "Built and shipped Dockerized systems and AI-driven interfaces for internal and external-facing tools.",
       highlights: [
-        "Engineered Dockerized systems that improved integration between backend applications and user interfaces.",
+        "Collaborated with an intern team to deploy a full-stack AI application publishing platform with Retrieval-Augmented Generation, a custom chat interface, rigid boundary/instruction declaration, Docker virtualization, and full English and Korean localization.",
         "Integrated custom OpenAI GPT models with streaming output, document-based vector embedding, and explicit instruction boundaries.",
-        "Collaborated with executives through regular progress updates and delivered projects ahead of schedule.",
+        "Explored and deployed prompt-engineering techniques to reduce LLM hallucination and improve accuracy without sacrificing ease of deployment.",
+        "Reported regular progress to senior executives and shipped key deliverables two weeks ahead of schedule.",
+      ],
+    },
+    {
+      group: "Leadership & Involvement",
+      role: "Backend Team Lead",
+      company: "Project: Code UIUC",
+      logo: "/project-code.svg",
+      location: "Urbana-Champaign Area · On-site",
+      period: "Sep 2025 - Dec 2025",
+      summary:
+        "Led the backend team for Agri-Sense, a data-driven, all-in-one crop monitoring platform.",
+      highlights: [
+        "Managed a team of ten developers building the data handling, APIs, and core logic for the platform.",
+        "Oversaw integration of UART, OneWire, and I2C data buses on IoT boards to communicate sensor readings and other metadata to the central backend.",
+        "Maintained production branches, versioning and CI policies, and shared progress and API configuration with the project, hardware, and frontend leads.",
       ],
     },
     {
@@ -140,8 +160,9 @@ export const aboutPageContent = {
       summary:
         "Led a community nature restoration project from planning through completion.",
       highlights: [
-        "Planned and organized a coordinated restoration effort where volunteers contributed over 100 working hours.",
-        "Collaborated with sponsors to secure resources and tooling, finishing the project a week ahead of schedule with zero workplace incidents.",
+        "Led the restoration of 1500+ square feet of nature trail, coordinating materials sponsorship, design, volunteer safety training, and logistics.",
+        "20+ volunteers contributed 100+ working hours with zero safety incidents, and the project finished a week ahead of schedule.",
+        "Earned 27 merit badges and 10+ other certifications/awards, and held 5 leadership positions, including troop guide and assistant senior patrol leader.",
       ],
     },
   ] as const satisfies readonly AboutExperienceEntry[],
