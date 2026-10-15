@@ -79,7 +79,7 @@ export const aboutPageContent = {
       location: "Urbana-Champaign Area · On-site",
       period: "Oct 2025 - Present",
       summary:
-        "Participate in the design and implementation of both the the car's individual electrical components and the vehicle's high/low-voltage systems as a whole.",
+        "Participate in the design and implementation of both the car's individual electrical components and the vehicle's high/low-voltage systems as a whole.",
       highlights: [
         "Design and test printed circuit boards with integrated NXP LPC15xx microcontrollers that control various vehicle systems.",
         "Modernized firmware to support new Arm Cortex MCUs, I2C expander removal, boost converter power delivery, and CAN messaging, helping power the car 650+ miles without failure.",
@@ -170,9 +170,9 @@ export const aboutPageContent = {
     {
       credential: "B.S. Computer Engineering",
       institution: "University of Illinois at Urbana-Champaign",
-      period: "2025 - Present",
+      period: "2025 - Expected May 2029",
       details:
-        "Dean's List | GPA: 4.00/4.00\nActivities and Societies: Marching Illini, Illini Solar Car, Project: Code UIUC, IEEE UIUC, Engineers without Borders, Campus Honors Program",
+        "Dean's List | Chancellor's Scholar | GPA: 4.00/4.00\nActivities and Societies: Marching Illini, Illini Solar Car, Project: Code UIUC, IEEE UIUC, Engineers without Borders, Campus Honors Program",
       logo: "/illinois.png",
       minor: "Business (Gies College of Business) — in progress",
     },
@@ -181,7 +181,7 @@ export const aboutPageContent = {
       institution: "James B. Conant High School",
       period: "2021 - 2025",
       details:
-        "Academic Scholar | GPA: 4.911./4.00 (Weighted), 4.00/4.00 (Unweighted)",
+        "Academic Scholar | GPA: 4.911/4.00 (Weighted), 4.00/4.00 (Unweighted)",
       logo: "/conant.png",
     },
   ] as const satisfies readonly EducationEntry[],
