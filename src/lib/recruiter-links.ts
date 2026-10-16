@@ -34,9 +34,9 @@ export const recruiterLinks: Record<string, RecruiterCategory[]> = {
   "arm-hardware": ["hardware", "embedded"],
   // Codes matching the Summer 2027 applications (NVIDIA Ignite SWE, AMD
   // firmware, Synopsys SWE) so each resume can link to a tailored home page.
-  "nvidia-swe-intern": ["software", "cloud-devops"],
+  "nvidia-swe-intern": ["embedded", "software"],
   "amd-firmware-intern": ["embedded", "hardware"],
-  "aws-swe-intern": ["software"],
+  "aws-swe-intern": ["software", "cloud-devops"],
   "synopsys-swe-intern": ["software", "embedded"],
 };
 
