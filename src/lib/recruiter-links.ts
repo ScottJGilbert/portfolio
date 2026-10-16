@@ -36,6 +36,7 @@ export const recruiterLinks: Record<string, RecruiterCategory[]> = {
   // firmware, Synopsys SWE) so each resume can link to a tailored home page.
   "nvidia-swe-intern": ["software", "cloud-devops"],
   "amd-firmware-intern": ["embedded", "hardware"],
+  "aws-swe-intern": ["software"],
   "synopsys-swe-intern": ["software", "embedded"],
 };
 

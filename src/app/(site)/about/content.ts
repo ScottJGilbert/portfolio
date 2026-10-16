@@ -90,7 +90,7 @@ export const aboutPageContent = {
     },
     {
       group: "Leadership & Involvement",
-      role: "President & Systems Administrator",
+      role: "President & Co-Founder",
       company: "Illini Redstone Computing",
       logo: "/irc-logo.png",
       location: "Urbana-Champaign Area · On-site",
