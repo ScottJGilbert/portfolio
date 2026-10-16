@@ -70,7 +70,7 @@ export const promiseLink: ExternalLink = {
 };
 
 export const siteShellContent: SiteShellContent = {
-  announcement: "New portfolio is live!",
+  announcement: "Welcome to my website!",
   siteTitle: "Scott Gilbert",
   siteTagline: "Computer Engineer",
   navItems,

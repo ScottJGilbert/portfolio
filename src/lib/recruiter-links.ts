@@ -32,6 +32,12 @@ export const recruiterLinks: Record<string, RecruiterCategory[]> = {
   // too broad for what this recruiter cares about.
   "ibm-cloud-intern": ["software", "cloud-devops"],
   "arm-hardware": ["hardware", "embedded"],
+  // Codes matching the Summer 2027 applications (NVIDIA Ignite SWE, AMD
+  // firmware, Synopsys SWE) so each resume can link to a tailored home page.
+  "nvidia-swe-intern": ["embedded", "software"],
+  "amd-firmware-intern": ["embedded", "hardware"],
+  "aws-swe-intern": ["software", "cloud-devops"],
+  "synopsys-swe-intern": ["software", "embedded"],
 };
 
 export const RECRUITER_COOKIE_NAME = "recruiter_categories";

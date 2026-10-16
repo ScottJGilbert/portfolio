@@ -173,7 +173,7 @@ export const projects: ProjectMeta[] = [
       "Caddy",
       "WireGuard",
     ],
-    role: "Co-Founder, President & Systems Administrator",
+    role: "President & Co-Founder",
     teamSize: "Student-led computing and gaming organization",
     contribution:
       "Run the organization's operations, budget, and technical strategy, and designed its containerized service infrastructure. Membership grew by 100+ in a year.",
@@ -292,18 +292,19 @@ export const projects: ProjectMeta[] = [
     contribution:
       "Designed the concept, modeled the 3D scenes in Blender, and connected a NumPy qubit simulator and a SciPy hydrogen-orbital solver to the game. Built with AI coding assistance, with credit to open-source and CC0 material.",
   },
-  {
-    title: "Miracle Makers",
-    start_date: "2026-01-02 00:00:00",
-    end_date: null,
-    description:
-      "YOU have the power to work miracles. Let's get started. (Coming soon 👀)",
-    categories: [],
-    recruiterCategories: [],
-    slug: "miracle-makers",
-    image_url: "",
-    stack: [],
-  },
+  // Temporarily hidden until the project has real content.
+  // {
+  //   title: "Miracle Makers",
+  //   start_date: "2026-01-02 00:00:00",
+  //   end_date: null,
+  //   description:
+  //     "YOU have the power to work miracles. Let's get started. (Coming soon 👀)",
+  //   categories: [],
+  //   recruiterCategories: [],
+  //   slug: "miracle-makers",
+  //   image_url: "",
+  //   stack: [],
+  // },
 ];
 
 export const featuredProjectSlugs = [
